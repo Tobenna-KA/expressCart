@@ -40,7 +40,7 @@ const countryList = getCountryList();
 // Google products
 router.get('/googleproducts.xml', async (req, res, next) => {
     let productsFile = '';
-    try{
+    try {
         productsFile = fs.readFileSync(path.join('bin', 'googleproducts.xml'));
     }catch(ex){
         console.log('Google products file not found');
@@ -56,15 +56,15 @@ router.get('/payment/:orderId', async (req, res, next) => {
 
     // Get the order
     const order = await db.orders.findOne({ _id: getId(req.params.orderId) });
-    if(!order){
+    if (!order) {
         res.render('error', { title: 'Not found', message: 'Order not found', helpers: req.handlebars.helpers, config });
         return;
     }
 
     // If stock management is turned on payment approved update stock level
-    if(config.trackStock && req.session.paymentApproved){
+    if (config.trackStock && req.session.paymentApproved) {
         // Check to see if already updated to avoid duplicate updating of stock
-        if(order.productStockUpdated !== true){
+        if(order.productStockUpdated !== true) {
             Object.keys(order.orderProducts).forEach(async (productKey) => {
                 const product = order.orderProducts[productKey];
                 const dbProduct = await db.products.findOne({ _id: getId(product.productId) });
@@ -124,7 +124,7 @@ router.get('/payment/:orderId', async (req, res, next) => {
     }
 
     // If hooks are configured and the hook has not already been sent, send hook
-    if(config.orderHook && !order.hookSent){
+    if(config.orderHook && !order.hookSent) {
         await hooker(order);
         await db.orders.updateOne({
             _id: getId(order._id)
