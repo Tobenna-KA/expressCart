@@ -37,7 +37,7 @@
 } */
 
 .mainMenuBar .nav-item .nav-link {
-  color: #161b33 !important;
+  color: #fcfcfc !important;
   font-weight: bold;
   text-transform: uppercase;
   font-size: 0.8em;
@@ -58,7 +58,7 @@
 }
 
 .mainMenuBar #btn_search {
-  color: #161b33;
+  color: #ffffff;
   transition: all 0.3s ease-in-out;
 }
 
