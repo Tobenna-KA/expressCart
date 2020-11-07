@@ -1,82 +1,126 @@
 {{> themes/MarieLyne/front-menu}}
-<div class="productsWrapper col-sm-12 col-md-8 offset-md-2">
-    {{#if filtered}}
-        <div class="product-layout product-results col-sm-12">
-            {{#ifCond @root.paginateUrl '==' 'category'}}
-            <h1>{{ @root.__ "Category" }}: <strong>{{@root.searchTerm}}</strong></h1>
-            {{else}}
-            <h1>{{ @root.__ "Search results" }}: <strong>{{@root.searchTerm}}</strong></h1>
-            {{/ifCond}}
-        </div>
-    {{/if}}
-    <div class="row product-layout">
-        {{#ifCond results.length '==' 0}}
-            <div class="col-sm-12">
-                <p class="text-danger">{{ @root.__ "No products found" }}</p>
-            </div>
-        {{/ifCond}}
-        {{#each results}}
-            <div class="{{perRowClass ../config.productsPerRow}}">
-                <div class="thumbnail">
-                    {{#if productPermalink}}
-                        <div class="product-wrapper">
-                            <a href="/product/{{this.productPermalink}}">
-                                <div class="vertical-center img-thumbnail">
-                                    {{#if productImage}}
-                                        <img class="img-fluid" src="{{this.productImage}}" alt="...">
-                                    {{else}}
-                                        <img class="img-fluid" src="/uploads/placeholder.png" alt="...">
-                                    {{/if}}
-                                </div>
-                                <h3 class="product-title product-title-home top-pad-10">
-                                    {{this.productTitle}}
-                                </h3>
-                            </a>
-                        </div>
-                    {{else}}
-                        <a href="/product/{{this._id}}">
-                            <div class="vertical-center img-thumbnail">
-                                {{#if productImage}}
-                                    <img class="img-fluid" src="{{this.productImage}}" alt="...">
-                                {{else}}
-                                    <img class="img-fluid" src="/uploads/placeholder.png" alt="...">
-                                {{/if}}
-                            </div>
-                            <h3 class="product-title product-title-home top-pad-10">
-                                {{this.productTitle}}
-                            </h3>
-                        </a>
-                    {{/if}}
-                    {{#if variants}}
-                        <div class="col-md-12">
-                            {{#if @root.config.showHomepageVariants}}
-                            <select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
-                            {{#each variants}}
-                                <option value="{{this._id}}" data-price="{{this.price}}">{{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.price}}</option>
-                            {{/each}}
-                            </select>
-                            {{else}}
-                            <h4 class="product-price mp-0 text-center">
-                                {{currencySymbol @root.config.currencySymbol}}{{formatAmount variants.0.price}}
-                            </h4>
-                            {{/if}}
-                        </div>
-                    {{else}}
-                        <h4 class="product-price mp-0 text-center">
-                            {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
-                        </h4>
-                    {{/if}}
-                    <p class="text-center">
-                        {{#if @root.config.showHomepageVariants}}
-                        <a class="btn btn-primary add-variant-to-cart" data-id="{{this._id}}" role="button">{{ @root.__ "Add to cart" }}</a>
-                        {{else}}
-                        <a class="btn btn-primary add-to-cart" data-id="{{this._id}}" data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}" role="button">{{ @root.__ "Add to cart" }}</a>
-                        {{/if}}
-                    </p>
-                </div>
-            </div>
-        {{/each}}
+<div class="productsWrapper col-sm-12">
+  {{#if filtered}}
+    <div class="product-layout product-results col-sm-12">
+      {{#ifCond @root.paginateUrl '==' 'category'}}
+      <h1>{{ @root.__ "Category" }}: <strong>{{@root.searchTerm}}</strong></h1>
+      {{else}}
+      <h1>{{ @root.__ "Search results" }}: <strong>{{@root.searchTerm}}</strong></h1>
+      {{/ifCond}}
     </div>
+  {{/if}}
+  <div class="row product-layout">
+    {{#ifCond results.length '==' 0}}
+      <div class="col-sm-12">
+        <p class="text-danger">{{ @root.__ "No products found" }}</p>
+      </div>
+    {{/ifCond}}
+    {{#each results}}
+    <div class="hero-container container-fluid">
+      <ul id="autoWidth" class="cs-hidden">
+        <li class="item-a">
+          <div class="slider-container">
+            <div class="box-slider">
+              <div class="slider-image">
+                {{#if productImage}}
+                  <img src="{{this.productImage}}" alt="" />
+                {{else}}
+                  <img class="img-fluid" src="/uploads/placeholder.png" alt="...">
+                {{/if}}
+                <!-- Image overlay -->
+                <div class="slider-overlay">
+                  <!-- Buy now -->
+                  <a href="" class="slider-btn">Add to Cart</a>
+                </div>
+              </div>
+              <!-- Product DETAILS -->
+              <div class="slider-details">
+                <!-- Product name -->
+                <div class="product-name">
+                  {{#if productPermalink}}
+                    <a href="/product/{{this.productPermalink}}">
+                      {{this.productTitle}}
+                    </a>
+                  {{else}}
+                    <a href="/product/{{this.productPermalink}}">
+                      {{this.productTitle}}
+                    </a>
+                  {{/if}}
+                  {{!-- <span>New Arrival</span> --}}
+                </div>
+                <button type="button" class="btn btn-default btn-circle">
+                  <ion-icon name="cart"></ion-icon>
+                </button>
+                <a href="#" class="slider-price"> 
+                  {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}   
+                </a>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+      <div class="{{perRowClass ../config.productsPerRow}}">
+        <div class="thumbnail">
+          {{#if productPermalink}}
+            <div class="product-wrapper">
+              <a href="/product/{{this.productPermalink}}">
+                <div class="vertical-center img-thumbnail">
+                  {{#if productImage}}
+                    <img class="img-fluid" src="{{this.productImage}}" alt="...">
+                  {{else}}
+                    <img class="img-fluid" src="/uploads/placeholder.png" alt="...">
+                  {{/if}}
+                </div>
+                <h3 class="product-title product-title-home top-pad-10">
+                  {{this.productTitle}}
+                </h3>
+              </a>
+            </div>
+          {{else}}
+            <a href="/product/{{this._id}}">
+              <div class="vertical-center img-thumbnail">
+                {{#if productImage}}
+                  <img class="img-fluid" src="{{this.productImage}}" alt="...">
+                {{else}}
+                  <img class="img-fluid" src="/uploads/placeholder.png" alt="...">
+                {{/if}}
+              </div>
+              <h3 class="product-title product-title-home top-pad-10">
+                {{this.productTitle}}
+              </h3>
+            </a>
+          {{/if}}
+          {{#if variants}}
+            <div class="col-md-12">
+              {{#if @root.config.showHomepageVariants}}
+              <select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
+              {{#each variants}}
+                <option value="{{this._id}}" data-price="{{this.price}}">{{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.price}}</option>
+              {{/each}}
+              </select>
+              {{else}}
+              <h4 class="product-price mp-0 text-center">
+                {{currencySymbol @root.config.currencySymbol}}{{formatAmount variants.0.price}}
+              </h4>
+              {{/if}}
+            </div>
+          {{else}}
+            <h4 class="product-price mp-0 text-center">
+              {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
+            </h4>
+          {{/if}}
+          <p class="text-center">
+            {{#if @root.config.showHomepageVariants}}
+            <a class="btn btn-primary add-variant-to-cart" data-id="{{this._id}}" role="button">{{ @root.__ "Add to cart" }}</a>
+            {{else}}
+            <a class="btn btn-primary add-to-cart" data-id="{{this._id}}" data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}" role="button">{{ @root.__ "Add to cart" }}</a>
+            {{/if}}
+          </p>
+        </div>
+      </div>
+    {{/each}}
+  </div>
 </div>
 <input type="hidden" id="itemsPerPage" value="{{productsPerPage}}" >
 <input type="hidden" id="pageNum" value="{{pageNum}}">
@@ -84,7 +128,7 @@
 <input type="hidden" id="paginateUrl" value="{{paginateUrl}}">
 <input type="hidden" id="searchTerm" value="{{searchTerm}}">
 <div class="col-md-12">
-    <div id="pager" class="d-flex justify-content-center"></div>
+  <div id="pager" class="d-flex justify-content-center"></div>
 </div>
 
 <script>

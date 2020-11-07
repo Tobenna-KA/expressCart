@@ -1,22 +1,51 @@
-<nav id="navbarMenu" class="navbar-expand-lg navbar navbar-light bg-light navbarMenuWrapper col-sm-12">
-    <div class="col-sm-8 offset-md-2 collapse navbar-collapse" id="navbarMenu">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item {{#unless searchTerm}}active{{/unless}}"><a class="nav-link" href="/">Home</a></li>
-            {{#each menu.items}}
-                <li class="nav-item"
-                    {{#menuMatch this.title @root.searchTerm}}{{/menuMatch}}
-                    {{#menuMatch this.title @root.title}}{{/menuMatch}}>
-                    <a class="nav-link" href="{{this.link}}">{{this.title}}</a>
-                </li>
-            {{/each}}
-        </ul>
-        <form class="form-inline ml-auto">
-            <div class="input-group">
-                <input class="form-control" name="frm_search" id="frm_search" type="search" placeholder="{{ @root.__ "Search shop" }}" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-success" id="btn_search" type="submit">{{ @root.__ "Search" }}</button>
-                </div>
-            </div>
-        </form>
-    </div>
+<nav class="navbar navbar-expand-md navbar-light shadow-sm mb-4 mainMenuBar col-sm-12">
+  <button
+    class="navbar-toggler float-xs-right"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item {{#unless searchTerm}}active{{/unless}}">
+        <a class="nav-link" href="/">
+          <ion-icon name="home"></ion-icon>
+        </a>
+      </li>
+      {{#each menu.items}}
+        <li class="nav-item"
+          {{#menuMatch this.title @root.searchTerm}}{{/menuMatch}}
+          {{#menuMatch this.title @root.title}}{{/menuMatch}}>
+          <a class="nav-link" href="{{this.link}}">{{this.title}}</a>
+        </li>
+      {{/each}}
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <form class="form-inline nav-item" style="margin-right: 20px;">
+        <div class="input-group">
+          <input class="form-control" name="frm_search" id="frm_search" type="search" placeholder="{{ @root.__ "Search shop" }}" aria-label="Search">
+          <div class="input-group-prepend">
+            <button class="btn" id="btn_search" type="submit">
+              <ion-icon name="search-circle"></ion-icon>
+            </button>
+          </div>
+        </div>
+      </form>
+      <li class="nav-item">
+        <a class="nav-link waves-effect waves-light">
+          <ion-icon name="logo-facebook"></ion-icon>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link waves-effect waves-light">
+          <ion-icon name="logo-instagram"></ion-icon>
+        </a>
+      </li>
+    </ul>
+  </div>
 </nav>

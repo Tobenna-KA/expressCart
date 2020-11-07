@@ -36,6 +36,7 @@
         <link rel="stylesheet" href="/stylesheets/style{{config.env}}.css">
         {{#if admin}}
         <link rel="stylesheet" href="/stylesheets/admin{{config.env}}.css">
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
         {{/if}}
         <script src="https://js.stripe.com/v3/"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -55,12 +56,13 @@
         <script src="/javascripts/jquery.bootpag.min.js"></script>
         <script src="/javascripts/cssbeautify.min.js"></script>
         <script src="/javascripts/common{{config.env}}.js"></script>
-		<script src="/javascripts/expressCart{{config.env}}.js"></script>
+		    <script src="/javascripts/expressCart{{config.env}}.js"></script>
         <script src="https://unpkg.com/vue@3.0.0-rc.5/dist/vue.global.js"></script>
         {{#if admin}}
         <script src="/javascripts/admin{{config.env}}.js"></script>
         {{/if}}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js" integrity="sha256-jdwX0QzXB7z7Xc7Vz0ovtIHWO5qIZWg0aLcGv44JDgE=" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
         <!-- SEO data -->
         {{#if pageUrl}}
         <link rel="canonical" href="{{pageUrl}}" />
@@ -177,7 +179,15 @@
         <link rel="stylesheet" href="/stylesheets/admin{{config.env}}.css">
         {{else}}
         {{#if config.theme}}
+        <link rel="stylesheet" href="/{{config.theme}}/slider{{config.env}}.css">
+        <link rel="stylesheet" href="/{{config.theme}}/lightslider{{config.env}}.css">
         <link rel="stylesheet" href="/{{config.theme}}/style{{config.env}}.css">
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.2.0/glide.min.js"
+          integrity="sha512-IkLiryZhI6G4pnA3bBZzYCT9Ewk87U4DGEOz+TnRD3MrKqaUitt+ssHgn2X/sxoM7FxCP/ROUp6wcxjH/GcI5Q=="
+          crossorigin="anonymous"
+        ></script>
+        <script src="/{{config.theme}}/lightslider{{config.env}}.js"></script>
         <script src="/{{config.theme}}/index{{config.env}}.js"></script>
         {{/if}}
         {{/if}}
@@ -188,51 +198,75 @@
     <body>
     {{/if}}
         {{#unless admin}}
-        <nav class="navbar navbar-expand-lg justify-content-between mainNavBar">
-            <a class="navbar-brand" href="/">
-            {{#if @root.config.cartLogo}}
-            <img src="{{@root.config.cartLogo}}" class="img-fluid">
-            {{else}}
-            {{@root.config.cartTitle}}
-            {{/if}}
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                {{{feather 'menu'}}}
-            </button>
-            <div id="navbarText">
-                <ul class="navbar-nav ml-auto">
-                    {{#ifCond @root.config.enableLanguages "!=" false}}
-                    <div class="dropdown d-none d-sm-block">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{{feather 'globe'}}}
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            {{#availableLanguages}}
-                                <li><a class="dropdown-item" href="/lang/{{this}}">{{@root.__ this}}</a></li>
-                            {{/availableLanguages}}
-                        </div>
-                    </div>
-                    {{/ifCond}}
-                    {{#if @root.session.customerPresent}}
-                    <div class="dropdown d-none d-sm-block">
-                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{{feather 'user'}}}
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="/customer/account">Account</a></li>
-                            <li><a class="dropdown-item" href="/customer/logout">Logout</a></li>
-                        </div>
-                    </div>
-                    {{else}}
-                        <li class="nav-item ml-3"><a href="/customer/account" class="btn">{{{feather 'user'}}}</a></li>
-                    {{/if}}
-                    {{#if @root.session.cart}}
-                        <li class="nav-item"><a href="/checkout/cart" class="btn menu-btn">{{{feather 'shopping-cart'}}} {{ @root.__ "Cart" }} <span class="badge badge-danger" id="cart-count">{{@root.session.totalCartItems}}</span></a></li>
-                        {{else}}
-                        <li class="nav-item"><a href="/checkout/cart" class="btn menu-btn">{{{feather 'shopping-cart'}}}</i> {{ @root.__ "Cart" }} <span class="badge badge-danger" id="cart-count">0</span></a></li>
-                    {{/if}}
-                </ul>
-            </div>
+        <nav class="navbar navbar-expand justify-content-between topNavBar">
+          <a class="navbar-brand" href="/">
+          {{#if @root.config.cartLogo}} 
+          <img src="{{@root.config.cartLogo}}" class="main-logo img-fluid">
+          {{else}}
+          {{@root.config.cartTitle}}
+          {{!-- Config file is in /config/settings.json --}}
+          {{/if}}
+          </a>
+          {{!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu"  aria-label="Toggle navigation">
+              {{{feather 'menu'}}}
+          </button> --}}
+          <div id="navbarText">
+            <ul class="navbar-nav ml-auto">
+              {{#ifCond @root.config.enableLanguages "!=" false}}
+              <li class="nav-item px-lg-2 dropdown d-menu d-sm-block">
+                <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="d-inline-block d-lg-none icon-width">
+                    <i class="far fa-caret-square-down" style="color: #d9ab73;"></i>
+                  </span> 
+                  <ion-icon name="language"></ion-icon>
+                </a>
+                <div class="dropdown-menu shadow-sm sm-menu" aria-labelledby="dropdown01">
+                  {{#availableLanguages}}
+                    <a class="dropdown-item" href="/lang/{{this}}">{{@root.__ this}}</a>
+                  {{/availableLanguages}}
+                </div>
+              </li>
+              {{/ifCond}}
+              {{#if @root.session.customerPresent}}
+              <div class="dropdown d-none d-sm-block">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <ion-icon name="person"></ion-icon>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li>
+                    <a class="dropdown-item" href="/customer/account">Account</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="/customer/logout">Logout</a>
+                  </li>
+                </div>
+              </div>
+              {{else}}
+                  <li class="nav-item ml-3">
+                    <a href="/customer/account" class="btn">
+                      <ion-icon name="person"></ion-icon>
+                    </a>
+                  </li>
+              {{/if}}
+              {{#if @root.session.cart}}
+                <li class="nav-item">
+                  <a href="/checkout/cart" class="btn menu-btn">
+                  <ion-icon name="cart"></ion-icon> 
+                  {{!-- {{ @root.__ "Cart" }}  --}}
+                    <span class="badge badge-danger" id="cart-count">{{@root.session.totalCartItems}}</span>
+                  </a>
+                </li>
+                {{else}}
+                <li class="nav-item">
+                  <a href="/checkout/cart" class="btn menu-btn">
+                    <ion-icon name="cart"></ion-icon></i> 
+                    {{!-- {{ @root.__ "Cart" }}  --}}
+                    <span class="badge badge-danger" id="cart-count">0</span>
+                  </a>
+                </li>
+              {{/if}}
+            </ul>
+          </div>
         </nav>
         {{/unless}}
         <div class="site-overlay"></div>
@@ -261,9 +295,9 @@
             {{/ifCond}}
         {{/unless}}
 		<div class="container-fluid content-body h-100" id="container">
-            <div class="row">
-                {{{body}}}
-            </div>
+      <div class="row" id="vue-app">
+        {{{body}}}
+      </div>
 		</div>
 		<input type="hidden" id="input_notify_message" value="{{message}}">
 		<input type="hidden" id="input_notify_messageType" value="{{messageType}}">

@@ -1,7 +1,8 @@
 const app = Vue.createApp({
-    data () {
-        return {
-            appName: 'MarieLyne'
-        }
-    }
-})
+  el: '#vue-app',
+  data() {
+    return {
+      appName: 'MarieLyne',
+    };
+  },
+});

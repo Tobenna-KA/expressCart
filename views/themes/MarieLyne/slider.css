@@ -1,0 +1,164 @@
+/* CSS FOR THE SLIDER */
+
+.hero-container {
+  background-color: #f2eae4;
+  margin-top: -55px;
+  border-top: 0.5px solid #e0bc8f;
+}
+
+.slider-container {
+  margin: 0;
+  padding: 0;
+  /* background-color: beige; */
+}
+
+.box-slider {
+  width: 300px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  overflow: hidden;
+  /* position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); */
+  margin: 15px;
+}
+
+.slider-image {
+  height: 450px;
+  position: relative;
+}
+
+.slider-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  box-sizing: border-box;
+}
+
+.slider-details {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  box-sizing: border-box;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.product-name {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-name a {
+  color: #222;
+  margin: 5px 0px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding-right: 8px;
+}
+
+.product-name span {
+  font-size: 0.8em;
+}
+
+.slider-price {
+  color: #333;
+  font-weight: 600;
+  font-size: 1.1rem;
+  font-family: poppins;
+  letter-spacing: 0.5px;
+}
+
+.slider-price ion-icon {
+  /* margin-top: 5px; */
+  color: #f15fa3;
+}
+
+.slider-overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(217, 171, 115, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-btn {
+  width: 160px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  color: #252525;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 0.8em;
+  text-align: center;
+  text-decoration: none;
+  /* text-transform: uppercase; */
+  font-family: 'Lato', sans-serif;
+  border-radius: 20px;
+  /* line-height: 40px; */
+  transition: all 0.3s ease;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.slider-btn:hover {
+  text-decoration: none;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+  color: #fff;
+  background-color: #f15fa3;
+}
+
+.slider-overlay {
+  visibility: hidden;
+}
+
+.slider-image:hover .slider-overlay {
+  visibility: visible;
+  animation: fade 0.5s;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.slider-container .btn-circle {
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 24px;
+  background-color: #f15fa3;
+  border: 1px solid #fff;
+  color: #fff;
+  transition: all 0.3s ease-in-out;
+}
+
+.slider-container .btn-circle:hover {
+  background-color: #fff;
+  border: 1px solid #f15fa3;
+  color: #f15fa3;
+}
+
+.cta-container {
+  padding: 20px;
+}
+
+.cta-container h1 {
+  font-family: 'Comic Neue', cursive;
+}

@@ -1,0 +1,92 @@
+/* TOPNAVBAR STYLES */
+.topNavBar {
+  background-color: #fff;
+  padding: 0;
+}
+
+.topNavBar .navbar-brand {
+  color: #d9ab73;
+  font-size: 1em;
+  height: auto;
+  font-weight: bold;
+  font-family: 'Montserrat', sans-serif !important;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  margin-top: 5px;
+  letter-spacing: 2.5px;
+}
+
+.topNavBar ion-icon {
+  font-size: 1.2em;
+  color: #d9ab73;
+}
+/* END TOPNAVBAR STYLES */
+
+/* MAINMENU STYLES */
+
+.mainMenuBar {
+  background-color: #d9ab73;
+}
+
+.mainMenuBar .nav-item {
+  cursor: pointer;
+}
+
+/* .nav-item.active {
+  border-top: 4px solid #2e282a;
+} */
+
+.mainMenuBar .nav-item .nav-link {
+  color: #161b33 !important;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  letter-spacing: 1.5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.mainMenuBar .nav-item .nav-link:hover {
+  color: #14192e !important;
+}
+
+.mainMenuBar ion-icon {
+  font-size: 1.5em;
+}
+
+.mainMenuBar #frm_search {
+  width: 100%;
+}
+
+.mainMenuBar #btn_search {
+  color: #161b33;
+  transition: all 0.3s ease-in-out;
+}
+
+.mainMenuBar #btn_search:hover {
+  color: #14192e;
+}
+
+.mainMenuBar .navbar-toggler {
+  padding: 0;
+}
+
+/* END MAINMENU STYLES */
+/* Tablet */
+@media only screen and (max-width: 768px) {
+  /* TOPNAVBAR RESPONSIVE STYLES */
+  .topNavBar .navbar-brand {
+    margin-left: 10px;
+  }
+
+  /* MAINMENU STYLES */
+}
+
+/* Mobile */
+@media only screen and (max-width: 480px) {
+  .mainMenuBar .nav-item {
+    width: 100%;
+    padding: 10px 5px;
+    border-bottom: 1px solid #d9ab73;
+    margin-bottom: 2px;
+  }
+}
