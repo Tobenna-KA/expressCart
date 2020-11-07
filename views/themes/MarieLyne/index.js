@@ -8,4 +8,22 @@ $(document).ready(function () {
       $('#autoWidth').removeClass('cS-hidden');
     },
   });
+
+  $('.skitter').skitter({
+    fullscreen: false,
+    theme: 'minimalist',
+    navigation: true,
+    dots: false,
+    label: false,
+    // responsive: {
+    //   responsive: {
+    //     small: { animation: 'fade', max_width: 768, suffix: '-small' },
+    //     medium: {
+    //       animation: 'directionRight',
+    //       max_width: 1024,
+    //       suffix: '-medium',
+    //     },
+    //   },
+    // },
+  });
 });

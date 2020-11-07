@@ -26,6 +26,7 @@
 
 .mainMenuBar {
   background-color: #d9ab73;
+  margin-bottom: 0;
 }
 
 .mainMenuBar .nav-item {
@@ -89,4 +90,17 @@
     border-bottom: 1px solid #d9ab73;
     margin-bottom: 2px;
   }
+}
+
+/* The container surrounding everything on the index after the menu */
+.productsWrapper {
+  margin-top: -24px;
+  padding: 0px;
+}
+
+/* The container surrounding the products. Elements after the carousel */
+.product-layout {
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px;
 }

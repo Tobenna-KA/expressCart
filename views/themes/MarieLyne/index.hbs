@@ -8,16 +8,56 @@
       <h1>{{ @root.__ "Search results" }}: <strong>{{@root.searchTerm}}</strong></h1>
       {{/ifCond}}
     </div>
-  {{/if}}
-  <div class="row product-layout">
-    {{#ifCond results.length '==' 0}}
-      <div class="col-sm-12">
-        <p class="text-danger">{{ @root.__ "No products found" }}</p>
-      </div>
-    {{/ifCond}}
-    {{#each results}}
-    <div class="hero-container container-fluid">
-      <ul id="autoWidth" class="cs-hidden">
+  {{else}}
+  <div class="skitter skitter-minimalist">
+    <ul>
+      <li>
+        <a href="#cut">
+          <img
+            src="https://images.pexels.com/photos/950243/pexels-photo-950243.jpeg"
+            class="cut"
+          />
+        </a>
+        {{!-- <div class="label_text">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            <a href="#see-more" class="btn btn-xs btn-warning">See more</a>
+          </p>
+        </div> --}}
+      </li>
+      <li>
+        <a href="#swapBlocks">
+          <img
+            src="https://images.pexels.com/photos/3829491/pexels-photo-3829491.jpeg"
+            class="swapBlocks"
+          />
+        </a>
+        {{!-- <div class="label_text">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            <a href="#see-more" class="btn btn-xs btn-warning">See more</a>
+          </p>
+        </div> --}}
+      </li>
+      <li>
+        <a href="#swapBarsBack">
+          <img
+            src="https://images.pexels.com/photos/963696/pexels-photo-963696.jpeg"
+            class="swapBarsBack"
+          />
+        </a>
+        {{!-- <div class="label_text">
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+            <a href="#see-more" class="btn btn-xs btn-warning">See more</a>
+          </p>
+        </div> --}}
+      </li>
+    </ul>
+  </div>
+  <div class="hero-container container-fluid">
+    <ul id="autoWidth" class="cs-hidden">
+      {{#each results}}
         <li class="item-a">
           <div class="slider-container">
             <div class="box-slider">
@@ -30,7 +70,9 @@
                 <!-- Image overlay -->
                 <div class="slider-overlay">
                   <!-- Buy now -->
-                  <a href="" class="slider-btn">Add to Cart</a>
+                  <a href="" class="slider-btn">
+                    {{ @root.__ "Add to cart" }}
+                  </a>
                 </div>
               </div>
               <!-- Product DETAILS -->
@@ -42,15 +84,34 @@
                       {{this.productTitle}}
                     </a>
                   {{else}}
-                    <a href="/product/{{this.productPermalink}}">
+                    <a href="/product/{{this._id}}">
                       {{this.productTitle}}
                     </a>
                   {{/if}}
                   {{!-- <span>New Arrival</span> --}}
                 </div>
-                <button type="button" class="btn btn-default btn-circle">
-                  <ion-icon name="cart"></ion-icon>
-                </button>
+                {{#if @root.config.showHomepageVariants}}
+                  <a 
+                    type="button" 
+                    data-id="{{this._id}}" 
+                    class="btn btn-default btn-circle add-variant-to-cart" 
+                    href="google.com" 
+                    role="button"
+                  >
+                    <ion-icon name="cart"></ion-icon>
+                  </a>
+                {{else}}
+                  <a 
+                    class="btn btn-default btn-circle add-to-cart" 
+                    type="button" 
+                    data-id="{{this._id}}"
+                    data-link="{{this.productPermalink}}" 
+                    role="button"
+                  >
+                    <ion-icon name="cart"></ion-icon>
+                  </a>
+                {{/if}}
+
                 <a href="#" class="slider-price"> 
                   {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}   
                 </a>
@@ -58,8 +119,17 @@
             </div>
           </div>
         </li>
-      </ul>
-    </div>
+      {{/each}}
+    </ul>
+  </div>
+  {{/if}}
+  <div class="row product-layout">
+    {{#ifCond results.length '==' 0}}
+      <div class="col-sm-12">
+        <p class="text-danger">{{ @root.__ "No products found" }}</p>
+      </div>
+    {{/ifCond}}
+    {{#each results}}
       <div class="{{perRowClass ../config.productsPerRow}}">
         <div class="thumbnail">
           {{#if productPermalink}}
@@ -67,9 +137,9 @@
               <a href="/product/{{this.productPermalink}}">
                 <div class="vertical-center img-thumbnail">
                   {{#if productImage}}
-                    <img class="img-fluid" src="{{this.productImage}}" alt="...">
+                    <img class="img-fluid product-image" src="{{this.productImage}}" alt="...">
                   {{else}}
-                    <img class="img-fluid" src="/uploads/placeholder.png" alt="...">
+                    <img class="img-fluid product-image" src="/uploads/placeholder.png" alt="...">
                   {{/if}}
                 </div>
                 <h3 class="product-title product-title-home top-pad-10">
@@ -114,7 +184,8 @@
             {{#if @root.config.showHomepageVariants}}
             <a class="btn btn-primary add-variant-to-cart" data-id="{{this._id}}" role="button">{{ @root.__ "Add to cart" }}</a>
             {{else}}
-            <a class="btn btn-primary add-to-cart" data-id="{{this._id}}" data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}" role="button">{{ @root.__ "Add to cart" }}</a>
+            <a 
+              class="btn btn-primary add-to-cart" data-id="{{this._id}}" data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}" role="button">{{ @root.__ "Add to cart" }}</a>
             {{/if}}
           </p>
         </div>

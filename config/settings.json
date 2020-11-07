@@ -22,7 +22,7 @@
   "theme": "MarieLyne",
   "trackStock": false,
   "orderHook": "",
-  "availableLanguages": ["en", "it"],
+  "availableLanguages": ["en", "fr"],
   "defaultLocale": "en",
   "maxQuantity": 25,
   "twitterHandle": "",
