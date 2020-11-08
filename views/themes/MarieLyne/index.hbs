@@ -142,9 +142,6 @@
                     <img class="img-fluid product-image" src="/uploads/placeholder.png" alt="...">
                   {{/if}}
                 </div>
-                <h3 class="product-title product-title-home top-pad-10">
-                  {{this.productTitle}}
-                </h3>
               </a>
             </div>
           {{else}}
@@ -156,38 +153,48 @@
                   <img class="img-fluid" src="/uploads/placeholder.png" alt="...">
                 {{/if}}
               </div>
-              <h3 class="product-title product-title-home top-pad-10">
-                {{this.productTitle}}
-              </h3>
+              
             </a>
           {{/if}}
-          {{#if variants}}
-            <div class="col-md-12">
-              {{#if @root.config.showHomepageVariants}}
-              <select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
-              {{#each variants}}
-                <option value="{{this._id}}" data-price="{{this.price}}">{{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.price}}</option>
-              {{/each}}
-              </select>
-              {{else}}
-              <h4 class="product-price mp-0 text-center">
-                {{currencySymbol @root.config.currencySymbol}}{{formatAmount variants.0.price}}
-              </h4>
-              {{/if}}
-            </div>
-          {{else}}
-            <h4 class="product-price mp-0 text-center">
-              {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
-            </h4>
-          {{/if}}
-          <p class="text-center">
-            {{#if @root.config.showHomepageVariants}}
-            <a class="btn btn-primary add-variant-to-cart" data-id="{{this._id}}" role="button">{{ @root.__ "Add to cart" }}</a>
+          <div class="product-info">
+            {{#if variants}}
+              <div class="col-md-12">
+                <h3 class="product-title product-title-home">
+                  {{this.productTitle}}
+                </h3>
+                {{#if @root.config.showHomepageVariants}}
+                <select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
+                {{#each variants}}
+                  <option value="{{this._id}}" data-price="{{this.price}}">{{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.price}}</option>
+                {{/each}}
+                </select>
+                {{else}}
+                <h4 class="product-price mp-0 text-center">
+                  {{currencySymbol @root.config.currencySymbol}}{{formatAmount variants.0.price}}
+                </h4>
+                {{/if}}
+              </div>
             {{else}}
-            <a 
-              class="btn btn-primary add-to-cart" data-id="{{this._id}}" data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}" role="button">{{ @root.__ "Add to cart" }}</a>
+              <h3 class="product-title product-title-home">
+                {{this.productTitle}}
+              </h3>
+              <h4 class="product-price mp-0">
+                {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
+              </h4>
             {{/if}}
-          </p>
+            <p>
+              {{#if @root.config.showHomepageVariants}}
+              <a class="btn btn-white add-variant-to-cart" data-id="{{this._id}}" role="button">
+                <ion-icon name="cart"></ion-icon>
+              </a>
+              {{else}}
+              <a 
+                class="btn btn-white add-to-cart" data-id="{{this._id}}" data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}" role="button">
+                  <ion-icon name="cart"></ion-icon>
+                </a>
+              {{/if}}
+            </p>
+          </div>
         </div>
       </div>
     {{/each}}
