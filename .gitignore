@@ -7,3 +7,4 @@ public/uploads
 env.yaml
 ecosystem.config.js
 bin/googleproducts.xml
+public/images/carouselimages

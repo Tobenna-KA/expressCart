@@ -1,0 +1,38 @@
+/* TOPNAVBAR STYLES */
+.topNavBar {
+  background-color: #fff;
+  padding: 0;
+
+  .navbar-brand {
+    color: $primary_color;
+    font-family: $font_1_family;
+    font-size: 1.2em;
+    height: auto;
+    text-transform: uppercase;
+    transition: all 0.2s ease;
+    margin-top: 5px;
+    letter-spacing: 2.5px;
+    transition: $color_transition;
+
+    &:hover {
+      color: $dark_color;
+    }
+  }
+
+  ion-icon {
+    color: $primary_color;
+    font-size: 1.2em;
+    transition: $color_transition;
+
+    &:hover {
+      color: $dark_color;
+    }
+  }
+}
+
+/* TABLET */
+@media only screen and (max-width: 768px) {
+  .topNavBar .navbar-brand {
+    margin-left: 10px;
+  }
+}

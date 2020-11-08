@@ -1,6 +1,7 @@
 /* eslint-disable prefer-arrow-callback, no-var, no-tabs */
 $(document).ready(function () {
   // Add specific code to this theme here
+  // *** PRODUCT SLIDER ***
   $('#autoWidth').lightSlider({
     autoWidth: true,
     loop: true,
@@ -9,21 +10,25 @@ $(document).ready(function () {
     },
   });
 
+  // *** CAROUSEL ***
   $('.skitter').skitter({
     fullscreen: false,
     theme: 'minimalist',
     navigation: true,
     dots: false,
     label: false,
-    // responsive: {
-    //   responsive: {
-    //     small: { animation: 'fade', max_width: 768, suffix: '-small' },
-    //     medium: {
-    //       animation: 'directionRight',
-    //       max_width: 1024,
-    //       suffix: '-medium',
-    //     },
-    //   },
-    // },
+  });
+
+  // *** CURRENCY SELECTER ***
+  $('#sm-close').click(function () {
+    $('.currency-box').addClass('sm-collapse');
+    $('#sm-open').delay(300).css('left', '0');
+    alert('SOLID');
+  });
+
+  $('#sm-open').click(function () {
+    alert('SOLID');
+    $('#sm-open').css('left', '-60px');
+    $('.currency-box').removeClass('sm-collapse');
   });
 });

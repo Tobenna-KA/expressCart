@@ -1,0 +1,156 @@
+/* CSS FOR THE SLIDER */
+
+.hero-container {
+  background-color: $dark_color;
+  border-top: 1px solid #333333;
+
+  .slider-container {
+    margin: 0;
+    padding: 0;
+
+    .box-slider {
+      width: 300px;
+      border: 1px solid $secondary_color;
+      border-radius: 10px;
+      overflow: hidden;
+      margin: 15px;
+      background-color: $light_color;
+
+      .slider-image {
+        height: 250px;
+        position: relative;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          box-sizing: border-box;
+        }
+      }
+
+      .slider-details {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        box-sizing: border-box;
+        font-family: $font_1_family;
+      }
+
+      .product-name {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}
+
+.product-name a {
+  color: $dark_color;
+  margin: 5px 0px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding-right: 8px;
+  font-size: 0.8em;
+}
+
+.product-name span {
+  font-size: 0.6em;
+}
+
+.slider-price {
+  color: $dark_color;
+  font-weight: 600;
+  font-size: 0.7rem;
+  font-family: $font_1_family;
+  letter-spacing: 0.5px;
+}
+
+.slider-price ion-icon {
+  color: $secondary_color;
+}
+
+.slider-overlay {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  background-color: $primary_color_rgba;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider-btn {
+  width: 160px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $light_color;
+  color: $dark_color;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 0.8em;
+  text-align: center;
+  text-decoration: none;
+  font-family: $font_1_family;
+  border-radius: 20px;
+  transition: $color_transition;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+}
+
+.slider-btn:hover {
+  text-decoration: none;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+  color: $dark_color;
+  background-color: $secondary_color;
+}
+
+.slider-overlay {
+  visibility: hidden;
+}
+
+.slider-image:hover .slider-overlay {
+  visibility: visible;
+  animation: fade 0.5s;
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.slider-container .btn-circle {
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 24px;
+  background-color: $dark_color;
+  border: 1px solid $dark_color;
+  color: $primary_color;
+  transition: $color_transition;
+}
+
+.slider-container .btn-circle:hover {
+  background-color: $primary_color !important;
+  border: 1px solid $primary_color;
+  color: $dark_color;
+}
+
+@media only screen and (min-width: 992px) {
+  .hero-container {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}

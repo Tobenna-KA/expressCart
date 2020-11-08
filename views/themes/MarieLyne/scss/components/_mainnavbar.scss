@@ -1,0 +1,56 @@
+/* MAINMENU STYLES */
+.mainMenuBar {
+  background-color: $primary_color;
+  margin-bottom: 0;
+
+  .nav-item {
+    cursor: pointer;
+
+    .nav-link {
+      color: $light_color;
+      font-family: $font_1_family;
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 0.8em;
+      letter-spacing: 1.5px;
+      transition: $color_transition;
+
+      &:hover {
+        color: $dark_color;
+      }
+    }
+  }
+
+  ion-icon {
+    font-size: 1.5em;
+  }
+
+  #frm_search {
+    width: 100%;
+  }
+
+  #btn_search {
+    color: $light_color;
+    transition: $color_transition;
+
+    &:hover {
+      color: $dark_color;
+    }
+  }
+
+  .navbar-toggler {
+    padding: 0;
+  }
+}
+
+/* Mobile */
+@media only screen and (max-width: 480px) {
+  .mainMenuBar {
+    .nav-item {
+      width: 100%;
+      padding: 10px 5px;
+      border-bottom: 1px solid $primary_color;
+      margin-bottom: 2px;
+    }
+  }
+}
