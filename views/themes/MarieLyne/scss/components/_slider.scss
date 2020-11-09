@@ -1,8 +1,10 @@
 /* CSS FOR THE SLIDER */
 
 .hero-container {
-  background-color: $dark_color;
+  background-color: #e8eef2;
   border-top: 1px solid #333333;
+  background-image: url('/images/fabric.png');
+  background-color: rgba(25, 25, 25, 0.5);
 
   .slider-container {
     margin: 0;
@@ -144,7 +146,6 @@
 
 .slider-container .btn-circle:hover {
   background-color: $primary_color !important;
-  border: 1px solid $primary_color;
   color: $dark_color;
 }
 

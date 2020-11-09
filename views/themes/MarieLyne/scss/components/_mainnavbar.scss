@@ -27,6 +27,12 @@
 
   #frm_search {
     width: 100%;
+    border: 1px solid $primary_color_darker;
+    border-radius: 10px;
+    font-size: 0.8em;
+    color: $primary_color;
+    margin-top: 5px;
+    font-family: $font_1_family;
   }
 
   #btn_search {
