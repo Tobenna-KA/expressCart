@@ -9,6 +9,9 @@
       {{/ifCond}}
     </div>
   {{else}}
+  <div class="top-marg-10">
+      <!--We can add some links or info or a tagline here to separate the views-->
+  </div>
   <div class="skitter skitter-minimalist">
     <ul>
       <li>
@@ -55,77 +58,7 @@
       </li>
     </ul>
   </div>
-  <div class="hero-container container-fluid">
-    <ul id="autoWidth" class="cs-hidden">
-      {{#each results}}
-        <li class="item-a">
-          <div class="slider-container">
-            <div class="box-slider">
-              <div class="slider-image">
-                {{#if productImage}}
-                  <img src="{{this.productImage}}" alt="" />
-                {{else}}
-                  <img class="img-fluid" src="/uploads/placeholder.png" alt="...">
-                {{/if}}
-                <!-- Image overlay -->
-                <div class="slider-overlay">
-                  <!-- Buy now -->
-                  <a 
-                    type="button" 
-                    class="slider-btn add-variant-to-cart"
-                    data-id="{{this._id}}"
-                    role="button"
-                  >
-                    {{ @root.__ "Add to cart" }}
-                  </a>
-                </div>
-              </div>
-              <!-- Product DETAILS -->
-              <div class="slider-details">
-                <!-- Product name -->
-                <div class="product-name">
-                  {{#if productPermalink}}
-                    <a href="/product/{{this.productPermalink}}">
-                      {{this.productTitle}}
-                    </a>
-                  {{else}}
-                    <a href="/product/{{this._id}}">
-                      {{this.productTitle}}
-                    </a>
-                  {{/if}}
-                  {{!-- <span>New Arrival</span> --}}
-                </div>
-                {{#if @root.config.showHomepageVariants}}
-                  <a 
-                    type="button" 
-                    data-id="{{this._id}}" 
-                    class="btn btn-default btn-circle add-variant-to-cart" 
-                    role="button"
-                  >
-                    <ion-icon name="cart"></ion-icon>
-                  </a>
-                {{else}}
-                  <a 
-                    class="btn btn-default btn-circle add-to-cart" 
-                    type="button" 
-                    data-id="{{this._id}}"
-                    data-link="{{this.productPermalink}}" 
-                    role="button"
-                  >
-                    <ion-icon name="cart"></ion-icon>
-                  </a>
-                {{/if}}
 
-                <a href="#" class="slider-price"> 
-                  {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}   
-                </a>
-              </div>
-            </div>
-          </div>
-        </li>
-      {{/each}}
-    </ul>
-  </div>
   {{/if}}
   <div class="row product-layout">
     {{#ifCond results.length '==' 0}}
@@ -203,6 +136,77 @@
       </div>
     {{/each}}
   </div>
+  <div class="hero-container container-fluid">
+        <ul id="autoWidth" class="cs-hidden">
+            {{#each results}}
+                <li class="item-a">
+                    <div class="slider-container">
+                        <div class="box-slider">
+                            <div class="slider-image">
+                                {{#if productImage}}
+                                    <img src="{{this.productImage}}" alt="" />
+                                {{else}}
+                                    <img class="img-fluid" src="/uploads/placeholder.png" alt="...">
+                                {{/if}}
+                                <!-- Image overlay -->
+                                <div class="slider-overlay">
+                                    <!-- Buy now -->
+                                    <a
+                                            type="button"
+                                            class="slider-btn add-variant-to-cart"
+                                            data-id="{{this._id}}"
+                                            role="button"
+                                    >
+                                        {{ @root.__ "Add to cart" }}
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Product DETAILS -->
+                            <div class="slider-details">
+                                <!-- Product name -->
+                                <div class="product-name">
+                                    {{#if productPermalink}}
+                                        <a href="/product/{{this.productPermalink}}">
+                                            {{this.productTitle}}
+                                        </a>
+                                    {{else}}
+                                        <a href="/product/{{this._id}}">
+                                            {{this.productTitle}}
+                                        </a>
+                                    {{/if}}
+                                    {{!-- <span>New Arrival</span> --}}
+                                </div>
+                                {{#if @root.config.showHomepageVariants}}
+                                    <a
+                                            type="button"
+                                            data-id="{{this._id}}"
+                                            class="btn btn-default btn-circle add-variant-to-cart"
+                                            role="button"
+                                    >
+                                        <ion-icon name="cart"></ion-icon>
+                                    </a>
+                                {{else}}
+                                    <a
+                                            class="btn btn-default btn-circle add-to-cart"
+                                            type="button"
+                                            data-id="{{this._id}}"
+                                            data-link="{{this.productPermalink}}"
+                                            role="button"
+                                    >
+                                        <ion-icon name="cart"></ion-icon>
+                                    </a>
+                                {{/if}}
+
+                                <a href="#" class="slider-price">
+                                    {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
 </div>
 <input type="hidden" id="itemsPerPage" value="{{productsPerPage}}" >
 <input type="hidden" id="pageNum" value="{{pageNum}}">

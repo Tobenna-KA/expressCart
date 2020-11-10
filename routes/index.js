@@ -26,6 +26,17 @@ const { createReview, getRatingHtml } = require('../lib/modules/reviews-basic');
 const { sortMenu, getMenu } = require('../lib/menu');
 const countryList = getCountryList();
 
+// Example of how you can add new pages
+router.get('/example', (req, res) => {
+  const config = req.app.config;
+  const file_to_render = `${config.themeViews}example`
+
+  res.render(file_to_render, {
+    helpers: req.handlebars.helpers, // seems required
+    config // required
+  })
+})
+
 // Google products
 router.get('/googleproducts.xml', async (req, res, next) => {
   let productsFile = '';
