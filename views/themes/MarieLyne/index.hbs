@@ -70,7 +70,12 @@
                 <!-- Image overlay -->
                 <div class="slider-overlay">
                   <!-- Buy now -->
-                  <a href="" class="slider-btn">
+                  <a 
+                    type="button" 
+                    class="slider-btn add-variant-to-cart"
+                    data-id="{{this._id}}"
+                    role="button"
+                  >
                     {{ @root.__ "Add to cart" }}
                   </a>
                 </div>
@@ -95,7 +100,6 @@
                     type="button" 
                     data-id="{{this._id}}" 
                     class="btn btn-default btn-circle add-variant-to-cart" 
-                    href="google.com" 
                     role="button"
                   >
                     <ion-icon name="cart"></ion-icon>

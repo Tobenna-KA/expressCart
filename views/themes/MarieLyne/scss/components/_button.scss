@@ -1,0 +1,13 @@
+.btn.curveBtn {
+  border-radius: 36px;
+  padding: 6px 18px;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  transition: $color_transition;
+}
+
+.mainBtn {
+  background-color: $primary_color;
+}

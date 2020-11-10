@@ -1041,6 +1041,18 @@ input.btn-primary {
   .social-button.facebook:hover {
     background: #2d4373; }
 
+.btn.curveBtn {
+  border-radius: 36px;
+  padding: 6px 18px;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+  transition: all 0.3s ease; }
+
+.mainBtn {
+  background-color: #d9ab73; }
+
 .productsWrapper {
   margin-top: -24px;
   padding: 0;
