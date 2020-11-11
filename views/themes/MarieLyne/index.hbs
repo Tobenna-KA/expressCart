@@ -11,6 +11,7 @@
   {{else}}
   <div class="top-marg-10">
       <!--We can add some links or info or a tagline here to separate the views-->
+      
   </div>
   <div class="skitter skitter-minimalist">
     <ul>
@@ -121,12 +122,21 @@
             {{/if}}
             <p>
               {{#if @root.config.showHomepageVariants}}
-              <a class="btn btn-white add-variant-to-cart" data-id="{{this._id}}" role="button">
-                <ion-icon name="cart"></ion-icon>
-              </a>
+                <a 
+                  class="btn btn-white add-variant-to-cart" 
+                  data-id="{{this._id}}" 
+                  role="button"
+                >
+                  <ion-icon name="cart"></ion-icon>
+                </a>
               {{else}}
-              <a 
-                class="btn btn-white add-to-cart" data-id="{{this._id}}" data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}" role="button">
+                <a 
+                  class="btn btn-white add-to-cart" 
+                  data-id="{{this._id}}" 
+                  data-link="{{this.productPermalink}}" 
+                  data-has-variants="{{checkProductVariants this.variants}}" 
+                  role="button"
+                >
                   <ion-icon name="cart"></ion-icon>
                 </a>
               {{/if}}
@@ -135,6 +145,9 @@
         </div>
       </div>
     {{/each}}
+    <div class="col-md-12">
+      <div id="pager" class="d-flex justify-content-center"></div>
+    </div>
   </div>
   <div class="hero-container container-fluid">
         <ul id="autoWidth" class="cs-hidden">
@@ -213,9 +226,7 @@
 <input type="hidden" id="totalItemCount" value="{{totalProductCount}}">
 <input type="hidden" id="paginateUrl" value="{{paginateUrl}}">
 <input type="hidden" id="searchTerm" value="{{searchTerm}}">
-<div class="col-md-12">
-  <div id="pager" class="d-flex justify-content-center"></div>
-</div>
+
 
 <script>
     const mountedApp = app.mount('')

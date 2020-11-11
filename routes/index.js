@@ -29,13 +29,59 @@ const countryList = getCountryList();
 // Example of how you can add new pages
 router.get('/example', (req, res) => {
   const config = req.app.config;
-  const file_to_render = `${config.themeViews}example`
+  const file_to_render = `${config.themeViews}example`;
 
   res.render(file_to_render, {
     helpers: req.handlebars.helpers, // seems required
-    config // required
-  })
-})
+    config, // required
+  });
+});
+
+// Consultation route
+router.get('/consultation', (req, res) => {
+  const config = req.app.config;
+  const file_to_render = `${config.themeViews}consultation`;
+
+  res.render(file_to_render, {
+    helpers: req.handlebars.helpers, // seems required
+    config, // required
+  });
+});
+
+// Contact us route
+router.get('/contact-us', (req, res) => {
+  const config = req.app.config;
+  const file_to_render = `${config.themeViews}contact-us`;
+
+  res.render(file_to_render, {
+    helpers: req.handlebars.helpers, // seems required
+    config, // required
+  });
+});
+
+// Store Route
+router.get('/store', (req, res) => {
+  const db = req.app.db;
+  const config = req.app.config;
+  // const numberProducts = config.productsPerPage ? config.productsPerPage : 12;
+  const file_to_render = `${config.themeViews}store`;
+
+  Promise.all([
+    paginateProducts(true, db, req.params.pageNum, {}, getSort()),
+    getMenu(db),
+  ]).then(([results, menu]) => {
+    if (req.query.json === 'true') {
+      res.status(200).json(results.data);
+      return;
+    }
+
+    res.render(file_to_render, {
+      helpers: req.handlebars.helpers,
+      results: results.data,
+      config: req.app.config,
+    });
+  });
+});
 
 // Google products
 router.get('/googleproducts.xml', async (req, res, next) => {
@@ -604,12 +650,10 @@ router.post('/product/updatecart', async (req, res, next) => {
 
   const product = await db.products.findOne({ _id: getId(cartItem.productId) });
   if (!product) {
-    res
-      .status(400)
-      .json({
-        message: 'There was an error updating the cart',
-        totalCartItems: Object.keys(req.session.cart).length,
-      });
+    res.status(400).json({
+      message: 'There was an error updating the cart',
+      totalCartItems: Object.keys(req.session.cart).length,
+    });
     return;
   }
 
@@ -622,23 +666,19 @@ router.post('/product/updatecart', async (req, res, next) => {
   if (productQuantity === 0) {
     // quantity equals zero so we remove the item
     delete req.session.cart[cartItem.cartId];
-    res
-      .status(400)
-      .json({
-        message: 'There was an error updating the cart',
-        totalCartItems: Object.keys(req.session.cart).length,
-      });
+    res.status(400).json({
+      message: 'There was an error updating the cart',
+      totalCartItems: Object.keys(req.session.cart).length,
+    });
     return;
   }
 
   // Check for a cart
   if (!req.session.cart[cartItem.cartId]) {
-    res
-      .status(400)
-      .json({
-        message: 'There was an error updating the cart',
-        totalCartItems: Object.keys(req.session.cart).length,
-      });
+    res.status(400).json({
+      message: 'There was an error updating the cart',
+      totalCartItems: Object.keys(req.session.cart).length,
+    });
     return;
   }
 
@@ -730,12 +770,10 @@ router.post('/product/updatecart', async (req, res, next) => {
     }
   );
 
-  res
-    .status(200)
-    .json({
-      message: 'Cart successfully updated',
-      totalCartItems: Object.keys(req.session.cart).length,
-    });
+  res.status(200).json({
+    message: 'Cart successfully updated',
+    totalCartItems: Object.keys(req.session.cart).length,
+  });
 });
 
 // Remove single product from cart
@@ -768,12 +806,10 @@ router.post('/product/removefromcart', async (req, res, next) => {
   // Update checking cart for subscription
   updateSubscriptionCheck(req, res);
 
-  return res
-    .status(200)
-    .json({
-      message: 'Product successfully removed',
-      totalCartItems: Object.keys(req.session.cart).length,
-    });
+  return res.status(200).json({
+    message: 'Product successfully removed',
+    totalCartItems: Object.keys(req.session.cart).length,
+  });
 });
 
 // Totally empty the cart
@@ -822,22 +858,18 @@ router.post('/product/addtocart', async (req, res, next) => {
 
   // If cart already has a subscription you cannot add anything else
   if (req.session.cartSubscription) {
-    return res
-      .status(400)
-      .json({
-        message: 'Subscription already existing in cart. You cannot add more.',
-      });
+    return res.status(400).json({
+      message: 'Subscription already existing in cart. You cannot add more.',
+    });
   }
 
   // If existing cart isn't empty check if product is a subscription
   if (Object.keys(req.session.cart).length !== 0) {
     if (product.productSubscription) {
-      return res
-        .status(400)
-        .json({
-          message:
-            'You cannot combine subscription products with existing in your cart. Empty your cart and try again.',
-        });
+      return res.status(400).json({
+        message:
+          'You cannot combine subscription products with existing in your cart. Empty your cart and try again.',
+      });
     }
   }
 
@@ -902,11 +934,9 @@ router.post('/product/addtocart', async (req, res, next) => {
 
           // Check there is sufficient stock
           if (productQuantity > netStock) {
-            return res
-              .status(400)
-              .json({
-                message: 'There is insufficient stock of this product.',
-              });
+            return res.status(400).json({
+              message: 'There is insufficient stock of this product.',
+            });
           }
         }
       }
