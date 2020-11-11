@@ -6,7 +6,7 @@
             <div class="d-flex flex-row bottom-pad-15">
                 <div class="p-2 cart-product">
                     <div class="row h-200">
-                        <div class="col-4 col-md-3 no-pad-left">
+                        <div class="col-4 col-md-3">
                             {{#if productImage}}
                             <img class="img-fluid" src="{{this.productImage}}" alt="{{this.title}} product image">
                             {{else}}
@@ -27,7 +27,7 @@
                                         <div class="input-group-prepend">
                                             <button class="btn btn-primary btn-qty-minus" type="button">-</button>
                                         </div>
-                                        <input type="number"
+                                        <input 
                                             class="form-control cart-product-quantity text-center"
                                             data-cartid="{{@key}}"
                                             data-id="{{../this.productId}}"
@@ -40,7 +40,9 @@
                                     </div>
                                 </div>
                                 <div class="col-4 col-md-2 no-pad-left">
-                                    <button class="btn btn-danger btn-delete-from-cart" data-cartid="{{@key}}" type="button">{{{feather 'trash-2'}}}</button>
+                                    <button class="btn btn-delete-from-cart remove" data-cartid="{{@key}}" type="button">
+                                      <ion-icon name="close-circle"></ion-icon>
+                                    </button>
                                 </div>
                                 {{else}}
                                 <div class="col-12 col-md-8 no-pad-left mb-2"></div>

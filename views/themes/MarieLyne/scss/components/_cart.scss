@@ -1,36 +1,51 @@
-// .cart-body {
-//   .card-title {
-//     text-transform: uppercase;
-//     color: $primary_color;
-//     font-size: 1.2em;
-//     letter-spacing: 1.2px;
-//     font-weight: bold;
-//     font-family: $font_2_family;
-//   }
+.cart-body {
+  // border: 1px solid $primary_color;
+  padding: 0;
 
-//   .cart-product {
-//     border: 1px solid #ccc;
-//     padding: 0;
+  .card-title {
+    font-family: $font_2_family;
+    color: $primary_color;
+    padding: 10px;
+  }
 
-//     h6,
-//     strong {
-//       font-family: $font_2_family;
-//       font-size: 2em;
-//       letter-spacing: 1.2px;
-//       margin-bottom: 0px;
-//       margin-top: 10px;
-//       transition: $color_transition;
-//     }
+  .cart-product > div {
+    padding: 2px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    width: 97%;
+    margin: 5px auto;
 
-//     .price {
-//       font-family: $font_1_family;
-//       font-size: 1em;
-//       margin-top: 0;
-//     }
-//   }
+    .cart-image {
+      img {
+        width: 100px !important;
+        border-bottom: 3px solid #eee;
+        border-radius: 10px;
+        // border: 1px solid red;
+      }
+    }
 
-//   .details {
-//     border: 1px solid black;
-//     width: 24%;
-//   }
-// }
+    .btn-delete-from-cart {
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer;
+    }
+  }
+
+  .remove {
+    ion-icon {
+      font-size: 1.3em;
+      color: #e94f37;
+      transition: $color_transition;
+
+      &:hover {
+        color: #ca2e16;
+      }
+    }
+  }
+
+  .cartTotalsWrapper {
+    padding-right: 10px;
+    padding-bottom: 10px;
+  }
+}

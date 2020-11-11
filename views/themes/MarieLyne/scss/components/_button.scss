@@ -1,13 +1,38 @@
 .btn.curveBtn {
   border-radius: 36px;
-  padding: 6px 18px;
+  padding: 6px 15px;
   font-size: 0.8em;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 600;
   transition: $color_transition;
+
+  span {
+    position: relative;
+    top: -5px;
+    // border: 1px solid red;
+  }
+
+  ion-icon {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
 }
 
 .mainBtn {
   background-color: $primary_color;
+
+  &:hover {
+    background-color: #d39f5f;
+  }
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 15px;
 }

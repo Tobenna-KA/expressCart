@@ -288,8 +288,21 @@
                         {{> (getTheme 'cart')}}
                         <div class="row">
                         <div class="col-sm-12 {{showCartButtons @root.session.cart}} cart-buttons">
-                            <button class="btn curveBtn btn-primary float-left" id="empty-cart" type="button">{{ @root.__ "Empty cart" }}</button>
-                            <a href="/checkout/information" class="btn curveBtn mainBtn float-right">Checkout</a>
+                            <button 
+                              class="btn curveBtn btn-primary float-left" 
+                              id="empty-cart" type="button"
+                            >
+                              <ion-icon name="trash-outline"></ion-icon>
+                              <span>
+                                {{ @root.__ "Empty cart" }}
+                              </span>
+                            </button>
+                            <a href="/checkout/information" class="btn curveBtn mainBtn float-right">
+                              <ion-icon name="checkmark-done-circle-outline"></ion-icon>
+                              <span>
+                                Checkout
+                              </span>
+                            </a>
                         </div>
                     </div>
                         </div>

@@ -1043,15 +1043,63 @@ input.btn-primary {
 
 .btn.curveBtn {
   border-radius: 36px;
-  padding: 6px 18px;
+  padding: 6px 15px;
   font-size: 0.8em;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 600;
   transition: all 0.3s ease; }
+  .btn.curveBtn span {
+    position: relative;
+    top: -5px; }
+  .btn.curveBtn ion-icon {
+    font-size: 1.5em;
+    font-weight: bold; }
 
 .mainBtn {
   background-color: #d9ab73; }
+  .mainBtn:hover {
+    background-color: #d39f5f; }
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 15px; }
+
+.cart-body {
+  padding: 0; }
+  .cart-body .card-title {
+    font-family: "Raleway", sans-serif !important;
+    color: #d9ab73;
+    padding: 10px; }
+  .cart-body .cart-product > div {
+    padding: 2px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    width: 97%;
+    margin: 5px auto; }
+    .cart-body .cart-product > div .cart-image img {
+      width: 100px !important;
+      border-bottom: 3px solid #eee;
+      border-radius: 10px; }
+    .cart-body .cart-product > div .btn-delete-from-cart {
+      position: absolute;
+      top: 0;
+      right: 0;
+      cursor: pointer; }
+  .cart-body .remove ion-icon {
+    font-size: 1.3em;
+    color: #e94f37;
+    transition: all 0.3s ease; }
+    .cart-body .remove ion-icon:hover {
+      color: #ca2e16; }
+  .cart-body .cartTotalsWrapper {
+    padding-right: 10px;
+    padding-bottom: 10px; }
 
 .productsWrapper {
   margin-top: -24px;
