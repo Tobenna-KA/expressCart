@@ -1361,10 +1361,38 @@ router.get('/:page?', async (req, res, next) => {
           return;
         }
 
+        // Dummy data for instagram placeholder
+        const instaposts = [
+          {
+            username: 'MarieLynne Hair',
+            imgURL:
+              'https://www.tltnews247.com/wp-content/uploads/2018/05/model-1.jpg',
+            profileLink: '',
+            likes: 441,
+            followers: '1.2k',
+          },
+          {
+            username: 'MarieLynne Hair',
+            imgURL:
+              'https://i.pinimg.com/originals/02/c0/4b/02c04b665e3dfb4f996f9a40b85ad068.jpg',
+            profileLink: '',
+            likes: 701,
+            followers: '1.2k',
+          },
+          {
+            username: 'MarieLynne Hair',
+            imgURL:
+              'https://guardian.ng/wp-content/uploads/2018/10/Miz-Wanneka-1.jpg',
+            profileLink: '',
+            likes: 584,
+            followers: '1.2k',
+          },
+        ];
+
         res.render(`${config.themeViews}index`, {
           title: `${config.cartTitle} - Shop`,
           theme: config.theme,
-          results: results.data,
+          results: results.data.splice(0, 4),
           session: req.session,
           message: clearSessionValue(req.session, 'message'),
           messageType: clearSessionValue(req.session, 'messageType'),
@@ -1376,6 +1404,7 @@ router.get('/:page?', async (req, res, next) => {
           helpers: req.handlebars.helpers,
           showFooter: 'showFooter',
           menu: sortMenu(menu),
+          instaposts,
         });
       })
       .catch((err) => {

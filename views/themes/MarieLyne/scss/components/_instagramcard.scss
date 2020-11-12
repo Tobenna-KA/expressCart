@@ -1,0 +1,103 @@
+.insta-row {
+  padding-bottom: 20px;
+  background-color: #eaeaea;
+}
+
+.instagram-card {
+  margin: 20px auto 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  width: 100%;
+  max-width: 320px;
+  background: white;
+  font-size: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+.card-header {
+  padding: 0;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+}
+.user-image {
+  font-weight: bold;
+  margin-left: 10px;
+  width: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid #3f729b;
+}
+
+.user-name {
+  font-weight: bold;
+  margin-left: 10px;
+  width: 100%;
+}
+
+.user-name {
+  margin-top: 10px;
+}
+
+.user-name small {
+  margin-top: -20px;
+  display: inline-block;
+}
+
+.time {
+  color: #ccc;
+  width: 100%;
+}
+
+.time button {
+  float: right;
+  background-color: #3f729b;
+  margin-top: 10px;
+}
+
+.splitter {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.icons {
+  /* margin-top: 10px; */
+}
+
+.icons ion-icon {
+  margin-right: 5px;
+  font-size: 1.6em;
+}
+
+.card-content {
+  padding: 10px;
+}
+
+.likes {
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.hashtag {
+  color: #4a5279;
+  text-decoration: none;
+  margin-right: 5px;
+}
+
+hr {
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+
+.card-actions {
+  margin-top: -20px;
+  padding: 7px 10px 10px 0;
+  display: flex;
+}
+
+.comments-input {
+  margin-left: 10px;
+  border: none;
+  width: 100%;
+}
