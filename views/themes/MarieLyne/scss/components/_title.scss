@@ -1,0 +1,75 @@
+.about-us {
+}
+
+.title-row {
+  background: #e7d4b4;
+  margin-top: -25px;
+  font-family: 'Abril Fatface', serif;
+  color: #2c3343;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  width: 100%;
+  align-items: center;
+  padding: 30px 10px;
+  padding-bottom: 30px;
+  margin-bottom: -40px;
+
+  p {
+    font-family: $font_2_family;
+    font-size: 0.9em;
+    line-height: 23px;
+  }
+}
+.title-lg {
+  font-size: 15px;
+  line-height: 1;
+  margin-bottom: 1.1em;
+}
+@media (min-width: 992px) {
+  .title-lg {
+    font-size: 22px;
+  }
+}
+@media (min-width: 1200px) {
+  .title-lg {
+    font-size: 26.2px;
+  }
+}
+
+.title-xl {
+  font-size: 22.6666666667px;
+  line-height: 1;
+  margin-bottom: 0.1em;
+}
+@media (min-width: 992px) {
+  .title-xl {
+    font-size: 34px;
+  }
+}
+@media (min-width: 1200px) {
+  .title-xl {
+    font-size: 40px;
+  }
+}
+
+.title-xxl {
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: 0.1em;
+}
+@media (min-width: 992px) {
+  .title-xxl {
+    font-size: 60px;
+  }
+}
+@media (min-width: 1200px) {
+  .title-xxl {
+    font-size: 72px;
+  }
+}
+
+hr {
+  border: 1px solid #fff;
+  margin-bottom: 0.6em;
+}

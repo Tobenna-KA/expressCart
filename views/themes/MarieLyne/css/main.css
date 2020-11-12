@@ -1102,23 +1102,32 @@ input.btn-primary {
     padding-right: 10px;
     padding-bottom: 10px; }
 
+.product-layout {
+  background: #d3cce3;
+  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #e9e4f0, #d3cce3);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #e9e4f0, #d3cce3);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ }
+
 .store-product {
   padding: 5px !important; }
 
 .product-wrapper {
-  border: 1px solid #d9ab73;
+  border: 1px solid #ccc;
   width: 280px;
   height: 480px;
   background: white;
   margin: auto;
   position: relative;
   overflow: hidden;
-  border-radius: 10px 10px 10px 10px;
+  border-radius: 3px;
   box-shadow: 0;
   transform: scale(0.95);
-  transition: box-shadow 0.5s, transform 0.5s; }
+  transition: box-shadow 0.5s, transform 0.5s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
   .product-wrapper:hover {
-    transform: scale(0.9);
+    transform: scale(0.955);
     box-shadow: 1px 5px 7px rgba(0, 0, 0, 0.2); }
   .product-wrapper .container {
     width: 100%;
@@ -1146,7 +1155,7 @@ input.btn-primary {
       .product-wrapper .container .bottom .left {
         height: 100%;
         width: 50%;
-        background: #f2eae4;
+        background: #eaeaea;
         position: relative;
         float: left; }
         .product-wrapper .container .bottom .left .details {
@@ -1426,6 +1435,67 @@ hr {
   margin-left: 10px;
   border: none;
   width: 100%; }
+
+.title-row {
+  background: #e7d4b4;
+  margin-top: -25px;
+  font-family: 'Abril Fatface', serif;
+  color: #2c3343;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  width: 100%;
+  align-items: center;
+  padding: 30px 10px;
+  padding-bottom: 30px;
+  margin-bottom: -40px; }
+  .title-row p {
+    font-family: "Raleway", sans-serif !important;
+    font-size: 0.9em;
+    line-height: 23px; }
+
+.title-lg {
+  font-size: 15px;
+  line-height: 1;
+  margin-bottom: 1.1em; }
+
+@media (min-width: 992px) {
+  .title-lg {
+    font-size: 22px; } }
+
+@media (min-width: 1200px) {
+  .title-lg {
+    font-size: 26.2px; } }
+
+.title-xl {
+  font-size: 22.6666666667px;
+  line-height: 1;
+  margin-bottom: 0.1em; }
+
+@media (min-width: 992px) {
+  .title-xl {
+    font-size: 34px; } }
+
+@media (min-width: 1200px) {
+  .title-xl {
+    font-size: 40px; } }
+
+.title-xxl {
+  font-size: 40px;
+  line-height: 1;
+  margin-bottom: 0.1em; }
+
+@media (min-width: 992px) {
+  .title-xxl {
+    font-size: 60px; } }
+
+@media (min-width: 1200px) {
+  .title-xxl {
+    font-size: 72px; } }
+
+hr {
+  border: 1px solid #fff;
+  margin-bottom: 0.6em; }
 
 .productsWrapper {
   margin-top: -24px;
