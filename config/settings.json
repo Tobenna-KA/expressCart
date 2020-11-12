@@ -9,7 +9,7 @@
   "emailUser": "hi@markmoffat.com",
   "emailPassword": "this_is_the_smtp_password",
   "emailAddress": "hi@markmoffat.com",
-  "productsPerRow": 3,
+  "productsPerRow": 4,
   "productsPerPage": 6,
   "footerHtml": "&lt;h4 class=&quot;text-center&quot;&gt;Powered by expressCart&lt;/h4&gt;",
   "googleAnalytics": "",

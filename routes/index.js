@@ -37,6 +37,46 @@ router.get('/example', (req, res) => {
   });
 });
 
+// About us route
+router.get('/about-us', (req, res) => {
+  const db = req.app.db;
+  const config = req.app.config;
+  const file_to_render = `${config.themeViews}about-us`;
+
+  Promise.all([getMenu(db)]).then(([menu]) => {
+    if (req.query.json === 'true') {
+      res.status(200).json(results.data);
+      return;
+    }
+
+    res.render(file_to_render, {
+      helpers: req.handlebars.helpers, // seems required
+      config, // required
+      menu: sortMenu(menu),
+    });
+  });
+});
+
+// Services route
+router.get('/services', (req, res) => {
+  const db = req.app.db;
+  const config = req.app.config;
+  const file_to_render = `${config.themeViews}services`;
+
+  Promise.all([getMenu(db)]).then(([menu]) => {
+    if (req.query.json === 'true') {
+      res.status(200).json(results.data);
+      return;
+    }
+
+    res.render(file_to_render, {
+      helpers: req.handlebars.helpers, // seems required
+      config, // required
+      menu: sortMenu(menu),
+    });
+  });
+});
+
 // Consultation route
 router.get('/consultation', (req, res) => {
   const db = req.app.db;

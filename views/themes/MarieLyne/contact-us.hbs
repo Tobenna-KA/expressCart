@@ -1,55 +1,119 @@
 {{> themes/MarieLyne/front-menu}}
-<div class="container">
+<div class="container contact-form">
   <div class="row">
-    <section class="jumbotron text-center">
-      <div class="container">
-        <h1 class="jumbotron-heading">E-COMMERCE CONTACT</h1>
-        <p class="lead text-muted mb-0">Contact Page build with Bootstrap 4 !</p>
-      </div>
-    </section>
-  </div>
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <div class="card">
-                <div class="card-header bg-primary text-white"><i class="fa fa-envelope"></i> Contact us.
-                </div>
-                <div class="card-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email address</label>
-                            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email" required>
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea class="form-control" id="message" rows="6" required></textarea>
-                        </div>
-                        <div class="mx-auto">
-                        <button type="submit" class="btn btn-primary text-right">Submit</button></div>
-                    </form>
-                </div>
+    <div class="col-md-8">
+      <form method="post">
+        <h3>Leave us a message!</h3>
+        <p>
+          Fill out this quick form to drop us a message. We look forward to
+          hearing from you and will get back to you as soon as we can.
+        </p>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="text"
+                name="txtName"
+                class="form-control"
+                placeholder="Your Name *"
+                value=""
+              />
             </div>
-        </div>
-        <div class="col-12 col-sm-4">
-            <div class="card bg-light mb-3">
-                <div class="card-header bg-success text-white text-uppercase"><i class="fa fa-home"></i> Address</div>
-                <div class="card-body">
-                    <p>3 rue des Champs Elysées</p>
-                    <p>75008 PARIS</p>
-                    <p>France</p>
-                    <p>Email : email@example.com</p>
-                    <p>Tel. +33 12 56 11 51 84</p>
-
-                </div>
-
+            <div class="form-group">
+              <input
+                type="text"
+                name="txtEmail"
+                class="form-control"
+                placeholder="Your Email *"
+                value=""
+              />
             </div>
+            <div class="form-group">
+              <input
+                type="text"
+                name="txtPhone"
+                class="form-control"
+                placeholder="Your Phone Number *"
+                value=""
+              />
+            </div>
+            <div class="form-group">
+              <input
+                type="submit"
+                name="btnSubmit"
+                class="btnContact"
+                value="Send Message"
+              />
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <textarea
+                name="txtMsg"
+                class="form-control"
+                placeholder="Your Message *"
+                style="width: 100%; height: 150px"
+              ></textarea>
+            </div>
+          </div>
         </div>
+      </form>
     </div>
+    <div class="col-md-4 address">
+      <h3>Other ways to reach us!</h3>
+      <div class="container-fluid">
+        <ion-icon name="location"></ion-icon>
+        <p>
+          No. 5 Thomas Didel Drive
+          <br />
+          Off Liberty Boulevard
+          <br />
+          Jos, Plateau
+          <br />
+          Nigeria
+          <br />
+        </p>
+      </div>
+      <div class="container-fluid">
+        <ion-icon name="call"></ion-icon>
+        <p>
+          +254 789 454 177
+          <br />
+          +254 750 441 114
+          <br />
+        </p>
+      </div>
+      <div class="container-fluid">
+        <ion-icon name="mail"></ion-icon>
+        <p>
+          info@mlhair.com
+          <br />
+        </p>
+      </div>
+      <hr />
+      <div class="container-fluid">
+        <h5>Or just say hi!</h5>
+        <div class="socialbtns">
+          <ul>
+            <li>
+              <a href="#">
+                <ion-icon name="logo-facebook"></ion-icon>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <ion-icon name="logo-instagram"></ion-icon>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <ion-icon name="logo-twitter"></ion-icon>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 {{> themes/MarieLyne/footer}}

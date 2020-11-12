@@ -318,27 +318,27 @@
 		</div>
 		<input type="hidden" id="input_notify_message" value="{{message}}">
 		<input type="hidden" id="input_notify_messageType" value="{{messageType}}">
-        <input type="hidden" id="cartCheckout" value="{{checkout}}">
-        <input type="hidden" id="cartTheme" value="{{@root.config.theme}}">
-        <input type="hidden" id="currencySymbol" value="{{@root.config.currencySymbol}}">
-        {{#if @root.config.maxQuantity}} <input type="hidden" id="maxQuantity" value="{{@root.config.maxQuantity}}">{{/if}}
+    <input type="hidden" id="cartCheckout" value="{{checkout}}">
+    <input type="hidden" id="cartTheme" value="{{@root.config.theme}}">
+    <input type="hidden" id="currencySymbol" value="{{@root.config.currencySymbol}}">
+    {{#if @root.config.maxQuantity}} <input type="hidden" id="maxQuantity" value="{{@root.config.maxQuantity}}">{{/if}}
 		<div id="notify_message"></div>
 		{{#if showFooter}}
       {{> themes/MarieLyne/footer}}
 		{{/if}}
-        <script src="/javascripts/pushy.min.js"></script>
-        {{#if admin}}
-        {{> partials/globalSearchModal}}
-        {{> partials/validationModal}}
-        {{> partials/variantModal}}
-        {{> partials/variantEditModal}}
-        {{/if}}
-        {{> partials/confirmModal}}
-        {{#if @root.config.modules.enabled.reviews}}
-        {{> partials/reviewModal}}
-        {{/if}}
-        <script>
-            feather.replace();
-        </script>
+    <script src="/javascripts/pushy.min.js"></script>
+    {{#if admin}}
+      {{> partials/globalSearchModal}}
+      {{> partials/validationModal}}
+      {{> partials/variantModal}}
+      {{> partials/variantEditModal}}
+    {{/if}}
+    {{> partials/confirmModal}}
+    {{#if @root.config.modules.enabled.reviews}}
+     {{> partials/reviewModal}}
+    {{/if}}
+    <script>
+        feather.replace();
+    </script>
 	</body>
 </html>

@@ -921,6 +921,9 @@
     padding-right: 15px; } }
 
 /*FOOTER*/
+.mainfooter {
+  border: 1px solid rgba(0, 0, 0, 0); }
+
 footer {
   background: #16222a;
   background: -webkit-linear-gradient(59deg, #3a6073, #16222a);
@@ -1264,6 +1267,79 @@ input.btn-primary {
       .product-wrapper .inside .contents h3 {
         font-family: "Raleway", sans-serif !important;
         font-size: 1.4em; }
+
+.contact-form .address {
+  padding: 3%; }
+
+.contact-form .address ion-icon {
+  color: #d9ab73; }
+
+.contact-form .address h3 {
+  margin-bottom: 20px; }
+
+.contact-form .form-control {
+  border-radius: 1rem; }
+
+.contact-form form {
+  padding: 5%; }
+
+.contact-form h3 {
+  margin-bottom: 1.5%;
+  color: #0a0908; }
+
+.contact-form .btnContact {
+  width: 50%;
+  border: none;
+  border-radius: 1rem;
+  padding: 1.5%;
+  background: #d9ab73;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.9em;
+  color: #fff;
+  cursor: pointer; }
+
+.btnContactSubmit {
+  width: 50%;
+  border-radius: 1rem;
+  padding: 1.5%;
+  color: #fff;
+  background-color: #0062cc;
+  border: none;
+  cursor: pointer; }
+
+.socialbtns ul {
+  padding: 0; }
+
+.socialbtns,
+.socialbtns ul,
+.socialbtns li {
+  margin: 0;
+  /* padding: 5px; */ }
+
+.socialbtns li {
+  list-style: none outside none;
+  display: inline-block; }
+
+.socialbtns li {
+  margin-right: 10px; }
+
+.socialbtns ion-icon {
+  color: #000;
+  font-size: 1.5em;
+  transition: all 0.3s ease-in-out; }
+
+.socialbtns ion-icon:hover {
+  transform: scale(1.1); }
+
+.socialbtns ion-icon[name='logo-facebook'] {
+  color: #3b5998; }
+
+.socialbtns ion-icon[name='logo-instagram'] {
+  color: #3f729b; }
+
+.socialbtns ion-icon[name='logo-twitter'] {
+  color: #00acee; }
 
 .productsWrapper {
   margin-top: -24px;
