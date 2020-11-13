@@ -26,6 +26,9 @@ const { createReview, getRatingHtml } = require('../lib/modules/reviews-basic');
 const { sortMenu, getMenu } = require('../lib/menu');
 const countryList = getCountryList();
 
+// *** INSTAGRAM FETCH FUNCTION ***
+const getInstagramPosts = require('../lib/instagram');
+
 // Example of how you can add new pages
 router.get('/example', (req, res) => {
   const config = req.app.config;
@@ -1361,51 +1364,32 @@ router.get('/:page?', async (req, res, next) => {
           return;
         }
 
-        // Dummy data for instagram placeholder
-        const instaposts = [
-          {
-            username: 'MarieLynne Hair',
-            imgURL:
-              'https://www.tltnews247.com/wp-content/uploads/2018/05/model-1.jpg',
-            profileLink: '',
-            likes: 441,
-            followers: '1.2k',
-          },
-          {
-            username: 'MarieLynne Hair',
-            imgURL:
-              'https://i.pinimg.com/originals/02/c0/4b/02c04b665e3dfb4f996f9a40b85ad068.jpg',
-            profileLink: '',
-            likes: 701,
-            followers: '1.2k',
-          },
-          {
-            username: 'MarieLynne Hair',
-            imgURL:
-              'https://guardian.ng/wp-content/uploads/2018/10/Miz-Wanneka-1.jpg',
-            profileLink: '',
-            likes: 584,
-            followers: '1.2k',
-          },
-        ];
+        // Fetch instagram posts from username
+        getInstagramPosts('naijabraids_')
+          .then((posts) => {
+            const instafeed = posts.splice(0, 3);
 
-        res.render(`${config.themeViews}index`, {
-          title: `${config.cartTitle} - Shop`,
-          theme: config.theme,
-          results: results.data.splice(0, 4),
-          session: req.session,
-          message: clearSessionValue(req.session, 'message'),
-          messageType: clearSessionValue(req.session, 'messageType'),
-          config,
-          productsPerPage: numberProducts,
-          totalProductCount: results.totalItems,
-          pageNum: 1,
-          paginateUrl: 'page',
-          helpers: req.handlebars.helpers,
-          showFooter: 'showFooter',
-          menu: sortMenu(menu),
-          instaposts,
-        });
+            res.render(`${config.themeViews}index`, {
+              title: `${config.cartTitle} - Shop`,
+              theme: config.theme,
+              results: results.data.splice(0, 4),
+              session: req.session,
+              message: clearSessionValue(req.session, 'message'),
+              messageType: clearSessionValue(req.session, 'messageType'),
+              config,
+              productsPerPage: numberProducts,
+              totalProductCount: results.totalItems,
+              pageNum: 1,
+              paginateUrl: 'page',
+              helpers: req.handlebars.helpers,
+              showFooter: 'showFooter',
+              menu: sortMenu(menu),
+              instafeed,
+            });
+          })
+          .catch((err) => {
+            console.error(colors.red('Error getting instagram posts', err));
+          });
       })
       .catch((err) => {
         console.error(colors.red('Error getting products for page', err));

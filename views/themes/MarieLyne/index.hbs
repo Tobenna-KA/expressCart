@@ -61,13 +61,13 @@
   </div>
 
   <div class="row insta-row">
-    {{#each instaposts}}
+    {{#each instafeed}}
       <div class="col-md-4">
         <div class="instagram-card">
           <div class="card-header">
             <img
               class="user-image"
-              src="https://i.pinimg.com/originals/8b/ed/09/8bed099ffbf95985d5184831b0c05dcc.png"
+              src="{{this.node.thumbnail_src}}"
             />
             <p class="user-name">
               {{this.username}}
@@ -75,33 +75,28 @@
               <small> {{this.followers}} followers</small>
             </p>
             <p class="time float-right">
-              <button class="btn btn-info btn-sm">View Profile</button>
+              <a class="btn btn-info btn-sm" target="_blank" href="{{this.profileUrl}}">View Profile</a>
             </p>
           </div>
           <div class="card-image">
             <img
-              src="{{this.imgURL}}"
+              src="{{this.node.display_url}}"
               width="100%"
+              height="340px"
             />
           </div>
           <div class="card-content">
-            <a href="#">View More</a>
+            <a href="{{this.profileUrl}}" target="_blank">View More</a>
             <hr class="splitter" />
             <div class="icons">
               <ion-icon name="heart-outline"></ion-icon>
               <ion-icon name="chatbubble-outline"></ion-icon>
               <ion-icon name="open-outline"></ion-icon>
             </div>
-            <p class="likes">{{this.likes}} likes</p>
+            <p class="likes">{{this.node.edge_liked_by.count}} likes</p>
             <hr class="splitter" />
-            <!-- <p>the new one tattoo <a href="#">@vonD</a></p>
-            <p><a href="#">#edsheerantour</a></p>
-            <hr /> -->
           </div>
           <div class="card-actions">
-            <!-- <a href="#" class="action-icons">
-              <ion-icon name="heart-outline"></ion-icon>
-            </a> -->
             <input
               class="comments-input"
               type="text"
