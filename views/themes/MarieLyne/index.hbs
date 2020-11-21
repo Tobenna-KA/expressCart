@@ -9,56 +9,6 @@
       {{/ifCond}}
     </div>
   {{else}}
-  <div class="top-marg-10">
-      <!--We can add some links or info or a tagline here to separate the views-->
-      
-  </div>
-  <div class="skitter skitter-minimalist">
-    <ul>
-      <li>
-        <a href="#cut">
-          <img
-            src="/images/carouselimages/carousel3.jpeg"
-            class="cut"
-          />
-        </a>
-        {{!-- <div class="label_text">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            <a href="#see-more" class="btn btn-xs btn-warning">See more</a>
-          </p>
-        </div> --}}
-      </li>
-      <li>
-        <a href="#swapBlocks">
-          <img
-            src="/images/carouselimages/carousel1.jpeg"
-            class="swapBlocks"
-          />
-        </a>
-        {{!-- <div class="label_text">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            <a href="#see-more" class="btn btn-xs btn-warning">See more</a>
-          </p>
-        </div> --}}
-      </li>
-      <li>
-        <a href="#swapBarsBack">
-          <img
-            src="/images/carouselimages/carousel2.jpeg"
-            class="swapBarsBack"
-          />
-        </a>
-        {{!-- <div class="label_text">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            <a href="#see-more" class="btn btn-xs btn-warning">See more</a>
-          </p>
-        </div> --}}
-      </li>
-    </ul>
-  </div>
 
   <div class="row insta-row">
     {{#each instafeed}}
@@ -155,13 +105,13 @@
                       </a>
                     {{/if}}
                     {{#if @root.config.showHomepageVariants}}
-                      <select 
-                        id="productVariant-{{this._id}}" 
+                      <select
+                        id="productVariant-{{this._id}}"
                         class="productVariant form-control mb-2"
                       >
                         {{#each variants}}
-                          <option 
-                            value="{{this._id}}" 
+                          <option
+                            value="{{this._id}}"
                             data-price="{{this.price}}"
                           >
                             {{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.price}}
@@ -211,19 +161,19 @@
                   </div>
                   <div class="buy">
                     {{#if @root.config.showHomepageVariants}}
-                      <a 
-                        class="add-variant-to-cart" 
-                        data-id="{{this._id}}" 
+                      <a
+                        class="add-variant-to-cart"
+                        data-id="{{this._id}}"
                         role="button"
                       >
                         <ion-icon name="cart"></ion-icon>
                       </a>
                     {{else}}
-                      <a 
-                        class="add-to-cart" 
-                        data-id="{{this._id}}" 
-                        data-link="{{this.productPermalink}}" 
-                        data-has-variants="{{checkProductVariants this.variants}}" 
+                      <a
+                        class="add-to-cart"
+                        data-id="{{this._id}}"
+                        data-link="{{this.productPermalink}}"
+                        data-has-variants="{{checkProductVariants this.variants}}"
                         role="button"
                       >
                         <ion-icon name="cart"></ion-icon>

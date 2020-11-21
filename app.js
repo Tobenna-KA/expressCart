@@ -98,6 +98,10 @@ app.set('view engine', 'hbs');
 // helpers for the handlebar templating platform
 handlebars = handlebars.create({
   helpers: {
+    // equals helper
+    ifEquals: function(arg1, arg2, options) {
+      return (arg1 === arg2) ? options.fn(this) : options.inverse(this);
+    },
     // Language helper
     __: () => {
       return i18n.__(this, arguments);
