@@ -525,6 +525,16 @@ $(document).ready(function (){
 
     // search button click event
     $(document).on('click', '#btn_search', function(e){
+        console.log('submitting')
+        e.preventDefault();
+        if($('#frm_search').val().trim() === ''){
+            showNotification('Please enter a search value', 'danger');
+        }else{
+            window.location.href = '/search/' + $('#frm_search').val();
+        }
+    });
+    $(document).on('submit', '#search_form', function(e){
+        console.log('submitting')
         e.preventDefault();
         if($('#frm_search').val().trim() === ''){
             showNotification('Please enter a search value', 'danger');

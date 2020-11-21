@@ -3,7 +3,7 @@
   {{#if filtered}}
     <div class="product-layout product-results col-sm-12">
       {{#ifCond @root.paginateUrl '==' 'category'}}
-      <h1>{{ @root.__ "Category" }}: <strong>{{@root.searchTerm}}</strong></h1>
+      <h1>{{ @root.__ "Category" }}: <strong>{{ @root.searchTerm }}</strong></h1>
       {{else}}
       <h1>{{ @root.__ "Search results" }}: <strong>{{@root.searchTerm}}</strong></h1>
       {{/ifCond}}
