@@ -525,7 +525,6 @@ $(document).ready(function (){
 
     // search button click event
     $(document).on('click', '#btn_search', function(e){
-        console.log('submitting')
         e.preventDefault();
         if($('#frm_search').val().trim() === ''){
             showNotification('Please enter a search value', 'danger');
@@ -533,14 +532,28 @@ $(document).ready(function (){
             window.location.href = '/search/' + $('#frm_search').val();
         }
     });
+
     $(document).on('submit', '#search_form', function(e){
-        console.log('submitting')
         e.preventDefault();
         if($('#frm_search').val().trim() === ''){
             showNotification('Please enter a search value', 'danger');
         }else{
             window.location.href = '/search/' + $('#frm_search').val();
         }
+    });
+
+    /**
+     *  function for navigating to cart
+     */
+    $(document).on('click', '#cart_btn', function(e){
+       window.location.href = '/checkout/cart'
+    });
+
+    /**
+     *  Navigates to customer login
+     */
+    $(document).on('click', '#user_btn', function(e){
+       window.location.href = '/customer/login'
     });
 
     if($('#input_notify_message').val() !== ''){

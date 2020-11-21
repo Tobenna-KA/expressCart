@@ -226,23 +226,39 @@
                 <div class="mobile-nav-button">
                     <button id="trigger-overlay" type="button"><i class="fa fa-bars" aria-hidden="true"></i></button>
                 </div>
+                <!--User Account-->
+                {{#if @root.session.customerPresent}}
+                    <div class="top_nav_right"  style="right: 7%">
+                        <button class="top_shoe_cart dropdown-toggle" type="button" name="submit" id="dropdownMenuButton" value="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-language" aria-hidden="true"></i>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li>
+                                <a class="dropdown-item" href="/customer/account">Account</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="/customer/logout">Logout</a>
+                            </li>
+                        </div>
+                    </div>
+                {{else}}
+                <div class="top_nav_right"  style="right: 7%">
+                    <div class="shoecart shoecart2 cart cart box_1">
+                        <button class="top_shoe_cart" type="submit" name="submit" id="user_btn" value=""><i class="fa fa-user" aria-hidden="true"></i></button>
+                    </div>
+                </div>
+                {{/if}}
+
                 <!-- cart details -->
+                {{#if @root.session.cart}}
                 <div class="top_nav_right">
                     <div class="shoecart shoecart2 cart cart box_1">
-                        <form action="#" method="post" class="last">
-                            <input type="hidden" name="cmd" value="_cart">
-                            <input type="hidden" name="display" value="1">
-                            <button class="top_shoe_cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-                        </form>
+                        <button class="top_shoe_cart" id="cart_btn" type="submit" name="submit" value="">
+                            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                            <span class="badge badge-danger" id="cart-count">{{@root.session.totalCartItems}}</span>
+                        </button>
                     </div>
-
                 </div>
-                <!-- //cart details -->
-                {{#if @root.session.cart}}
-                    <div class="shoecart shoecart2 cart cart box_1">
-                        {{@root.session.totalCartItems}}
-                        <button class="top_shoe_cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down" aria-hidden="true"></i></button>
-                    </div>
                 {{else}}
                     <div class="top_nav_right">
                         <div class="shoecart shoecart2 cart cart box_1">
@@ -254,17 +270,25 @@
                         </div>
                     </div>
                 {{/if}}
+                <!-- //cart details -->
+                <!-- Language -->
                 {{#ifCond @root.config.enableLanguages "!=" false}}
-                    <div class="top_nav_right">
+                    <div class="top_nav_right" style="right: 4%">
                         <div class="shoecart shoecart2 cart cart box_1">
-                            <ul class="cd-header-buttons">
-                                {{#availableLanguages}}
-                                    <li><a class="dropdown-item" href="/lang/{{this}}">{{@root.__ this}}</a></li>
-                                {{/availableLanguages}}
-                            </ul>
+                            <div class="dropdown">
+                                <button class="top_shoe_cart dropdown-toggle" type="button" name="submit" id="dropdownMenuButton" value="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-language" aria-hidden="true"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        {{#availableLanguages}}
+                                            <li><a class="dropdown-item" href="/lang/{{this}}">{{@root.__ this}}</a></li>
+                                        {{/availableLanguages}}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 {{/ifCond}}
+                <!-- //Language -->
                 <!-- search -->
 
                 <div class="search_w3ls_agileinfo">
