@@ -1,157 +1,445 @@
-{{> themes/MarieLyne/front-menu}}
-<div class="product-layout col-sm-8 offset-sm-2">
-    <div class="row">
-        <div class="col-sm-12 col-md-6 mr-auto">
-            {{#if result.productImage}}
-                <div class="title-image-container">
-                    <div class="image-prev image-button"> {{{feather 'chevron-left'}}}</div>
-                    <img src="{{result.productImage}}" id="product-title-image" class="product-title-image img-fluid" alt="...">
-                    <div class="image-next image-button"> {{{feather 'chevron-right'}}}</div>
+<!-- top Products -->
+<link rel="stylesheet" href="/{{config.theme}}/css/flexslider.css" type="text/css" media="screen" />
+<link href="/{{config.theme}}/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css' />
+<div class="ads-grid_shop">
+    <div class="shop_inner_inf">
+        <div class="col-md-4 single-right-left ">
+            <div class="grid images_3_of_2">
+                <div class="flexslider">
+                    <ul class="slides">
+                        {{#if result.productImage}}
+                            <li data-thumb="{{result.productImage}}">
+                                <div class="thumb-image"> <img src="{{result.productImage}}" data-imagezoom="true" class="img-responsive"> </div>
+                            </li>
+                        {{else}}
+                            <li data-thumb="/uploads/placeholder.png">
+                                <div class="thumb-image"> <img src="/uploads/placeholder.png" data-imagezoom="true" class="img-responsive"> </div>
+                            </li>
+                        {{/if}}
+                        {{#ifCond @root.images.length '>' 1}}
+                            {{#each @root.images}}
+                                <li data-thumb="{{this.path}}">
+                                    <div class="thumb-image"> <img src="{{this.path}}" data-imagezoom="true" class="img-responsive"> </div>
+                                </li>
+                            {{/each}}
+                        {{/ifCond}}
+                    </ul>
+                    <div class="clearfix"></div>
                 </div>
-            {{else}}
-                <div class="title-image-container">
-                    <img src="/uploads/placeholder.png" id="product-title-image" class="product-title-image img-fluid" alt="...">
-                </div>
-            {{/if}}
-            {{#ifCond @root.images.length '>' 1}}
-                <div class="row">
-                {{#each @root.images}}
-                    <div class="vertical-center top-pad-20 col-6">
-                        <img src="{{this.path}}" class="thumbnail-image img-fluid">
-                    </div>
-                {{/each}}
-                </div>
-            {{/ifCond}}
+            </div>
         </div>
-        <div class="col-sm-12 col-md-6 ml-auto">
-            <div class="row">
-                <h1 class="col-md-10 product-title text-truncate">{{result.productTitle}}</h1>
-                {{#if variants}}
-                    <h4 class="col-md-10 product-price mp-0">{{currencySymbol config.currencySymbol}}{{variants.0.price}}</h4>
-                {{else}}
-                    <h4 class="col-md-10 product-price mp-0">{{currencySymbol config.currencySymbol}}{{result.productPrice}}</h4>
-                {{/if}}
-                {{#if variants}}
-                    <h4 class="col-md-10 product-option">{{ @root.__ "Options" }}</h4>
-                    <div class="col-md-10">
-                        <select id="product_variant" class="form-control">
-                        {{#each variants}}
-                            <option value="{{this._id}}" data-price="{{this.price}}">{{this.title}}</option>
-                        {{/each}}
+        <div class="col-md-8 single-right-left simpleCart_shelfItem">
+            <h3>{{result.productTitle}}</h3>
+            {{#if variants}}
+                <p><span class="item_price">{{currencySymbol config.currencySymbol}}{{variants.0.price}}</span>
+<!--                    <del>$1,199</del>-->
+                </p>
+            {{else}}
+                <p><span class="item_price">{{currencySymbol config.currencySymbol}}{{result.productPrice}}</span>
+                    <!--                    <del>$1,199</del>-->
+                </p>
+            {{/if}}
+
+            <div class="rating1">
+                <div class="d-inline-block align-middle">{{{ @root.reviews.ratingHtml }}}</div>
+            </div>
+
+            <div class="description">
+                <h5>Check delivery, payment options and charges at your location</h5>
+                <form action="#" method="post">
+                    <input type="text" value="Enter pincode" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter pincode';}"
+                           required="">
+                    <input type="submit" value="Check">
+                </form>
+            </div>
+            {{#if variants}}
+                <!--<div class="occasional">
+                    <h5>Types :</h5>
+                    <div class="colr ert">
+                        <label class="radio"><input type="radio" name="radio" checked=""><i></i>Casual Shoes</label>
+                    </div>
+                    <div class="colr">
+                        <label class="radio"><input type="radio" name="radio"><i></i>Sneakers </label>
+                    </div>
+                    <div class="colr">
+                        <label class="radio"><input type="radio" name="radio"><i></i>Formal Shoes</label>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>-->
+                <div class="color-quality">
+                    <div class="color-quality-right">
+                        <h5>{{ @root.__ "Options" }}: </h5>
+                        <select id="product_variant" class="frm-field required sect">
+                            {{#each variants}}
+                                <option value="{{this._id}}" data-price="{{this.price}}">{{this.title}}</option>
+                            {{/each}}
                         </select>
                     </div>
-                {{/if}}
-                {{#if config.trackStock}}
-                    {{#ifCond result.productStock '==' 0}}
+                </div>
+            {{/if}}
+            <div class="description">
+                <p class="product-option-text">{{ @root.__ "Quantity" }}</p>
+                <input type="submit" value="-" class="qty-btn-minus btn btn-primary ">
+                <input type="number" id="product_quantity" maxlength="3" value="1" required="" />
+                <input type="submit" value="+" class="btn btn-primary qty-btn-plus">
+            </div>
+
+            {{#if config.trackStock}}
+                {{#ifCond result.productStock '==' 0}}
                     <div class="col-md-10">
                         <h4 class="text-danger text-center">
                             Out of stock
                         </h4>
                     </div>
-                    {{/ifCond}}
-                {{/if}}
-                <div class="col-md-10 productOptions">
-                    <p class="product-option-text">{{ @root.__ "Quantity" }}</p>
-                    <div class="input-group">
-                        <div class="input-group-prepend">
-                            <button class="btn btn-primary qty-btn-minus" type="button">-</button>
-                        </div>
-                        <input type="number" class="form-control add-color text-center" id="product_quantity" maxlength="3" value="1">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary qty-btn-plus" type="button">+</button>
+                {{ else }}
+                    <div class="occasion-cart">
+                        <div class="shoe single-item single_page_b">
+                            <input type="submit" name="submit" value="{{ @root.__ "Add to cart" }}" class="button add product-add-to-cart">
                         </div>
                     </div>
+                {{/ifCond}}
+            {{ else }}
+                <div class="occasion-cart">
+                    <div class="shoe single-item single_page_b">
+                        <input type="submit" name="submit" value="{{ @root.__ "Add to cart" }}" class="button add product-add-to-cart">
+                    </div>
                 </div>
-                {{#if result.productComment}}
-                <div class="col-md-10">
-                    {{ @root.__ "Leave a comment?" }}
-                    <textarea class="form-control" id="product_comment"></textarea>
-                </div>
-                {{/if}}
-                <div class="col-md-10 btnAddToCart">
-                    <button class="btn btn-primary btn-block product-add-to-cart" type="button">{{ @root.__ "Add to cart" }}</button>
-                </div>
-                <div class="col-md-10 body_text">
-                    {{{fixTags result.productDescription}}}
-                </div>
-                {{#if @root.config.modules.enabled.reviews}}
-                <div class="col-md-10 mb-3">
-                    <button class="btn btn-warning" id="add-review">Add review</button>
-                    <div class="d-inline-block align-middle">{{{@root.reviews.ratingHtml}}}</div>
-                    {{#if @root.reviews.reviews}}
-                    <a href="#collapseReviews" data-toggle="collapse" class="d-inline-block align-middle ml-3">Recent reviews</a>
-                    {{/if}}
-                </div>
-                <div class="col-md-10">
-                    <ul class="list-group collapse" id="collapseReviews">
-                    {{#each @root.reviews.reviews}}
-                        <li class="list-group-item">
-                            <p class="text-muted small text-right">{{timeAgo this.date}}</p>
-                            <p><b>Rating:</b> {{this.rating}}</p>
-                            <p><b>Title:</b> {{this.title}}</p>
-                            <p><b>Description:</b> {{this.description}}</p>
-                        </li>
-                    {{/each}}
-                    </ul>
-                </div>
-                {{/if}}
-            </div>
+            {{/if}}
+
+            <!--<ul class="social-nav model-3d-0 footer-social social single_page">
+                <li class="share">Share On : </li>
+                <li>
+                    <a href="#" class="facebook">
+                        <div class="front"><i class="fa fa-facebook" aria-hidden="true"></i></div>
+                        <div class="back"><i class="fa fa-facebook" aria-hidden="true"></i></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="twitter">
+                        <div class="front"><i class="fa fa-twitter" aria-hidden="true"></i></div>
+                        <div class="back"><i class="fa fa-twitter" aria-hidden="true"></i></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="instagram">
+                        <div class="front"><i class="fa fa-instagram" aria-hidden="true"></i></div>
+                        <div class="back"><i class="fa fa-instagram" aria-hidden="true"></i></div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" class="pinterest">
+                        <div class="front"><i class="fa fa-linkedin" aria-hidden="true"></i></div>
+                        <div class="back"><i class="fa fa-linkedin" aria-hidden="true"></i></div>
+                    </a>
+                </li>
+            </ul>-->
         </div>
-    </div>
-    {{#if config.showRelatedProducts}}
-        {{#if relatedProducts}}
-        <div class="col-sm-12 mt-5">
-            <h4>Related products</h4>
-            <div class="row">
-                {{#each relatedProducts}}
-                <div class="col-md-3">
-                    <div>
-                        {{#if productPermalink}}
-                            <div class="product-wrapper">
-                                <a href="/product/{{this.productPermalink}}">
-                                    <div class="vertical-center img-thumbnail">
-                                        {{#if productImage}}
-                                            <img class="img-fluid" src="{{this.productImage}}" alt="...">
-                                        {{else}}
-                                            <img class="img-fluid" src="/uploads/placeholder.png" alt="...">
-                                        {{/if}}
-                                    </div>
-                                    <h3 class="product-title product-title-home top-pad-10">
-                                        {{this.productTitle}}
-                                    </h3>
-                                </a>
-                            </div>
-                        {{else}}
-                            <a href="/product/{{this._id}}">
-                                <div class="vertical-center img-thumbnail">
-                                    {{#if productImage}}
-                                        <img class="img-fluid" src="{{this.productImage}}" alt="...">
-                                    {{else}}
-                                        <img class="img-fluid" src="/uploads/placeholder.png" alt="...">
-                                    {{/if}}
+        <div class="clearfix"> </div>
+        <!--/tabs-->
+        <div class="responsive_tabs">
+            <div id="horizontalTab">
+                <ul class="resp-tabs-list">
+                    <li>Description</li>
+                    {{#if @root.config.modules.enabled.reviews}}<li>Reviews</li> {{/if}}
+                    <li>Information</li>
+                </ul>
+                <div class="resp-tabs-container">
+                    <!--/tab_one-->
+                    <div class="tab1">
+
+                        <div class="single_page">
+                            {{{fixTags result.productDescription}}}
+                        </div>
+                    </div>
+                    <!--//tab_one-->
+                    {{#if @root.config.modules.enabled.reviews}}
+                    <div class="tab2">
+
+                        <div class="single_page">
+                            <div class="bootstrap-tab-text-grids">
+                                {{#each @root.reviews.reviews}}
+                                    <li class="list-group-item">
+                                        <p class="text-muted small text-right">{{timeAgo this.date}}</p>
+                                        <p><b>Rating:</b> {{this.rating}}</p>
+                                        <p><b>Title:</b> {{this.title}}</p>
+                                        <p><b>Description:</b> {{this.description}}</p>
+                                    </li>
+                                {{/each}}
+                                <div class="add-review">
+                                    <h4>add a review</h4>
+                                     <input type="submit" id="add-review" value="AND">
                                 </div>
-                                <h3 class="product-title product-title-home top-pad-10">
-                                    {{this.productTitle}}
-                                </h3>
-                            </a>
+                            </div>
+
+                        </div>
+                    </div>
                         {{/if}}
-                        <h3 class="product-price mp-0 text-center">
-                            {{currencySymbol ../config.currencySymbol}}{{formatAmount productPrice}}
-                        </h3>
-                        <p class="text-center">
-                            {{#if productPermalink}}
-                            <a class="btn btn-primary" href="/product/{{this.productPermalink}}">{{ @root.__ "View" }}</a>
-                            {{else}}
-                            <a class="btn btn-primary" href="/product/{{this._id}}">{{ @root.__ "View" }}</a>
-                            {{/if}}
-                        </p>
+                    <div class="tab3">
+
+                        <div class="single_page">
+                            <h6>Shoe Rock Vision(SRV) Sneakers (Blue)</h6>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elPellentesque vehicula augue eget nisl ullamcorper, molestie
+                                blandit ipsum auctor. Mauris volutpat augue dolor.Consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                                ut lab ore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. labore et dolore
+                                magna aliqua.</p>
+                            <p class="para">Lorem ipsum dolor sit amet, consectetur adipisicing elPellentesque vehicula augue eget nisl ullamcorper, molestie
+                                blandit ipsum auctor. Mauris volutpat augue dolor.Consectetur adipisicing elit, sed do eiusmod tempor incididunt
+                                ut lab ore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. labore et dolore
+                                magna aliqua.</p>
+                        </div>
                     </div>
                 </div>
-                {{/each}}
             </div>
         </div>
-        {{/if}}
-    {{/if}}
+        <!--//tabs-->
+        <!-- /new_arrivals -->
+        <div class="new_arrivals">
+            <h3>Featured Products</h3>
+            <!-- /womens -->
+            <div class="col-md-3 product-men women_two">
+                <div class="product-shoe-info shoe">
+                    <div class="men-pro-item">
+                        <div class="men-thumb-item">
+                            <img src="../images/s4.jpg" alt="">
+                            <div class="men-cart-pro">
+                                <div class="inner-men-cart-pro">
+                                    <a href="single.html" class="link-product-add-cart">Quick View</a>
+                                </div>
+                            </div>
+                            <span class="product-new-top">New</span>
+                        </div>
+                        <div class="item-info-product">
+                            <h4>
+                                <a href="single.html">Shuberry Heels </a>
+                            </h4>
+                            <div class="info-product-price">
+                                <div class="grid_meta">
+                                    <div class="product_price">
+                                        <div class="grid-price ">
+                                            <span class="money ">$575.00</span>
+                                        </div>
+                                    </div>
+                                    <ul class="stars">
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="shoe single-item hvr-outline-out">
+                                    <form action="#" method="post">
+                                        <input type="hidden" name="cmd" value="_cart">
+                                        <input type="hidden" name="add" value="1">
+                                        <input type="hidden" name="shoe_item" value="Shuberry Heels">
+                                        <input type="hidden" name="amount" value="575.00">
+                                        <button type="submit" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
+
+                                        <a href="#" data-toggle="modal" data-target="#myModal1"></a>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 product-men women_two">
+                <div class="product-shoe-info shoe">
+                    <div class="men-pro-item">
+                        <div class="men-thumb-item">
+                            <img src="../images/s5.jpg" alt="">
+                            <div class="men-cart-pro">
+                                <div class="inner-men-cart-pro">
+                                    <a href="single.html" class="link-product-add-cart">Quick View</a>
+                                </div>
+                            </div>
+                            <span class="product-new-top">New</span>
+                        </div>
+                        <div class="item-info-product">
+                            <h4>
+                                <a href="single.html">Red Bellies </a>
+                            </h4>
+                            <div class="info-product-price">
+                                <div class="grid_meta">
+                                    <div class="product_price">
+                                        <div class="grid-price ">
+                                            <span class="money ">$325.00</span>
+                                        </div>
+                                    </div>
+                                    <ul class="stars">
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="shoe single-item hvr-outline-out">
+                                    <form action="#" method="post">
+                                        <input type="hidden" name="cmd" value="_cart">
+                                        <input type="hidden" name="add" value="1">
+                                        <input type="hidden" name="shoe_item" value="Red Bellies">
+                                        <input type="hidden" name="amount" value="325.00">
+                                        <button type="submit" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
+
+                                        <a href="#" data-toggle="modal" data-target="#myModal1"></a>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 product-men women_two">
+                <div class="product-shoe-info shoe">
+                    <div class="men-pro-item">
+                        <div class="men-thumb-item">
+                            <img src="../images/s7.jpg" alt="">
+                            <div class="men-cart-pro">
+                                <div class="inner-men-cart-pro">
+                                    <a href="single.html" class="link-product-add-cart">Quick View</a>
+                                </div>
+                            </div>
+                            <span class="product-new-top">New</span>
+                        </div>
+                        <div class="item-info-product">
+                            <h4>
+                                <a href="single.html">Running Shoes</a>
+                            </h4>
+                            <div class="info-product-price">
+                                <div class="grid_meta">
+                                    <div class="product_price">
+                                        <div class="grid-price ">
+                                            <span class="money ">$875.00</span>
+                                        </div>
+                                    </div>
+                                    <ul class="stars">
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="shoe single-item hvr-outline-out">
+                                    <form action="#" method="post">
+                                        <input type="hidden" name="cmd" value="_cart">
+                                        <input type="hidden" name="add" value="1">
+                                        <input type="hidden" name="shoe_item" value="Running Shoes">
+                                        <input type="hidden" name="amount" value="875.00">
+                                        <button type="submit" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
+
+                                        <a href="#" data-toggle="modal" data-target="#myModal1"></a>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 product-men women_two">
+                <div class="product-shoe-info shoe">
+                    <div class="men-pro-item">
+                        <div class="men-thumb-item">
+                            <img src="../images/s8.jpg" alt="">
+                            <div class="men-cart-pro">
+                                <div class="inner-men-cart-pro">
+                                    <a href="single.html" class="link-product-add-cart">Quick View</a>
+                                </div>
+                            </div>
+                            <span class="product-new-top">New</span>
+                        </div>
+                        <div class="item-info-product">
+                            <h4>
+                                <a href="single.html">Sukun Casuals</a>
+                            </h4>
+                            <div class="info-product-price">
+                                <div class="grid_meta">
+                                    <div class="product_price">
+                                        <div class="grid-price ">
+                                            <span class="money ">$505.00</span>
+                                        </div>
+                                    </div>
+                                    <ul class="stars">
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+                                        <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+                                    </ul>
+                                </div>
+                                <div class="shoe single-item hvr-outline-out">
+                                    <form action="#" method="post">
+                                        <input type="hidden" name="cmd" value="_cart">
+                                        <input type="hidden" name="add" value="1">
+                                        <input type="hidden" name="shoe_item" value="Sukun Casuals">
+                                        <input type="hidden" name="amount" value="505.00">
+                                        <button type="submit" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
+
+                                        <a href="#" data-toggle="modal" data-target="#myModal1"></a>
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- //womens -->
+            <div class="clearfix"></div>
+        </div>
+        <!--//new_arrivals-->
+
+
+    </div>
 </div>
+<!-- //top products -->
+{{> themes/MarieLyne/bottom-carousel}}
 <input type="hidden" id="productId" value="{{result._id}}">
 <input type="hidden" id="currencySymbol" value="{{currencySymbol config.currencySymbol}}">
+<script src="/{{ config.theme }}/js/imagezoom.js"></script>
+<!-- single -->
+<!-- script for responsive tabs -->
+<script src="/{{ config.theme }}/js/easy-responsive-tabs.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#horizontalTab').easyResponsiveTabs({
+            type: 'default', //Types: default, vertical, accordion
+            width: 'auto', //auto or any width like 600px
+            fit: true, // 100% fit in a container
+            closed: 'accordion', // Start closed if in accordion view
+            activate: function (event) { // Callback function if tab is switched
+                var $tab = $(this);
+                var $info = $('#tabInfo');
+                var $name = $('span', $info);
+                $name.text($tab.text());
+                $info.show();
+            }
+        });
+        $('#verticalTab').easyResponsiveTabs({
+            type: 'vertical',
+            width: 'auto',
+            fit: true
+        });
+    });
+</script>
+<!-- FlexSlider -->
+<script src="/{{ config.theme }}/js/jquery.flexslider.js"></script>
+<script>
+    // Can also be used with $(document).ready()
+    $(window).on('load', function () {
+        $('.flexslider').flexslider({
+            animation: "slide",
+            controlNav: "thumbnails"
+        });
+    });
+</script>
+<!-- //FlexSlider-->
