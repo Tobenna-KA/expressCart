@@ -977,7 +977,15 @@ button.shoe-cart:hover {
 }
 .description input[type='text'] {
   padding: 8px 8px;
-  color: #ccc;
+  color: #cccccc;
+  font-size: 13px;
+  width: 45%;
+  outline: none;
+  letter-spacing: 1px;
+}
+.description input[type='number'] {
+  padding: 8px 8px;
+  color: #000000;
   font-size: 13px;
   width: 45%;
   outline: none;
