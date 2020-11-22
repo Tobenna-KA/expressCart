@@ -1365,9 +1365,10 @@ router.get('/:page?', async (req, res, next) => {
         }
 
         // Fetch instagram posts from username
-        getInstagramPosts('naijabraids_')
+        getInstagramPosts('marielyne_beauty')
           .then((posts) => {
-            const instafeed = posts.splice(0, 3);
+
+            const instaFeed = posts.splice(0, 3);
 
             res.render(`${config.themeViews}index`, {
               title: `${config.cartTitle} - Shop`,
@@ -1384,7 +1385,8 @@ router.get('/:page?', async (req, res, next) => {
               helpers: req.handlebars.helpers,
               showFooter: 'showFooter',
               menu: sortMenu(menu),
-              instafeed,
+              instaFeed: instaFeed,
+              instaPosts: posts
             });
           })
           .catch((err) => {

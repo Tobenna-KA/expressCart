@@ -159,7 +159,7 @@ td.invert-image a img {
 
 .checkout-left-basket h4 {
 	padding: 1em;
-	background: #fb383b;
+	background: #d9ab73;
 	font-size: 1em;
 	color: #fff;
 	text-transform: uppercase;
@@ -211,7 +211,7 @@ td.invert-image a img {
 }
 
 .checkout-right-basket a:hover {
-	    background: #fb383b;
+	    background: #d9ab73;
 }
 
 .checkout-right-basket a span {
@@ -392,8 +392,8 @@ input.checkbox:checked:after {
 }
 
 .pay_info input[type="submit"]:hover {
-	background: #fb383b;
-	border: 1px solid #fb383b;
+	background: #d9ab73;
+	border: 1px solid #d9ab73;
 }
 
 .agileinfo_main_grid_left_grid h3 {

@@ -127,7 +127,7 @@ ul.top_icons li a {
     font-size:14px;
 }
 ul.top_icons li a:hover {
-    color: #fb383b;
+    color: #d9ab73;
 }
 .top_nav_right {
     width: 17%;
@@ -718,7 +718,7 @@ li.dropdown.act a.w3_icons_act {
 }
 
 .callbacks_here a:after {
-	background: #fb383b;
+	background: #d9ab73;
 }
 /*-- //slider --*/
 /*--/ grids_bottom --*/
@@ -791,7 +791,7 @@ li.dropdown.act a.w3_icons_act {
 .style-image-1_info {
     padding: 7em 5em;
     height: 321px;
-    background: #fb383b;
+    background: #d9ab73;
 }
 .style-grid-2-text_info h3 {
     font-size: 30px;
@@ -841,13 +841,13 @@ li.dropdown.act a.w3_icons_act {
 
 .grid_sec_info {
     padding: 7em 5em;
-    background: #fb383b;
+    background: #d9ab73;
 }
 .grid_sec_info.last {
     background: #0a0a0a;
 }
 .shop-button.two a {
-    background: #fb383b;
+    background: #d9ab73;
 }
 button.top_shoe_cart {
     font-size: 1.2em;
@@ -925,7 +925,7 @@ button.top_shoe_cart {
 
 }
 .mid_slider_w3lsagile{
-    background: #fb383b;
+    background: #d9ab73;
 }
 .mid_slider_text h5 {
     font-size: 23px;
@@ -976,7 +976,7 @@ button.top_shoe_cart {
     margin: 0 0 0 -4px;
     font-weight: 600;
     letter-spacing: 1px;
-    background: #fb383b;
+    background: #d9ab73;
 	color:#fff;
 }
 .newsright input[type="submit"]:hover{
@@ -1065,7 +1065,7 @@ ul.social-nav.model-3d-0.footer-social.social.two {
     color: #565656;
 }
 .address-right p a{
-    color: #fb383b;
+    color: #d9ab73;
     text-decoration: none;
 }
 .address-right p a:hover{
@@ -1242,7 +1242,7 @@ ul.short li {
     padding: 0 1.5em;
 }
 ul.short li a {
-    color: #fb383b;
+    color: #d9ab73;
     text-decoration: none;
 }
 .inner_section_w3ls {
@@ -1313,7 +1313,7 @@ p.head_para {
 		padding: 13px 0;
 		text-align: center;
 		text-decoration: none;
-	    background: #fb383b;
+	    background: #d9ab73;
 		-webkit-transition: 0.5s all;
 		-moz-transition: 0.5s all;
 		-o-transition: 0.5s all;

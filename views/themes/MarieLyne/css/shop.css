@@ -333,7 +333,7 @@ p.sbmincart-empty-text {
 }
 
 .product-new-top {
-    background: #fb383b;
+    background: #d9ab73;
     color: #fff;
     right: 0;
     position: absolute;
@@ -408,7 +408,7 @@ span.money {
 }
 
 .inner-men-cart-pro ul li a:hover {
-	background: #ffc229 none repeat scroll 0 0;
+	background: #d9ab73 none repeat scroll 0 0;
 }
 
 .inner-men-cart-pro .link-product-add-cart {
@@ -425,7 +425,7 @@ span.money {
 }
 
 .link-product-add-cart:hover {
-    background: #fb383b;
+    background: #d9ab73;
 	color: #fff;
 }
 
@@ -440,9 +440,13 @@ ul.stars li a {
 	color:#333;
 }
 ul.stars li a:hover {
-	color:#fb383b;
+	color:#d9ab73;
 }
 .product-shoe-info {
+    padding: 15px;
+    border: 1px solid #e4e4e4;
+}
+.ig-card {
     padding: 15px;
     border: 1px solid #e4e4e4;
 }
@@ -832,13 +836,13 @@ button.shoe-cart {
     height: 34px;
 }
 button.shoe-cart:hover {
-	    background: #fb383b;
+	    background: #d9ab73;
 }
 /*-- single-page --*/
 .single-right-left h3 {
     text-transform: capitalize;
     font-size: 23px;
-    color: #fb383b;
+    color: #d9ab73;
     margin: 0;
     letter-spacing: 1px;
     font-weight: 600;
@@ -904,7 +908,7 @@ color: #000;
     text-transform: uppercase;
 }
 .description input[type="submit"]:hover{
-    background: #fb383b;
+    background: #d9ab73;
 }
 .occasion-cart a{
     padding: 8px 20px;
@@ -949,7 +953,7 @@ color: #000;
 }
 .bootstrap-tab-text-grid-right ul li a{
     font-size: 1em;
-    color: #fb383b;
+    color: #d9ab73;
     text-transform: uppercase;
     text-decoration: none;
     font-weight: 600;
@@ -999,7 +1003,7 @@ color: #000;
 .add-review input[type="submit"]{
     outline: none;
     padding: 14px 0;
-    background: #fb383b;
+    background: #d9ab73;
     border: none;
     width: 20%;
     font-size: 1em;
@@ -1011,7 +1015,7 @@ color: #000;
     background: #000;
 }
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-    background-color: #fb383b;
+    background-color: #d9ab73;
 	color:#fff;
 }
 .product-men.single {
@@ -1134,6 +1138,12 @@ input.button.add {
 	.product-shoe-info {
 		padding: 15px;
 		width: 47%;
+		margin: 0.5em;
+		float: left;
+	}
+	.ig-card {
+		padding: 15px;
+		width: 100%;
 		margin: 0.5em;
 		float: left;
 	}
