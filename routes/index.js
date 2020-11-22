@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const bodyParser = require('body-parser');
+router.use(bodyParser.json());
 const colors = require('colors');
 const stripHtml = require('string-strip-html');
 const moment = require('moment');
@@ -28,6 +30,7 @@ const countryList = getCountryList();
 
 // *** INSTAGRAM FETCH FUNCTION ***
 const getInstagramPosts = require('../lib/instagram');
+const { filter, indexOf } = require('lodash');
 
 // Example of how you can add new pages
 router.get('/example', (req, res) => {
@@ -136,14 +139,107 @@ router.get('/shop', (req, res) => {
       return;
     }
 
+    const categories = results.data.map((product) => {
+      if (product.productTags.indexOf(',') >= 0) {
+        // console.log('*******************************');
+        const cats = product.productTags.split(', ');
+        return cats;
+      } else {
+        return product.productTags;
+      }
+    });
+    const productCategories = [...new Set(categories.flat())];
+
     res.render(file_to_render, {
       session: req.session,
       helpers: req.handlebars.helpers,
       results: results.data,
       config: req.app.config,
       menu: sortMenu(menu),
+      categories: productCategories,
     });
   });
+});
+
+// SHOP FILTER ROUTE
+
+// Filter route gets filter criteria through url
+router.get('/shop/filter/:minPrice/:maxPrice/:categories', (req, res) => {
+  const filterObj = req.params;
+
+  // Creating category regex.
+
+  // const filterCategories = filterObj.categories.split('-');
+
+  // let catRegexStr = '';
+  // filterCategories.map((cat, i) => {
+  //   if (i < filterCategories.length - 1) catRegexStr += `${cat}|`;
+  //   else catRegexStr += `${cat}`;
+  // });
+
+  // const categoriesFilterRegex = new RegExp(`/${catRegexStr}/`);
+
+  const db = req.app.db;
+  const config = req.app.config;
+  const numberProducts = config.productsPerPage ? config.productsPerPage : 6;
+  let pageNum = 1;
+  if (req.params.pageNum) {
+    pageNum = req.params.pageNum;
+  }
+
+  // DB Find price
+  db.products
+    .find({
+      $and: [
+        { productPrice: { $lte: filterObj.maxPrice } },
+        { productPrice: { $gte: filterObj.minPrice } },
+      ],
+    })
+    .toArray((err, productsList) => {
+      if (err) {
+        console.log(colors.red(`Error filtering products ${err}`));
+      }
+
+      Promise.all([
+        // Paginate function not working
+        paginateProducts(
+          true,
+          db,
+          pageNum,
+          { _id: { $in: productsList } },
+          getSort()
+        ),
+        getMenu(db),
+      ])
+        .then(([results, menu]) => {
+          // If JSON query param return json instead
+          if (req.query.json === 'true') {
+            res.status(200).json(results.data);
+            return;
+          }
+          // Page not rerendering
+          res.render(`${config.themeViews}shop`, {
+            title: 'Shop',
+            results: productsList,
+            session: req.session,
+            message: clearSessionValue(req.session, 'message'),
+            messageType: clearSessionValue(req.session, 'messageType'),
+            productsPerPage: numberProducts,
+            totalProductCount: productsList.length,
+            pageNum: pageNum,
+            paginateUrl: 'search',
+            config: config,
+            menu: sortMenu(menu),
+            helpers: req.handlebars.helpers,
+            showFooter: 'showFooter',
+          });
+        })
+        .catch((err) => {
+          console.error(colors.red('Error searching for products', err));
+        });
+    });
+
+  return;
 });
 
 // Store Route

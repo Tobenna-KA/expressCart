@@ -34,6 +34,7 @@
     <!-- //tittle heading -->
     <!-- product left -->
     <div class="side-bar col-md-3">
+      <button type="button" class="btn btn-sm btn-lg btn-block filter-btn" id="filter-btn">Filter</button>
       <div class="search-hotel">
         {{!-- <h3 class="agileits-sear-head">Search Here..</h3> --}}
         <form action="#" method="post">
@@ -42,38 +43,47 @@
         </form>
       </div>
       <!-- price range -->
-      {{!-- <div class="range">
+      <div class="range">
         <h3 class="agileits-sear-head">Price range</h3>
-        <ul class="dropdown-menu6">
-          <li>
+        <div class="price-range-values">
+          <div class="min-value"></div>
+          <div class="max-value"></div>
+        </div>
+        <div class="row">
+          <div class="range-slider" data-min='20000' data-max='100000' data-step="10">
+            <div class="slider-track">
+              <span class='slider-track-filled'></span>
+            </div>
+            <div class="min-thumb"></div>
+            <div class="max-thumb"></div>
+          </div>
+        </div>
 
-            <div id="slider-range"></div>
-            <input type="text" id="amount" style="border: 0; color: #ffffff; font-weight: normal;" />
-          </li>
-        </ul>
-      </div> --}}
+      </div>
       <!-- //price range -->
       <!--preference -->
-      <div class="left-side">
+      <div class="left-side" id="categories-filter">
         <h3 class="agileits-sear-head">Categories</h3>
-        <ul>
-          <li>
-            <input type="checkbox" class="checked">
-            <span class="span">Casuals</span>
-          </li>
-          <li>
-            <input type="checkbox" class="checked">
-            <span class="span">Party</span>
-          </li>
-          <li>
-            <input type="checkbox" class="checked">
-            <span class="span">Wedding</span>
-          </li>
-          <li>
-            <input type="checkbox" class="checked">
-            <span class="span">Ethnic</span>
-          </li>
-        </ul>
+        {{#each categories}}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
+          <label class="form-check-label" for="{{this}}">
+            {{this}}
+          </label>
+        </div>
+        {{/each}}
+        {{!-- <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="straight" id="defaultCheck2">
+          <label class="form-check-label" for="defaultCheck2">
+            Straight
+          </label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="boss" id="defaultCheck3">
+          <label class="form-check-label" for="defaultCheck3">
+            Boss
+          </label>
+        </div> --}}
       </div>
       <!-- // preference -->
       <!-- discounts -->
@@ -109,115 +119,17 @@
       <!-- //discounts -->
       <!-- reviews -->
       <div class="customer-rev left-side">
-        <h3 class="agileits-sear-head">Customer Review</h3>
-        <ul>
-          <li>
-            <a href="#">
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <span>5.0</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-              <span>4.0</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star-half-o" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-              <span>3.5</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-              <span>3.0</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star" aria-hidden="true"></i>
-              <i class="fa fa-star-half-o" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-              <i class="fa fa-star-o" aria-hidden="true"></i>
-              <span>2.5</span>
-            </a>
-          </li>
-        </ul>
+        <h3 class="agileits-sear-head">Minimum Rating</h3>
+        <select class="rating-select" id="rating-select">
+          <option value="1">One star</option>
+          <option value="2">Two stars</option>
+          <option value="3">Three stars</option>
+          <option value="4">Four stars</option>
+          <option value="5">Five stars</option>
+        </select>
       </div>
       <!-- //reviews -->
       <!-- deals -->
-      <div class="deal-leftmk left-side">
-        <h3 class="agileits-sear-head">Special Deals</h3>
-        <div class="special-sec1">
-          <div class="col-xs-4 img-deals">
-            <img src="images/s4.jpg" alt="">
-          </div>
-          <div class="col-xs-8 img-deal1">
-            <h3>Shuberry Heels</h3>
-            <a href="single.html">$180.00</a>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-        <div class="special-sec1">
-          <div class="col-xs-4 img-deals">
-            <img src="images/s2.jpg" alt="">
-          </div>
-          <div class="col-xs-8 img-deal1">
-            <h3>Chikku Loafers</h3>
-            <a href="single.html">$99.00</a>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-        <div class="special-sec1">
-          <div class="col-xs-4 img-deals">
-            <img src="images/s1.jpg" alt="">
-          </div>
-          <div class="col-xs-8 img-deal1">
-            <h3>Bella Toes</h3>
-            <a href="single.html">$165.00</a>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-        <div class="special-sec1">
-          <div class="col-xs-4 img-deals">
-            <img src="images/s5.jpg" alt="">
-          </div>
-          <div class="col-xs-8 img-deal1">
-            <h3>Red Bellies</h3>
-            <a href="single.html">$225.00</a>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-        <div class="special-sec1">
-          <div class="col-xs-4 img-deals">
-            <img src="images/s3.jpg" alt="">
-          </div>
-          <div class="col-xs-8 img-deal1">
-            <h3>(SRV) Sneakers</h3>
-            <a href="single.html">$169.00</a>
-          </div>
-          <div class="clearfix"></div>
-        </div>
-      </div>
       <!-- //deals -->
 
     </div>
@@ -225,13 +137,21 @@
     <!-- product right -->
     <div class="left-ads-display col-md-9">
       <div class="wrapper_top_shop">
-        <div class="col-md-6 shop_left">
-          <img src="images/banner3.jpg" alt="">
-          <h6>40% off</h6>
+        <div class="col-md-6 shop_left discounts">
+          <img src="/images/carousel1.jpg" alt="">
+          <div class="discounts-link">
+            <button>
+              40% OFF
+            </button>
+          </div>
         </div>
-        <div class="col-md-6 shop_right">
-          <img src="images/banner2.jpg" alt="">
-          <h6>50% off</h6>
+        <div class="col-md-6 shop_right discounts">
+          <img src="/images/carousel2.jpg" alt="">
+          <div class="discounts-link">
+            <button>
+              50% OFF
+            </button>
+          </div>
         </div>
         <div class="clearfix"></div>
         <!-- product-sec1 -->
@@ -278,35 +198,50 @@
                     <a href="/products/{{this._id}}">{{this.productTitle}} </a>
                     {{/if}}
                   </h4>
+                  {{#if variants}}
+                  <div class="info-product-price">
+                    {{#if @root.config.showHomepageVariants}}
+                    <select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
+                      {{#each variants}}
+                      <option value="{{this._id}}" data-price="{{this.price}}">
+                        {{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.price}}
+                      </option>
+                      {{/each}}
+                    </select>
+                    {{else}}
+                    <h4 class="product-price mp-0 text-center">
+                      {{currencySymbol @root.config.currencySymbol}}{{formatAmount variants.0.price}}
+                    </h4>
+                    {{/if}}
+                    <div class="buy add-to-cart">
+                      <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                    </div>
+                  </div>
+                  {{else}}
                   <div class="info-product-price">
                     <div class="grid_meta">
                       <div class="product_price">
                         <div class="grid-price ">
-                          <span class="money ">$675.00</span>
+                          <span class="money ">
+                            {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
+                          </span>
                         </div>
                       </div>
-                      {{!-- <ul class="stars">
-                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
-                      </ul> --}}
                     </div>
-                    <div class="shoe single-item hvr-outline-out">
-                      <form action="#" method="post">
-                        <input type="hidden" name="cmd" value="_cart">
-                        <input type="hidden" name="add" value="1">
-                        <input type="hidden" name="shoe_item" value="Bella Toes">
-                        <input type="hidden" name="amount" value="675.00">
-                        <button type="submit" class="shoe-cart pshoe-cart"><i class="fa fa-cart-plus"
-                            aria-hidden="true"></i></button>
-
-                        <a href="#" data-toggle="modal" data-target="#myModal1"></a>
-                      </form>
-
+                    <div class="buy">
+                      {{#if @root.config.showHomepageVariants}}
+                      <a class="add-variant-to-cart" data-id="{{this._id}}" role="button">
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                      </a>
+                      {{else}}
+                      <a class="add-to-cart" data-id="{{this._id}}" data-link="{{this.productPermalink}}"
+                        data-has-variants="{{checkProductVariants this.variants}}" role="button">
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                      </a>
+                      {{/if}}
                     </div>
                   </div>
+                  {{/if}}
                   <div class="clearfix"></div>
                 </div>
               </div>
@@ -323,3 +258,220 @@
     <div class="clearfix"></div>
   </div>
 </div>
+
+<script>
+  var minThumb = document.querySelector(".min-thumb"),
+    maxThumb = document.querySelector(".max-thumb"),
+    minValue = document.querySelector(".min-value"),
+    maxValue = document.querySelector(".max-value"),
+    base = document.querySelector(".range-slider"),
+    values = document.querySelector(".values"),
+    min = Math.floor(parseInt(base.dataset.min) / 1000) * 1000,
+    max = Math.ceil(parseInt(base.dataset.max) / 1000) * 1000,
+    step = parseInt(base.dataset.step) || 1,
+    bar = document.querySelector(".slider-track"),
+    barInner = document.querySelector(".slider-track-filled"),
+    offset,
+    isDown;
+
+  minValue.innerHTML = min;
+  maxValue.innerHTML = max;
+
+  function minMaxThumbMoveStart(e) {
+    if (e.buttons > 1) {
+      return false;
+    }
+
+    if (e.target.classList.contains("min-thumb")) {
+      minThumb.classList.add("min-down");
+    } else if (e.target.classList.contains("max-thumb")) {
+      maxThumb.classList.add("max-down");
+    }
+
+    base.classList.add("move-start");
+    document.addEventListener("mouseup", minMaxThumbMoveEnd);
+    document.addEventListener("mousemove", minMaxThumbMove);
+
+    document.addEventListener("touchstart", minMaxThumbMoveEnd);
+    document.addEventListener("touchmove", minMaxThumbMove);
+  }
+
+  function calculateMinValues(leftPos) {
+    var minVal =
+      leftPos / (bar.offsetWidth - minThumb.offsetWidth) * (max - min) + min;
+    var multi = Math.floor(minVal / step);
+    minVal = step * multi;
+
+    //var minVal = Math.round(leftPos / step) * step + min;
+    minValue.innerHTML = minVal;
+  }
+
+  function calculateMaxValues(leftPos) {
+    var maxVal =
+      leftPos / (bar.offsetWidth - maxThumb.offsetWidth) * (max - min) + min;
+    var multi = Math.floor(maxVal / step);
+    maxVal = step * multi;
+    maxValue.innerHTML = maxVal;
+  }
+
+  function minMaxThumbMove(e) {
+    var mousePosition = {};
+
+    if (base.classList.contains("move-start")) {
+      if (!e.touches) {
+        mousePosition = {
+          x: e.clientX
+        };
+      } else {
+        mousePosition = {
+          x: e.touches[0].clientX
+        };
+      }
+
+      var leftPos = Math.max(
+        0,
+        Math.min(
+          mousePosition.x - base.getBoundingClientRect().left - minThumb.offsetWidth / 2,
+          bar.offsetWidth - minThumb.offsetWidth
+        )
+      );
+
+      var percentage = leftPos / bar.offsetWidth * 100;
+
+      if (minThumb.classList.contains("min-down")) {
+        var cPos = Math.min(
+          percentage,
+          maxThumb.offsetLeft / bar.offsetWidth * 100
+        );
+        minThumb.style.left = cPos + "%";
+        calculateMinValues(cPos * bar.offsetWidth / 100);
+      } else if (maxThumb.classList.contains("max-down")) {
+        var cPos = Math.max(
+          percentage,
+          minThumb.offsetLeft / bar.offsetWidth * 100
+        );
+        maxThumb.style.left = cPos + "%";
+        calculateMaxValues(cPos * bar.offsetWidth / 100);
+      }
+
+      calculateFilledTrackWidth();
+    }
+  }
+
+  function calculateFilledTrackWidth() {
+    barInner.style.marginLeft = minThumb.offsetLeft / bar.offsetWidth * 100 + "%";
+    barInner.style.width =
+      (maxThumb.offsetLeft - minThumb.offsetLeft) / bar.offsetWidth * 100 + "%";
+  }
+
+  function minMaxThumbMoveEnd(e) {
+    base.classList.remove("move-start");
+    minThumb.classList.remove("min-down");
+    maxThumb.classList.remove("max-down");
+
+    document.removeEventListener("mouseup", minMaxThumbMoveEnd);
+    document.removeEventListener("mousemove", minMaxThumbMove);
+
+    document.removeEventListener("touchstart", minMaxThumbMoveEnd);
+    document.removeEventListener("touchmove", minMaxThumbMove);
+  }
+
+  function onSliderTrackClick(e) {
+    var distanceMinThumb = Math.hypot(
+      minThumb.getBoundingClientRect().x - parseInt(e.clientX),
+      minThumb.getBoundingClientRect().y - parseInt(e.clientY)
+    );
+
+    var distanceMaxThumb = Math.hypot(
+      maxThumb.getBoundingClientRect().x - parseInt(e.clientX),
+      maxThumb.getBoundingClientRect().y - parseInt(e.clientY)
+    );
+
+    var leftPos = Math.max(
+      0,
+      Math.min(
+        e.clientX - 30 - minThumb.offsetWidth / 2,
+        bar.offsetWidth - minThumb.offsetWidth
+      )
+    );
+
+    var percentage = leftPos / bar.offsetWidth * 100;
+
+    if (distanceMinThumb < distanceMaxThumb) {
+      minThumb.style.left = percentage + "%";
+      calculateMinValues(leftPos);
+    } else {
+      maxThumb.style.left = percentage + "%";
+      calculateMaxValues(leftPos);
+    }
+
+    calculateFilledTrackWidth();
+  }
+
+  bar.addEventListener("mousedown", onSliderTrackClick);
+
+  document.addEventListener("mousedown", minMaxThumbMoveStart);
+  document.addEventListener("touchstart", minMaxThumbMoveStart);
+
+  document.addEventListener("mouseup", minMaxThumbMoveEnd);
+  document.addEventListener("touchend", minMaxThumbMoveEnd);
+
+  //document.addEventListener("mousemove", minMaxThumbMove);
+  //document.addEventListener("touchmove", minMaxThumbMove);
+
+  const filterBtn = document.querySelector('#filter-btn')
+
+  filterBtn.addEventListener('click', filterProductsOnShop)
+
+  function filterProductsOnShop() {
+    const maxValue = document.querySelector('.max-value').textContent
+    const minValue = document.querySelector('.min-value').textContent
+
+    const categoriesCheckboxes = document.querySelector('#categories-filter')
+    const categoryOptions = categoriesCheckboxes.getElementsByTagName('input');
+    const categoryNames = categoriesCheckboxes.getElementsByTagName('label');
+    const selectedCategories = []
+
+    for (i = 0; i < categoryOptions.length; i++) {
+      if (categoryOptions[i].checked) {
+        selectedCategories.push(categoryOptions[i].value || categoryOptions[i].value);
+      }
+    }
+
+    const rating = document.getElementById('rating-select').value
+
+    const data = {
+      price: {
+        min: minValue,
+        max: maxValue,
+      },
+      categories: selectedCategories,
+      rating
+    }
+
+    let categoryString = ''
+
+    data.categories.forEach((cat, i) => {
+      if (i < data.categories.length - 1) categoryString += `${cat}-`
+      else categoryString += `${cat}`
+    })
+
+    const filterURL = `/shop/filter/${data.price.min}/${data.price.max}/${categoryString}`
+
+    // On create review
+    $('#filter-btn').click(function (e) {
+      e.preventDefault()
+      $.ajax({
+        type: 'GET',
+        url: filterURL,
+        data
+      }).done((response) => {
+        window.location = '/shop/';
+
+      }).fail((response) => {
+        window.location = '/shop/';
+      });
+    });
+  }
+
+</script>

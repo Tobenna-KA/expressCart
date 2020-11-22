@@ -18,13 +18,4 @@ $(document).ready(function () {
     dots: false,
     label: false,
   });
-
-  // *** PRODUCT CARD ***
-  // $('.buy').click(function () {
-  //   $('.bottom').addClass('clicked');
-  // });
-
-  // $('.remove').click(function () {
-  //   $('.bottom').removeClass('clicked');
-  // });
 });
