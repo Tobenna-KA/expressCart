@@ -120,6 +120,32 @@ router.get('/contact-us', (req, res) => {
   });
 });
 
+// Shop Route
+router.get('/shop', (req, res) => {
+  const db = req.app.db;
+  const config = req.app.config;
+  // const numberProducts = config.productsPerPage ? config.productsPerPage : 12;
+  const file_to_render = `${config.themeViews}shop`;
+
+  Promise.all([
+    paginateProducts(true, db, req.params.pageNum, {}, getSort()),
+    getMenu(db),
+  ]).then(([results, menu]) => {
+    if (req.query.json === 'true') {
+      res.status(200).json(results.data);
+      return;
+    }
+
+    res.render(file_to_render, {
+      session: req.session,
+      helpers: req.handlebars.helpers,
+      results: results.data,
+      config: req.app.config,
+      menu: sortMenu(menu),
+    });
+  });
+});
+
 // Store Route
 router.get('/store', (req, res) => {
   const db = req.app.db;
@@ -1367,7 +1393,6 @@ router.get('/:page?', async (req, res, next) => {
         // Fetch instagram posts from username
         getInstagramPosts('marielyne_beauty')
           .then((posts) => {
-
             const instaFeed = posts.splice(0, 3);
 
             res.render(`${config.themeViews}index`, {
@@ -1386,7 +1411,7 @@ router.get('/:page?', async (req, res, next) => {
               showFooter: 'showFooter',
               menu: sortMenu(menu),
               instaFeed: instaFeed,
-              instaPosts: posts
+              instaPosts: posts,
             });
           })
           .catch((err) => {
