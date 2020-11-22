@@ -33,11 +33,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9c4af98a-dccb-47e2-b355-536bb92f9efb" name="Default Changelist" comment="improved products page and layouts">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/layouts/layout.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/layout.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/layouts/layout_old.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/layouts/layout_old.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/themes/MarieLyne/index.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/themes/MarieLyne/index.hbs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/themes/MarieLyne/inner-banner.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/themes/MarieLyne/inner-banner.hbs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/themes/MarieLyne/product.hbs" beforeDir="false" afterPath="$PROJECT_DIR$/views/themes/MarieLyne/product.hbs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
