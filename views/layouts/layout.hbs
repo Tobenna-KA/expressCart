@@ -237,9 +237,18 @@
         {{{ body }}}
     </div>
 
+        {{#if showFooter}}
+            {{> themes/MarieLyne/newsletter}}
+            {{> themes/MarieLyne/footer}}
+        {{/if}}
+        {{> partials/confirmModal}}
+        {{#if @root.config.modules.enabled.reviews}}
+            {{> partials/reviewModal}}
+        {{/if}}
         <!-- //footer -->
         <a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;">
             </span></a>
+        <div id="notify_message"></div>
         <!-- js -->
         <!-- //js -->
         <!-- /nav -->
