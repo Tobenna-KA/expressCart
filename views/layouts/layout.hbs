@@ -223,7 +223,7 @@
 
     <body class="admin">
     {{else}}
-
+    <div id="notify_message"></div>
     <body>
    {{/if}}
         <!-- Import Banner-->
@@ -248,7 +248,7 @@
         <!-- //footer -->
         <a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;">
             </span></a>
-        <div id="notify_message"></div>
+
         <!-- js -->
         <!-- //js -->
         <!-- /nav -->
@@ -259,6 +259,7 @@
         <!-- cart-js -->
         <script src="/{{config.theme}}/js/minicart.js"></script>
         <script>
+            feather.replace() // start feather icons
             shoe.render();
 
             shoe.cart.on('shoe_checkout', function (evt) {

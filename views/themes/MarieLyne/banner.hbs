@@ -12,11 +12,14 @@
 
                 <nav>
                     <ul>
-                        <li><a href="index.html" class="active">Home</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="404.html">Team</a></li>
-                        <li><a href="shop">Shop Now</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li class="nav-item {{#unless searchTerm}}active{{/unless}}"><a class="nav-link" href="/">Home</a></li>
+                        {{#each menu.items}}
+                            <li class="nav-item"
+                                {{#menuMatch this.title @root.searchTerm}}{{/menuMatch}}
+                                {{#menuMatch this.title @root.title}}{{/menuMatch}}>
+                                <a class="nav-link" href="{{this.link}}">{{this.title}}</a>
+                            </li>
+                        {{/each}}
                     </ul>
                 </nav>
             </div>
