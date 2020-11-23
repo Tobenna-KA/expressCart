@@ -1,51 +1,91 @@
-.cart-body {
-  // border: 1px solid $primary_color;
-  padding: 0;
+.shopping-cart {
+  padding: 10px;
 
-  .card-title {
-    font-family: $font_2_family;
-    color: $primary_color;
-    padding: 10px;
+  h5 {
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 3em;
   }
 
-  .cart-product > div {
-    padding: 2px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #eee;
-    width: 97%;
-    margin: 5px auto;
+  .cart-product {
+    margin-bottom: 20px;
+    border: 1px solid #eee;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    transition: all 0.3s ease;
 
-    .cart-image {
-      img {
-        width: 100px !important;
-        border-bottom: 3px solid #eee;
-        border-radius: 10px;
-        // border: 1px solid red;
+    &:hover {
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+    img {
+      max-width: 100%;
+      object-fit: cover;
+      border: 1px solid #eee;
+      border-radius: 5px;
+    }
+
+    .input-group {
+      width: 160px;
+      button {
+        width: 30px;
+        float: left;
+        display: inline-block;
+        height: 45px;
+        border-radius: 0;
+        padding: 11px;
+        line-height: 5px !important;
+        font-weight: bold;
+        background-color: #fff;
+        color: #111;
+        border: 1px solid #ccc;
+      }
+
+      input {
+        display: inline-block;
+        width: 80px;
+        height: 45px;
       }
     }
-
-    .btn-delete-from-cart {
-      position: absolute;
-      top: 0;
-      right: 0;
-      cursor: pointer;
-    }
   }
+}
 
-  .remove {
-    ion-icon {
+.bordered {
+  border: 1px solid red;
+}
+
+// .colored {
+//   color
+// }
+
+@media only screen and (min-width: 767px) {
+  .product-title-box,
+  .cart-box {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0;
+    // border: 1px solid red;
+    justify-content: center;
+    align-items: flex-start;
+    height: 150px;
+    &.cart-box-right {
+      align-items: flex-end;
+      padding-right: 20px;
+    }
+    .product-title {
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 400;
       font-size: 1.3em;
-      color: #e94f37;
-      transition: $color_transition;
-
-      &:hover {
-        color: #ca2e16;
-      }
+      color: #333;
     }
   }
+}
 
-  .cartTotalsWrapper {
-    padding-right: 10px;
-    padding-bottom: 10px;
+.cart-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+
+  button {
+    margin-right: 10px;
   }
 }
