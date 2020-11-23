@@ -53,7 +53,8 @@
                         </div>
                     </div>
                     {{/if}}
-                    <form id="shipping-form" class="shipping-form" role="form" data-toggle="validator" novalidate="false">
+                    <form id="shipping-form" class="shipping-form" role="form" data-toggle="validator"
+                        novalidate="false">
                         {{> themes/MarieLyne/shipping-form}}
                         <div class="row">
                             {{#unless @root.session.customerPresent}}
@@ -77,7 +78,8 @@
                             {{/unless}}
                             <div class="col-sm-12">
                                 <a href="/checkout/cart" class="btn btn-primary float-left">Return to cart</a>
-                                <a href="/checkout/shipping" id="checkoutInformation" class="btn btn-primary float-right">Continue to shipping</a>
+                                <a href="/checkout/shipping" id="checkoutInformation"
+                                    class="btn btn-primary float-right">Continue to shipping</a>
                             </div>
                         </div>
                     </form>
@@ -89,9 +91,10 @@
             {{#if @root.session.cart}}
             <div class="row">
                 <div class="col-sm-12 {{showCartButtons @root.session.cart}} cart-buttons">
-                    <button class="btn btn-danger float-right" id="empty-cart" type="button">{{ @root.__ "Empty cart" }}</button>
+                    <button class="btn btn-danger float-right" id="empty-cart"
+                        type="button">{{ @root.__ "Empty cart" }}</button>
                 </div>
-            {{/if}}
+                {{/if}}
             </div>
         </div>
     </div>

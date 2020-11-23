@@ -8,91 +8,87 @@
 </div>
 <div class="clearfix"></div>
 <div class="productsWrapper col-sm-12">
-  {{#if filtered}}
+    {{#if filtered}}
     <div class="product-layout product-results col-sm-12">
-      {{#ifCond @root.paginateUrl '==' 'category'}}
-      <h1>{{ @root.__ "Category" }}: <strong>{{ @root.searchTerm }}</strong></h1>
-      {{else}}
-      <h1>{{ @root.__ "Search results" }}: <strong>{{@root.searchTerm}}</strong></h1>
-      {{/ifCond}}
+        {{#ifCond @root.paginateUrl '==' 'category'}}
+        <h1>{{ @root.__ "Category" }}: <strong>{{ @root.searchTerm }}</strong></h1>
+        {{else}}
+        <h1>{{ @root.__ "Search results" }}: <strong>{{@root.searchTerm}}</strong></h1>
+        {{/ifCond}}
     </div>
-  {{else}}
+    {{else}}
 
-  <div class="row insta-row">
-    {{#each instaFeed}}
+    <div class="row insta-row">
+        {{#each instaFeed}}
         <div class="col-md-4 col-xs-12 product-men women_two">
             <div class="ig-card shoe">
                 <div class="men-pro-item">
                     <div class="men-thumb-item">
                         <div class="card-header">
-                            <img
-                                    class="user-image"
-                                    src="{{this.node.thumbnail_src}}"
-                                    style="height: 600px"
-                                    alt=""
-                            />
+                            <img class="user-image" src="{{this.node.thumbnail_src}}" style="height: 600px" alt="" />
                             <p class="user-name">
                                 {{this.username}}
                                 <br />
                                 <small> {{this.followers}} followers</small>
                             </p>
                             <p class="time float-right">
-                                <a class="btn btn-info btn-sm" target="_blank" href="{{this.profileUrl}}">View Profile</a>
+                                <a class="btn btn-info btn-sm" target="_blank" href="{{this.profileUrl}}">View
+                                    Profile</a>
                             </p>
                         </div>
                         <div class="men-cart-pro">
                             <div class="inner-men-cart-pro">
-                            <a href="{{this.profileUrl}}" target="_blank" class="link-product-add-cart">
-                                <i class="fa fa-instagram" aria-hidden="true"></i>
-                            </a>
+                                <a href="{{this.profileUrl}}" target="_blank" class="link-product-add-cart">
+                                    <i class="fa fa-instagram" aria-hidden="true"></i>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    {{/each}}
-  </div>
+        {{/each}}
+    </div>
 
-  {{/if}}
-  <div class="row product-layout">
-    {{#ifCond results.length '==' 0}}
-      <div class="col-sm-12">
-        <p class="text-danger">{{ @root.__ "No products found" }}</p>
-      </div>
-    {{/ifCond}}
-    {{#each results}}
+    {{/if}}
+    <div class="row product-layout">
+        {{#ifCond results.length '==' 0}}
+        <div class="col-sm-12">
+            <p class="text-danger">{{ @root.__ "No products found" }}</p>
+        </div>
+        {{/ifCond}}
+        {{#each results}}
         <div class="col-md-2 product-men women_two">
             <div class="product-shoe-info shoe">
                 <div class="men-pro-item">
                     <div class="men-thumb-item">
                         {{#if productPermalink}}
-                            <a href="/product/{{this.productPermalink}}">
-                                {{#if productImage}}
-                                    <img src="{{this.productImage}}" alt="">
-                                {{else}}
-                                    <img src="/uploads/placeholder.png" alt="">
-                                {{/if}}
-                            </a>
+                        <a href="/product/{{this.productPermalink}}">
+                            {{#if productImage}}
+                            <img src="{{this.productImage}}" alt="">
+                            {{else}}
+                            <img src="/uploads/placeholder.png" alt="">
+                            {{/if}}
+                        </a>
                         {{else}}
-                            <a href="/product/{{this._id}}">
-                                {{#if productImage}}
-                                    <img src="{{this.productImage}}" alt="">
-                                {{else}}
-                                    <img src="/uploads/placeholder.png" alt="">
-                                {{/if}}
-                            </a>
+                        <a href="/product/{{this._id}}">
+                            {{#if productImage}}
+                            <img src="{{this.productImage}}" alt="">
+                            {{else}}
+                            <img src="/uploads/placeholder.png" alt="">
+                            {{/if}}
+                        </a>
                         {{/if}}
                         <div class="men-cart-pro">
                             <div class="inner-men-cart-pro">
                                 {{#if productPermalink}}
-                                    <a href="/product/{{this.productPermalink}}" class="link-product-add-cart">
-                                        Quick View
-                                    </a>
+                                <a href="/product/{{this.productPermalink}}" class="link-product-add-cart">
+                                    Quick View
+                                </a>
                                 {{else}}
-                                    <a href="/products/{{this._id}}" class="link-product-add-cart">
-                                        Quick View
-                                    </a>
+                                <a href="/products/{{this._id}}" class="link-product-add-cart">
+                                    Quick View
+                                </a>
                                 {{/if}}
                             </div>
                         </div>
@@ -101,20 +97,21 @@
                     <div class="item-info-product">
                         <h4>
                             {{#if productPermalink}}
-                                <a href="/product/{{this.productPermalink}}">
-                                    {{this.productTitle}}
-                                </a>
+                            <a href="/product/{{this.productPermalink}}">
+                                {{this.productTitle}}
+                            </a>
                             {{else}}
-                                <a href="/products/{{this._id}}">
-                                    {{this.productTitle}}
-                                </a>
+                            <a href="/products/{{this._id}}">
+                                {{this.productTitle}}
+                            </a>
                             {{/if}}
                         </h4>
                         <div class="info-product-price">
                             <div class="grid_meta">
                                 <div class="product_price">
                                     <div class="grid-price ">
-                                        <span class="money ">{{currencySymbol @root.config.currencySymbol}} {{formatAmount productPrice}}</span>
+                                        <span class="money ">{{currencySymbol @root.config.currencySymbol}}
+                                            {{formatAmount productPrice}}</span>
                                     </div>
                                 </div>
                                 <!--<ul class="stars">
@@ -126,13 +123,9 @@
                                 </ul>-->
                             </div>
                             <div class="shoe single-item hvr-outline-out">
-                                <a
-                                        class="btn btn-block shoe-cart pshoe-cart add-to-cart"
-                                        data-id="{{this._id}}"
-                                        data-link="{{this.productPermalink}}"
-                                        data-has-variants="{{checkProductVariants this.variants}}"
-                                        role="button"
-                                >
+                                <a class="btn btn-block shoe-cart pshoe-cart add-to-cart" data-id="{{this._id}}"
+                                    data-link="{{this.productPermalink}}"
+                                    data-has-variants="{{checkProductVariants this.variants}}" role="button">
                                     <i class="fa fa-cart-plus ba" style="color: black" aria-hidden="true"></i>
                                 </a>
                             </div>
@@ -142,12 +135,12 @@
                 </div>
             </div>
         </div>
-    {{/each}}
-  </div>
+        {{/each}}
+    </div>
 
     {{> themes/MarieLyne/bottom-carousel}}
 </div>
-<input type="hidden" id="itemsPerPage" value="{{productsPerPage}}" >
+<input type="hidden" id="itemsPerPage" value="{{productsPerPage}}">
 <input type="hidden" id="pageNum" value="{{pageNum}}">
 <input type="hidden" id="totalItemCount" value="{{totalProductCount}}">
 <input type="hidden" id="paginateUrl" value="{{paginateUrl}}">
