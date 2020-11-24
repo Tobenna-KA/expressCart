@@ -88,8 +88,83 @@
         margin-bottom: 10px;
         font-weight: bold; }
 
+.cart-buttons .cart-inner-buttons {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 60px; }
+
+.cart-buttons .mainBtn {
+  margin-left: 10px; }
+
+.mainBtn {
+  padding: 8px 23px;
+  border-radius: 0;
+  background-color: #000;
+  color: #fff;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 1px; }
+  .mainBtn.greenBtn {
+    background-color: #09bc8a; }
+    .mainBtn.greenBtn:hover {
+      background-color: #079c72; }
+  .mainBtn:hover {
+    background-color: #333;
+    color: #fff; }
+
+@media only screen and (max-width: 992px) {
+  .main-cart {
+    padding-right: 40px; }
+  .cart-totals {
+    padding: 10px;
+    background-color: #fcfcfc;
+    border: 1px solid #eee;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: column;
+    padding-right: 15px !important; }
+    .cart-totals h6 {
+      margin-bottom: 10px;
+      font-weight: bold; }
+  .cart-inner-buttons {
+    padding-right: 15px !important;
+    justify-content: flex-end; } }
+
 @media only screen and (max-width: 600px) {
   .main-cart {
     padding: 0; }
     .main-cart .cart-item {
-      flex-direction: column; } }
+      flex-direction: column;
+      padding: 15px; }
+      .main-cart .cart-item .cart-image {
+        display: flex;
+        justify-content: flex-start;
+        padding-left: 10px !important;
+        align-items: center; }
+        .main-cart .cart-item .cart-image img {
+          width: 120px !important;
+          height: 160px !important;
+          max-width: 200px !important;
+          max-height: 300px !important; }
+      .main-cart .cart-item .cart-title {
+        justify-content: flex-start !important;
+        align-items: center !important;
+        padding-left: 12px !important;
+        width: 100%; }
+        .main-cart .cart-item .cart-title h6 {
+          font-weight: bold !important;
+          font-size: 1.2em !important; }
+      .main-cart .cart-item .cart-quantity {
+        width: 100% !important;
+        padding: 0 !important;
+        justify-content: flex-start !important;
+        align-items: center !important;
+        padding-left: 10px !important; }
+        .main-cart .cart-item .cart-quantity input {
+          width: 85%; }
+      .main-cart .cart-item .cart-price {
+        padding: 20px 10px; }
+  .cart-inner-buttons {
+    padding-right: 0px !important;
+    justify-content: flex-end; } }
