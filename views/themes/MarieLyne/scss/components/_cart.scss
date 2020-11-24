@@ -1,5 +1,7 @@
 .main-cart {
   margin-top: 40px;
+  max-width: 100% !important;
+
   .cart-item {
     display: flex;
     flex-direction: row;

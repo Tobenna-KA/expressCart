@@ -1,5 +1,6 @@
 .main-cart {
-  margin-top: 40px; }
+  margin-top: 40px;
+  max-width: 100% !important; }
   .main-cart .cart-item {
     display: flex;
     flex-direction: row;
@@ -168,3 +169,40 @@
   .cart-inner-buttons {
     padding-right: 0px !important;
     justify-content: flex-end; } }
+
+.cart-checkout-information .cart-info .customer-details {
+  margin-top: 20px;
+  border: 1px solid #eee;
+  padding: 20px !important; }
+  .cart-checkout-information .cart-info .customer-details h5 {
+    font-size: 2.3em;
+    font-family: 'Josefin Sans', sans-serif; }
+
+.cart-checkout-information .cart-info .checkout-form {
+  margin-top: 20px; }
+  .cart-checkout-information .cart-info .checkout-form p,
+  .cart-checkout-information .cart-info .checkout-form .small-text {
+    letter-spacing: 0;
+    font-size: 0.8em !important;
+    color: #333 !important; }
+  .cart-checkout-information .cart-info .checkout-form input,
+  .cart-checkout-information .cart-info .checkout-form textarea {
+    border-radius: 0;
+    padding: 22px;
+    font-size: 0.8em; }
+  .cart-checkout-information .cart-info .checkout-form .form-buttons {
+    display: flex;
+    justify-content: flex-end; }
+    .cart-checkout-information .cart-info .checkout-form .form-buttons .greenBtn {
+      margin-left: 10px; }
+    .cart-checkout-information .cart-info .checkout-form .form-buttons button {
+      margin-left: 10px; }
+
+@media only screen and (max-width: 600px) {
+  .cart-info .form-buttons {
+    flex-direction: column; }
+    .cart-info .form-buttons a {
+      width: 100% !important; }
+      .cart-info .form-buttons a.greenBtn {
+        margin: 0 !important;
+        margin-top: 10px !important; } }
