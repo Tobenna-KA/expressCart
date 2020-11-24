@@ -4,10 +4,12 @@
         <h3>{{ @root.__ "Newsletter" }}</h3>
     </div>
     <div class="col-sm-6 newsright">
-        <form method="post">
-            <input type="email" class="form-control" placeholder="{{ @root.__ "Subscribe" }}" name="email" required="">
-            <input type="submit" value="Submit">
-        </form>
+        <div class="description">
+            <form method="post">
+                <input type="email" value="" placeholder="{{ @root.__ "Subscribe" }}" required="">
+                <input type="submit" value="Check">
+            </form>
+        </div>
     </div>
 
     <div class="clearfix"></div>

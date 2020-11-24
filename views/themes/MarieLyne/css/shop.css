@@ -983,6 +983,14 @@ button.shoe-cart:hover {
   outline: none;
   letter-spacing: 1px;
 }
+.description input[type='email'] {
+  padding: 8px 8px;
+  color: #cccccc;
+  font-size: 13px;
+  width: 45%;
+  outline: none;
+  letter-spacing: 1px;
+}
 .description input[type='number'] {
   padding: 8px 8px;
   color: #000000;
