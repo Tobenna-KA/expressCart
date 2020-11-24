@@ -1,4 +1,88 @@
-<div class="card top-marg-15 bottom-marg-15 shopping-cart">
+<div class="container main-cart">
+  <h2 class="title">
+    {{ @root.__ "Cart contents" }}
+  </h2>
+  <div class="cartBodyWrapper">
+    {{#each @root.session.cart}}
+    <div class="cart-item">
+      <div class="cart-image">
+        {{#if productImage}}
+        <img class="img-fluid" src="{{this.productImage}}" alt="{{this.title}} product image">
+        {{else}}
+        <img class="img-fluid" src="/uploads/placeholder.png" alt="{{this.title}} product image">
+        {{/if}}
+      </div>
+      <div class="cart-title">
+        <div class="remove">
+          <button class="btn-delete-from-cart remove" data-cartid="{{@key}}" type="button">
+            <i class="fa fa-times-circle" data-cartid="{{@key}}"></i>
+          </button>
+        </div>
+        <div class="title">
+          <h6><a href="/product/{{this.link}}">{{this.title}}</a></h6>
+          {{#if this.variantId}}
+          <strong>Option:</strong> {{this.variantTitle}}
+          {{/if}}
+        </div>
+      </div>
+      <div class="cart-quantity">
+        {{#ifCond @root.cartReadOnly '!=' true}}
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <button class="btn btn-qty-minus" type="button">-</button>
+          </div>
+          <input class="form-control cart-product-quantity text-center" data-cartid="{{@key}}"
+            data-id="{{../this.productId}}" maxlength="2" value="{{../this.quantity}}">
+          <div class="input-group-append">
+            <button class="btn btn-qty-add" type="button">+</button>
+          </div>
+        </div>
+        {{/ifCond}}
+      </div>
+      <div class="cart-price">
+        <strong
+          class="my-auto">{{currencySymbol @root.config.currencySymbol}}{{formatAmount this.totalItemPrice}}</strong>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+  <div class="cartTotalsWrapper">
+    {{#if @root.session.cart}}
+    <div class="cart-totals">
+      {{#ifCond @root.session.totalCartShipping '>' 0}}
+      <h6>
+        {{@root.session.shippingMessage}}: <strong
+          id="shipping-amount">{{currencySymbol @root.config.currencySymbol}}{{formatAmount @root.session.totalCartShipping}}</strong>
+      </h6>
+      {{else}}
+      <h6>
+        <span id="shipping-amount">{{@root.session.shippingMessage}}</span>
+      </h6>
+      {{/ifCond}}
+      {{#ifCond @root.session.totalCartDiscount '>' 0}}
+      <h6>
+        Discount: <strong
+          id="discount-amount">{{currencySymbol @root.config.currencySymbol}}{{formatAmount @root.session.totalCartDiscount}}</strong>
+      </h6>
+      {{/ifCond}}
+      <h5>
+        Total:
+        <strong
+          id="total-cart-amount">{{currencySymbol @root.config.currencySymbol}}{{formatAmount @root.session.totalCartAmount}}</strong>
+      </h5>
+    </div>
+    {{else}}
+    <div class="cart-empty" id="cart-empty">
+      <div class="cart-contents-shipping">
+        <h6>Cart Empty</h6>
+      </div>
+    </div>
+    {{/if}}
+  </div>
+
+</div>
+
+{{!-- <div class="card top-marg-15 bottom-marg-15 shopping-cart">
   <div class="card-body cart-body">
     <h5 class="card-title">{{ @root.__ "Cart contents" }}</h5>
     <div class="cartBodyWrapper">
@@ -89,4 +173,4 @@
       {{/if}}
     </div>
   </div>
-</div>
+</div> --}}
