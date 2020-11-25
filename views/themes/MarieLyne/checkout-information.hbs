@@ -1,5 +1,18 @@
-<div class="container-fluid cart-checkout-information">
+<div class="container-fluid cart-checkout-information  cart-checkout-container">
 	<div class="row">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item active" aria-current="page"><a href="/checkout/information">Information</a></li>
+				{{#if @root.session.customerPresent}}
+				<li class="breadcrumb-item" aria-current="page"><a href="/checkout/shipping">Shipping</a></li>
+				<li class="breadcrumb-item" aria-current="page"><a href="/checkout/payment">Payment</a></li>
+				{{else}}
+				<li class="breadcrumb-item text-muted" aria-current="page">Shipping</li>
+				<li class="breadcrumb-item text-muted" aria-current="page">Payment</li>
+				{{/if}}
+			</ol>
+		</nav>
 		<div class="col-12 col-md-6 col-sm-12 col-xs-12">
 			<div class="cart-info">
 				<div class="payment-message">

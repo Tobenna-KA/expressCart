@@ -1,7 +1,15 @@
-{{!-- <div class="container-fluid cart-shipping-information">
+<div class="container-fluid cart-shipping-information cart-checkout-container">
 	<div class="row">
+		<nav aria-label="breadcrumb">
+			<ol class="breadcrumb">
+				<li class="breadcrumb-item"><a href="/">Home</a></li>
+				<li class="breadcrumb-item" aria-current="page"><a href="/checkout/information">Information</a></li>
+				<li class="breadcrumb-item active" aria-current="page"><a href="/checkout/shipping">Shipping</a></li>
+				<li class="breadcrumb-item" aria-current="page"><a href="/checkout/payment">Payment</a></li>
+			</ol>
+		</nav>
 		<div class="col-12 col-md-6 col-sm-12 col-xs-12">
-			<div class="cart-shipping-info cart-info">
+			<div class="cart-shipping-info">
 				<h5 class="card-title">{{ @root.__ "Shipping options" }}</h5>
 				{{#unless @root.session.shippingOptions}}
 				<ul class="list-group">
@@ -14,6 +22,10 @@
 					{{/ifCond}}
 				</ul>
 				{{/unless}}
+				<div class="form-buttons">
+					<a href="/checkout/information" class="btn mainBtn float-left">{{ @root.__ "Return to information" }}</a>
+					<a href="/checkout/payment" class="btn mainBtn greenBtn float-right">{{ @root.__ "Proceed to payment" }}</a>
+				</div>
 			</div>
 		</div>
 		<div class="col-12 col-md-6 col-sm-12 col-xs-12">
@@ -27,17 +39,9 @@
 			</div>
 		</div>
 	</div>
-</div> --}}
+</div>
 
 <div class="col-md-10 offset-md-1 col-sm-12">
-	{{!-- <nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item"><a href="/">Home</a></li>
-			<li class="breadcrumb-item" aria-current="page"><a href="/checkout/information">Information</a></li>
-			<li class="breadcrumb-item active" aria-current="page"><a href="/checkout/shipping">Shipping</a></li>
-			<li class="breadcrumb-item" aria-current="page"><a href="/checkout/payment">Payment</a></li>
-		</ol>
-	</nav> --}}
 	<div class="row">
 		<div class="col-12 col-md-5 bottom-pad-15">
 			<div class="card top-marg-15 bottom-marg-15">

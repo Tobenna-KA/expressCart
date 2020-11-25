@@ -1,13 +1,5 @@
-[x] Navigation
-[x] Add logo
-[x] Make nav responsive
-[x] Restyle navigation
-[ ] Apply color scheme
-
-[ ] Menu
-[ ] Carousel
-[ ] Main body
-[ ] Cart
-[ ] Footer
-[ ]
+[x] Style checkout breadcrumb
+[ ] Contact us page
+[ ] Collate & organize all checkout styles
+[ ] Shop add to cart button
 [ ]

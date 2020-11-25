@@ -1,3 +1,14 @@
+.cart-checkout-container {
+  .breadcrumb {
+    border: 1px solid #eee;
+    border-radius: 0;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    font-weight: bold;
+  }
+}
+
 .cart-checkout-information {
   .cart-info,
   .cart-box {

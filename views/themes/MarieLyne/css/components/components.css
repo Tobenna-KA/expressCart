@@ -97,11 +97,14 @@
 .cart-buttons .mainBtn {
   margin-left: 10px; }
 
+a.mainBtn {
+  color: #fff !important; }
+
 .mainBtn {
   padding: 8px 23px;
   border-radius: 0;
   background-color: #000;
-  color: #fff;
+  color: #fff !important;
   font-size: 0.8em;
   text-transform: uppercase;
   letter-spacing: 1px; }
@@ -170,6 +173,14 @@
     padding-right: 0px !important;
     justify-content: flex-end; } }
 
+.cart-checkout-container .breadcrumb {
+  border: 1px solid #eee;
+  border-radius: 0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  font-weight: bold; }
+
 .cart-checkout-information .cart-info .customer-details {
   margin-top: 20px;
   border: 1px solid #eee;
@@ -206,3 +217,78 @@
       .cart-info .form-buttons a.greenBtn {
         margin: 0 !important;
         margin-top: 10px !important; } }
+
+.cart-shipping-info {
+  margin-top: 20px;
+  border: 1px solid #eee;
+  padding: 20px !important; }
+  .cart-shipping-info h5 {
+    font-size: 2.3em;
+    font-family: 'Josefin Sans', sans-serif; }
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end; }
+  .form-buttons .greenBtn {
+    margin-left: 10px; }
+  .form-buttons button {
+    margin-left: 10px; }
+
+.cart-shipping-info {
+  margin-top: 20px;
+  border: 1px solid #eee;
+  padding: 20px !important; }
+  .cart-shipping-info h5 {
+    font-size: 2.3em;
+    font-family: 'Josefin Sans', sans-serif; }
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end; }
+  .form-buttons .greenBtn {
+    margin-left: 10px; }
+  .form-buttons button {
+    margin-left: 10px; }
+
+.checkout-list li {
+  display: flex;
+  justify-content: space-between;
+  letter-spacing: 0;
+  padding: 15px;
+  font-weight: bold; }
+
+.checkout-input {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px; }
+  .checkout-input input {
+    border-radius: 0;
+    padding: 22px;
+    font-size: 0.8em;
+    margin-right: 10px; }
+  .checkout-input button {
+    padding: 8px 26px;
+    margin-right: 10px;
+    font-size: 0.9em; }
+
+.checkout-paymment-form ul div {
+  padding: 10px; }
+
+.checkout-paymment-form ul .btn.btn-outline-success.mt-2 {
+  padding: 8px 23px;
+  border-radius: 0;
+  background-color: #000;
+  color: #fff !important;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background-color: #09bc8a;
+  background-color: #079c72; }
+
+@media only screen and (max-width: 600px) {
+  .checkout-list li {
+    flex-direction: column; }
+    .checkout-list li span {
+      margin-top: 10px; }
+  .checkout-paymment-form ul div {
+    padding: 5px !important; } }

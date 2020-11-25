@@ -1,0 +1,22 @@
+.cart-shipping-info {
+  margin-top: 20px;
+  border: 1px solid #eee;
+  padding: 20px !important;
+  h5 {
+    font-size: 2.3em;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+
+  .greenBtn {
+    margin-left: 10px;
+  }
+
+  button {
+    margin-left: 10px;
+  }
+}

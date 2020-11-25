@@ -141,11 +141,14 @@
   }
 }
 
+a.mainBtn {
+  color: #fff !important;
+}
 .mainBtn {
   padding: 8px 23px;
   border-radius: 0;
   background-color: #000;
-  color: #fff;
+  color: #fff !important;
   font-size: 0.8em;
   text-transform: uppercase;
   letter-spacing: 1px;
