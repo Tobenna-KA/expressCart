@@ -5,18 +5,19 @@
     <!-- //tittle heading -->
     <!-- product left -->
     <div class="side-bar col-md-3">
-      <button type="button" class="btn btn-sm btn-lg mainBtn greenBtn btn-block filter-btn"
-        id="filter-btn">Filter</button>
+      <button type="button" class="btn btn-sm btn-lg mainBtn greenBtn btn-block filter-btn" id="filter-btn">
+        {{ @root.__ "Filter" }}
+      </button>
       <div class="search-hotel">
         {{!-- <h3 class="agileits-sear-head">Search Here..</h3> --}}
         <form action="#" method="post">
-          <input type="search" placeholder="Search ..." name="search" required="">
+          <input type="search" placeholder="{{ @root.__ "Search" }}. . ." name="search" required="">
           <input class="mainBtn greenBtn" type="submit" value=" ">
         </form>
       </div>
       <!-- price range -->
       <div class="range">
-        <h3 class="agileits-sear-head">Price range</h3>
+        <h3 class="agileits-sear-head">{{ @root.__ "Price range" }}</h3>
         <div class="price-range-values">
           <div class="min-value"></div>
           <div class="max-value"></div>
@@ -35,7 +36,7 @@
       <!-- //price range -->
       <!--preference -->
       <div class="left-side" id="categories-filter">
-        <h3 class="agileits-sear-head">Categories</h3>
+        <h3 class="agileits-sear-head">{{ @root.__ "Categories" }}</h3>
         {{#each categories}}
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
@@ -46,13 +47,13 @@
         {{/each}}
       </div>
       <div class="customer-rev left-side">
-        <h3 class="agileits-sear-head">Minimum Rating</h3>
+        <h3 class="agileits-sear-head">{{ @root.__ "Minimum rating" }}</h3>
         <select class="rating-select" id="rating-select">
-          <option value="1">One star</option>
-          <option value="2">Two stars</option>
-          <option value="3">Three stars</option>
-          <option value="4">Four stars</option>
-          <option value="5">Five stars</option>
+          <option value="1">{{ @root.__ "One star" }}</option>
+          <option value="2">{{ @root.__ "Two stars" }}</option>
+          <option value="3">{{ @root.__ "Three stars" }}</option>
+          <option value="4">{{ @root.__ "Four stars" }}</option>
+          <option value="5">{{ @root.__ "Five stars" }}</option>
         </select>
       </div>
       <!-- //reviews -->
@@ -94,8 +95,8 @@
                   {{/if}}
                 </div>
                 <div class="quick-view">
-                  <a href="/product/{{this.productPermalink}}" class="link-product-add-cart">Quick View <i
-                      class="fa fa-book-open" aria-hidden="true"></i></a>
+                  <a href="/product/{{this.productPermalink}}" class="link-product-add-cart">{{ @root.__ "Quick View" }}
+                    <i class="fa fa-book-open" aria-hidden="true"></i></a>
                 </div>
                 <div class="product-info">
                   <p>
@@ -111,8 +112,8 @@
                   {{/if}}
                 </div>
                 <div class="quick-view">
-                  <a href="/product/{{this._id}}" class="link-product-add-cart">Quick View <i class="fa fa-book-open"
-                      aria-hidden="true"></i></a>
+                  <a href="/product/{{this._id}}" class="link-product-add-cart">{{ @root.__ "Quick View" }} <i
+                      class="fa fa-book-open" aria-hidden="true"></i></a>
                 </div>
                 <div class="product-info">
                   <p>
@@ -140,13 +141,14 @@
                   <div class="cart-section">
                     <div class="cart-button">
                       {{#if @root.config.showHomepageVariants}}
-                      <a class="add-variant-to-cart mainBtn greenBtn" data-id="{{this._id}}" role="button"> Add to cart
+                      <a class="add-variant-to-cart mainBtn greenBtn" data-id="{{this._id}}" role="button">
+                        {{ @root.__ "Add to cart" }}
                         <i class="fa fa-cart-plus" aria-hidden="true"></i>
                       </a>
                       {{else}}
                       <a class="add-to-cart mainBtn greenBtn" data-id="{{this._id}}"
                         data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}"
-                        role="button"> add to cart
+                        role="button"> {{ @root.__ "Add to cart" }}
                         <i class="fa fa-cart-plus" aria-hidden="true"></i>
                       </a>
                       {{/if}}
@@ -163,15 +165,14 @@
                     </div>
                     <div class="cart-button">
                       {{#if @root.config.showHomepageVariants}}
-                      <a class="add-variant-to-cart mainBtn cartBtn greenBtn" data-id="{{this._id}}" role="button"> Add
-                        to
-                        cart
+                      <a class="add-variant-to-cart mainBtn cartBtn greenBtn" data-id="{{this._id}}" role="button">
+                        {{ @root.__ "Add to cart" }}
                         <i class="fa fa-cart-plus" aria-hidden="true"></i>
                       </a>
                       {{else}}
                       <a class="add-to-cart  mainBtn cartBtn greenBtn" data-id="{{this._id}}"
                         data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}"
-                        role="button">Add To cart
+                        role="button">{{ @root.__ "Add to cart" }}
                         <i class="fa fa-cart-plus" aria-hidden="true"></i>
                       </a>
                       {{/if}}

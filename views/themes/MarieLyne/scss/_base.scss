@@ -16,7 +16,7 @@ $font_2_family: 'Raleway', sans-serif !important;
 $color_transition: all 0.3s ease;
 
 .main-heading {
-  font-family: 'Josefin Sans', sans-serif;
+  font-family: 'Josefin Sans', sans-serif !important;
 
   span.colored {
     color: #d9ab73;
@@ -70,4 +70,16 @@ $color_transition: all 0.3s ease;
 
 .mainColorText {
   color: $primary_color !important;
+}
+
+#notify_message {
+  position: fixed;
+  width: 100%;
+  margin: 0 auto !important;
+  z-index: 999;
+  height: 45px;
+  padding: 15px;
+  text-align: center;
+  font-weight: bold;
+  // line-height: 22px;
 }
