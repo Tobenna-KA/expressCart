@@ -12,3 +12,44 @@ $font_2_family: 'Raleway', sans-serif !important;
 
 // *** TRANSITIONS ***
 $color_transition: all 0.3s ease;
+
+.main-heading {
+  font-family: 'Josefin Sans', sans-serif;
+
+  span.colored {
+    color: #d9ab73;
+  }
+}
+
+.section-header {
+  font-size: 1em !important;
+  font-weight: 400 !important;
+  color: #888 !important;
+  letter-spacing: 0 !important;
+}
+
+.mainBtn {
+  padding: 8px 23px !important;
+  border-radius: 0 !important;
+  background-color: #000 !important;
+  color: #fff !important;
+  font-size: 0.8em !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+
+  &.greenBtn {
+    background-color: #09bc8a !important;
+    &:hover {
+      background-color: #079c72 !important;
+    }
+  }
+
+  &:hover {
+    background-color: #333 !important;
+    color: #fff !important;
+  }
+}
+
+.mainColorText {
+  color: $primary_color !important;
+}
