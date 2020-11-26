@@ -1,7 +1,7 @@
 {
   "cartTitle": "ML Hair",
-  "cartDescription": "expressCart",
-  "cartLogo": "",
+  "cartDescription": "ML Hair",
+  "cartLogo": "/images/ml-logo.png",
   "baseUrl": "http://localhost:1111",
   "emailHost": "smtp-mail.outlook.com",
   "emailPort": 587,

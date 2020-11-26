@@ -19,6 +19,16 @@
   }
 }
 
+.logo {
+  .navbar-brand {
+    border: 0 !important;
+    margin-top: -20px;
+  }
+  .ml-logo {
+    width: 80px;
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .overlay-contentpush {
     width: 50%;
