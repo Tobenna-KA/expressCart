@@ -774,9 +774,9 @@ function updateCartDiv() {
       var discountTotal = '';
       if (session.totalCartDiscount > 0) {
         discountTotal = `
-                <div class="text-right">
-                    Discount: <strong id="discount-amount">${result.currencySymbol}${discountTotalAmt}</strong>
-                </div>`;
+              <div class="text-right">
+                  Discount: <strong id="discount-amount">${result.currencySymbol}${discountTotalAmt}</strong>
+              </div>`;
       }
 
       // If the cart has contents
@@ -797,47 +797,41 @@ function updateCartDiv() {
 
           // Setup the product html
           productHtml += `
-                <div class="d-flex flex-row bottom-pad-15">
-                    <div class="p-2 cart-product">
-                        <div class="row h-200">
-                            <div class="col-2 col-md-2 col-sm-3 no-pad-left">
-                                ${productImage}
-                            </div>
-                            <div class="col-10 col-md-10 col-sm-9">
-                                <div class="row">
-                                    <div class="col-3 col-md-3 col-sm-2 no-pad-left mt-5 mt-md-4 product-title-box">
-                                        <h6 class="product-title"><a href="/product/${item.link}">${item.title}</a></h6>
-                                        ${variantHtml}
-                                    </div>
-                                    <div class="col-4 col-md-2 col-sm-3 no-pad-left mb-2 cart-box">
-                                        <div class="input-group">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-primary btn-qty-minus" type="button">-</button>
-                                            </div>
-                                            <input 
-                                                type="number" 
-                                                class="form-control cart-product-quantity text-center"
-                                                data-cartid="${cartId}"
-                                                data-id="${item.productId}" 
-                                                maxlength="2" 
-                                                value="${item.quantity}"
-                                            >
-                                            <div class="input-group-append">
-                                                <button class="btn btn-primary btn-qty-add" type="button">+</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-4 col-md-1 col-sm-2 no-pad-left cart-box">
-                                        <button class="btn btn-danger btn-sm btn-delete-from-cart" data-cartid="${cartId}" type="button"><i class="feather" data-feather="trash-2" data-cartid="${cartId}"></i></button>
-                                    </div>
-                                    <div class="col-4 col-md-6 col-sm-4 align-self-center text-right cart-box cart-box-right">
-                                        <strong class="my-auto">${result.currencySymbol}${productTotalAmount}</strong>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
+          <div class="cart-item">
+            <div class="cart-image">
+              ${productImage}
+            </div>
+            <div class="cart-title">
+              <div class="remove">
+                <button class="btn-delete-from-cart" data-cartid="${cartId}" type="button"><i class="fa fa-times-circle" data-cartid="${cartId}"></i></button>
+              </div>
+              <div class="title">
+                <h6><a href="/product/${item.link}">${item.title}</a></h6>
+                ${variantHtml}
+              </div>
+            </div>
+            <div class="cart-quantity">
+              <div class="input-group">
+              <div class="input-group-prepend">
+                <button class="btn btn-qty-minus" type="button">-</button>
+              </div>
+              <input 
+                type="number" 
+                class="form-control cart-product-quantity text-center"
+                data-cartid="${cartId}"
+                data-id="${item.productId}" 
+                maxlength="2" 
+                value="${item.quantity}"
+              >
+              <div class="input-group-append">
+                <button class="btn btn-qty-add" type="button">+</button>
+              </div>
+            </div>
+            </div>
+            <div class="cart-price">
+              <strong class="my-auto">${result.currencySymbol}${productTotalAmount}</strong>
+            </div>
+          </div>`;
         });
 
         $('.cartBodyWrapper').html(productHtml);
@@ -849,25 +843,25 @@ function updateCartDiv() {
 
       // Set the totals section
       var cartTotalsHtml = `
-            <div class="d-flex flex-row">
-                <div class="cart-contents-shipping col-md-12 no-pad-right">
-                    <div class="text-right">
-                        ${shippingTotal}
-                    </div>
-                    ${discountTotal}
-                    <div class="text-right">
-                        Total:
-                        <strong id="total-cart-amount">${result.currencySymbol}${totalAmount}</strong>
-                    </div>
-                </div>
-            </div>`;
+        <div class="cart-totals">
+          <h6>
+            ${shippingTotal}
+          </h6>
+          <h6>
+            ${discountTotal}
+          </h6>
+          <h5>
+            Total:
+            <strong id="total-cart-amount">${result.currencySymbol}${totalAmount}</strong>
+          </h5>
+        </div>`;
 
       var cartTotalsEmptyHtml = `
-            <div id="cart-empty" class="d-flex flex-row">
-                <div class="cart-contents-shipping col-md-12 no-pad-left>
-                    Cart empty
-                </div>
-            </div>`;
+        <div class="cart-empty" id="cart-empty">
+          <div class="cart-contents-shipping">
+            <h6>Cart Empty</h6>
+          </div>
+        </div>`;
 
       // Set depending on cart contents
       if (cart) {

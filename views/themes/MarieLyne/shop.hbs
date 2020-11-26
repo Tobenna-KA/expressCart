@@ -1,21 +1,23 @@
-<div class="ads-grid_shop">
+<div class="ads-grid_shop shop-page">
   <div class="shop_inner_inf">
     <!-- tittle heading -->
 
     <!-- //tittle heading -->
     <!-- product left -->
     <div class="side-bar col-md-3">
-      <button type="button" class="btn btn-sm btn-lg btn-block filter-btn" id="filter-btn">Filter</button>
+      <button type="button" class="btn btn-sm btn-lg mainBtn greenBtn btn-block filter-btn" id="filter-btn">
+        {{ @root.__ "Filter" }}
+      </button>
       <div class="search-hotel">
         {{!-- <h3 class="agileits-sear-head">Search Here..</h3> --}}
         <form action="#" method="post">
-          <input type="search" placeholder="Search ..." name="search" required="">
-          <input type="submit" value=" ">
+          <input type="search" placeholder="{{ @root.__ "Search" }}. . ." name="search" required="">
+          <input class="mainBtn greenBtn" type="submit" value=" ">
         </form>
       </div>
       <!-- price range -->
       <div class="range">
-        <h3 class="agileits-sear-head">Price range</h3>
+        <h3 class="agileits-sear-head">{{ @root.__ "Price range" }}</h3>
         <div class="price-range-values">
           <div class="min-value"></div>
           <div class="max-value"></div>
@@ -34,7 +36,7 @@
       <!-- //price range -->
       <!--preference -->
       <div class="left-side" id="categories-filter">
-        <h3 class="agileits-sear-head">Categories</h3>
+        <h3 class="agileits-sear-head">{{ @root.__ "Categories" }}</h3>
         {{#each categories}}
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
@@ -43,65 +45,18 @@
           </label>
         </div>
         {{/each}}
-        {{!-- <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="straight" id="defaultCheck2">
-          <label class="form-check-label" for="defaultCheck2">
-            Straight
-          </label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="boss" id="defaultCheck3">
-          <label class="form-check-label" for="defaultCheck3">
-            Boss
-          </label>
-        </div> --}}
       </div>
-      <!-- // preference -->
-      <!-- discounts -->
-      {{!-- <div class="left-side">
-        <h3 class="agileits-sear-head">Discount</h3>
-        <ul>
-          <li>
-            <input type="checkbox" class="checked">
-            <span class="span">5% or More</span>
-          </li>
-          <li>
-            <input type="checkbox" class="checked">
-            <span class="span">10% or More</span>
-          </li>
-          <li>
-            <input type="checkbox" class="checked">
-            <span class="span">20% or More</span>
-          </li>
-          <li>
-            <input type="checkbox" class="checked">
-            <span class="span">30% or More</span>
-          </li>
-          <li>
-            <input type="checkbox" class="checked">
-            <span class="span">50% or More</span>
-          </li>
-          <li>
-            <input type="checkbox" class="checked">
-            <span class="span">60% or More</span>
-          </li>
-        </ul>
-      </div> --}}
-      <!-- //discounts -->
-      <!-- reviews -->
       <div class="customer-rev left-side">
-        <h3 class="agileits-sear-head">Minimum Rating</h3>
+        <h3 class="agileits-sear-head">{{ @root.__ "Minimum rating" }}</h3>
         <select class="rating-select" id="rating-select">
-          <option value="1">One star</option>
-          <option value="2">Two stars</option>
-          <option value="3">Three stars</option>
-          <option value="4">Four stars</option>
-          <option value="5">Five stars</option>
+          <option value="1">{{ @root.__ "One star" }}</option>
+          <option value="2">{{ @root.__ "Two stars" }}</option>
+          <option value="3">{{ @root.__ "Three stars" }}</option>
+          <option value="4">{{ @root.__ "Four stars" }}</option>
+          <option value="5">{{ @root.__ "Five stars" }}</option>
         </select>
       </div>
       <!-- //reviews -->
-      <!-- deals -->
-      <!-- //deals -->
 
     </div>
     <!-- //product left -->
@@ -127,107 +82,111 @@
         <div class="clearfix"></div>
         <!-- product-sec1 -->
         <div class="product-sec1">
-          <!--/mens-->
-          {{#each results}}
-          <div class="col-md-4 product-men">
-            <div class="product-shoe-info shoe">
-              <div class="men-pro-item">
+          <div class="products-container">
+            {{#each results}}
+            <div class="single-product">
+              <div class="product">
                 {{#if productPermalink}}
-                <div class="men-thumb-item shop-page-product">
+                <div class="image">
                   {{#if productImage}}
                   <img src="{{this.productImage}}" alt="">
                   {{else}}
                   <img src="/uploads/placeholder.png" alt="">
                   {{/if}}
-                  <div class="men-cart-pro">
-                    <div class="inner-men-cart-pro">
-                      <a href="/product/{{this.productPermalink}}" class="link-product-add-cart">Quick View</a>
-                    </div>
-                  </div>
-                  {{!-- <span class="product-new-top">New</span> --}}
+                </div>
+                <div class="quick-view">
+                  <a href="/product/{{this.productPermalink}}" class="link-product-add-cart">{{ @root.__ "Quick View" }}
+                    <i class="fa fa-book-open" aria-hidden="true"></i></a>
+                </div>
+                <div class="product-info">
+                  <p>
+                    <a href="/product/{{this.productPermalink}}">{{this.productTitle}} </a>
+                  </p>
                 </div>
                 {{else}}
-                <div class="men-thumb-item shop-page-product">
+                <div class="image">
                   {{#if productImage}}
                   <img src="{{this.productImage}}" alt="">
                   {{else}}
                   <img src="/uploads/placeholder.png" alt="">
                   {{/if}}
-                  <div class="men-cart-pro">
-                    <div class="inner-men-cart-pro">
-                      <a href="/product/{{this._id}}" class="link-product-add-cart">Quick View</a>
-                    </div>
-                  </div>
-                  {{!-- <span class="product-new-top">New</span> --}}
+                </div>
+                <div class="quick-view">
+                  <a href="/product/{{this._id}}" class="link-product-add-cart">{{ @root.__ "Quick View" }} <i
+                      class="fa fa-book-open" aria-hidden="true"></i></a>
+                </div>
+                <div class="product-info">
+                  <p>
+                    <a href="/product/{{this._id}}">{{this.productTitle}} </a>
+                  </p>
                 </div>
                 {{/if}}
-                <div class="item-info-product">
-                  <h4>
-                    {{#if productPermalink}}
-                    <a href="/products/{{this.productPermalink}}">{{this.productTitle}} </a>
-                    {{else}}
-                    <a href="/products/{{this._id}}">{{this.productTitle}} </a>
-                    {{/if}}
-                  </h4>
-                  {{#if variants}}
-                  <div class="info-product-price">
-                    {{#if @root.config.showHomepageVariants}}
-                    <select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
-                      {{#each variants}}
-                      <option value="{{this._id}}" data-price="{{this.price}}">
-                        {{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.price}}
-                      </option>
-                      {{/each}}
-                    </select>
-                    {{else}}
+                {{#if variants}}
+                <div class="price-section">
+                  {{#if @root.config.showHomepageVariants}}
+                  <select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
+                    {{#each variants}}
+                    <option value="{{this._id}}" data-price="{{this.price}}">
+                      {{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.price}}
+                    </option>
+                    {{/each}}
+                  </select>
+                  {{else}}
+                  <div class="cart-section">
                     <h4 class="product-price mp-0 text-center">
                       {{currencySymbol @root.config.currencySymbol}}{{formatAmount variants.0.price}}
                     </h4>
-                    {{/if}}
-                    <div class="buy">
-                      {{#if @root.config.showHomepageVariants}}
-                      <a class="add-variant-to-cart" data-id="{{this._id}}" role="button">
-                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                      </a>
-                      {{else}}
-                      <a class="add-to-cart" data-id="{{this._id}}" data-link="{{this.productPermalink}}"
-                        data-has-variants="{{checkProductVariants this.variants}}" role="button">
-                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                      </a>
-                      {{/if}}
-                    </div>
-                  </div>
-                  {{else}}
-                  <div class="info-product-price">
-                    <div class="grid_meta">
-                      <div class="product_price">
-                        <div class="grid-price ">
-                          <span class="money ">
-                            {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="buy">
-                      {{#if @root.config.showHomepageVariants}}
-                      <a class="add-variant-to-cart" data-id="{{this._id}}" role="button">
-                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                      </a>
-                      {{else}}
-                      <a class="add-to-cart" data-id="{{this._id}}" data-link="{{this.productPermalink}}"
-                        data-has-variants="{{checkProductVariants this.variants}}" role="button">
-                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
-                      </a>
-                      {{/if}}
-                    </div>
                   </div>
                   {{/if}}
-                  <div class="clearfix"></div>
+                  <div class="cart-section">
+                    <div class="cart-button">
+                      {{#if @root.config.showHomepageVariants}}
+                      <a class="add-variant-to-cart mainBtn greenBtn" data-id="{{this._id}}" role="button">
+                        {{ @root.__ "Add to cart" }}
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                      </a>
+                      {{else}}
+                      <a class="add-to-cart mainBtn greenBtn" data-id="{{this._id}}"
+                        data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}"
+                        role="button"> {{ @root.__ "Add to cart" }}
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                      </a>
+                      {{/if}}
+                    </div>
+                  </div>
                 </div>
+                {{else}}
+                <div class="price-section">
+                  <div class="cart-section">
+                    <div class="price">
+                      <span class="money">
+                        {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
+                      </span>
+                    </div>
+                    <div class="cart-button">
+                      {{#if @root.config.showHomepageVariants}}
+                      <a class="add-variant-to-cart mainBtn cartBtn greenBtn" data-id="{{this._id}}" role="button">
+                        {{ @root.__ "Add to cart" }}
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                      </a>
+                      {{else}}
+                      <a class="add-to-cart  mainBtn cartBtn greenBtn" data-id="{{this._id}}"
+                        data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}"
+                        role="button">{{ @root.__ "Add to cart" }}
+                        <i class="fa fa-cart-plus" aria-hidden="true"></i>
+                      </a>
+                      {{/if}}
+                    </div>
+                  </div>
+                </div>
+                {{/if}}
               </div>
             </div>
+            {{/each}}
+
           </div>
-          {{/each}}
+          <!--/mens-->
+
           <!-- //mens -->
           <div class="clearfix"></div>
 

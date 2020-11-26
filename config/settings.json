@@ -15,7 +15,7 @@
   "googleAnalytics": "",
   "injectJs": "",
   "customCss": "",
-  "currencySymbol": "KSH",
+  "currencySymbol": "KSh ",
   "currencyISO": "USD",
   "paymentGateway": ["stripe"],
   "databaseConnectionString": "mongodb://127.0.0.1:27017/expresscart",

@@ -2,123 +2,123 @@
 <html lang="en">
 
 <head>
-    {{~#if config.injectJs}}{{{config.injectJs}}}{{/if}}
-    <title>{{title}}</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    {{#if admin}}
-    <link rel="icon" type="image/png" href="/images/favicon.png" />
-    <!--[if IE]><link rel="SHORTCUT ICON" href="/images/favicon.png"/><![endif]-->
-    {{else}}
-    <link rel="icon" type="image/png" href="/favicon.png" />
-    <!--[if IE]><link rel="SHORTCUT ICON" href="/favicon.ico"/><![endif]-->
-    {{/if}}
-    <!-- custom-theme -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    {{#if productDescription}}
-    <meta name="description" content="{{snip productDescription}}">
-    {{else}}
-    {{#if metaDescription}}
-    <meta name="description" content="{{snip metaDescription}}">
-    {{else}}
-    <meta name="description" content="{{snip config.cartDescription}}">
-    {{/if}}
-    {{/if}}
-    <meta name="csrfToken" content="{{csrfToken}}">
-    <meta name="keywords" content="{{config.cartTitle}}">
-    {{#if admin}}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gijgo/1.9.13/combined/css/gijgo.min.css"
-        integrity="sha256-bH0WSMuCFoG/dxeox/5aOWmaZl729yDg4ylckwSRTfU=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/codemirror.min.css"
-        integrity="sha256-MdzaXfGXzZdeHw/XEV2LNNycipsLk4uZ0FYzO3hbuvI=" crossorigin="anonymous" />
-    {{/if}}
-    {{#if admin}}
-    <link rel="stylesheet" href="/stylesheets/admin{{config.env}}.css">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
-    {{/if}}
-    {{#if admin}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
-        integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gijgo/1.9.13/combined/js/gijgo.min.js"
-        integrity="sha256-YZhUu69bCn9uTqQyKwwQ3GyRypS7eaxp/wmVS282sDI=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/codemirror.min.js"
-        integrity="sha256-K1exjHe1X4MP24jRizgBaSbUDUrNhFDRSwGoEYGmtJE=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/mode/css/css.min.js"
-        integrity="sha256-D5oJ11cOmRhXSYWELwG2U/XYH3YveZJr9taRYLZ2DSM=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/mode/xml/xml.min.js"
-        integrity="sha256-ERFGS58tayDq5kkyNwd/89iZZ+HglMH7eYXxG1hxTvA=" crossorigin="anonymous"></script>
-    {{/if}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.25.0/feather.min.js"
-        integrity="sha256-NvgyqkM9Vu1DLHkzxTxXQxZNdDymUlwhXcSJEqUfPiU=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"
-        integrity="sha256-LlHVI5rUauudM5ZcZaD6hHPHKrA7CSefHHnKgq+/AZc=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.7/js/tether.min.js"
-        integrity="sha256-4lietOiwRDBKx1goZZbRiwB06L+/bPYEGDIKZt82bgg=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
-    <script src="/javascripts/jquery.bootpag.min.js"></script>
-    <script src="/javascripts/cssbeautify.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
-    <!--Stripe-->
-    <script src="https://js.stripe.com/v3/"></script>
-    <!-- Express cart js-->
-    <script src="/javascripts/common{{config.env}}.js"></script>
-    <script src="/javascripts/expressCart{{config.env}}.js"></script>
-    <!---->
-    {{#if admin}}
-    <script src="/javascripts/admin{{config.env}}.js"></script>
-    {{/if}}
-    <!-- SEO DATA -->
-    {{#if pageUrl}}
-    <link rel="canonical" href="{{pageUrl}}" />
-    {{else}}
-    <link rel="canonical" href="{{config.baseUrl}}" />
-    {{/if}}
-    <meta name="referrer" content="origin" />
-    {{#if @root.config.facebookAppId}}
-    <meta property="fb:app_id" content="{{@root.config.facebookAppId}}" />
-    {{/if}}
-    <meta property="og:site_name" content="{{config.cartTitle}}" />
-    {{#if result.productTitle}}
-    <meta property="og:type" content="product" />
-    {{else}}
-    <meta property="og:type" content="website" />
-    {{/if}}
-    <meta property="og:title" content="{{title}}" />
-    {{#if pageUrl}}
-    <meta property="og:url" content="{{pageUrl}}" />
-    {{else}}
-    <meta property="og:url" content="{{config.baseUrl}}" />
-    {{/if}}
-    {{#if result.productImage}}
-    <meta property="og:image" content="{{config.baseUrl}}{{result.productImage}}" />
-    {{/if}}
-    {{#if productDescription}}
-    <meta property="og:description" content="{{snip productDescription}}">
-    {{else}}
-    {{#if metaDescription}}
-    <meta property="og:description" content="{{snip metaDescription}}">
-    {{else}}
-    <meta property="og:description" content="{{snip config.cartDescription}}">
-    {{/if}}
-    {{/if}}
-    {{#if @root.config.twitterHandle}}
-    <meta property="twitter:site" content="{{@root.config.twitterHandle}}">
-    {{/if}}
-    {{#if result.productTitle}}
-    <meta property="twitter:card" content="product" />
-    {{else}}
-    <meta property="twitter:card" content="summary" />
-    {{/if}}
-    <meta property="twitter:title" content="{{title}}" />
-    {{#if pageUrl}}
-    <meta property="twitter:url" content="{{pageUrl}}" />
-    {{else}}
-    <meta property="twitter:url" content="{{config.baseUrl}}" />
-    {{/if}}
-    {{#if result.productTitle}}
-    <script type="application/ld+json">
+	{{~#if config.injectJs}}{{{config.injectJs}}}{{/if}}
+	<title>{{title}}</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	{{#if admin}}
+	<link rel="icon" type="image/png" href="/images/favicon.png" />
+	<!--[if IE]><link rel="SHORTCUT ICON" href="/images/favicon.png"/><![endif]-->
+	{{else}}
+	<link rel="icon" type="image/png" href="/favicon.png" />
+	<!--[if IE]><link rel="SHORTCUT ICON" href="/favicon.ico"/><![endif]-->
+	{{/if}}
+	<!-- custom-theme -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	{{#if productDescription}}
+	<meta name="description" content="{{snip productDescription}}">
+	{{else}}
+	{{#if metaDescription}}
+	<meta name="description" content="{{snip metaDescription}}">
+	{{else}}
+	<meta name="description" content="{{snip config.cartDescription}}">
+	{{/if}}
+	{{/if}}
+	<meta name="csrfToken" content="{{csrfToken}}">
+	<meta name="keywords" content="{{config.cartTitle}}">
+	{{#if admin}}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gijgo/1.9.13/combined/css/gijgo.min.css"
+		integrity="sha256-bH0WSMuCFoG/dxeox/5aOWmaZl729yDg4ylckwSRTfU=" crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/codemirror.min.css"
+		integrity="sha256-MdzaXfGXzZdeHw/XEV2LNNycipsLk4uZ0FYzO3hbuvI=" crossorigin="anonymous" />
+	{{/if}}
+	{{#if admin}}
+	<link rel="stylesheet" href="/stylesheets/admin{{config.env}}.css">
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+	{{/if}}
+	{{#if admin}}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"
+		integrity="sha256-4iQZ6BVL4qNKlQ27TExEhBN1HFPvAvAMbFavKKosSWQ=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gijgo/1.9.13/combined/js/gijgo.min.js"
+		integrity="sha256-YZhUu69bCn9uTqQyKwwQ3GyRypS7eaxp/wmVS282sDI=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/codemirror.min.js"
+		integrity="sha256-K1exjHe1X4MP24jRizgBaSbUDUrNhFDRSwGoEYGmtJE=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/mode/css/css.min.js"
+		integrity="sha256-D5oJ11cOmRhXSYWELwG2U/XYH3YveZJr9taRYLZ2DSM=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.20.2/mode/xml/xml.min.js"
+		integrity="sha256-ERFGS58tayDq5kkyNwd/89iZZ+HglMH7eYXxG1hxTvA=" crossorigin="anonymous"></script>
+	{{/if}}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+		integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.25.0/feather.min.js"
+		integrity="sha256-NvgyqkM9Vu1DLHkzxTxXQxZNdDymUlwhXcSJEqUfPiU=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"
+		integrity="sha256-LlHVI5rUauudM5ZcZaD6hHPHKrA7CSefHHnKgq+/AZc=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.7/js/tether.min.js"
+		integrity="sha256-4lietOiwRDBKx1goZZbRiwB06L+/bPYEGDIKZt82bgg=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/1000hz-bootstrap-validator/0.11.9/validator.min.js"></script>
+	<script src="/javascripts/jquery.bootpag.min.js"></script>
+	<script src="/javascripts/cssbeautify.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">
+	<!--Stripe-->
+	<script src="https://js.stripe.com/v3/"></script>
+	<!-- Express cart js-->
+	<script src="/javascripts/common{{config.env}}.js"></script>
+	<script src="/javascripts/expressCart{{config.env}}.js"></script>
+	<!---->
+	{{#if admin}}
+	<script src="/javascripts/admin{{config.env}}.js"></script>
+	{{/if}}
+	<!-- SEO DATA -->
+	{{#if pageUrl}}
+	<link rel="canonical" href="{{pageUrl}}" />
+	{{else}}
+	<link rel="canonical" href="{{config.baseUrl}}" />
+	{{/if}}
+	<meta name="referrer" content="origin" />
+	{{#if @root.config.facebookAppId}}
+	<meta property="fb:app_id" content="{{@root.config.facebookAppId}}" />
+	{{/if}}
+	<meta property="og:site_name" content="{{config.cartTitle}}" />
+	{{#if result.productTitle}}
+	<meta property="og:type" content="product" />
+	{{else}}
+	<meta property="og:type" content="website" />
+	{{/if}}
+	<meta property="og:title" content="{{title}}" />
+	{{#if pageUrl}}
+	<meta property="og:url" content="{{pageUrl}}" />
+	{{else}}
+	<meta property="og:url" content="{{config.baseUrl}}" />
+	{{/if}}
+	{{#if result.productImage}}
+	<meta property="og:image" content="{{config.baseUrl}}{{result.productImage}}" />
+	{{/if}}
+	{{#if productDescription}}
+	<meta property="og:description" content="{{snip productDescription}}">
+	{{else}}
+	{{#if metaDescription}}
+	<meta property="og:description" content="{{snip metaDescription}}">
+	{{else}}
+	<meta property="og:description" content="{{snip config.cartDescription}}">
+	{{/if}}
+	{{/if}}
+	{{#if @root.config.twitterHandle}}
+	<meta property="twitter:site" content="{{@root.config.twitterHandle}}">
+	{{/if}}
+	{{#if result.productTitle}}
+	<meta property="twitter:card" content="product" />
+	{{else}}
+	<meta property="twitter:card" content="summary" />
+	{{/if}}
+	<meta property="twitter:title" content="{{title}}" />
+	{{#if pageUrl}}
+	<meta property="twitter:url" content="{{pageUrl}}" />
+	{{else}}
+	<meta property="twitter:url" content="{{config.baseUrl}}" />
+	{{/if}}
+	{{#if result.productTitle}}
+	<script type="application/ld+json">
                 {
                     "@context": "https://schema.org/",
                     "@type": "Product",
@@ -177,25 +177,25 @@
                     {{/if}}
                 }
             </script>
-    {{/if}}
-    <!-- SEO data -->
-    {{~#if config.googleAnalytics}}{{{config.googleAnalytics}}}{{/if}}
-    {{~#if config.customCss}}<style>
-        {
-                {
-                    {
-                    config.customCss
-                }
-            }
-        }
-    </style>{{/if}}
-    {{#if admin}}
-    <link rel="stylesheet" href="/stylesheets/admin{{config.env}}.css">
-    {{else}}
-    {{/if}}
+	{{/if}}
+	<!-- SEO data -->
+	{{~#if config.googleAnalytics}}{{{config.googleAnalytics}}}{{/if}}
+	{{~#if config.customCss}}<style>
+		{
+				{
+					{
+					config.customCss
+				}
+			}
+		}
+	</style>{{/if}}
+	{{#if admin}}
+	<link rel="stylesheet" href="/stylesheets/admin{{config.env}}.css">
+	{{else}}
+	{{/if}}
 
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="application/x-javascript">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="application/x-javascript">
         addEventListener("load", function () {
             setTimeout(hideURLbar, 0);
         }, false);
@@ -204,117 +204,116 @@
             window.scrollTo(0, 1);
         }
     </script>
-    <!-- //custom-theme -->
-    <link href="/{{config.theme}}/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
-    <link rel="stylesheet" href="/{{config.theme}}/css/shop.css" type="text/css" media="screen" property="" />
-    <link href="/{{config.theme}}/css/style7.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="/{{config.theme}}/css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="/{{config.theme}}/css/shop-page.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="/{{config.theme}}/css/about.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="/{{config.theme}}/css/main.css" rel="stylesheet" type="text/css" media="all" />
-    <!-- font-awesome-icons -->
-    <!-- //font-awesome-icons -->
-    <link
-        href="http://fonts.googleapis.com/css?family=Montserrat:100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
-        rel="stylesheet" type="text/css">
-    <link href="http://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800"
-        rel="stylesheet" type="text/css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+	<!-- //custom-theme -->
+	<link href="/{{config.theme}}/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
+	<link rel="stylesheet" href="/{{config.theme}}/css/shop.css" type="text/css" media="screen" property="" />
+	<link href="/{{config.theme}}/css/style7.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="/{{config.theme}}/css/style.css" rel="stylesheet" type="text/css" media="all" />
+	{{!-- <link href="/{{config.theme}}/css/shop-page.css" rel="stylesheet" type="text/css" media="all" /> --}}
+	<link href="/{{config.theme}}/css/about.css" rel="stylesheet" type="text/css" media="all" />
+	<link href="/{{config.theme}}/css/main.css" rel="stylesheet" type="text/css" media="all" />
+	<!-- font-awesome-icons -->
+	<!-- //font-awesome-icons -->
+	<link
+		href="http://fonts.googleapis.com/css?family=Montserrat:100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800"
+		rel="stylesheet" type="text/css">
+	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800" rel="stylesheet"
+		type="text/css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 
 {{#if admin}}
 
 <body class="admin">
-    {{else}}
-    <div id="notify_message"></div>
+	{{else}}
+	<div id="notify_message"></div>
 
-    <body>
-        {{/if}}
-        <!-- Import Banner-->
-        {{#ifEquals title 'ML Hair - Shop' }}
-        {{> themes/MarieLyne/banner}}
-        {{ else }}
-        {{> themes/MarieLyne/inner-banner}}
-        {{/ifEquals}}
+	<body>
+		{{/if}}
+		<!-- Import Banner-->
+		{{#ifEquals title 'ML Hair - Shop' }}
+		{{> themes/MarieLyne/banner}}
+		{{ else }}
+		{{> themes/MarieLyne/inner-banner}}
+		{{/ifEquals}}
 
-        <div class="wrapper_top_shop">
-            {{{ body }}}
-        </div>
+		<div class="wrapper_top_shop">
+			{{{ body }}}
+		</div>
 
-        {{#if showFooter}}
-        {{> themes/MarieLyne/newsletter}}
-        {{> themes/MarieLyne/footer}}
-        {{/if}}
-        {{> partials/confirmModal}}
-        {{#if @root.config.modules.enabled.reviews}}
-        {{> partials/reviewModal}}
-        {{/if}}
-        <!-- //footer -->
-        <a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;">
-            </span></a>
+		{{#if showFooter}}
+		{{> themes/MarieLyne/newsletter}}
+		{{> themes/MarieLyne/footer}}
+		{{/if}}
+		{{> partials/confirmModal}}
+		{{#if @root.config.modules.enabled.reviews}}
+		{{> partials/reviewModal}}
+		{{/if}}
+		<!-- //footer -->
+		<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;">
+			</span></a>
 
-        <!-- js -->
-        <!-- //js -->
-        <!-- /nav -->
-        <script src="/{{config.theme}}/js/modernizr-2.6.2.min.js"></script>
-        <script src="/{{config.theme}}/js/classie.js"></script>
-        <script src="/{{config.theme}}/js/demo1.js"></script>
-        <!-- //nav -->
-        <!-- cart-js -->
-        <script src="/{{config.theme}}/js/minicart.js"></script>
-        <script>
-            feather.replace() // start feather icons
-            shoe.render();
+		<!-- js -->
+		<!-- //js -->
+		<!-- /nav -->
+		<script src="/{{config.theme}}/js/modernizr-2.6.2.min.js"></script>
+		<script src="/{{config.theme}}/js/classie.js"></script>
+		<script src="/{{config.theme}}/js/demo1.js"></script>
+		<!-- //nav -->
+		<!-- cart-js -->
+		<script src="/{{config.theme}}/js/minicart.js"></script>
+		<script>
+			feather.replace() // start feather icons
+			shoe.render();
 
-            shoe.cart.on('shoe_checkout', function (evt) {
-                var items, len, i;
+			shoe.cart.on('shoe_checkout', function (evt) {
+				var items, len, i;
 
-                if (this.subtotal() > 0) {
-                    items = this.items();
+				if (this.subtotal() > 0) {
+					items = this.items();
 
-                    for (i = 0, len = items.length; i < len; i++) { }
-                }
-            });
-        </script>
-        <!-- //cart-js -->
-        <!--search-bar-->
-        <script src="/{{config.theme}}/js/search.js"></script>
-        <!--//search-bar-->
-        <script src="/{{config.theme}}/js/responsiveslides.min.js"></script>
-        <script>
-            $(function () {
-                $("#slider4").responsiveSlides({
-                    auto: true,
-                    pager: true,
-                    nav: true,
-                    speed: 1000,
-                    namespace: "callbacks",
-                    before: function () {
-                        $('.events').append("<li>before event fired.</li>");
-                    },
-                    after: function () {
-                        $('.events').append("<li>after event fired.</li>");
-                    }
-                });
-            });
-        </script>
-        <!-- js for portfolio lightbox -->
-        <!-- start-smoth-scrolling -->
-        <script type="text/javascript" src="/{{config.theme}}/js/move-top.js"></script>
-        <script type="text/javascript" src="/{{config.theme}}/js/easing.js"></script>
-        <script type="text/javascript">
-            jQuery(document).ready(function ($) {
-                $(".scroll").click(function (event) {
-                    event.preventDefault();
-                    $('html,body').animate({
-                        scrollTop: $(this.hash).offset().top
-                    }, 1000);
-                });
-            });
-        </script>
-        <!-- //end-smoth-scrolling -->
-        <script src="/javascripts/pushy.min.js"></script>
-        <script type="text/javascript" src="/{{config.theme}}/js/bootstrap-3.1.1.min.js"></script>
-    </body>
+					for (i = 0, len = items.length; i < len; i++) { }
+				}
+			});
+		</script>
+		<!-- //cart-js -->
+		<!--search-bar-->
+		<script src="/{{config.theme}}/js/search.js"></script>
+		<!--//search-bar-->
+		<script src="/{{config.theme}}/js/responsiveslides.min.js"></script>
+		<script>
+			$(function () {
+				$("#slider4").responsiveSlides({
+					auto: true,
+					pager: true,
+					nav: true,
+					speed: 1000,
+					namespace: "callbacks",
+					before: function () {
+						$('.events').append("<li>before event fired.</li>");
+					},
+					after: function () {
+						$('.events').append("<li>after event fired.</li>");
+					}
+				});
+			});
+		</script>
+		<!-- js for portfolio lightbox -->
+		<!-- start-smoth-scrolling -->
+		<script type="text/javascript" src="/{{config.theme}}/js/move-top.js"></script>
+		<script type="text/javascript" src="/{{config.theme}}/js/easing.js"></script>
+		<script type="text/javascript">
+			jQuery(document).ready(function ($) {
+				$(".scroll").click(function (event) {
+					event.preventDefault();
+					$('html,body').animate({
+						scrollTop: $(this.hash).offset().top
+					}, 1000);
+				});
+			});
+		</script>
+		<!-- //end-smoth-scrolling -->
+		<script src="/javascripts/pushy.min.js"></script>
+		<script type="text/javascript" src="/{{config.theme}}/js/bootstrap-3.1.1.min.js"></script>
+	</body>

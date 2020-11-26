@@ -1,122 +1,122 @@
 <div class="banner_top innerpage" id="home">
-    <div class="wrapper_top_w3layouts">
-        <div class="header_agileits">
-            <div class="logo inner_page_log">
-                <h1><a class="navbar-brand" href="/"><span>ML</span> <i>HAIR</i></a></h1>
-            </div>
-            <div class="overlay overlay-contentpush">
-                <button type="button" class="overlay-close"><i class="fa fa-times" aria-hidden="true"></i></button>
+	<div class="wrapper_top_w3layouts">
+		<div class="header_agileits">
+			<div class="logo inner_page_log">
+				<h1><a class="navbar-brand" href="/"><span>ML</span> <i>HAIR</i></a></h1>
+			</div>
+			<div class="overlay overlay-contentpush">
+				<button type="button" class="overlay-close"><i class="fa fa-times" aria-hidden="true"></i></button>
 
-                <nav>
-                    <ul>
-                        <li class="nav-item {{#unless searchTerm}}active{{/unless}}"><a class="nav-link" href="/">Home</a></li>
-                        {{#each menu.items}}
-                            <li class="nav-item"
-                                {{#menuMatch this.title @root.searchTerm}}{{/menuMatch}}
-                                {{#menuMatch this.title @root.title}}{{/menuMatch}}>
-                                <a class="nav-link" href="{{this.link}}">{{this.title}}</a>
-                            </li>
-                        {{/each}}
-                    </ul>
-                </nav>
-            </div>
-            <div class="mobile-nav-button">
-                <button id="trigger-overlay" type="button"><i class="fa fa-bars" aria-hidden="true"></i></button>
-            </div>
-            <!-- cart details -->
-            <!--User Account-->
-            {{#if @root.session.customerPresent}}
-                <div class="top_nav_right" style="right: 7%">
-                    <button class="top_shoe_cart dropdown-toggle" type="button" name="submit"
-                            id="dropdownMenuButton" value="" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
-                        <i class="fa fa-language" aria-hidden="true"></i>
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li>
-                            <a class="dropdown-item" href="/customer/account">Account</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="/customer/logout">Logout</a>
-                        </li>
-                    </div>
-                </div>
-            {{else}}
-                <div class="top_nav_right" style="right: 7%">
-                    <div class="shoecart shoecart2 cart cart box_1">
-                        <button class="top_shoe_cart" type="submit" name="submit" id="user_btn" value=""><i
-                                class="fa fa-user" aria-hidden="true"></i></button>
-                    </div>
-                </div>
-            {{/if}}
+				<nav>
+					<ul>
+						<li class="nav-item {{#unless searchTerm}}active{{/unless}}"><a class="nav-link" href="/">Home</a></li>
+						{{#each menu.items}}
+						<li class="nav-item" {{#menuMatch this.title @root.searchTerm}}{{/menuMatch}}
+							{{#menuMatch this.title @root.title}}{{/menuMatch}}>
+							<a class="nav-link" href="{{this.link}}">{{this.title}}</a>
+						</li>
+						{{/each}}
+					</ul>
+				</nav>
+			</div>
+			<div class="mobile-nav-button">
+				<button id="trigger-overlay" type="button"><i class="fa fa-bars" aria-hidden="true"></i></button>
+			</div>
+			<!-- cart details -->
+			<!--User Account-->
+			{{#if @root.session.customerPresent}}
+			<div class="top_nav_right" style="right: 7%">
+				<button class="top_shoe_cart dropdown-toggle" type="button" name="submit" id="dropdownMenuButton" value=""
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="fa fa-language" aria-hidden="true"></i>
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<li>
+						<a class="dropdown-item" href="/customer/account">Account</a>
+					</li>
+					<li>
+						<a class="dropdown-item" href="/customer/logout">Logout</a>
+					</li>
+				</div>
+			</div>
+			{{else}}
+			<div class="top_nav_right" style="right: 7%">
+				<div class="shoecart shoecart2 cart cart box_1">
+					<button class="top_shoe_cart" type="submit" name="submit" id="user_btn" value=""><i class="fa fa-user"
+							aria-hidden="true"></i></button>
+				</div>
+			</div>
+			{{/if}}
 
-            <!-- cart details -->
-            {{#if @root.session.cart}}
-                <div class="top_nav_right">
-                    <div class="shoecart shoecart2 cart cart box_1">
-                        <button class="top_shoe_cart" id="cart_btn" type="submit" name="submit" value="">
-                            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                            <span class="badge badge-danger" id="cart-count">{{@root.session.totalCartItems}}</span>
-                        </button>
-                    </div>
-                </div>
-            {{else}}
-                <div class="top_nav_right">
-                    <div class="shoecart shoecart2 cart cart box_1">
-                        <button class="top_shoe_cart" id="cart_btn" type="submit" name="submit" value="">
-                            <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
-                        </button>
-                    </div>
-                </div>
-            {{/if}}
-            <!-- //cart details -->
-            <!-- Language -->
-            {{#ifCond @root.config.enableLanguages "!=" false}}
-                <div class="top_nav_right" style="right: 4%">
-                    <div class="shoecart shoecart2 cart cart box_1">
-                        <div class="dropdown">
-                            <button class="top_shoe_cart dropdown-toggle" type="button" name="submit"
-                                    id="dropdownMenuButton" value="" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                <i class="fa fa-language" aria-hidden="true"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                {{#availableLanguages}}
-                                    <li><a class="dropdown-item" href="/lang/{{this}}">{{@root.__ this}}</a></li>
-                                {{/availableLanguages}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {{/ifCond}}
-            <!-- //Language -->
-        </div>
-    </div>
-    <!-- search -->
-    <div class="search_w3ls_agileinfo">
-        <div class="cd-main-header">
-            <ul class="cd-header-buttons">
-                <li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
-            </ul>
-        </div>
-        <div id="cd-search" class="cd-search">
-            <form id="search_form">
-                <input class="form-control" name="frm_search" id="frm_search"
-                       placeholder="{{ @root.__ "Search shop" }}" aria-label="Search" type="search">
-            </form>
-        </div>
-    </div>
-    <!-- //search -->
-    <div class="clearfix"></div>
-    <!-- /banner_inner -->
-    <div class="services-breadcrumb_w3ls_agileinfo">
-        <div class="inner_breadcrumb_agileits_w3">
+			<!-- cart details -->
+			{{#if @root.session.cart}}
+			<div class="top_nav_right">
+				<div class="shoecart shoecart2 cart cart box_1">
+					<button class="top_shoe_cart" id="cart_btn" type="submit" name="submit" value="">
+						<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+						<span class="badge badge-danger" id="cart-count">{{@root.session.totalCartItems}}</span>
+					</button>
+				</div>
+			</div>
+			{{else}}
+			<div class="top_nav_right">
+				<div class="shoecart shoecart2 cart cart box_1">
+					<form action="#" method="post" class="last">
+						<input type="hidden" name="cmd" value="_cart">
+						<input type="hidden" name="display" value="1">
+						<button class="top_shoe_cart" type="submit" name="submit" value=""><i class="fa fa-cart-arrow-down"
+								aria-hidden="true"></i></button>
+					</form>
+				</div>
+			</div>
+			{{/if}}
+			<!-- //cart details -->
+			<!-- Language -->
+			{{#ifCond @root.config.enableLanguages "!=" false}}
+			<div class="top_nav_right" style="right: 4%">
+				<div class="shoecart shoecart2 cart cart box_1">
+					<div class="dropdown">
+						<button class="top_shoe_cart dropdown-toggle" type="button" name="submit" id="dropdownMenuButton" value=""
+							data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<i class="fa fa-language" aria-hidden="true"></i>
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							{{#availableLanguages}}
+							<li><a class="dropdown-item" href="/lang/{{this}}">{{@root.__ this}}</a></li>
+							{{/availableLanguages}}
+						</div>
+					</div>
+				</div>
+			</div>
+			{{/ifCond}}
+			<!-- //Language -->
+		</div>
+	</div>
+	<!-- search -->
+	<div class="search_w3ls_agileinfo">
+		<div class="cd-main-header">
+			<ul class="cd-header-buttons">
+				<li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
+			</ul>
+		</div>
+		<div id="cd-search" class="cd-search">
+			<form id="search_form">
+				<input class="form-control" name="frm_search" id="frm_search" placeholder="{{ @root.__ "Search shop" }}"
+					aria-label="Search" type="search">
+			</form>
+		</div>
+	</div>
+	<!-- //search -->
+	<div class="clearfix"></div>
+	<!-- /banner_inner -->
+	<div class="services-breadcrumb_w3ls_agileinfo">
+		<div class="inner_breadcrumb_agileits_w3">
 
-            <ul class="short">
-                <li><a href="/">Home</a><i>|</i></li>
-                <li>{{ title }}</li>
-            </ul>
-        </div>
-    </div>
-    <!-- //banner_inner -->
+			<ul class="short">
+				<li><a href="/">Home</a><i>|</i></li>
+				<li>{{ title }}</li>
+			</ul>
+		</div>
+	</div>
+	<!-- //banner_inner -->
 </div>

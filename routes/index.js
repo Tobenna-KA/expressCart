@@ -123,11 +123,11 @@ router.get('/consultation', (req, res) => {
   });
 });
 
-// Contact us route
-router.get('/contact-us', (req, res) => {
+// Contact route
+router.get('/contact', (req, res) => {
   const db = req.app.db;
   const config = req.app.config;
-  const file_to_render = `${config.themeViews}contact-us`;
+  const file_to_render = `${config.themeViews}contact`;
 
   Promise.all([getMenu(db)]).then(([menu]) => {
     if (req.query.json === 'true') {

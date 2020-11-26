@@ -1,0 +1,26 @@
+.form-signin {
+  // padding: 20px !important;
+  margin-top: 20px;
+  h2 {
+    font-family: 'Josefin Sans', sans-serif !important;
+  }
+  input {
+    padding: 20px 15px !important;
+    font-size: 0.9em !important;
+    border-radius: 0 !important;
+  }
+  button {
+    padding: 8px 23px !important;
+    border-radius: 0 !important;
+    color: #fff !important;
+    font-size: 0.8em !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    background-color: #09bc8a !important;
+    font-weight: bold;
+
+    &:hover {
+      background-color: #079c72 !important;
+    }
+  }
+}
