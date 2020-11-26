@@ -69,6 +69,15 @@
 // font-family: 'Josefin Sans', sans-serif;
 
 @media only screen and (max-width: 600px) {
+  .customer-account {
+    &.form-buttons {
+      .mainBtn {
+        width: 100% !important;
+        margin: 0 !important;
+        margin-bottom: 10px !important;
+      }
+    }
+  }
   .cart-info {
     .form-buttons {
       flex-direction: column;

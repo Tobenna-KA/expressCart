@@ -252,6 +252,10 @@ a.mainBtn {
       margin-left: 10px; }
 
 @media only screen and (max-width: 600px) {
+  .customer-account.form-buttons .mainBtn {
+    width: 100% !important;
+    margin: 0 !important;
+    margin-bottom: 10px !important; }
   .cart-info .form-buttons {
     flex-direction: column; }
     .cart-info .form-buttons a {
@@ -529,10 +533,14 @@ a.mainBtn {
 .products-container {
   width: 100%;
   display: flex;
-  flex-wrap: wrap; }
+  flex-wrap: wrap !important; }
+  .products-container.home {
+    margin-bottom: 40px; }
+    .products-container.home .product {
+      width: 100% !important; }
   .products-container .single-product {
-    width: 33%;
-    max-width: 33%;
+    width: 25%;
+    max-width: 25%;
     display: flex;
     padding: 5px; }
     .products-container .single-product .product {
@@ -614,11 +622,13 @@ a.mainBtn {
 
 @media only screen and (max-width: 768px) {
   .single-product {
-    width: 50% !important; } }
+    width: 50% !important;
+    max-width: 50% !important; } }
 
 @media only screen and (max-width: 480px) {
   .single-product {
-    width: 100% !important; } }
+    width: 100% !important;
+    max-width: 100% !important; } }
 
 div#my-cart-modal {
   background-color: rgba(0, 0, 0, 0.5); }
@@ -1954,7 +1964,6 @@ input.button.add {
     background-color: #fff;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2); }
   .overlay-contentpush nav {
-    text-align: right;
     padding: 25px; }
   .overlay-contentpush .nav-link {
     text-transform: uppercase; }
@@ -1974,7 +1983,6 @@ input.button.add {
   border: 1px solid #ccc;
   border-radius: 2px;
   width: 100%;
-  max-width: 400px;
   background: white;
   font-size: 12px; }
   .instagram-card .mainBtn {
