@@ -99,8 +99,8 @@ app.set('view engine', 'hbs');
 handlebars = handlebars.create({
   helpers: {
     // equals helper
-    ifEquals: function(arg1, arg2, options) {
-      return (arg1 === arg2) ? options.fn(this) : options.inverse(this);
+    ifEquals: function (arg1, arg2, options) {
+      return arg1 === arg2 ? options.fn(this) : options.inverse(this);
     },
     // Language helper
     __: () => {
