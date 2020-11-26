@@ -486,6 +486,42 @@ router.post('/customer/login_action', async (req, res) => {
     });
 });
 
+
+router.post('/customer/subscribe', async (req, res) => {
+    const db = req.app.db;
+
+    const customer = await db.customers.findOne({ email: mongoSanitize(req.body.subscriptionEmail) });
+    // if email already exists, check if user is subscribed
+    if (customer === undefined || customer === null){
+        res.status(400).json({
+            message: 'A customer with that email does not exist.'
+        });
+        return;
+    }
+
+    // we have a customer under that email so we compare the password
+    bcrypt.compare(req.body.loginPassword, customer.password)
+    .then((result) => {
+        if (!result){
+            // password is not correct
+            res.status(400).json({
+                message: 'Access denied. Check password and try again.'
+            });
+            return;
+        }
+
+        res.status(200).json({
+            message: 'Successfully logged in',
+            customer: customer
+        });
+    })
+    .catch((err) => {
+        res.status(400).json({
+            message: 'Access denied. Check password and try again.'
+        });
+    });
+});
+
 // customer forgotten password
 router.get('/customer/forgotten', (req, res) => {
     res.render('forgotten', {
