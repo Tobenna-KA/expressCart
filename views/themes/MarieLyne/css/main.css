@@ -1979,6 +1979,9 @@ input.button.add {
   .overlay-contentpush {
     width: 50%; } }
 
+.home-container {
+  width: 85%; }
+
 .insta-row {
   margin-bottom: 40px; }
 
@@ -2038,3 +2041,7 @@ input.button.add {
     margin-left: 10px;
     border: none;
     width: 100%; }
+
+@media only screen and (max-width: 600px) {
+  .home-container {
+    width: 100% !important; } }
