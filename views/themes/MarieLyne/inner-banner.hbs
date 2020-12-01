@@ -28,7 +28,7 @@
 			<!-- cart details -->
 			<!--User Account-->
 			{{#if @root.session.customerPresent}}
-			<div class="top_nav_right" style="right: 7%">
+			<div class="top_nav_right navCustomerPresent" style="right: 7%">
 				<button class="top_shoe_cart dropdown-toggle" type="button" name="submit" id="dropdownMenuButton" value=""
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<i class="fa fa-language" aria-hidden="true"></i>
@@ -43,7 +43,7 @@
 				</div>
 			</div>
 			{{else}}
-			<div class="top_nav_right" style="right: 7%">
+			<div class="top_nav_right navCustomerPresent" style="right: 7%">
 				<div class="shoecart shoecart2 cart cart box_1">
 					<button class="top_shoe_cart" type="submit" name="submit" id="user_btn" value=""><i class="fa fa-user"
 							aria-hidden="true"></i></button>
@@ -53,7 +53,7 @@
 
 			<!-- cart details -->
 			{{#if @root.session.cart}}
-			<div class="top_nav_right">
+			<div class="top_nav_right navCartButton">
 				<div class="shoecart shoecart2 cart cart box_1">
 					<button class="top_shoe_cart" id="cart_btn" type="submit" name="submit" value="">
 						<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
@@ -62,7 +62,7 @@
 				</div>
 			</div>
 			{{else}}
-			<div class="top_nav_right">
+			<div class="top_nav_right navCartButton">
 				<div class="shoecart shoecart2 cart cart box_1">
 					<form action="#" method="post" class="last">
 						<input type="hidden" name="cmd" value="_cart">
@@ -76,7 +76,7 @@
 			<!-- //cart details -->
 			<!-- Language -->
 			{{#ifCond @root.config.enableLanguages "!=" false}}
-			<div class="top_nav_right" style="right: 4%">
+			<div class="top_nav_right navLanguageButton" style="right: 4%">
 				<div class="shoecart shoecart2 cart cart box_1">
 					<div class="dropdown">
 						<button class="top_shoe_cart dropdown-toggle" type="button" name="submit" id="dropdownMenuButton" value=""
