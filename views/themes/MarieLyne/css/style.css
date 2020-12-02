@@ -146,7 +146,7 @@ ul.top_icons li a:hover {
   cursor: pointer;
   width: 36px;
   height: 36px;
-  background: rgba(27, 25, 25, 0.27);
+  background: rgba(27, 25, 25, 0.67);
 }
 
 .mobile-menu ul li {
@@ -268,8 +268,8 @@ li.dropdown.act a.w3_icons_act {
   white-space: nowrap;
   color: transparent;
   z-index: 3;
-  background: rgba(27, 25, 25, 0.27);
-  border: 1px solid rgba(27, 25, 25, 0.27);
+  background: rgba(27, 25, 25, 0.67);
+  border: 1px solid rgba(27, 25, 25, 0.67);
 }
 
 .cd-search-trigger::before,
@@ -862,8 +862,8 @@ button.top_shoe_cart {
   background: none;
   width: 36px;
   height: 36px;
-  background: rgba(27, 25, 25, 0.27);
-  border: 1px solid rgba(27, 25, 25, 0.27);
+  background: rgba(27, 25, 25, 0.67);
+  border: 1px solid rgba(27, 25, 25, 0.67);
 }
 .shop_inner_inf {
   width: 90%;

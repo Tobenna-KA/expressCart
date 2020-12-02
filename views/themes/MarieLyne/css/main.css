@@ -1975,9 +1975,41 @@ input.button.add {
 .logo .ml-logo {
   width: 80px; }
 
+.navCustomerPresent {
+  position: fixed;
+  right: 95px !important; }
+
+.navCartButton {
+  position: fixed;
+  right: 5px; }
+
+.navLanguageButton {
+  position: fixed;
+  right: 50px !important; }
+
 @media only screen and (max-width: 600px) {
   .overlay-contentpush {
-    width: 50%; } }
+    width: 50%; }
+  .ml-logo {
+    width: 50px !important; }
+  #home .navCustomerPresent {
+    right: 150px !important; }
+  #home .navCartButton {
+    right: 110px !important; }
+  #home .navLanguageButton {
+    right: 70px !important; } }
+
+@media only screen and (max-width: 768px) {
+  .overlay-contentpush {
+    width: 50%; }
+  .ml-logo {
+    width: 50px !important; }
+  #home .navCustomerPresent {
+    right: 160px !important; }
+  #home .navCartButton {
+    right: 110px !important; }
+  #home .navLanguageButton {
+    right: 60px !important; } }
 
 .home-container {
   width: 85%; }
