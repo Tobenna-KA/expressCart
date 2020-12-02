@@ -99,6 +99,9 @@ router.get('/admin/product/new', restrict, checkAccess, (req, res) => {
     productTitle: clearSessionValue(req.session, 'productTitle'),
     productDescription: clearSessionValue(req.session, 'productDescription'),
     productPrice: clearSessionValue(req.session, 'productPrice'),
+    productPriceUSD: clearSessionValue(req.session, 'productPriceUSD'),
+    productPriceCFA: clearSessionValue(req.session, 'productPriceCFA'),
+    productPriceEUR: clearSessionValue(req.session, 'productPriceEUR'),
     productPermalink: clearSessionValue(req.session, 'productPermalink'),
     message: clearSessionValue(req.session, 'message'),
     messageType: clearSessionValue(req.session, 'messageType'),
@@ -121,6 +124,9 @@ router.post(
       productPermalink: req.body.productPermalink,
       productTitle: cleanHtml(req.body.productTitle),
       productPrice: req.body.productPrice,
+      productPriceUSD: req.body.productPriceUSD,
+      productPriceCFA: req.body.productPriceCFA,
+      productPriceEUR: req.body.productPriceEUR,
       productDescription: cleanHtml(req.body.productDescription),
       productGtin: cleanHtml(req.body.productGtin),
       productBrand: cleanHtml(req.body.productBrand),
@@ -327,12 +333,10 @@ router.post(
           returnOriginal: false,
         }
       );
-      res
-        .status(200)
-        .json({
-          message: 'Successfully saved variant',
-          variant: updatedVariant.value,
-        });
+      res.status(200).json({
+        message: 'Successfully saved variant',
+        variant: updatedVariant.value,
+      });
     } catch (ex) {
       res
         .status(400)
@@ -400,6 +404,9 @@ router.post(
       productPermalink: req.body.productPermalink,
       productTitle: cleanHtml(req.body.productTitle),
       productPrice: req.body.productPrice,
+      productPriceUSD: req.body.productPriceUSD,
+      productPriceCFA: req.body.productPriceCFA,
+      productPriceEUR: req.body.productPriceEUR,
       productDescription: cleanHtml(req.body.productDescription),
       productGtin: cleanHtml(req.body.productGtin),
       productBrand: cleanHtml(req.body.productBrand),

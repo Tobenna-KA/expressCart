@@ -16,6 +16,18 @@
             "type": "string",
             "format": "amount"
         },
+        "productPriceUSD": {
+            "type": "string",
+            "format": "amount"
+        },
+        "productPriceCFA": {
+            "type": "string",
+            "format": "amount"
+        },
+        "productPriceEUR": {
+            "type": "string",
+            "format": "amount"
+        },
         "productDescription": {
             "type": "string",
             "isNotEmpty": true,
@@ -49,6 +61,9 @@
     "errorMessage": {
         "properties": {
             "productPrice": "Should be a full 2 decimal value. Eg: 10.99",
+            "productPriceUSD": "Should be a full 2 decimal value. Eg: 10.99",
+            "productPriceCFA": "Should be a full 2 decimal value. Eg: 10.99",
+            "productPriceEUR": "Should be a full 2 decimal value. Eg: 10.99",
             "productPublished": "Should be either true or false",
             "productComment": "Should be either true or false"
         }
@@ -57,6 +72,9 @@
         "productPermalink",
         "productTitle",
         "productPrice",
+        "productPriceUSD",
+        "productPriceCFA",
+        "productPriceEUR",
         "productDescription",
         "productPublished"
     ]

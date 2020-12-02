@@ -162,6 +162,15 @@
                       <span class="money">
                         {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
                       </span>
+                      <span class="money">
+                        {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPriceUSD}}
+                      </span>
+                      <span class="money">
+                        {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPriceCFA}}
+                      </span>
+                      <span class="money">
+                        {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPriceEUR}}
+                      </span>
                     </div>
                     <div class="cart-button">
                       {{#if @root.config.showHomepageVariants}}
