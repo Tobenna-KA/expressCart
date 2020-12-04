@@ -114,49 +114,19 @@
 		{{#ifEquals title 'ML Hair - Shop' }}
 		<!--Show only when on landing page-->
 		<div class="slider">
+			<h1>
+				{{!-- {{ solid }} --}}
+			</h1>
 			<div class="callbacks_container">
 				<ul class="rslides callbacks callbacks1" id="slider4">
-
+					{{#each instaFeed}}
 					<li>
-						<div class="banner-top2">
+						<div class="banner-top2" style="background: url({{this.node.thumbnail_src}}) no-repeat 0px 0px;">
 							<div class="banner-info-wthree">
-								{{!-- <h3>Nike</h3>
-								<p>See how good they feel.</p> --}}
-
 							</div>
-
 						</div>
 					</li>
-					<li>
-						<div class="banner-top3">
-							<div class="banner-info-wthree">
-								{{!-- <h3>Heels</h3>
-								<p>For All Walks of Life.</p> --}}
-
-							</div>
-
-						</div>
-					</li>
-					<li>
-						<div class="banner-top">
-							<div class="banner-info-wthree">
-								{{!-- <h3>Sneakers</h3>
-								<p>See how good they feel.</p> --}}
-
-							</div>
-
-						</div>
-					</li>
-					<li>
-						<div class="banner-top1">
-							<div class="banner-info-wthree">
-								{{!-- <h3>Adidas</h3>
-								<p>For All Walks of Life.</p> --}}
-
-							</div>
-
-						</div>
-					</li>
+					{{/each}}
 				</ul>
 			</div>
 			<div class="clearfix"> </div>

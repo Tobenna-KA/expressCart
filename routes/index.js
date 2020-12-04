@@ -86,26 +86,6 @@ router.get("/services", (req, res) => {
   });
 });
 
-// // Consultation route
-// router.get('/consultation', (req, res) => {
-//   const db = req.app.db;
-//   const config = req.app.config;
-//   const file_to_render = `${config.themeViews}consultation`;
-
-//   Promise.all([getMenu(db)]).then(([menu]) => {
-//     if (req.query.json === 'true') {
-//       res.status(200).json(results.data);
-//       return;
-//     }
-
-//     res.render(file_to_render, {
-//       helpers: req.handlebars.helpers, // seems required
-//       config, // required
-//       menu: sortMenu(menu),
-//     });
-//   });
-// });
-
 // Contact route
 router.get("/contact", (req, res) => {
   const db = req.app.db;
@@ -131,8 +111,8 @@ router.get("/contact/:name/:email/:subject/:message", async (req, res) => {
   // Validate form entries
   try {
     await contactFormSchema.validateAsync(req.params, {
-      abortEarly: false
-    })
+      abortEarly: false,
+    });
 
     const body = `
       ${req.params.name} contacted you on ${new Date()}
@@ -141,17 +121,16 @@ router.get("/contact/:name/:email/:subject/:message", async (req, res) => {
       Message: ${req.params.message}.
 
       Reach them through ${req.params.email}
-    `
-    
+    `;
+
     // Send to sendEmail Module
     // sendEmail('marielynes@email.com', req.params.subject, body)
-    
+
     res.json("OK!");
-    
-  } catch(err) {
+  } catch (err) {
     res.status(500).json({
-      message: 'Something went wrong. Please try again later'
-    })
+      message: "Something went wrong. Please try again later",
+    });
   }
 });
 
