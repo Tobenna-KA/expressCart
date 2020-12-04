@@ -1501,6 +1501,8 @@ router.get("/:page?", async (req, res, next) => {
         getInstagramPosts("marielyne_beauty")
           .then((posts) => {
             const instaFeed = posts.splice(0, 3);
+            const bottomCarousel1 = posts.splice(0, 3);
+            const bottomCarousel2 = posts.splice(4, 3);
 
             res.render(`${config.themeViews}index`, {
               title: `${config.cartTitle} - Shop`,
@@ -1518,6 +1520,8 @@ router.get("/:page?", async (req, res, next) => {
               showFooter: "showFooter",
               menu: sortMenu(menu),
               instaFeed: instaFeed,
+              bottomCarousel1: bottomCarousel1,
+              bottomCarousel2: bottomCarousel2,
               instaPosts: posts,
             });
           })

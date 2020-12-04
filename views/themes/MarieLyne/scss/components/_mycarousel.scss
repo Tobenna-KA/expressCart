@@ -1,0 +1,45 @@
+#myCarouselBox {
+  border: 1px solid $primary_color;
+  padding: 3px;
+  background-color: #fff;
+  border-radius: 2px;
+
+  .mid_slider_text {
+    height: 100% !important;
+    padding: 0 !important;
+    text-transform: uppercase;
+    a {
+      padding: 0 !important;
+      margin: 0 !important;
+      h5 {
+        font-weight: 400;
+        text-align: center;
+        margin: 0 !important;
+        padding: 0 !important;
+        color: $primary_color !important;
+        transition: $color_transition;
+        font-size: 2.2em;
+
+        &:hover {
+          color: $primary_color_darker !important;
+        }
+      }
+    }
+  }
+
+  .left,
+  .right {
+    &.carousel-control {
+      border: 2px solid $primary_color;
+      background-color: $primary_color;
+      font-size: 0.9em !important;
+      color: #fff;
+      transition: $color_transition;
+
+      &:hover {
+        background-color: $primary_color_darker;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+      }
+    }
+  }
+}
