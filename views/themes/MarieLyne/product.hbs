@@ -31,11 +31,11 @@
         <div class="col-md-8 single-right-left simpleCart_shelfItem">
             <h3>{{result.productTitle}}</h3>
             {{#if variants}}
-                <p><span class="item_price">{{currencySymbol config.currencySymbol}}{{variantPriceValue variants}}</span>
+                <p><span class="item_price" id="product-price">{{currencySymbol config.currencySymbol}}{{variantPriceValue variants}}</span>
 <!--                    <del>$1,199</del>-->
                 </p>
             {{else}}
-                <p><span class="item_price">{{currencySymbol config.currencySymbol}}{{ priceValue result }}</span>
+                <p><span class="item_price product-price">{{currencySymbol config.currencySymbol}}{{ priceValue result }}</span>
                     <!--                    <del>$1,199</del>-->
                 </p>
             {{/if}}
@@ -58,7 +58,7 @@
                         <h5>{{ @root.__ "Options" }}: </h5>
                         <select id="product_variant" class="frm-field required sect">
                             {{#each variants}}
-                                <option value="{{this._id}}" data-price="{{variantPriceValue this}}">{{this.title}}</option>
+                                <option value="{{this._id}}" data-price="{{otherVariantPriceValues ../this}}">{{this.title}}</option>
                             {{/each}}
                         </select>
                     </div>
@@ -264,6 +264,14 @@
 <!-- //top products -->
 <input type="hidden" id="productId" value="{{result._id}}">
 <input type="hidden" id="currencySymbol" value="{{currencySymbol config.currencySymbol}}">
+<input type="hidden" id="defaultCurrency" value="{{currencySymbol config.defaultCurrency}}">
+{{#if variants}}
+    <input type="hidden" id="variantPrice" value="{{variantPriceValue variants}}">
+    {{#each variants}}
+        <input id="productPrice{{currencySymbol ../this.config.currencySymbol}}" value="{{otherVariantPriceValues ../this}}">
+    {{/each}}
+{{/if}}
+
 <script src="/{{ config.theme }}/js/imagezoom.js"></script>
 <!-- single -->
 <!-- script for responsive tabs -->

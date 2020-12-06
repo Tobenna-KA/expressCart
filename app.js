@@ -117,14 +117,15 @@ handlebars = handlebars.create({
     variantPriceValue (val) {
       if (!val || !this.session) return null
       if (Array.isArray(val)) {
-        console.log(val, val[this.session.currency])
         if (!this.session.currency || this.session.currency === 'productPriceKES') return val[0].price
-
         return val[0][this.session.currency]
-      } else {
-        if (!val.priceInOtherCurrencies) return null
-        return val.priceInOtherCurrencies[this.session.currency]
       }
+    },
+    otherVariantPriceValues (parent) {
+      // console.log(parent, this)
+      if (!this || !parent.session) return null
+      if (!parent.session.currency || parent.session.currency === 'productPriceKES') return this.price
+      return this[parent.session.currency]
     },
     relatedProductsPriceValue (parent) {
       // console.log(parent, this)
@@ -429,8 +430,11 @@ app.use(i18n.init);
 
 // bind currency
 app.use((req, res, next) => {
-  // console.log(req.cookies)
-  if (req.cookies && req.cookies.currency) {
+  // console.log(config)
+  // set defaultCurrency if none
+  if (!req.app.config.defaultCurrency) req.app.config.defaultCurrency = config.currencySymbol
+
+  if (req.cookies && req.cookies.currency) { // get currency from cookies
     req.session.currency = req.cookies.currency
     if (req.cookies.currency === 'productPriceCFA') {
       req.app.config.currencySymbol = 'CFA'

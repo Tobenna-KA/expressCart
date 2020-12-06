@@ -414,9 +414,10 @@ $(document).ready(function () {
   });
 
   $(document).on('change', '#product_variant', function (e) {
-    var variantPrice = $(this).find(':selected').attr('data-price');
-    var currencySymbol = $('#currencySymbol').val();
-    $('h4.product-price:first').html(currencySymbol + variantPrice);
+    let variantPrice = $(this).find(':selected').attr('data-price');
+    let currencySymbol = $('#currencySymbol').val();
+
+    $('#product-price').html(currencySymbol + variantPrice);
   });
 
   $(document).on('click', '.add-variant-to-cart', function (e) {
