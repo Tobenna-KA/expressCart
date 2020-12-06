@@ -1,14 +1,14 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 router.use(bodyParser.json());
-const colors = require("colors");
-const stripHtml = require("string-strip-html");
-const moment = require("moment");
-const fs = require("fs");
-const path = require("path");
-const _ = require("lodash");
-const ObjectId = require("mongodb").ObjectID;
+const colors = require('colors');
+const stripHtml = require('string-strip-html');
+const moment = require('moment');
+const fs = require('fs');
+const path = require('path');
+const _ = require('lodash');
+const ObjectId = require('mongodb').ObjectID;
 const {
   getId,
   hooker,
@@ -18,22 +18,22 @@ const {
   getCountryList,
   getCurrencyField,
   sendEmail,
-} = require("../lib/common");
-const { getSort, paginateProducts } = require("../lib/paginate");
-const { getPaymentConfig } = require("../lib/config");
+} = require('../lib/common');
+const { getSort, paginateProducts } = require('../lib/paginate');
+const { getPaymentConfig } = require('../lib/config');
 const {
   updateTotalCart,
   emptyCart,
   updateSubscriptionCheck,
-} = require("../lib/cart");
-const { createReview, getRatingHtml } = require("../lib/modules/reviews-basic");
-const { sortMenu, getMenu } = require("../lib/menu");
+} = require('../lib/cart');
+const { createReview, getRatingHtml } = require('../lib/modules/reviews-basic');
+const { sortMenu, getMenu } = require('../lib/menu');
 const countryList = getCountryList();
 
-const { contactFormSchema } = require("../lib/contactValidation");
+const { contactFormSchema } = require('../lib/contactValidation');
 
 // *** INSTAGRAM FETCH FUNCTION ***
-const getInstagramPosts = require("../lib/instagram");
+const getInstagramPosts = require('../lib/instagram');
 // const { filter, indexOf } = require('lodash');
 
 // Example of how you can add new pages
@@ -48,13 +48,13 @@ const getInstagramPosts = require("../lib/instagram");
 // });
 
 // About us route
-router.get("/about", (req, res) => {
+router.get('/about', (req, res) => {
   const db = req.app.db;
   const config = req.app.config;
   const file_to_render = `${config.themeViews}about`;
 
   Promise.all([getMenu(db)]).then(([menu]) => {
-    if (req.query.json === "true") {
+    if (req.query.json === 'true') {
       res.status(200).json(results.data);
       return;
     }
@@ -68,13 +68,13 @@ router.get("/about", (req, res) => {
 });
 
 // Services route
-router.get("/services", (req, res) => {
+router.get('/services', (req, res) => {
   const db = req.app.db;
   const config = req.app.config;
   const file_to_render = `${config.themeViews}services`;
 
   Promise.all([getMenu(db)]).then(([menu]) => {
-    if (req.query.json === "true") {
+    if (req.query.json === 'true') {
       res.status(200).json(results.data);
       return;
     }
@@ -88,13 +88,13 @@ router.get("/services", (req, res) => {
 });
 
 // Contact route
-router.get("/contact", (req, res) => {
+router.get('/contact', (req, res) => {
   const db = req.app.db;
   const config = req.app.config;
   const file_to_render = `${config.themeViews}contact`;
 
   Promise.all([getMenu(db)]).then(([menu]) => {
-    if (req.query.json === "true") {
+    if (req.query.json === 'true') {
       res.status(200).json(results.data);
       return;
     }
@@ -108,7 +108,7 @@ router.get("/contact", (req, res) => {
 });
 
 // Send email body to common.sendEmail
-router.get("/contact/:name/:email/:subject/:message", async (req, res) => {
+router.get('/contact/:name/:email/:subject/:message', async (req, res) => {
   // Validate form entries
   try {
     await contactFormSchema.validateAsync(req.params, {
@@ -127,16 +127,16 @@ router.get("/contact/:name/:email/:subject/:message", async (req, res) => {
     // Send to sendEmail Module
     // sendEmail('marielynes@email.com', req.params.subject, body)
 
-    res.json("OK!");
+    res.json('OK!');
   } catch (err) {
     res.status(500).json({
-      message: "Something went wrong. Please try again later",
+      message: 'Something went wrong. Please try again later',
     });
   }
 });
 
 // Shop Route
-router.get("/shop", (req, res) => {
+router.get('/shop', (req, res) => {
   const db = req.app.db;
   const config = req.app.config;
   // const numberProducts = config.productsPerPage ? config.productsPerPage : 12;
@@ -146,15 +146,15 @@ router.get("/shop", (req, res) => {
     paginateProducts(true, db, req.params.pageNum, {}, getSort()),
     getMenu(db),
   ]).then(([results, menu]) => {
-    if (req.query.json === "true") {
+    if (req.query.json === 'true') {
       res.status(200).json(results.data);
       return;
     }
 
     const categories = results.data.map((product) => {
-      if (product.productTags.indexOf(",") >= 0) {
+      if (product.productTags.indexOf(',') >= 0) {
         // console.log('*******************************');
-        const cats = product.productTags.split(", ");
+        const cats = product.productTags.split(', ');
         return cats;
       } else {
         return product.productTags;
@@ -176,7 +176,7 @@ router.get("/shop", (req, res) => {
 // SHOP FILTER ROUTE
 
 // Filter route gets filter criteria through url
-router.get("/shop/filter/:minPrice/:maxPrice/:categories", (req, res) => {
+router.get('/shop/filter/:minPrice/:maxPrice/:categories', (req, res) => {
   const filterObj = req.params;
 
   // Creating category regex.
@@ -225,29 +225,29 @@ router.get("/shop/filter/:minPrice/:maxPrice/:categories", (req, res) => {
       ])
         .then(([results, menu]) => {
           // If JSON query param return json instead
-          if (req.query.json === "true") {
+          if (req.query.json === 'true') {
             res.status(200).json(results.data);
             return;
           }
           // Page not rerendering
           res.render(`${config.themeViews}shop`, {
-            title: "Shop",
+            title: 'Shop',
             results: productsList,
             session: req.session,
-            message: clearSessionValue(req.session, "message"),
-            messageType: clearSessionValue(req.session, "messageType"),
+            message: clearSessionValue(req.session, 'message'),
+            messageType: clearSessionValue(req.session, 'messageType'),
             productsPerPage: numberProducts,
             totalProductCount: productsList.length,
             pageNum: pageNum,
-            paginateUrl: "search",
+            paginateUrl: 'search',
             config: config,
             menu: sortMenu(menu),
             helpers: req.handlebars.helpers,
-            showFooter: "showFooter",
+            showFooter: 'showFooter',
           });
         })
         .catch((err) => {
-          console.error(colors.red("Error searching for products", err));
+          console.error(colors.red('Error searching for products', err));
         });
     });
 
@@ -255,7 +255,7 @@ router.get("/shop/filter/:minPrice/:maxPrice/:categories", (req, res) => {
 });
 
 // Store Route
-router.get("/store", (req, res) => {
+router.get('/store', (req, res) => {
   const db = req.app.db;
   const config = req.app.config;
   // const numberProducts = config.productsPerPage ? config.productsPerPage : 12;
@@ -265,7 +265,7 @@ router.get("/store", (req, res) => {
     paginateProducts(true, db, req.params.pageNum, {}, getSort()),
     getMenu(db),
   ]).then(([results, menu]) => {
-    if (req.query.json === "true") {
+    if (req.query.json === 'true') {
       res.status(200).json(results.data);
       return;
     }
@@ -281,28 +281,28 @@ router.get("/store", (req, res) => {
 });
 
 // Google products
-router.get("/googleproducts.xml", async (req, res, next) => {
-  let productsFile = "";
+router.get('/googleproducts.xml', async (req, res, next) => {
+  let productsFile = '';
   try {
-    productsFile = fs.readFileSync(path.join("bin", "googleproducts.xml"));
+    productsFile = fs.readFileSync(path.join('bin', 'googleproducts.xml'));
   } catch (ex) {
-    console.log("Google products file not found");
+    console.log('Google products file not found');
   }
-  res.type("text/plain");
+  res.type('text/plain');
   res.send(productsFile);
 });
 
 // These is the customer facing routes
-router.get("/payment/:orderId", async (req, res, next) => {
+router.get('/payment/:orderId', async (req, res, next) => {
   const db = req.app.db;
   const config = req.app.config;
 
   // Get the order
   const order = await db.orders.findOne({ _id: getId(req.params.orderId) });
   if (!order) {
-    res.render("error", {
-      title: "Not found",
-      message: "Order not found",
+    res.render('error', {
+      title: 'Not found',
+      message: 'Order not found',
       helpers: req.handlebars.helpers,
       config,
     });
@@ -381,7 +381,7 @@ router.get("/payment/:orderId", async (req, res, next) => {
           { multi: false }
         );
       });
-      console.info("Updated stock levels");
+      console.info('Updated stock levels');
     }
   }
 
@@ -402,75 +402,75 @@ router.get("/payment/:orderId", async (req, res, next) => {
   }
 
   let paymentView = `${config.themeViews}payment-complete`;
-  if (order.orderPaymentGateway === "Blockonomics")
+  if (order.orderPaymentGateway === 'Blockonomics')
     paymentView = `${config.themeViews}payment-complete-blockonomics`;
   res.render(paymentView, {
-    title: "Payment complete",
+    title: 'Payment complete',
     config: req.app.config,
     session: req.session,
     result: order,
-    message: clearSessionValue(req.session, "message"),
-    messageType: clearSessionValue(req.session, "messageType"),
+    message: clearSessionValue(req.session, 'message'),
+    messageType: clearSessionValue(req.session, 'messageType'),
     helpers: req.handlebars.helpers,
-    showFooter: "showFooter",
+    showFooter: 'showFooter',
     menu: sortMenu(await getMenu(db)),
   });
 });
 
-router.get("/emptycart", async (req, res, next) => {
-  emptyCart(req, res, "");
+router.get('/emptycart', async (req, res, next) => {
+  emptyCart(req, res, '');
 });
 
-router.get("/checkout/information", async (req, res, next) => {
+router.get('/checkout/information', async (req, res, next) => {
   const config = req.app.config;
 
   // if there is no items in the cart then render a failure
   if (!req.session.cart) {
     req.session.message =
-      "The are no items in your cart. Please add some items before checking out";
-    req.session.messageType = "danger";
-    res.redirect("/");
+      'The are no items in your cart. Please add some items before checking out';
+    req.session.messageType = 'danger';
+    res.redirect('/');
     return;
   }
 
-  let paymentType = "";
+  let paymentType = '';
   if (req.session.cartSubscription) {
-    paymentType = "_subscription";
+    paymentType = '_subscription';
   }
 
   // render the payment page
   res.render(`${config.themeViews}checkout-information`, {
-    title: "Checkout - Information",
+    title: 'Checkout - Information',
     config: req.app.config,
     session: req.session,
     paymentType,
     cartClose: false,
-    page: "checkout-information",
+    page: 'checkout-information',
     countryList,
-    message: clearSessionValue(req.session, "message"),
-    messageType: clearSessionValue(req.session, "messageType"),
+    message: clearSessionValue(req.session, 'message'),
+    messageType: clearSessionValue(req.session, 'messageType'),
     helpers: req.handlebars.helpers,
-    showFooter: "showFooter",
+    showFooter: 'showFooter',
   });
 });
 
-router.get("/checkout/shipping", async (req, res, next) => {
+router.get('/checkout/shipping', async (req, res, next) => {
   const config = req.app.config;
 
   // if there is no items in the cart then render a failure
   if (!req.session.cart) {
     req.session.message =
-      "The are no items in your cart. Please add some items before checking out";
-    req.session.messageType = "danger";
-    res.redirect("/");
+      'The are no items in your cart. Please add some items before checking out';
+    req.session.messageType = 'danger';
+    res.redirect('/');
     return;
   }
 
   if (!req.session.customerEmail) {
     req.session.message =
-      "Cannot proceed to shipping without customer information";
-    req.session.messageType = "danger";
-    res.redirect("/checkout/information");
+      'Cannot proceed to shipping without customer information';
+    req.session.messageType = 'danger';
+    res.redirect('/checkout/information');
     return;
   }
 
@@ -483,69 +483,69 @@ router.get("/checkout/shipping", async (req, res, next) => {
 
   // render the payment page
   res.render(`${config.themeViews}checkout-shipping`, {
-    title: "Checkout - Shipping",
+    title: 'Checkout - Shipping',
     config: req.app.config,
     session: req.session,
     cartClose: false,
     cartReadOnly: true,
-    page: "checkout-shipping",
+    page: 'checkout-shipping',
     countryList,
-    message: clearSessionValue(req.session, "message"),
-    messageType: clearSessionValue(req.session, "messageType"),
+    message: clearSessionValue(req.session, 'message'),
+    messageType: clearSessionValue(req.session, 'messageType'),
     helpers: req.handlebars.helpers,
-    showFooter: "showFooter",
+    showFooter: 'showFooter',
   });
 });
 
-router.get("/checkout/cart", (req, res) => {
+router.get('/checkout/cart', (req, res) => {
   const config = req.app.config;
 
-  console.log(req.session)
+  console.log(req.session);
 
   res.render(`${config.themeViews}checkout-cart`, {
-    title: "Checkout - Cart",
+    title: 'Checkout - Cart',
     page: req.query.path,
     config,
     session: req.session,
-    message: clearSessionValue(req.session, "message"),
-    messageType: clearSessionValue(req.session, "messageType"),
+    message: clearSessionValue(req.session, 'message'),
+    messageType: clearSessionValue(req.session, 'messageType'),
     helpers: req.handlebars.helpers,
-    showFooter: "showFooter",
+    showFooter: 'showFooter',
   });
 });
 
-router.get("/checkout/cartdata", (req, res) => {
+router.get('/checkout/cartdata', (req, res) => {
   const config = req.app.config;
 
   res.status(200).json({
     cart: req.session.cart,
     session: req.session,
-    currencySymbol: config.currencySymbol || "$",
+    currencySymbol: config.currencySymbol || '$',
   });
 });
 
-router.get("/checkout/payment", async (req, res) => {
+router.get('/checkout/payment', async (req, res) => {
   const config = req.app.config;
 
   // if there is no items in the cart then render a failure
   if (!req.session.cart) {
     req.session.message =
-      "The are no items in your cart. Please add some items before checking out";
-    req.session.messageType = "danger";
-    res.redirect("/");
+      'The are no items in your cart. Please add some items before checking out';
+    req.session.messageType = 'danger';
+    res.redirect('/');
     return;
   }
 
-  let paymentType = "";
+  let paymentType = '';
   if (req.session.cartSubscription) {
-    paymentType = "_subscription";
+    paymentType = '_subscription';
   }
 
   // update total cart amount one last time before payment
   await updateTotalCart(req, res);
 
   res.render(`${config.themeViews}checkout-payment`, {
-    title: "Checkout - Payment",
+    title: 'Checkout - Payment',
     config: req.app.config,
     paymentConfig: getPaymentConfig(),
     session: req.session,
@@ -553,25 +553,25 @@ router.get("/checkout/payment", async (req, res) => {
     paymentType,
     cartClose: true,
     cartReadOnly: true,
-    page: "checkout-information",
+    page: 'checkout-information',
     countryList,
-    message: clearSessionValue(req.session, "message"),
-    messageType: clearSessionValue(req.session, "messageType"),
+    message: clearSessionValue(req.session, 'message'),
+    messageType: clearSessionValue(req.session, 'messageType'),
     helpers: req.handlebars.helpers,
-    showFooter: "showFooter",
+    showFooter: 'showFooter',
   });
 });
 
-router.get("/blockonomics_payment", (req, res, next) => {
+router.get('/blockonomics_payment', (req, res, next) => {
   const config = req.app.config;
-  let paymentType = "";
+  let paymentType = '';
   if (req.session.cartSubscription) {
-    paymentType = "_subscription";
+    paymentType = '_subscription';
   }
 
   // show bitcoin address and wait for payment, subscribing to wss
   res.render(`${config.themeViews}checkout-blockonomics`, {
-    title: "Checkout - Payment",
+    title: 'Checkout - Payment',
     config: req.app.config,
     paymentConfig: getPaymentConfig(),
     session: req.session,
@@ -579,23 +579,23 @@ router.get("/blockonomics_payment", (req, res, next) => {
     paymentType,
     cartClose: true,
     cartReadOnly: true,
-    page: "checkout-information",
+    page: 'checkout-information',
     countryList,
-    message: clearSessionValue(req.session, "message"),
-    messageType: clearSessionValue(req.session, "messageType"),
+    message: clearSessionValue(req.session, 'message'),
+    messageType: clearSessionValue(req.session, 'messageType'),
     helpers: req.handlebars.helpers,
-    showFooter: "showFooter",
+    showFooter: 'showFooter',
   });
 });
 
-router.post("/checkout/adddiscountcode", async (req, res) => {
+router.post('/checkout/adddiscountcode', async (req, res) => {
   const config = req.app.config;
   const db = req.app.db;
 
   // if there is no items in the cart return a failure
   if (!req.session.cart) {
     res.status(400).json({
-      message: "The are no items in your cart.",
+      message: 'The are no items in your cart.',
     });
     return;
   }
@@ -603,15 +603,15 @@ router.post("/checkout/adddiscountcode", async (req, res) => {
   // Check if the discount module is loaded
   if (!config.modules.loaded.discount) {
     res.status(400).json({
-      message: "Access denied.",
+      message: 'Access denied.',
     });
     return;
   }
 
   // Check defined or null
-  if (!req.body.discountCode || req.body.discountCode === "") {
+  if (!req.body.discountCode || req.body.discountCode === '') {
     res.status(400).json({
-      message: "Discount code is invalid or expired",
+      message: 'Discount code is invalid or expired',
     });
     return;
   }
@@ -620,7 +620,7 @@ router.post("/checkout/adddiscountcode", async (req, res) => {
   const discount = await db.discounts.findOne({ code: req.body.discountCode });
   if (!discount) {
     res.status(400).json({
-      message: "Discount code is invalid or expired",
+      message: 'Discount code is invalid or expired',
     });
     return;
   }
@@ -628,7 +628,7 @@ router.post("/checkout/adddiscountcode", async (req, res) => {
   // Validate date validity
   if (!moment().isBetween(moment(discount.start), moment(discount.end))) {
     res.status(400).json({
-      message: "Discount is expired",
+      message: 'Discount is expired',
     });
     return;
   }
@@ -641,15 +641,15 @@ router.post("/checkout/adddiscountcode", async (req, res) => {
 
   // Return the message
   res.status(200).json({
-    message: "Discount code applied",
+    message: 'Discount code applied',
   });
 });
 
-router.post("/checkout/removediscountcode", async (req, res) => {
+router.post('/checkout/removediscountcode', async (req, res) => {
   // if there is no items in the cart return a failure
   if (!req.session.cart) {
     res.status(400).json({
-      message: "The are no items in your cart.",
+      message: 'The are no items in your cart.',
     });
     return;
   }
@@ -662,12 +662,12 @@ router.post("/checkout/removediscountcode", async (req, res) => {
 
   // Return the message
   res.status(200).json({
-    message: "Discount code removed",
+    message: 'Discount code removed',
   });
 });
 
 // show an individual product
-router.get("/product/:id", async (req, res) => {
+router.get('/product/:id', async (req, res) => {
   const db = req.app.db;
   const config = req.app.config;
   const productsIndex = req.app.productsIndex;
@@ -676,18 +676,18 @@ router.get("/product/:id", async (req, res) => {
     $or: [{ _id: getId(req.params.id) }, { productPermalink: req.params.id }],
   });
   if (!product) {
-    res.render("error", {
-      title: "Not found",
-      message: "Product not found",
+    res.render('error', {
+      title: 'Not found',
+      message: 'Product not found',
       helpers: req.handlebars.helpers,
       config,
     });
     return;
   }
   if (product.productPublished === false) {
-    res.render("error", {
-      title: "Not found",
-      message: "Product not found",
+    res.render('error', {
+      title: 'Not found',
+      message: 'Product not found',
       helpers: req.handlebars.helpers,
       config,
     });
@@ -706,7 +706,7 @@ router.get("/product/:id", async (req, res) => {
     average: 0,
     count: 0,
     featured: {},
-    ratingHtml: "",
+    ratingHtml: '',
     highestRating: 0,
   };
   if (config.modules.enabled.reviews) {
@@ -745,8 +745,8 @@ router.get("/product/:id", async (req, res) => {
           },
           {
             $group: {
-              _id: "$item",
-              avgRating: { $avg: "$rating" },
+              _id: '$item',
+              avgRating: { $avg: '$rating' },
             },
           },
         ])
@@ -762,7 +762,7 @@ router.get("/product/:id", async (req, res) => {
   }
 
   // If JSON query param return json instead
-  if (req.query.json === "true") {
+  if (req.query.json === 'true') {
     res.status(200).json(product);
     return;
   }
@@ -774,8 +774,8 @@ router.get("/product/:id", async (req, res) => {
   let relatedProducts = {};
   if (config.showRelatedProducts) {
     const lunrIdArray = [];
-    const productTags = product.productTags.split(",");
-    const productTitleWords = product.productTitle.split(" ");
+    const productTags = product.productTags.split(',');
+    const productTitleWords = product.productTitle.split(' ');
     const searchWords = productTags.concat(productTitleWords);
     searchWords.forEach((word) => {
       try {
@@ -784,7 +784,7 @@ router.get("/product/:id", async (req, res) => {
           lunrIdArray.push(getId(id.ref));
         });
       } catch (e) {
-        console.log("lunr search query error");
+        console.log('lunr search query error');
       }
     });
     relatedProducts = await db.products
@@ -807,16 +807,16 @@ router.get("/product/:id", async (req, res) => {
     config: config,
     session: req.session,
     pageUrl: config.baseUrl + req.originalUrl,
-    message: clearSessionValue(req.session, "message"),
-    messageType: clearSessionValue(req.session, "messageType"),
+    message: clearSessionValue(req.session, 'message'),
+    messageType: clearSessionValue(req.session, 'messageType'),
     helpers: req.handlebars.helpers,
-    showFooter: "showFooter",
+    showFooter: 'showFooter',
     menu: sortMenu(await getMenu(db)),
   });
 });
 
 // Gets the current cart
-router.get("/cart/retrieve", async (req, res, next) => {
+router.get('/cart/retrieve', async (req, res, next) => {
   const db = req.app.db;
 
   // Get the cart from the DB using the session id
@@ -831,7 +831,7 @@ router.get("/cart/retrieve", async (req, res, next) => {
 });
 
 // Updates a single product quantity
-router.post("/product/updatecart", async (req, res, next) => {
+router.post('/product/updatecart', async (req, res, next) => {
   const db = req.app.db;
   const config = req.app.config;
   const cartItem = req.body;
@@ -841,8 +841,8 @@ router.post("/product/updatecart", async (req, res, next) => {
     emptyCart(
       req,
       res,
-      "json",
-      "There are no items if your cart or your cart is expired"
+      'json',
+      'There are no items if your cart or your cart is expired'
     );
     return;
   }
@@ -850,7 +850,7 @@ router.post("/product/updatecart", async (req, res, next) => {
   const product = await db.products.findOne({ _id: getId(cartItem.productId) });
   if (!product) {
     res.status(400).json({
-      message: "There was an error updating the cart",
+      message: 'There was an error updating the cart',
       totalCartItems: Object.keys(req.session.cart).length,
     });
     return;
@@ -858,7 +858,7 @@ router.post("/product/updatecart", async (req, res, next) => {
 
   // Calculate the quantity to update
   let productQuantity = cartItem.quantity ? cartItem.quantity : 1;
-  if (typeof productQuantity === "string") {
+  if (typeof productQuantity === 'string') {
     productQuantity = parseInt(productQuantity);
   }
 
@@ -866,7 +866,7 @@ router.post("/product/updatecart", async (req, res, next) => {
     // quantity equals zero so we remove the item
     delete req.session.cart[cartItem.cartId];
     res.status(400).json({
-      message: "There was an error updating the cart",
+      message: 'There was an error updating the cart',
       totalCartItems: Object.keys(req.session.cart).length,
     });
     return;
@@ -875,7 +875,7 @@ router.post("/product/updatecart", async (req, res, next) => {
   // Check for a cart
   if (!req.session.cart[cartItem.cartId]) {
     res.status(400).json({
-      message: "There was an error updating the cart",
+      message: 'There was an error updating the cart',
       totalCartItems: Object.keys(req.session.cart).length,
     });
     return;
@@ -896,7 +896,7 @@ router.post("/product/updatecart", async (req, res, next) => {
     if (!variant) {
       res
         .status(400)
-        .json({ message: "Error updating cart. Please try again." });
+        .json({ message: 'Error updating cart. Please try again.' });
       return;
     }
     productPrice = parseFloat(variant[getCurrencyField(req)]).toFixed(2);
@@ -911,7 +911,7 @@ router.post("/product/updatecart", async (req, res, next) => {
       if (productQuantity > productStock) {
         res
           .status(400)
-          .json({ message: "There is insufficient stock of this product." });
+          .json({ message: 'There is insufficient stock of this product.' });
         return;
       }
 
@@ -920,14 +920,14 @@ router.post("/product/updatecart", async (req, res, next) => {
         .aggregate([
           { $match: { sessionId: { $ne: req.session.id } } },
           { $project: { _id: 0 } },
-          { $project: { o: { $objectToArray: "$cart" } } },
-          { $unwind: "$o" },
+          { $project: { o: { $objectToArray: '$cart' } } },
+          { $unwind: '$o' },
           {
             $group: {
               _id: {
-                $ifNull: ["$o.v.variantId", "$o.v.productId"],
+                $ifNull: ['$o.v.variantId', '$o.v.productId'],
               },
-              sumHeld: { $sum: "$o.v.quantity" },
+              sumHeld: { $sum: '$o.v.quantity' },
             },
           },
         ])
@@ -935,7 +935,7 @@ router.post("/product/updatecart", async (req, res, next) => {
 
       // If there is stock
       if (stockHeld.length > 0) {
-        const totalHeld = _.find(stockHeld, ["_id", getId(cartItem.cartId)])
+        const totalHeld = _.find(stockHeld, ['_id', getId(cartItem.cartId)])
           .sumHeld;
         const netStock = productStock - totalHeld;
 
@@ -943,7 +943,7 @@ router.post("/product/updatecart", async (req, res, next) => {
         if (productQuantity > netStock) {
           res
             .status(400)
-            .json({ message: "There is insufficient stock of this product." });
+            .json({ message: 'There is insufficient stock of this product.' });
           return;
         }
       }
@@ -970,18 +970,18 @@ router.post("/product/updatecart", async (req, res, next) => {
   );
 
   res.status(200).json({
-    message: "Cart successfully updated",
+    message: 'Cart successfully updated',
     totalCartItems: Object.keys(req.session.cart).length,
   });
 });
 
 // Remove single product from cart
-router.post("/product/removefromcart", async (req, res, next) => {
+router.post('/product/removefromcart', async (req, res, next) => {
   const db = req.app.db;
 
   // Check for item in cart
   if (!req.session.cart[req.body.cartId]) {
-    return res.status(400).json({ message: "Product not found in cart" });
+    return res.status(400).json({ message: 'Product not found in cart' });
   }
 
   // remove item from cart
@@ -989,7 +989,7 @@ router.post("/product/removefromcart", async (req, res, next) => {
 
   // If not items in cart, empty it
   if (Object.keys(req.session.cart).length === 0) {
-    return emptyCart(req, res, "json");
+    return emptyCart(req, res, 'json');
   }
 
   // Update cart in DB
@@ -1006,18 +1006,18 @@ router.post("/product/removefromcart", async (req, res, next) => {
   updateSubscriptionCheck(req, res);
 
   return res.status(200).json({
-    message: "Product successfully removed",
+    message: 'Product successfully removed',
     totalCartItems: Object.keys(req.session.cart).length,
   });
 });
 
 // Totally empty the cart
-router.post("/product/emptycart", async (req, res, next) => {
-  emptyCart(req, res, "json");
+router.post('/product/emptycart', async (req, res, next) => {
+  emptyCart(req, res, 'json');
 });
 
 // Add item to cart
-router.post("/product/addtocart", async (req, res, next) => {
+router.post('/product/addtocart', async (req, res, next) => {
   const db = req.app.db;
   const config = req.app.config;
   let productQuantity = req.body.productQuantity
@@ -1031,7 +1031,7 @@ router.post("/product/addtocart", async (req, res, next) => {
   if (config.maxQuantity && productQuantity > config.maxQuantity) {
     return res.status(400).json({
       message:
-        "The quantity exceeds the max amount. Please contact us for larger orders.",
+        'The quantity exceeds the max amount. Please contact us for larger orders.',
     });
   }
 
@@ -1052,13 +1052,13 @@ router.post("/product/addtocart", async (req, res, next) => {
   if (!product) {
     return res
       .status(400)
-      .json({ message: "Error updating cart. Please try again." });
+      .json({ message: 'Error updating cart. Please try again.' });
   }
 
   // If cart already has a subscription you cannot add anything else
   if (req.session.cartSubscription) {
     return res.status(400).json({
-      message: "Subscription already existing in cart. You cannot add more.",
+      message: 'Subscription already existing in cart. You cannot add more.',
     });
   }
 
@@ -1067,7 +1067,7 @@ router.post("/product/addtocart", async (req, res, next) => {
     if (product.productSubscription) {
       return res.status(400).json({
         message:
-          "You cannot combine subscription products with existing in your cart. Empty your cart and try again.",
+          'You cannot combine subscription products with existing in your cart. Empty your cart and try again.',
       });
     }
   }
@@ -1088,7 +1088,7 @@ router.post("/product/addtocart", async (req, res, next) => {
     if (!variant) {
       return res
         .status(400)
-        .json({ message: "Error updating cart. Variant not found." });
+        .json({ message: 'Error updating cart. Variant not found.' });
     }
     productVariantId = getId(req.body.productVariant);
     productVariantTitle = variant.title;
@@ -1105,21 +1105,21 @@ router.post("/product/addtocart", async (req, res, next) => {
       if (productQuantity > productStock) {
         return res
           .status(400)
-          .json({ message: "There is insufficient stock of this product." });
+          .json({ message: 'There is insufficient stock of this product.' });
       }
 
       // Aggregate our current stock held from all users carts
       const stockHeld = await db.cart
         .aggregate([
           { $project: { _id: 0 } },
-          { $project: { o: { $objectToArray: "$cart" } } },
-          { $unwind: "$o" },
+          { $project: { o: { $objectToArray: '$cart' } } },
+          { $unwind: '$o' },
           {
             $group: {
               _id: {
-                $ifNull: ["$o.v.variantId", "$o.v.productId"],
+                $ifNull: ['$o.v.variantId', '$o.v.productId'],
               },
-              sumHeld: { $sum: "$o.v.quantity" },
+              sumHeld: { $sum: '$o.v.quantity' },
             },
           },
         ])
@@ -1127,14 +1127,14 @@ router.post("/product/addtocart", async (req, res, next) => {
 
       // If there is stock
       if (stockHeld.length > 0) {
-        const heldProduct = _.find(stockHeld, ["_id", getId(productCartId)]);
+        const heldProduct = _.find(stockHeld, ['_id', getId(productCartId)]);
         if (heldProduct) {
           const netStock = productStock - heldProduct.sumHeld;
 
           // Check there is sufficient stock
           if (productQuantity > netStock) {
             return res.status(400).json({
-              message: "There is insufficient stock of this product.",
+              message: 'There is insufficient stock of this product.',
             });
           }
         }
@@ -1195,14 +1195,14 @@ router.post("/product/addtocart", async (req, res, next) => {
   }
 
   return res.status(200).json({
-    message: "Cart successfully updated",
+    message: 'Cart successfully updated',
     cartId: productCartId,
     totalCartItems: req.session.totalCartItems,
   });
 });
 
 // Totally empty the cart
-router.post("/product/addreview", async (req, res, next) => {
+router.post('/product/addreview', async (req, res, next) => {
   const config = req.app.config;
 
   // Check if module enabled
@@ -1210,24 +1210,24 @@ router.post("/product/addreview", async (req, res, next) => {
     // Check if a customer is logged in
     if (!req.session.customerPresent) {
       return res.status(400).json({
-        message: "You need to be logged in to create a review",
+        message: 'You need to be logged in to create a review',
       });
     }
 
     // Validate inputs
     if (!req.body.title) {
       return res.status(400).json({
-        message: "Please supply a review title",
+        message: 'Please supply a review title',
       });
     }
     if (!req.body.description) {
       return res.status(400).json({
-        message: "Please supply a review description",
+        message: 'Please supply a review description',
       });
     }
     if (!req.body.rating) {
       return res.status(400).json({
-        message: "Please supply a review rating",
+        message: 'Please supply a review rating',
       });
     }
 
@@ -1238,12 +1238,12 @@ router.post("/product/addreview", async (req, res, next) => {
     // Validate length
     if (req.body.title.length > 50) {
       return res.status(400).json({
-        message: "Review title is too long",
+        message: 'Review title is too long',
       });
     }
     if (req.body.description.length > 200) {
       return res.status(400).json({
-        message: "Review description is too long",
+        message: 'Review description is too long',
       });
     }
 
@@ -1252,14 +1252,14 @@ router.post("/product/addreview", async (req, res, next) => {
       const rating = parseInt(req.body.rating);
       if (rating < 0 || rating > 5) {
         return res.status(400).json({
-          message: "Please supply a valid rating",
+          message: 'Please supply a valid rating',
         });
       }
 
       // Check for failed Int conversion
       if (isNaN(rating)) {
         return res.status(400).json({
-          message: "Please supply a valid rating",
+          message: 'Please supply a valid rating',
         });
       }
 
@@ -1267,7 +1267,7 @@ router.post("/product/addreview", async (req, res, next) => {
       req.body.rating = rating;
     } catch (ex) {
       return res.status(400).json({
-        message: "Please supply a valid rating",
+        message: 'Please supply a valid rating',
       });
     }
 
@@ -1279,16 +1279,16 @@ router.post("/product/addreview", async (req, res, next) => {
       });
     }
     return res.json({
-      message: "Review successfully submitted",
+      message: 'Review successfully submitted',
     });
   }
   return res.status(400).json({
-    message: "Unable to submit review",
+    message: 'Unable to submit review',
   });
 });
 
 // search products
-router.get("/search/:searchTerm/:pageNum?", (req, res) => {
+router.get('/search/:searchTerm/:pageNum?', (req, res) => {
   const db = req.app.db;
   const searchTerm = req.params.searchTerm;
   const productsIndex = req.app.productsIndex;
@@ -1317,37 +1317,37 @@ router.get("/search/:searchTerm/:pageNum?", (req, res) => {
   ])
     .then(([results, menu]) => {
       // If JSON query param return json instead
-      if (req.query.json === "true") {
+      if (req.query.json === 'true') {
         res.status(200).json(results.data);
         return;
       }
 
       res.render(`${config.themeViews}index`, {
-        title: "Results",
+        title: 'Results',
         results: results.data,
         filtered: true,
         session: req.session,
         metaDescription: `${req.app.config.cartTitle} - Search term: ${searchTerm}`,
         searchTerm: searchTerm,
-        message: clearSessionValue(req.session, "message"),
-        messageType: clearSessionValue(req.session, "messageType"),
+        message: clearSessionValue(req.session, 'message'),
+        messageType: clearSessionValue(req.session, 'messageType'),
         productsPerPage: numberProducts,
         totalProductCount: results.totalItems,
         pageNum: pageNum,
-        paginateUrl: "search",
+        paginateUrl: 'search',
         config: config,
         menu: sortMenu(menu),
         helpers: req.handlebars.helpers,
-        showFooter: "showFooter",
+        showFooter: 'showFooter',
       });
     })
     .catch((err) => {
-      console.error(colors.red("Error searching for products", err));
+      console.error(colors.red('Error searching for products', err));
     });
 });
 
 // search products
-router.get("/category/:cat/:pageNum?", (req, res) => {
+router.get('/category/:cat/:pageNum?', (req, res) => {
   const db = req.app.db;
   const searchTerm = req.params.cat;
   const productsIndex = req.app.productsIndex;
@@ -1378,7 +1378,7 @@ router.get("/category/:cat/:pageNum?", (req, res) => {
       const sortedMenu = sortMenu(menu);
 
       // If JSON query param return json instead
-      if (req.query.json === "true") {
+      if (req.query.json === 'true') {
         res.status(200).json(results.data);
         return;
       }
@@ -1390,51 +1390,54 @@ router.get("/category/:cat/:pageNum?", (req, res) => {
         session: req.session,
         searchTerm: searchTerm,
         metaDescription: `${req.app.config.cartTitle} - Category: ${searchTerm}`,
-        message: clearSessionValue(req.session, "message"),
-        messageType: clearSessionValue(req.session, "messageType"),
+        message: clearSessionValue(req.session, 'message'),
+        messageType: clearSessionValue(req.session, 'messageType'),
         productsPerPage: numberProducts,
         totalProductCount: results.totalItems,
         pageNum: pageNum,
         menuLink: _.find(sortedMenu.items, (obj) => {
           return obj.link === searchTerm;
         }),
-        paginateUrl: "category",
+        paginateUrl: 'category',
         config: config,
         menu: sortedMenu,
         helpers: req.handlebars.helpers,
-        showFooter: "showFooter",
+        showFooter: 'showFooter',
       });
     })
     .catch((err) => {
-      console.error(colors.red("Error getting products for category", err));
+      console.error(colors.red('Error getting products for category', err));
     });
 });
 
 // Language setup in cookie
-router.get("/lang/:locale", (req, res) => {
-  res.cookie("locale", req.params.locale, { maxAge: 900000, httpOnly: true });
-  res.redirect("back");
+router.get('/lang/:locale', (req, res) => {
+  res.cookie('locale', req.params.locale, { maxAge: 900000, httpOnly: true });
+  res.redirect('back');
 });
 
 // Language setup in cookie
-router.get("/currency/:currency", (req, res) => {
-  res.cookie("currency", req.params.currency, { maxAge: 900000, httpOnly: true });
-  res.redirect("back");
+router.get('/currency/:currency', (req, res) => {
+  res.cookie('currency', req.params.currency, {
+    maxAge: 900000,
+    httpOnly: true,
+  });
+  res.redirect('back');
 });
 
 // return sitemap
-router.get("/sitemap.xml", (req, res, next) => {
-  const sm = require("sitemap");
+router.get('/sitemap.xml', (req, res, next) => {
+  const sm = require('sitemap');
   const config = req.app.config;
 
   addSitemapProducts(req, res, (err, products) => {
     if (err) {
-      console.error(colors.red("Error generating sitemap.xml", err));
+      console.error(colors.red('Error generating sitemap.xml', err));
     }
     const sitemap = sm.createSitemap({
       hostname: config.baseUrl,
       cacheTime: 600000,
-      urls: [{ url: "/", changefreq: "weekly", priority: 1.0 }],
+      urls: [{ url: '/', changefreq: 'weekly', priority: 1.0 }],
     });
 
     const currentUrls = sitemap.urls;
@@ -1445,14 +1448,14 @@ router.get("/sitemap.xml", (req, res, next) => {
       if (err) {
         return res.status(500).end();
       }
-      res.header("Content-Type", "application/xml");
+      res.header('Content-Type', 'application/xml');
       res.send(xml);
       return true;
     });
   });
 });
 
-router.get("/page/:pageNum", (req, res, next) => {
+router.get('/page/:pageNum', (req, res, next) => {
   const db = req.app.db;
   const config = req.app.config;
   const numberProducts = config.productsPerPage ? config.productsPerPage : 6;
@@ -1463,35 +1466,35 @@ router.get("/page/:pageNum", (req, res, next) => {
   ])
     .then(([results, menu]) => {
       // If JSON query param return json instead
-      if (req.query.json === "true") {
+      if (req.query.json === 'true') {
         res.status(200).json(results.data);
         return;
       }
 
       res.render(`${config.themeViews}index`, {
-        title: "Shop",
+        title: 'Shop',
         results: results.data,
         session: req.session,
-        message: clearSessionValue(req.session, "message"),
-        messageType: clearSessionValue(req.session, "messageType"),
+        message: clearSessionValue(req.session, 'message'),
+        messageType: clearSessionValue(req.session, 'messageType'),
         metaDescription: `${req.app.config.cartTitle} - Products page: ${req.params.pageNum}`,
         config: req.app.config,
         productsPerPage: numberProducts,
         totalProductCount: results.totalItems,
         pageNum: req.params.pageNum,
-        paginateUrl: "page",
+        paginateUrl: 'page',
         helpers: req.handlebars.helpers,
-        showFooter: "showFooter",
+        showFooter: 'showFooter',
         menu: sortMenu(menu),
       });
     })
     .catch((err) => {
-      console.error(colors.red("Error getting products for page", err));
+      console.error(colors.red('Error getting products for page', err));
     });
 });
 
 // The main entry point of the shop
-router.get("/:page?", async (req, res, next) => {
+router.get('/:page?', async (req, res, next) => {
   const db = req.app.db;
   const config = req.app.config;
   const numberProducts = config.productsPerPage ? config.productsPerPage : 6;
@@ -1501,32 +1504,32 @@ router.get("/:page?", async (req, res, next) => {
     Promise.all([paginateProducts(true, db, 1, {}, getSort()), getMenu(db)])
       .then(async ([results, menu]) => {
         // If JSON query param return json instead
-        if (req.query.json === "true") {
+        if (req.query.json === 'true') {
           res.status(200).json(results.data);
           return;
         }
 
         // Fetch instagram posts from username
-        getInstagramPosts("marielyne_beauty")
+        getInstagramPosts('marielyne_beauty')
           .then((posts) => {
-            const instaFeed = posts.splice(0, 3);
-            const bottomCarousel1 = posts.splice(0, 3);
-            const bottomCarousel2 = posts.splice(4, 3);
+            const instaFeed = posts.slice(0, 3);
+            const bottomCarousel1 = posts.slice(4, 8);
+            const bottomCarousel2 = posts.slice(8, 14);
 
             res.render(`${config.themeViews}index`, {
               title: `${config.cartTitle} - Shop`,
               theme: config.theme,
               results: results.data.splice(0, 4),
               session: req.session,
-              message: clearSessionValue(req.session, "message"),
-              messageType: clearSessionValue(req.session, "messageType"),
+              message: clearSessionValue(req.session, 'message'),
+              messageType: clearSessionValue(req.session, 'messageType'),
               config,
               productsPerPage: numberProducts,
               totalProductCount: results.totalItems,
               pageNum: 1,
-              paginateUrl: "page",
+              paginateUrl: 'page',
               helpers: req.handlebars.helpers,
-              showFooter: "showFooter",
+              showFooter: 'showFooter',
               menu: sortMenu(menu),
               instaFeed: instaFeed,
               bottomCarousel1: bottomCarousel1,
@@ -1535,21 +1538,21 @@ router.get("/:page?", async (req, res, next) => {
             });
           })
           .catch((err) => {
-            console.error(colors.red("Error getting instagram posts", err));
+            console.error(colors.red('Error getting instagram posts', err));
           });
       })
       .catch((err) => {
-        console.error(colors.red("Error getting products for page", err));
+        console.error(colors.red('Error getting products for page', err));
       });
   } else {
-    if (req.params.page === "admin") {
+    if (req.params.page === 'admin') {
       next();
       return;
     }
     // lets look for a page
     const page = await db.pages.findOne({
       pageSlug: req.params.page,
-      pageEnabled: "true",
+      pageEnabled: 'true',
     });
     // if we have a page lets render it, else throw 404
     if (page) {
@@ -1558,21 +1561,21 @@ router.get("/:page?", async (req, res, next) => {
         page: page,
         searchTerm: req.params.page,
         session: req.session,
-        message: clearSessionValue(req.session, "message"),
-        messageType: clearSessionValue(req.session, "messageType"),
+        message: clearSessionValue(req.session, 'message'),
+        messageType: clearSessionValue(req.session, 'messageType'),
         config: req.app.config,
         metaDescription: `${req.app.config.cartTitle} - ${page}`,
         helpers: req.handlebars.helpers,
-        showFooter: "showFooter",
+        showFooter: 'showFooter',
         menu: sortMenu(await getMenu(db)),
       });
     } else {
-      res.status(404).render("error", {
-        title: "404 Error - Page not found",
+      res.status(404).render('error', {
+        title: '404 Error - Page not found',
         config: req.app.config,
-        message: "404 Error - Page not found",
+        message: '404 Error - Page not found',
         helpers: req.handlebars.helpers,
-        showFooter: "showFooter",
+        showFooter: 'showFooter',
         menu: sortMenu(await getMenu(db)),
       });
     }
