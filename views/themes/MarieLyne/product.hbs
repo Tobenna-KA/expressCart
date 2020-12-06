@@ -31,7 +31,7 @@
         <div class="col-md-8 single-right-left simpleCart_shelfItem">
             <h3>{{result.productTitle}}</h3>
             {{#if variants}}
-                <p><span class="item_price">{{currencySymbol config.currencySymbol}}{{variants.0.price}}</span>
+                <p><span class="item_price">{{currencySymbol config.currencySymbol}}{{variantPriceValue variants}}</span>
 <!--                    <del>$1,199</del>-->
                 </p>
             {{else}}
@@ -58,7 +58,7 @@
                         <h5>{{ @root.__ "Options" }}: </h5>
                         <select id="product_variant" class="frm-field required sect">
                             {{#each variants}}
-                                <option value="{{this._id}}" data-price="{{this.price}}">{{this.title}}</option>
+                                <option value="{{this._id}}" data-price="{{variantPriceValue this}}">{{this.title}}</option>
                             {{/each}}
                         </select>
                     </div>
@@ -223,7 +223,7 @@
                                 <div class="grid_meta">
                                     <div class="product_price">
                                         <div class="grid-price ">
-                                            <span class="money ">{{currencySymbol @root.config.currencySymbol}} {{formatAmount productPrice}}</span>
+                                            <span class="money ">{{currencySymbol @root.config.currencySymbol}} {{relatedProductsPriceValue ../this}}</span>
                                         </div>
                                     </div>
                                     <!--<ul class="stars">

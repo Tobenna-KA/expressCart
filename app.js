@@ -110,10 +110,26 @@ handlebars = handlebars.create({
       return i18n.__n(this, arguments);
     }, // eslint-disable-line no-undef
     priceValue (val) {
-      if (!val || !this.session) return 'null'
-      console.log(val)
+      if (!val || !this.session) return null
       if (!this.session.currency || this.session.currency === 'KSH') return val.productPrice
       return val[this.session.currency]
+    },
+    variantPriceValue (val) {
+      if (!val || !this.session) return null
+      if (Array.isArray(val)) {
+        // console.log(val)
+        if (!this.session.currency || this.session.currency === 'KSH') return val[0].price
+        return val[this.session.currency]
+      } else {
+        if (!val.priceInOtherCurrencies) return null
+        return val.priceInOtherCurrencies[this.session.currency]
+      }
+    },
+    relatedProductsPriceValue (parent) {
+      // console.log(parent, this)
+      if (!this || !parent.session) return null
+      if (!parent.session.currency || parent.session.currency === 'KSH') return this.productPrice
+      return this[parent.session.currency]
     },
     availableLanguages: (block) => {
       let total = '';
