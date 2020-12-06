@@ -24,7 +24,8 @@
 					<label for="productPrice" class="control-label">{{ @root.__ "Product price" }} *</label>
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<label class="input-group-text">{{currencySymbol config.currencySymbol}}</label>
+							{{!-- <label class="input-group-text">{{currencySymbol config.currencySymbol}}</label> --}}
+							<label class="input-group-text">KSH</label>
 						</div>
 						<input type="number" id="productPrice" class="form-control" value="{{result.productPrice}}" step="any"
 							required />
@@ -160,8 +161,8 @@
 							<div class='col-sm-3 text-right'>
 								<button class='btn btn-outline-warning editVariant' href="#variantEditModal" data-toggle="modal"
 									data-id="{{this._id}}" data-title="{{this.title}}" data-price="{{this.price}}"
-                                    data-productpriceusd="{{this.productPriceUSD}}" data-productpricecfa="{{this.productPriceCFA}}"
-                                    data-productpriceeur="{{this.productPriceEUR}}"
+									data-productpriceusd="{{this.productPriceUSD}}" data-productpricecfa="{{this.productPriceCFA}}"
+									data-productpriceeur="{{this.productPriceEUR}}"
 									data-stock="{{this.stock}}">{{ @root.__ "Edit" }}</button>
 								<button class='btn btn-outline-danger removeVariant'
 									data-id="{{this._id}}">{{ @root.__ "Remove" }}</button>

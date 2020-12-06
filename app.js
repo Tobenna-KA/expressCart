@@ -109,34 +109,42 @@ handlebars = handlebars.create({
     __n: () => {
       return i18n.__n(this, arguments);
     }, // eslint-disable-line no-undef
-    priceValue (val) {
-      console.log(val, this.session.currency)
-      if (!val || !this.session) return null
-      if (!this.session.currency || this.session.currency === 'KES' || this.session.currency === 'productPriceKES')
-        return val.productPrice
-      return val[this.session.currency]
+    priceValue(val) {
+      if (!val || !this.session) return null;
+      if (!this.session.currency || this.session.currency === 'productPriceKES')
+        return val.productPrice;
+      return val[this.session.currency];
     },
-    variantPriceValue (val) {
-      if (!val || !this.session) return null
+    variantPriceValue(val) {
+      if (!val || !this.session) return null;
       if (Array.isArray(val)) {
-        if (!this.session.currency || this.session.currency === 'KES' || this.session.currency === 'productPriceKES')
-          return val[0].price
-        return val[0][this.session.currency]
+        if (
+          !this.session.currency ||
+          this.session.currency === 'productPriceKES'
+        )
+          return val[0].price;
+        return val[0][this.session.currency];
       }
     },
-    otherVariantPriceValues (parent) {
+    otherVariantPriceValues(parent) {
       // console.log(parent, this)
-      if (!this || !parent.session) return null
-      if (!parent.session.currency || parent.session.currency === 'KES' || parent.session.currency === 'productPriceKES')
-        return this.price
-      return this[parent.session.currency]
+      if (!this || !parent.session) return null;
+      if (
+        !parent.session.currency ||
+        parent.session.currency === 'productPriceKES'
+      )
+        return this.price;
+      return this[parent.session.currency];
     },
-    relatedProductsPriceValue (parent) {
+    relatedProductsPriceValue(parent) {
       // console.log(parent, this)
-      if (!this || !parent.session) return null
-      if (!parent.session.currency || parent.session.currency === 'KES' || parent.session.currency === 'productPriceKES')
-        return this.productPrice
-      return this[parent.session.currency]
+      if (!this || !parent.session) return null;
+      if (
+        !parent.session.currency ||
+        parent.session.currency === 'productPriceKES'
+      )
+        return this.productPrice;
+      return this[parent.session.currency];
     },
     availableLanguages: (block) => {
       let total = '';
@@ -218,11 +226,11 @@ handlebars = handlebars.create({
       if (typeof value === 'undefined' || value === '' || value === 'KES') {
         return 'KES ';
       } else if (value === 'EUR') {
-        return '€ '
+        return '€ ';
       } else if (value === 'GBP') {
-        return '£ '
+        return '£ ';
       } else if (value === 'CFA') {
-        return 'CFA '
+        return 'CFA ';
       }
       return value;
     },
@@ -437,26 +445,28 @@ app.use(i18n.init);
 app.use((req, res, next) => {
   // console.log(config)
   // set defaultCurrency if none
-  if (!req.app.config.defaultCurrency) req.app.config.defaultCurrency = config.currencySymbol
+  if (!req.app.config.defaultCurrency)
+    req.app.config.defaultCurrency = config.currencySymbol;
 
-  if (req.cookies && req.cookies.currency) { // get currency from cookies
-    req.session.currency = req.cookies.currency
+  if (req.cookies && req.cookies.currency) {
+    // get currency from cookies
+    req.session.currency = req.cookies.currency;
     if (req.cookies.currency === 'productPriceCFA') {
-      req.app.config.currencySymbol = 'CFA'
-      req.app.config.currencyISO = 'CFA'
+      req.app.config.currencySymbol = 'CFA';
+      req.app.config.currencyISO = 'CFA';
     } else if (req.cookies.currency === 'productPriceEUR') {
-      req.app.config.currencySymbol = 'EUR'
-      req.app.config.currencyISO = 'EUR'
+      req.app.config.currencySymbol = 'EUR';
+      req.app.config.currencyISO = 'EUR';
     } else if (req.cookies.currency === 'productPriceUSD') {
-      req.app.config.currencySymbol = 'USD'
-      req.app.config.currencyISO = 'USD'
+      req.app.config.currencySymbol = 'USD';
+      req.app.config.currencyISO = 'USD';
     } else {
-      req.app.config.currencySymbol = 'KES'
-      req.app.config.currencyISO = 'KES'
+      req.app.config.currencySymbol = 'KES';
+      req.app.config.currencyISO = 'KES';
     }
   }
-  next()
-})
+  next();
+});
 
 // serving static content
 app.use(express.static(path.join(__dirname, 'public')));

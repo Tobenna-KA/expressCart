@@ -121,20 +121,21 @@
                   </p>
                 </div>
                 {{/if}}
+
                 {{#if variants}}
                 <div class="price-section">
                   {{#if @root.config.showHomepageVariants}}
                   <select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
                     {{#each variants}}
-                    <option value="{{this._id}}" data-price="{{this.price}}">
-                      {{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.price}}
+                    <option value="{{this._id}}" data-price="{{this.displayPrice}}">
+                      {{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.displayPrice}}
                     </option>
                     {{/each}}
                   </select>
                   {{else}}
                   <div class="cart-section">
                     <h4 class="product-price mp-0 text-center">
-                      {{currencySymbol @root.config.currencySymbol}}{{formatAmount variants.0.price}}
+                      {{currencySymbol @root.config.currencySymbol}}{{formatAmount variants.0.displayPrice}}
                     </h4>
                   </div>
                   {{/if}}
@@ -160,16 +161,7 @@
                   <div class="cart-section">
                     <div class="price">
                       <span class="money">
-                        {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
-                      </span>
-                      <span class="money">
-                        {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPriceUSD}}
-                      </span>
-                      <span class="money">
-                        {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPriceCFA}}
-                      </span>
-                      <span class="money">
-                        {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPriceEUR}}
+                        {{currencySymbol @root.config.currencySymbol}}{{formatAmount displayPrice}}
                       </span>
                     </div>
                     <div class="cart-button">
