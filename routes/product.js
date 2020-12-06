@@ -236,10 +236,13 @@ router.post(
     const db = req.app.db;
 
     const variantDoc = {
-      product: req.body.product,
-      title: req.body.title,
-      price: req.body.price,
-      stock: safeParseInt(req.body.stock) || null,
+        product: req.body.product,
+        title: req.body.title,
+        price: req.body.price,
+        productPriceUSD: req.body.productPriceUSD,
+        productPriceCFA: req.body.productPriceCFA,
+        productPriceEUR: req.body.productPriceEUR,
+        stock: safeParseInt(req.body.stock) || null,
     };
 
     // Validate the body again schema
@@ -291,6 +294,9 @@ router.post(
       variant: req.body.variant,
       title: req.body.title,
       price: req.body.price,
+        productPriceUSD: req.body.productPriceUSD,
+        productPriceCFA: req.body.productPriceCFA,
+        productPriceEUR: req.body.productPriceEUR,
       stock: safeParseInt(req.body.stock) || null,
     };
 

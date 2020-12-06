@@ -19,6 +19,18 @@
             "type": "string",
             "format": "amount"
         },
+        "productPriceUSD": {
+            "type": "string",
+            "format": "amount"
+        },
+        "productPriceCFA": {
+            "type": "string",
+            "format": "amount"
+        },
+        "productPriceEUR": {
+            "type": "string",
+            "format": "amount"
+        },
         "stock": {
             "type": ["number", "null"]
         }

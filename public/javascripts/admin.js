@@ -53,6 +53,9 @@ $(document).ready(function () {
         variant: $('#variant-edit-id').val(),
         title: $('#variant-edit-title').val(),
         price: $('#variant-edit-price').val(),
+        productPriceUSD: $('#variant-edit-price-usd').val(),
+        productPriceCFA: $('#variant-edit-price-cfa').val(),
+        productPriceEUR: $('#variant-edit-price-eur').val(),
         stock: $('#variant-edit-stock').val(),
       },
     })
@@ -66,10 +69,14 @@ $(document).ready(function () {
 
   // Variant modal
   $('#variantEditModal').on('shown.bs.modal', function (e) {
+    // console.log($(e.relatedTarget).data())
     $('#variant-edit-title').focus();
     $('#variant-edit-id').val($(e.relatedTarget).data('id'));
     $('#variant-edit-title').val($(e.relatedTarget).data('title'));
     $('#variant-edit-price').val($(e.relatedTarget).data('price'));
+    $('#variant-edit-price-cfa').val($(e.relatedTarget).data('productpricecfa'));
+    $('#variant-edit-price-usd').val($(e.relatedTarget).data('productpriceusd'));
+    $('#variant-edit-price-eur').val($(e.relatedTarget).data('productpriceeur'));
     $('#variant-edit-stock').val($(e.relatedTarget).data('stock'));
   });
 
@@ -81,6 +88,9 @@ $(document).ready(function () {
         product: $('#variant-product').val(),
         title: $('#variant-title').val(),
         price: $('#variant-price').val(),
+        productPriceUSD: $('#variant-price-usd').val(),
+        productPriceCFA: $('#variant-price-cfa').val(),
+        productPriceEUR: $('#variant-price-eur').val(),
         stock: $('#variant-stock').val(),
       },
     })
