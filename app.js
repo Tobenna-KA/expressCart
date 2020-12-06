@@ -110,27 +110,32 @@ handlebars = handlebars.create({
       return i18n.__n(this, arguments);
     }, // eslint-disable-line no-undef
     priceValue (val) {
+      console.log(val, this.session.currency)
       if (!val || !this.session) return null
-      if (!this.session.currency || this.session.currency === 'productPriceKES') return val.productPrice
+      if (!this.session.currency || this.session.currency === 'KES' || this.session.currency === 'productPriceKES')
+        return val.productPrice
       return val[this.session.currency]
     },
     variantPriceValue (val) {
       if (!val || !this.session) return null
       if (Array.isArray(val)) {
-        if (!this.session.currency || this.session.currency === 'productPriceKES') return val[0].price
+        if (!this.session.currency || this.session.currency === 'KES' || this.session.currency === 'productPriceKES')
+          return val[0].price
         return val[0][this.session.currency]
       }
     },
     otherVariantPriceValues (parent) {
       // console.log(parent, this)
       if (!this || !parent.session) return null
-      if (!parent.session.currency || parent.session.currency === 'productPriceKES') return this.price
+      if (!parent.session.currency || parent.session.currency === 'KES' || parent.session.currency === 'productPriceKES')
+        return this.price
       return this[parent.session.currency]
     },
     relatedProductsPriceValue (parent) {
       // console.log(parent, this)
       if (!this || !parent.session) return null
-      if (!parent.session.currency || parent.session.currency === 'productPriceKES') return this.productPrice
+      if (!parent.session.currency || parent.session.currency === 'KES' || parent.session.currency === 'productPriceKES')
+        return this.productPrice
       return this[parent.session.currency]
     },
     availableLanguages: (block) => {
