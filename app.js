@@ -111,14 +111,14 @@ handlebars = handlebars.create({
     }, // eslint-disable-line no-undef
     priceValue (val) {
       if (!val || !this.session) return null
-      if (!this.session.currency || this.session.currency === 'KSH') return val.productPrice
+      if (!this.session.currency || this.session.currency === 'KES') return val.productPrice
       return val[this.session.currency]
     },
     variantPriceValue (val) {
       if (!val || !this.session) return null
       if (Array.isArray(val)) {
         // console.log(val)
-        if (!this.session.currency || this.session.currency === 'KSH') return val[0].price
+        if (!this.session.currency || this.session.currency === 'KES') return val[0].price
         return val[this.session.currency]
       } else {
         if (!val.priceInOtherCurrencies) return null
@@ -128,7 +128,7 @@ handlebars = handlebars.create({
     relatedProductsPriceValue (parent) {
       // console.log(parent, this)
       if (!this || !parent.session) return null
-      if (!parent.session.currency || parent.session.currency === 'KSH') return this.productPrice
+      if (!parent.session.currency || parent.session.currency === 'KES') return this.productPrice
       return this[parent.session.currency]
     },
     availableLanguages: (block) => {
@@ -208,14 +208,14 @@ handlebars = handlebars.create({
       return 'false';
     },
     currencySymbol: (value) => {
-      if (typeof value === 'undefined' || value === '' || value === 'KSH') {
-        return 'KSH ';
+      if (typeof value === 'undefined' || value === '' || value === 'KES') {
+        return 'KES ';
       } else if (value === 'EUR') {
-        return '€'
+        return '€ '
       } else if (value === 'GBP') {
-        return '£'
+        return '£ '
       } else if (value === 'CFA') {
-        return 'CFA'
+        return 'CFA '
       }
       return value;
     },
@@ -441,8 +441,8 @@ app.use((req, res, next) => {
       req.app.config.currencySymbol = 'USD'
       req.app.config.currencyISO = 'USD'
     } else {
-      req.app.config.currencySymbol = 'KSH'
-      req.app.config.currencyISO = 'KSH'
+      req.app.config.currencySymbol = 'KES'
+      req.app.config.currencyISO = 'KES'
     }
   }
   next()

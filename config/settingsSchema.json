@@ -65,8 +65,8 @@
         },
         "currencyISO": {
             "type": "string",
-            "enum": ["USD", "EUR", "GBP", "KSH", "CFA"],
-            "default": "KSH"
+            "enum": ["USD", "EUR", "GBP", "KES", "CFA"],
+            "default": "KES"
         },
         "paymentGateway": {
             "type": "array",

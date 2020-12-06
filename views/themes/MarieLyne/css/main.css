@@ -1802,7 +1802,7 @@ input.button.add {
 
 .max-value:before,
 .min-value:before {
-  content: 'KSH'; }
+  content: 'KES'; }
 
 .range-slider {
   margin-top: 10px;
