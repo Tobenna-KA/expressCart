@@ -1413,6 +1413,12 @@ router.get("/lang/:locale", (req, res) => {
   res.redirect("back");
 });
 
+// Language setup in cookie
+router.get("/currency/:currency", (req, res) => {
+  res.cookie("currency", req.params.currency, { maxAge: 900000, httpOnly: true });
+  res.redirect("back");
+});
+
 // return sitemap
 router.get("/sitemap.xml", (req, res, next) => {
   const sm = require("sitemap");

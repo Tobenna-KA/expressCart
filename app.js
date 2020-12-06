@@ -109,6 +109,12 @@ handlebars = handlebars.create({
     __n: () => {
       return i18n.__n(this, arguments);
     }, // eslint-disable-line no-undef
+    priceValue (val) {
+      if (!val || !this.session) return 'null'
+      console.log(val)
+      if (!this.session.currency || this.session.currency === 'KSH') return val.productPrice
+      return val[this.session.currency]
+    },
     availableLanguages: (block) => {
       let total = '';
       for (const lang of i18n.getLocales()) {
@@ -186,8 +192,14 @@ handlebars = handlebars.create({
       return 'false';
     },
     currencySymbol: (value) => {
-      if (typeof value === 'undefined' || value === '') {
-        return '$';
+      if (typeof value === 'undefined' || value === '' || value === 'KSH') {
+        return 'KSH ';
+      } else if (value === 'EUR') {
+        return '€'
+      } else if (value === 'GBP') {
+        return '£'
+      } else if (value === 'CFA') {
+        return 'CFA'
       }
       return value;
     },
@@ -397,6 +409,28 @@ app.use(
 
 // Set locales from session
 app.use(i18n.init);
+
+// bind currency
+app.use((req, res, next) => {
+  // console.log(req.cookies)
+  if (req.cookies && req.cookies.currency) {
+    req.session.currency = req.cookies.currency
+    if (req.cookies.currency === 'productPriceCFA') {
+      req.app.config.currencySymbol = 'CFA'
+      req.app.config.currencyISO = 'CFA'
+    } else if (req.cookies.currency === 'productPriceEUR') {
+      req.app.config.currencySymbol = 'EUR'
+      req.app.config.currencyISO = 'EUR'
+    } else if (req.cookies.currency === 'productPriceUSD') {
+      req.app.config.currencySymbol = 'USD'
+      req.app.config.currencyISO = 'USD'
+    } else {
+      req.app.config.currencySymbol = 'KSH'
+      req.app.config.currencyISO = 'KSH'
+    }
+  }
+  next()
+})
 
 // serving static content
 app.use(express.static(path.join(__dirname, 'public')));
