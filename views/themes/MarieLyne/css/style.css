@@ -79,6 +79,12 @@ a:focus {
   left: 7%;
   top: 6.5%;
 }
+.logo-footer {
+  position: absolute;
+  z-index: 99;
+  height: 200px;
+  width: 200px;
+}
 .logo.inner_page_log {
   position: absolute;
   z-index: 99;

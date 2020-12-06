@@ -268,7 +268,7 @@
 {{#if variants}}
     <input type="hidden" id="variantPrice" value="{{variantPriceValue variants}}">
     {{#each variants}}
-        <input id="productPrice{{currencySymbol ../this.config.currencySymbol}}" value="{{otherVariantPriceValues ../this}}">
+        <input type="hidden" id="productPrice{{currencySymbol ../this.config.currencySymbol}}" value="{{otherVariantPriceValues ../this}}">
     {{/each}}
 {{/if}}
 
