@@ -111,15 +111,16 @@ handlebars = handlebars.create({
     }, // eslint-disable-line no-undef
     priceValue (val) {
       if (!val || !this.session) return null
-      if (!this.session.currency || this.session.currency === 'KES') return val.productPrice
+      if (!this.session.currency || this.session.currency === 'productPriceKES') return val.productPrice
       return val[this.session.currency]
     },
     variantPriceValue (val) {
       if (!val || !this.session) return null
       if (Array.isArray(val)) {
-        // console.log(val)
-        if (!this.session.currency || this.session.currency === 'KES') return val[0].price
-        return val[this.session.currency]
+        console.log(val, val[this.session.currency])
+        if (!this.session.currency || this.session.currency === 'productPriceKES') return val[0].price
+
+        return val[0][this.session.currency]
       } else {
         if (!val.priceInOtherCurrencies) return null
         return val.priceInOtherCurrencies[this.session.currency]
@@ -128,7 +129,7 @@ handlebars = handlebars.create({
     relatedProductsPriceValue (parent) {
       // console.log(parent, this)
       if (!this || !parent.session) return null
-      if (!parent.session.currency || parent.session.currency === 'KES') return this.productPrice
+      if (!parent.session.currency || parent.session.currency === 'productPriceKES') return this.productPrice
       return this[parent.session.currency]
     },
     availableLanguages: (block) => {
