@@ -16,6 +16,7 @@ const {
   getImages,
   addSitemapProducts,
   getCountryList,
+  getCurrencyField,
   sendEmail,
 } = require("../lib/common");
 const { getSort, paginateProducts } = require("../lib/paginate");
@@ -499,6 +500,8 @@ router.get("/checkout/shipping", async (req, res, next) => {
 router.get("/checkout/cart", (req, res) => {
   const config = req.app.config;
 
+  console.log(req.session)
+
   res.render(`${config.themeViews}checkout-cart`, {
     title: "Checkout - Cart",
     page: req.query.path,
@@ -882,7 +885,7 @@ router.post("/product/updatecart", async (req, res, next) => {
 
   // Set default stock
   let productStock = product.productStock;
-  let productPrice = parseFloat(product.productPrice).toFixed(2);
+  let productPrice = parseFloat(product[getCurrencyField(req)]).toFixed(2);
 
   // Check if a variant is supplied and override values
   if (cartProduct.variantId) {
@@ -896,7 +899,7 @@ router.post("/product/updatecart", async (req, res, next) => {
         .json({ message: "Error updating cart. Please try again." });
       return;
     }
-    productPrice = parseFloat(variant.price).toFixed(2);
+    productPrice = parseFloat(variant[getCurrencyField(req)]).toFixed(2);
     productStock = variant.stock;
   }
 
@@ -1071,7 +1074,7 @@ router.post("/product/addtocart", async (req, res, next) => {
 
   // Variant checks
   let productCartId = product._id.toString();
-  let productPrice = parseFloat(product.productPrice).toFixed(2);
+  let productPrice = parseFloat(product[getCurrencyField(req)]).toFixed(2);
   let productVariantId;
   let productVariantTitle;
   let productStock = product.productStock;
@@ -1090,7 +1093,7 @@ router.post("/product/addtocart", async (req, res, next) => {
     productVariantId = getId(req.body.productVariant);
     productVariantTitle = variant.title;
     productCartId = req.body.productVariant;
-    productPrice = parseFloat(variant.price).toFixed(2);
+    productPrice = parseFloat(variant[getCurrencyField(req, true)]).toFixed(2);
     productStock = variant.stock;
   }
 
