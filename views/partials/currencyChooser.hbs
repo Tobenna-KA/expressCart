@@ -1,74 +1,101 @@
-<a href="/currency/KES" class="float">
-    KES
+<div id="fixed-currency">
+	<div>
+		<a href="/currency/KES" class="fixed-kes">KES <span>Kenya Shillings</span></a>
+	</div>
+	<div>
+		<a href="/currency/productPriceCFA" class="fixed-cfa">CFA <span>CFA Francs</span></a>
+	</div>
+	<div>
+		<a href="/currency/productPriceUSD" class="fixed-usd">USD <span>US Dollars</span></a>
+	</div>
+	<div>
+		<a href="/currency/productPriceEUR" class="fixed-eur">EUR <span>European Euros</span></a>
+	</div>
+</div>
+
+{{!-- <a href="/currency/KES" class="float">
+	KES
 </a>
 <a href="/currency/productPriceCFA" class="float1">
-    CFA
+	CFA
 </a>
 <a href="/currency/productPriceUSD" class="float2">
-    USD
+	USD
 </a>
 <a href="/currency/productPriceEUR" class="float3">
-    EUR
-</a>
+	EUR
+</a> --}}
 
 <style>
-    *{padding:0;margin:0;}
+	/* fixed social*/
+	#fixed-currency {
+		position: fixed;
+		top: 170px;
+		z-index: 77;
+		right: 0;
+	}
 
-    .float{
-        position: fixed;
-        width: 60px;
-        height: 30px;
-        bottom: 50%;
-        right: 1px;
-        background-color: #d9ab73;
-        color: #FFF;
-        border-radius: 1px;
-        text-align: center;
-        box-shadow: 2px 2px 3px #999;
-        z-index: 2000;
-    }
-    .float1{
-        position: fixed;
-        width: 60px;
-        height: 30px;
-        bottom: 46.8%;
-        right: 1px;
-        background-color: #d9ab73;
-        color: #FFF;
-        border-radius: 1px;
-        text-align: center;
-        box-shadow: 2px 2px 3px #999;
-        z-index: 2000;
-    }
-    .float2{
-        position: fixed;
-        width: 60px;
-        height: 30px;
-        bottom: 43.8%;
-        right: 1px;
-        background-color: #d9ab73;
-        color: #FFF;
-        border-radius: 1px;
-        text-align: center;
-        box-shadow: 2px 2px 3px #999;
-        z-index: 2000;
-    }
+	#fixed-currency a {
+		color: #fff;
+		display: block;
+		height: 40px;
+		position: relative;
+		text-align: center;
+		line-height: 40px;
+		width: 40px;
+		margin-bottom: 1px;
+		z-index: 2;
+	}
 
-    .float3{
-        position: fixed;
-        width: 60px;
-        height: 30px;
-        bottom: 40.8%;
-        right: 1px;
-        background-color: #d9ab73;
-        color: #FFF;
-        border-radius: 1px;
-        text-align: center;
-        box-shadow: 2px 2px 3px #999;
-        z-index: 2000;
-    }
+	#fixed-currency a:hover>span {
+		visibility: visible;
+		right: 41px;
+		opacity: 1;
+	}
 
-    .my-float{
-        margin-top:22px;
-    }
+	#fixed-currency a span {
+		line-height: 40px;
+		right: 60px;
+		position: absolute;
+		text-align: center;
+		width: 120px;
+		visibility: hidden;
+		transition-duration: 0.5s;
+		z-index: 1;
+		opacity: 0;
+	}
+
+	.fixed-kes {
+		background-color: #0F0A0A;
+	}
+
+	.fixed-kes span {
+		background-color: #0C0808;
+	}
+
+	.fixed-cfa {
+		background-color: #0A8754;
+	}
+
+	.fixed-cfa span {
+		background-color: #075F3C;
+	}
+
+	.fixed-usd {
+		background-color: #C02425;
+	}
+
+	.fixed-usd span {
+		background-color: #AB2121;
+	}
+
+	.fixed-eur {
+		background-color: #0075F2;
+	}
+
+	.fixed-eur span {
+		background-color: #0063CC;
+	}
+
+	/*end fixed social*/
 </style>

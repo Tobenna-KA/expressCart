@@ -9,7 +9,7 @@ body {
   margin: 0;
   padding: 0;
   background: #fff;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
 }
 
 h1,
@@ -19,7 +19,7 @@ h4,
 h5,
 h6 {
   margin: 0;
-  font-family: "Montserrat", sans-serif;
+  font-family: 'Montserrat', sans-serif;
 }
 
 p {
@@ -49,7 +49,7 @@ ol {
   height: 100%;
 }
 
-input[type="submit"],
+input[type='submit'],
 a,
 .nbs-flexisel-nav-left,
 .nbs-flexisel-nav-right {
@@ -196,7 +196,7 @@ ul.dropdown-menu.agile_short_dropdown > li > a:hover {
 }
 
 .mobile-menu ul li a:after {
-  content: "";
+  content: '';
   background: #7aba1e;
   width: 100%;
   height: 100%;
@@ -281,7 +281,7 @@ li.dropdown.act a.w3_icons_act {
 .cd-search-trigger::before,
 .cd-search-trigger::after {
   /* search icon */
-  content: "";
+  content: '';
   position: absolute;
   -webkit-transition: opacity 0.3s;
   -moz-transition: opacity 0.3s;
@@ -332,7 +332,7 @@ li.dropdown.act a.w3_icons_act {
 .cd-search-trigger span::before,
 .cd-search-trigger span::after {
   /* close icon */
-  content: "";
+  content: '';
   position: absolute;
   display: inline-block;
   height: 3px;
@@ -485,6 +485,7 @@ li.dropdown.act a.w3_icons_act {
 }
 
 .banner-top2 {
+  background: url(../images/carousel3.jpg) no-repeat 0px 0px;
   background-size: cover !important;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -705,7 +706,7 @@ li.dropdown.act a.w3_icons_act {
 }
 
 .callbacks_tabs a:after {
-  content: "\f111";
+  content: '\f111';
   font-size: 0;
   font-family: FontAwesome;
   visibility: visible;
@@ -964,7 +965,7 @@ button.top_shoe_cart {
 .newsletter_w3layouts_agile {
   padding: 3em 7em;
 }
-.newsright input[type="email"] {
+.newsright input[type='email'] {
   outline: none;
   width: 100%;
   padding: 10px 15px;
@@ -975,7 +976,7 @@ button.top_shoe_cart {
   letter-spacing: 3px;
   background: none;
 }
-.newsright input[type="submit"] {
+.newsright input[type='submit'] {
   border: none;
   padding: 10px 20px 11px;
   font-size: 15px;
@@ -987,7 +988,7 @@ button.top_shoe_cart {
   background: #d9ab73;
   color: #fff;
 }
-.newsright input[type="submit"]:hover {
+.newsright input[type='submit']:hover {
   background: #080808;
   color: #ffffff;
 }
@@ -1314,7 +1315,7 @@ a.b-home {
   text-align: center;
 }
 
-.error_page form input[type="search"] {
+.error_page form input[type='search'] {
   outline: none;
   border: 1px solid #c4c5c5;
   background: none;
@@ -1515,7 +1516,7 @@ button.btn1 {
     border-radius: 50%;
     margin-top: 51px;
   }
-  .search-hotel input[type="search"] {
+  .search-hotel input[type='search'] {
     width: 75%;
   }
 }
@@ -1610,16 +1611,16 @@ button.btn1 {
     bottom: 16%;
     left: 43%;
   }
-  .add-review input[type="text"],
-  .add-review input[type="email"],
+  .add-review input[type='text'],
+  .add-review input[type='email'],
   .add-review textarea {
     width: 100%;
   }
-  .add-review input[type="email"] {
+  .add-review input[type='email'] {
     margin-left: 0;
     margin-top: 2%;
   }
-  .add-review input[type="submit"] {
+  .add-review input[type='submit'] {
     margin-bottom: 2em;
   }
   .news-right {
@@ -1705,7 +1706,7 @@ button.btn1 {
   .newsletter_w3layouts_agile {
     padding: 2em 1em;
   }
-  .newsright input[type="email"] {
+  .newsright input[type='email'] {
     width: 70%;
   }
   .top_nav_right {
@@ -1959,7 +1960,7 @@ button.btn1 {
     margin-top: 15px;
     letter-spacing: 1px;
   }
-  .newsright input[type="email"] {
+  .newsright input[type='email'] {
     width: 68%;
   }
   .sign-gd {
@@ -2205,7 +2206,7 @@ button.btn1 {
     top: 18px;
     right: 47px;
   }
-  .newsright input[type="email"] {
+  .newsright input[type='email'] {
     width: 62%;
     letter-spacing: 1px;
   }
