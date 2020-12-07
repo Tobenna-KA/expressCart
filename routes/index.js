@@ -500,7 +500,8 @@ router.get("/checkout/shipping", async (req, res, next) => {
 router.get("/checkout/cart", (req, res) => {
   const config = req.app.config;
 
-  console.log(req.session)
+  // TODO handle cases where current currency is not the same as currency
+  //  at the time item was added to cart
 
   res.render(`${config.themeViews}checkout-cart`, {
     title: "Checkout - Cart",
