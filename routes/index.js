@@ -162,6 +162,7 @@ router.get('/shop', (req, res) => {
       }
     });
     const productCategories = [...new Set(categories.flat())];
+    req.session.productCategories = productCategories;
 
     res.render(file_to_render, {
       session: req.session,
@@ -268,6 +269,7 @@ router.get(
               menu: sortMenu(menu),
               helpers: req.handlebars.helpers,
               showFooter: 'showFooter',
+              categories: req.session.productCategories,
             });
           })
           .catch((err) => {
