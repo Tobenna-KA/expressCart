@@ -1,5 +1,9 @@
+body {
+  background-color: #efefef;
+}
+
 .home-container {
-  width: 85%;
+  width: 83%;
 }
 
 .insta-row {
@@ -26,23 +30,54 @@
   }
 
   margin: 10px auto 0 auto;
-  border: 1px solid #ccc;
-  border-radius: 2px;
+  box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.12);
   width: 100%;
-  // max-width: 400px;
-  background: white;
+  background: #fff;
   font-size: 12px;
+  padding: 0;
+
+  .card-image {
+    width: 100%;
+    padding: 0 !important;
+
+    img {
+      height: 340px;
+    }
+  }
+
   .card-header {
-    padding: 10px;
+    padding: 5px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+
+    a,
+    p {
+      display: inline-block;
+    }
+
+    p {
+      font-size: 1em;
+      letter-spacing: 0;
+      font-weight: 600;
+      color: #000;
+      margin-left: 5px;
+    }
+
+    .goldBtn {
+      padding: 5px 10px !important;
+      border-radius: 2px !important;
+      text-transform: none !important;
+      transition: $color_transition;
+    }
   }
   .user-image {
     font-weight: bold;
-    margin-left: 10px;
+    margin-left: 5px;
     width: 40px;
     border-radius: 50%;
     overflow: hidden;
+    border: 2px solid $primary_color;
   }
 
   .user-name {
@@ -57,6 +92,42 @@
 
   .card-content {
     padding: 10px;
+
+    .view-more {
+      font-weight: 600 !important;
+    }
+
+    hr {
+      margin-top: 5px;
+      background-color: #eee;
+    }
+  }
+
+  .icons {
+    // margin-bottom: 5px !important;
+    a i {
+      font-size: 1.3em;
+      font-weight: normal !important;
+      color: #000;
+      transition: $color_transition;
+
+      &.far.fa-heart:hover {
+        color: #d7263d;
+      }
+
+      &.far.fa-comment:hover {
+        color: #aaa;
+      }
+
+      &.fa.fa-inbox {
+        color: black !important;
+      }
+    }
+  }
+
+  strong {
+    margin-left: 5px;
+    font-weight: 600 !important;
   }
 
   .likes {

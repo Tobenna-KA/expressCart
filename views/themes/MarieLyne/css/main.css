@@ -2011,8 +2011,11 @@ input.button.add {
   #home .navLanguageButton {
     right: 60px !important; } }
 
+body {
+  background-color: #efefef; }
+
 .home-container {
-  width: 85%; }
+  width: 83%; }
 
 .insta-row {
   margin-bottom: 40px; }
@@ -2022,11 +2025,11 @@ input.button.add {
 
 .instagram-card {
   margin: 10px auto 0 auto;
-  border: 1px solid #ccc;
-  border-radius: 2px;
+  box-shadow: 0 0.5px 1px rgba(0, 0, 0, 0.12);
   width: 100%;
-  background: white;
-  font-size: 12px; }
+  background: #fff;
+  font-size: 12px;
+  padding: 0; }
   .instagram-card .mainBtn {
     width: 100% !important;
     display: block;
@@ -2036,16 +2039,37 @@ input.button.add {
     .instagram-card .icons a {
       padding: 5px;
       font-size: 1.4em; }
+  .instagram-card .card-image {
+    width: 100%;
+    padding: 0 !important; }
+    .instagram-card .card-image img {
+      height: 340px; }
   .instagram-card .card-header {
-    padding: 10px;
+    padding: 5px;
     display: flex;
-    align-items: center; }
+    align-items: center;
+    justify-content: space-between; }
+    .instagram-card .card-header a,
+    .instagram-card .card-header p {
+      display: inline-block; }
+    .instagram-card .card-header p {
+      font-size: 1em;
+      letter-spacing: 0;
+      font-weight: 600;
+      color: #000;
+      margin-left: 5px; }
+    .instagram-card .card-header .goldBtn {
+      padding: 5px 10px !important;
+      border-radius: 2px !important;
+      text-transform: none !important;
+      transition: all 0.3s ease; }
   .instagram-card .user-image {
     font-weight: bold;
-    margin-left: 10px;
+    margin-left: 5px;
     width: 40px;
     border-radius: 50%;
-    overflow: hidden; }
+    overflow: hidden;
+    border: 2px solid #d9ab73; }
   .instagram-card .user-name {
     font-weight: bold;
     margin-left: 10px; }
@@ -2055,6 +2079,25 @@ input.button.add {
     width: 100%; }
   .instagram-card .card-content {
     padding: 10px; }
+    .instagram-card .card-content .view-more {
+      font-weight: 600 !important; }
+    .instagram-card .card-content hr {
+      margin-top: 5px;
+      background-color: #eee; }
+  .instagram-card .icons a i {
+    font-size: 1.3em;
+    font-weight: normal !important;
+    color: #000;
+    transition: all 0.3s ease; }
+    .instagram-card .icons a i.far.fa-heart:hover {
+      color: #d7263d; }
+    .instagram-card .icons a i.far.fa-comment:hover {
+      color: #aaa; }
+    .instagram-card .icons a i.fa.fa-inbox {
+      color: black !important; }
+  .instagram-card strong {
+    margin-left: 5px;
+    font-weight: 600 !important; }
   .instagram-card .likes {
     font-weight: bold; }
   .instagram-card .hashtag {

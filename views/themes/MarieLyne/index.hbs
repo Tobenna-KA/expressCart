@@ -1,13 +1,13 @@
-<div class="col-md-6 shop_left">
-	<img src="/{{config.theme}}/images/banner3.jpg" alt="">
-	<h6>40% off</h6>
-</div>
-<div class="col-md-6 shop_right">
-	<img src="/{{config.theme}}/images/banner2.jpg" alt="">
-	<h6>50% off</h6>
-</div>
-<div class="clearfix"></div>
 <div class="productsWrapper col-sm-12">
+	<div class="col-md-6 shop_left">
+		<img src="/{{config.theme}}/images/banner3.jpg" alt="">
+		<h6>40% off</h6>
+	</div>
+	<div class="col-md-6 shop_right">
+		<img src="/{{config.theme}}/images/banner2.jpg" alt="">
+		<h6>50% off</h6>
+	</div>
+	<div class="clearfix"></div>
 	{{#if filtered}}
 	<div class="product-layout product-results col-sm-12">
 		{{#ifCond @root.paginateUrl '==' 'category'}}
@@ -17,32 +17,57 @@
 		{{/ifCond}}
 	</div>
 	{{else}}
-	<div class="container home-container">
+	<div class="container-fluid home-container">
+
 		<div class="row insta-row">
+			{{!-- <script src="https://apps.elfsight.com/p/platform.js" defer></script>
+			<div class="elfsight-app-b643200d-63a5-4f19-8087-67bb217de24c"></div> --}}
+
 			{{#each instaFeed}}
 			<div class="col-12 col-md-4 col-sm-4 col-xs-12 instacard">
 				<div class="instagram-card">
 					<div class="card-header">
-						<img class="user-image" src="{{this.node.thumbnail_src}}" />
-						<p class="user-name"> marielyne_beauty </p>
+						<div>
+							<a href="{{this.profileUrl}}" target="_blank">
+								<img class="user-image" src="{{this.node.thumbnail_src}}" />
+								<p class="user-name"> marielyne_beauty </p>
+							</a>
+						</div>
+						<div class="header-button">
+							<button class="btn mainBtn goldBtn"> View Profile</button>
+						</div>
 						{{!-- <p class="time">1h</p> --}}
 					</div>
 					<div class="card-image">
-						<img src="{{this.node.thumbnail_src}}" width="100%" />
+						<a href="{{this.profileUrl}}" target="_blank">
+							<img src="{{this.node.thumbnail_src}}" width="100%" />
+						</a>
 					</div>
 					<div class="card-content">
-						<a class="mainBtn" href="{{this.profileUrl}}" target="_blank">View more on Instagram</a>
+						<a class="view-more" href="{{this.profileUrl}}" target="_blank">View more on Instagram</a>
+						<hr />
 						<div class="icons">
-							<a href="{{this.profileUrl}}" target="_blank">
-								<i class="far fa-heart"></i>
-							</a>
-							<a href="{{this.profileUrl}}" target="_blank">
-								<i class="far fa-comment"></i>
-							</a>
-							<a href="{{this.profileUrl}}" target="_blank">
-								<i class="fas fa-inbox"></i>
-							</a>
+							<div>
+								<a href="{{this.profileUrl}}" target="_blank">
+									<i class="far fa-heart"></i>
+								</a>
+								<a href="{{this.profileUrl}}" target="_blank">
+									<i class="far fa-comment"></i>
+								</a>
+								<a href="{{this.profileUrl}}" target="_blank">
+									<i class="fa fa-inbox"></i>
+								</a>
+							</div>
+							<div>
+								<a href="#" target="_blank">
+									<i class="fa fa-bookmark-o"></i>
+								</a>
+
+							</div>
 						</div>
+						<strong>
+							{{this.node.edge_liked_by.count}} likes
+						</strong>
 					</div>
 				</div>
 			</div>
