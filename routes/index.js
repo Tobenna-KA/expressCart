@@ -187,6 +187,7 @@ router.get(
 
     // Creating category regex.
     const filterCategories = filterObj.categories.split('-');
+    filterObj.filterCategories = filterCategories;
 
     let catRegexStr = '';
     filterCategories.map((cat, i) => {
@@ -270,6 +271,7 @@ router.get(
               helpers: req.handlebars.helpers,
               showFooter: 'showFooter',
               categories: req.session.productCategories,
+              lastFilterObj: filterObj,
             });
           })
           .catch((err) => {

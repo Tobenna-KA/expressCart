@@ -37,14 +37,39 @@
       <!--preference -->
       <div class="left-side" id="categories-filter">
         <h3 class="agileits-sear-head">{{ @root.__ "Categories" }}</h3>
-        {{#each categories}}
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
-          <label class="form-check-label" for="{{this}}">
-            {{this}}
-          </label>
+        {{#if lastFilterObj.filterCategories}}
+        <div>
+          {{#each (getCheckedCategories categories lastFilterObj.filterCategories) }}
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}" checked>
+            <label class="form-check-label" for="{{this}}">
+              {{this}}
+            </label>
+          </div>
+          {{/each}}
+          {{#each (getUncheckedCategories categories lastFilterObj.filterCategories) }}
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
+            <label class="form-check-label" for="{{this}}">
+              {{this}}
+            </label>
+          </div>
+          {{/each}}
         </div>
-        {{/each}}
+
+        {{else}}
+        <div>
+          {{#each categories}}
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
+            <label class="form-check-label" for="{{this}}">
+              {{this}}
+            </label>
+          </div>
+          {{/each}}
+        </div>
+
+        {{/if}}
       </div>
       <div class="customer-rev left-side">
         <h3 class="agileits-sear-head">{{ @root.__ "Minimum rating" }}</h3>

@@ -164,6 +164,30 @@ handlebars = handlebars.create({
         return this.productPrice;
       return this[parent.session.currency];
     },
+    getCheckedCategories(val1, val2) {
+      const checked = [];
+      const notChecked = [];
+      val1.forEach((item) => {
+        if ((item, val2.indexOf(item) >= 0)) {
+          checked.push(item);
+        } else {
+          notChecked.push(item);
+        }
+      });
+      return checked;
+    },
+    getUncheckedCategories(val1, val2) {
+      const checked = [];
+      const notChecked = [];
+      val1.forEach((item) => {
+        if ((item, val2.indexOf(item) >= 0)) {
+          checked.push(item);
+        } else {
+          notChecked.push(item);
+        }
+      });
+      return notChecked;
+    },
     availableLanguages: (block) => {
       let total = '';
       for (const lang of i18n.getLocales()) {
