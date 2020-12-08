@@ -1,101 +1,19 @@
 <div id="fixed-currency">
 	<div>
-		<a href="/currency/KES" class="fixed-kes">KES <span>Kenya Shillings</span></a>
+		<a href="/currency/KES" class="fixed kes {{ session.currency }}">KES
+			<span> Kenya Shillings </span></a>
 	</div>
 	<div>
-		<a href="/currency/productPriceCFA" class="fixed-cfa">CFA <span>CFA Francs</span></a>
+		<a href="/currency/productPriceCFA" class="fixed cfa {{ session.currency }}">CFA <span>CFA Francs</span></a>
 	</div>
 	<div>
-		<a href="/currency/productPriceUSD" class="fixed-usd">USD <span>US Dollars</span></a>
+		<a href="/currency/productPriceUSD" class="fixed usd {{ session.currency }}">USD <span>US Dollars</span></a>
 	</div>
 	<div>
-		<a href="/currency/productPriceEUR" class="fixed-eur">EUR <span>European Euros</span></a>
+		<a href="/currency/productPriceEUR" class="fixed eur {{ session.currency }}">EUR <span>European Euros</span></a>
 	</div>
 </div>
 
-{{!-- <a href="/currency/KES" class="float">
-	KES
-</a>
-<a href="/currency/productPriceCFA" class="float1">
-	CFA
-</a>
-<a href="/currency/productPriceUSD" class="float2">
-	USD
-</a>
-<a href="/currency/productPriceEUR" class="float3">
-	EUR
-</a> --}}
-
 <style>
-	/* fixed social*/
-	#fixed-currency {
-		position: fixed;
-		top: 170px;
-		z-index: 77;
-		right: 0;
-	}
 
-	#fixed-currency a {
-		color: #fff;
-		display: block;
-		height: 40px;
-		position: relative;
-		text-align: center;
-		line-height: 40px;
-		width: 40px;
-		margin-bottom: 1px;
-		z-index: 2;
-	}
-
-	#fixed-currency a:hover>span {
-		visibility: visible;
-		right: 41px;
-		opacity: 1;
-	}
-
-	#fixed-currency a span {
-		line-height: 40px;
-		right: 60px;
-		position: absolute;
-		text-align: center;
-		width: 120px;
-		visibility: hidden;
-		transition-duration: 0.5s;
-		z-index: 1;
-		opacity: 0;
-	}
-
-	.fixed-kes {
-		background-color: #0F0A0A;
-	}
-
-	.fixed-kes span {
-		background-color: #0C0808;
-	}
-
-	.fixed-cfa {
-		background-color: #0A8754;
-	}
-
-	.fixed-cfa span {
-		background-color: #075F3C;
-	}
-
-	.fixed-usd {
-		background-color: #C02425;
-	}
-
-	.fixed-usd span {
-		background-color: #AB2121;
-	}
-
-	.fixed-eur {
-		background-color: #0075F2;
-	}
-
-	.fixed-eur span {
-		background-color: #0063CC;
-	}
-
-	/*end fixed social*/
 </style>

@@ -2078,36 +2078,64 @@ input.button.add {
   .home-container {
     width: 100% !important; } }
 
-#myCarouselBox {
-  border: 1px solid #d9ab73;
-  padding: 3px;
-  background-color: #fff;
-  border-radius: 2px; }
-  #myCarouselBox .mid_slider_text {
-    height: 100% !important;
-    padding: 0 !important;
-    text-transform: uppercase; }
-    #myCarouselBox .mid_slider_text a {
-      padding: 0 !important;
-      margin: 0 !important; }
-      #myCarouselBox .mid_slider_text a h5 {
-        font-weight: 400;
-        text-align: center;
-        margin: 0 !important;
-        padding: 0 !important;
-        color: #d9ab73 !important;
-        transition: all 0.3s ease;
-        font-size: 2.2em; }
-        #myCarouselBox .mid_slider_text a h5:hover {
-          color: #d39f5f !important; }
-  #myCarouselBox .left.carousel-control,
-  #myCarouselBox .right.carousel-control {
-    border: 2px solid #d9ab73;
-    background-color: #d9ab73;
-    font-size: 0.9em !important;
-    color: #fff;
-    transition: all 0.3s ease; }
-    #myCarouselBox .left.carousel-control:hover,
-    #myCarouselBox .right.carousel-control:hover {
-      background-color: #d39f5f;
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24); }
+/* fixed social*/
+#fixed-currency {
+  position: fixed;
+  top: 170px;
+  z-index: 77;
+  right: 0; }
+
+#fixed-currency a {
+  color: #fff;
+  display: block;
+  height: 40px;
+  position: relative;
+  text-align: center;
+  line-height: 40px;
+  width: 40px;
+  margin-bottom: 1px;
+  z-index: 2; }
+
+#fixed-currency a:hover > span {
+  visibility: visible;
+  right: 41px;
+  opacity: 1; }
+
+#fixed-currency a span {
+  line-height: 40px;
+  right: 60px;
+  position: absolute;
+  text-align: center;
+  width: 120px;
+  visibility: hidden;
+  transition-duration: 0.5s;
+  z-index: 1;
+  opacity: 0; }
+
+.fixed {
+  background-color: #525b76; }
+
+.fixed span {
+  background-color: #434a60; }
+
+.fixed.kes.KES {
+  background-color: #d9ab73; }
+  .fixed.kes.KES span {
+    background-color: #d39f5f; }
+
+.fixed.cfa.productPriceCFA {
+  background-color: #d9ab73; }
+  .fixed.cfa.productPriceCFA span {
+    background-color: #d39f5f; }
+
+.fixed.usd.productPriceUSD {
+  background-color: #d9ab73; }
+  .fixed.usd.productPriceUSD span {
+    background-color: #d39f5f; }
+
+.fixed.eur.productPriceEUR {
+  background-color: #d9ab73; }
+  .fixed.eur.productPriceEUR span {
+    background-color: #d39f5f; }
+
+/*end fixed social*/

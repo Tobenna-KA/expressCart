@@ -394,6 +394,7 @@
       rating
     }
 
+
     let categoryString = ''
 
     data.categories.forEach((cat, i) => {
@@ -401,7 +402,7 @@
       else categoryString += `${cat}`
     })
 
-    const filterURL = `/shop/filter/${data.price.min}/${data.price.max}/${categoryString}`
+    const filterURL = `/shop/filter/${data.price.min}/${data.price.max}/${categoryString ? categoryString : 'none'}/${data.rating}`
 
     // On create review
     $('#filter-btn').click(function (e) {
