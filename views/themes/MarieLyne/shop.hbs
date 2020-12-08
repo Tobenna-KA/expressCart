@@ -23,7 +23,7 @@
           <div class="max-value"></div>
         </div>
         <div class="row">
-          <div class="range-slider" data-min='20000' data-max='100000' data-step="10">
+          <div class="range-slider" data-min='0' data-max='100000' data-step="10">
             <div class="slider-track">
               <span class='slider-track-filled'></span>
             </div>
@@ -412,7 +412,7 @@
         url: filterURL,
         data
       }).done((response) => {
-        window.location = '/shop/';
+        window.location = filterURL;
 
       }).fail((response) => {
         window.location = '/shop/';

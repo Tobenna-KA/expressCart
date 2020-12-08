@@ -493,7 +493,8 @@ router.get('/checkout/information', async (req, res, next) => {
 
 router.get('/checkout/shipping', async (req, res, next) => {
   const config = req.app.config;
-
+  // TODO handle cases where current currency is not the same as currency
+  //  at the time item was added to cart
   // if there is no items in the cart then render a failure
   if (!req.session.cart) {
     req.session.message =
