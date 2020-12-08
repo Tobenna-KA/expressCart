@@ -188,6 +188,9 @@ handlebars = handlebars.create({
       });
       return notChecked;
     },
+    getSelectedRating(currentRating, filteredRating) {
+      return currentRating == filteredRating;
+    },
     availableLanguages: (block) => {
       let total = '';
       for (const lang of i18n.getLocales()) {

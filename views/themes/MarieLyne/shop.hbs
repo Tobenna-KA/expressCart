@@ -37,28 +37,42 @@
       <!--preference -->
       <div class="left-side" id="categories-filter">
         <h3 class="agileits-sear-head">{{ @root.__ "Categories" }}</h3>
-        {{#if lastFilterObj.filterCategories}}
+        {{#if session}}
         <div>
-          {{#each (getCheckedCategories categories lastFilterObj.filterCategories) }}
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}" checked>
-            <label class="form-check-label" for="{{this}}">
-              {{this}}
-            </label>
+          {{#if lastFilterObj.filterCategories}}
+          <div>
+            {{#each (getCheckedCategories categories lastFilterObj.filterCategories) }}
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}" checked>
+              <label class="form-check-label" for="{{this}}">
+                {{this}}
+              </label>
+            </div>
+            {{/each}}
+            {{#each (getUncheckedCategories categories lastFilterObj.filterCategories) }}
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
+              <label class="form-check-label" for="{{this}}">
+                {{this}}
+              </label>
+            </div>
+            {{/each}}
           </div>
-          {{/each}}
-          {{#each (getUncheckedCategories categories lastFilterObj.filterCategories) }}
-          <div class="form-check">
-            <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
-            <label class="form-check-label" for="{{this}}">
-              {{this}}
-            </label>
-          </div>
-          {{/each}}
-        </div>
 
-        {{else}}
-        <div>
+          {{else}}
+          <div>
+            {{#each categories}}
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
+              <label class="form-check-label" for="{{this}}">
+                {{this}}
+              </label>
+            </div>
+            {{/each}}
+          </div>
+
+          {{/if}}
+          {{else}}
           {{#each categories}}
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
@@ -67,18 +81,55 @@
             </label>
           </div>
           {{/each}}
+          {{/if}}
         </div>
-
-        {{/if}}
       </div>
       <div class="customer-rev left-side">
         <h3 class="agileits-sear-head">{{ @root.__ "Minimum rating" }}</h3>
         <select class="rating-select" id="rating-select">
-          <option value="1">{{ @root.__ "One star" }}</option>
-          <option value="2">{{ @root.__ "Two stars" }}</option>
-          <option value="3">{{ @root.__ "Three stars" }}</option>
-          <option value="4">{{ @root.__ "Four stars" }}</option>
-          <option value="5">{{ @root.__ "Five stars" }}</option>
+          {{#if lastFilterObj}}
+          <div>
+
+            {{#if (getSelectedRating "1" lastFilterObj.rating) }}
+            <option value="1" selected>{{ @root.__ "One star" }}</option>
+            {{else}}
+            <option value="1">{{ @root.__ "One star" }}</option>
+            {{/if}}
+
+            {{#if (getSelectedRating "2" lastFilterObj.rating) }}
+            <option value="2" selected>{{ @root.__ "Two stars" }}</option>
+            {{else}}
+            <option value="2">{{ @root.__ "Two stars" }}</option>
+            {{/if}}
+
+            {{#if (getSelectedRating "3" lastFilterObj.rating) }}
+            <option value="3" selected>{{ @root.__ "Three stars" }}</option>
+            {{else}}
+            <option value="3">{{ @root.__ "Three stars" }}</option>
+            {{/if}}
+
+            {{#if (getSelectedRating "4" lastFilterObj.rating) }}
+            <option value="4" selected>{{ @root.__ "Four stars" }}</option>
+            {{else}}
+            <option value="4">{{ @root.__ "Four stars" }}</option>
+            {{/if}}
+
+            {{#if (getSelectedRating "5" lastFilterObj.rating) }}
+            <option value="5" selected>{{ @root.__ "Five stars" }}</option>
+            {{else}}
+            <option value="5">{{ @root.__ "Five stars" }}</option>
+            {{/if}}
+          </div>
+          {{else}}
+          <div>
+            <option value="1">{{ @root.__ "One star" }}</option>
+            <option value="2">{{ @root.__ "Two stars" }}</option>
+            <option value="3">{{ @root.__ "Three stars" }}</option>
+            <option value="4">{{ @root.__ "Four stars" }}</option>
+            <option value="5">{{ @root.__ "Five stars" }}</option>
+
+          </div>
+          {{/if}}
         </select>
       </div>
       <!-- //reviews -->
