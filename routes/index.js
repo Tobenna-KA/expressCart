@@ -34,6 +34,7 @@ const { contactFormSchema } = require('../lib/contactValidation');
 
 // *** INSTAGRAM FETCH FUNCTION ***
 const getInstagramPosts = require('../lib/instagram');
+const { filter } = require('lodash');
 // const { filter, indexOf } = require('lodash');
 
 // Example of how you can add new pages
@@ -176,83 +177,119 @@ router.get('/shop', (req, res) => {
 // SHOP FILTER ROUTE
 
 // Filter route gets filter criteria through url
-router.get('/shop/filter/:minPrice/:maxPrice/:categories', (req, res) => {
-  const filterObj = req.params;
+router.get(
+  '/shop/filter/:minPrice/:maxPrice/:categories/:rating',
+  (req, res) => {
+    const filterObj = req.params;
+    filterObj.maxPrice = Number(filterObj.maxPrice);
+    filterObj.minPrice = Number(filterObj.minPrice);
 
-  // Creating category regex.
+    // Creating category regex.
+    const filterCategories = filterObj.categories.split('-');
 
-  // const filterCategories = filterObj.categories.split('-');
-
-  // let catRegexStr = '';
-  // filterCategories.map((cat, i) => {
-  //   if (i < filterCategories.length - 1) catRegexStr += `${cat}|`;
-  //   else catRegexStr += `${cat}`;
-  // });
-
-  // const categoriesFilterRegex = new RegExp(`/${catRegexStr}/`);
-
-  const db = req.app.db;
-  const config = req.app.config;
-  const numberProducts = config.productsPerPage ? config.productsPerPage : 6;
-  let pageNum = 1;
-  if (req.params.pageNum) {
-    pageNum = req.params.pageNum;
-  }
-
-  // DB Find price
-  db.products
-    .find({
-      $and: [
-        { productPrice: { $lte: filterObj.maxPrice } },
-        { productPrice: { $gte: filterObj.minPrice } },
-      ],
-    })
-    .toArray((err, productsList) => {
-      if (err) {
-        console.log(colors.red(`Error filtering products ${err}`));
-      }
-
-      Promise.all([
-        // Paginate function not working
-        paginateProducts(
-          true,
-          db,
-          pageNum,
-          { _id: { $in: productsList } },
-          getSort()
-        ),
-        getMenu(db),
-      ])
-        .then(([results, menu]) => {
-          // If JSON query param return json instead
-          if (req.query.json === 'true') {
-            res.status(200).json(results.data);
-            return;
-          }
-          // Page not rerendering
-          res.render(`${config.themeViews}shop`, {
-            title: 'Shop',
-            results: productsList,
-            session: req.session,
-            message: clearSessionValue(req.session, 'message'),
-            messageType: clearSessionValue(req.session, 'messageType'),
-            productsPerPage: numberProducts,
-            totalProductCount: productsList.length,
-            pageNum: pageNum,
-            paginateUrl: 'search',
-            config: config,
-            menu: sortMenu(menu),
-            helpers: req.handlebars.helpers,
-            showFooter: 'showFooter',
-          });
-        })
-        .catch((err) => {
-          console.error(colors.red('Error searching for products', err));
-        });
+    let catRegexStr = '';
+    filterCategories.map((cat, i) => {
+      if (cat === 'none') catRegexStr += `.*`;
+      else if (i < filterCategories.length - 1) catRegexStr += `${cat}|`;
+      else catRegexStr += `${cat}`;
     });
 
-  return;
-});
+    const categoriesFilterRegex = new RegExp(`${catRegexStr}`);
+
+    const db = req.app.db;
+    const config = req.app.config;
+    const numberProducts = config.productsPerPage ? config.productsPerPage : 6;
+    let pageNum = 1;
+    if (req.params.pageNum) {
+      pageNum = req.params.pageNum;
+    }
+
+    // DB Find price
+    db.products
+      .aggregate([
+        {
+          $addFields: {
+            priceDouble: { $toDouble: '$productPrice' },
+          },
+        },
+        {
+          $match: {
+            $and: [
+              {
+                priceDouble: {
+                  $gte: filterObj.minPrice,
+                  $lte: filterObj.maxPrice,
+                },
+              },
+              {
+                productTags: {
+                  $regex: categoriesFilterRegex,
+                  $options: 'ig',
+                },
+              },
+            ],
+          },
+        },
+      ])
+      .toArray((err, productsList) => {
+        if (err) {
+          console.log(colors.red(`Error filtering products ${err}`));
+        }
+
+        console.log('********* PRODUCTS LENGTH *********');
+        console.log(productsList.length);
+
+        // productsList.forEach((product) => {
+        //   console.log('********* REGEX *********');
+        //   console.log(categoriesFilterRegex);
+        //   console.log('********* REGEXSTRTEST *********');
+        //   console.log(/.*/gi.test(product.productTags));
+        //   console.log('********* REGEXOGTEST *********');
+        //   console.log(categoriesFilterRegex.test(product.productTags));
+        // });
+
+        Promise.all([
+          // Paginate function not working
+          paginateProducts(
+            true,
+            db,
+            pageNum,
+            { _id: { $in: productsList } },
+            getSort()
+          ),
+          getMenu(db),
+        ])
+          .then(([results, menu]) => {
+            // If JSON query param return json instead
+            if (req.query.json === 'true') {
+              res.status(200).json(results.data);
+              return;
+            }
+            // Page not rerendering
+            res.render(`${config.themeViews}shop`, {
+              title: 'Shop',
+              results: productsList,
+              session: req.session,
+              message: clearSessionValue(req.session, 'message'),
+              messageType: clearSessionValue(req.session, 'messageType'),
+              productsPerPage: numberProducts,
+              totalProductCount: productsList.length,
+              pageNum: pageNum,
+              paginateUrl: 'search',
+              config: config,
+              menu: sortMenu(menu),
+              helpers: req.handlebars.helpers,
+              showFooter: 'showFooter',
+            });
+          })
+          .catch((err) => {
+            console.error(colors.red('Error searching for products', err));
+          });
+      });
+
+    return;
+  }
+);
 
 // Store Route
 router.get('/store', (req, res) => {

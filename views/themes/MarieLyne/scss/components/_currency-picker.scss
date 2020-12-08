@@ -1,0 +1,92 @@
+/* fixed social*/
+#fixed-currency {
+  position: fixed;
+  top: 170px;
+  z-index: 77;
+  right: 0;
+}
+
+#fixed-currency a {
+  color: #fff;
+  display: block;
+  height: 40px;
+  position: relative;
+  text-align: center;
+  line-height: 40px;
+  width: 40px;
+  margin-bottom: 1px;
+  z-index: 2;
+}
+
+#fixed-currency a:hover > span {
+  visibility: visible;
+  right: 41px;
+  opacity: 1;
+}
+
+#fixed-currency a span {
+  line-height: 40px;
+  right: 60px;
+  position: absolute;
+  text-align: center;
+  width: 120px;
+  visibility: hidden;
+  transition-duration: 0.5s;
+  z-index: 1;
+  opacity: 0;
+}
+
+.fixed {
+  background-color: #525b76;
+}
+
+.fixed span {
+  background-color: #434a60;
+}
+
+.fixed {
+  &.kes.KES {
+    background-color: $primary_color;
+    span {
+      background-color: $primary_color_darker;
+    }
+  }
+  &.cfa.productPriceCFA {
+    background-color: $primary_color;
+    span {
+      background-color: $primary_color_darker;
+    }
+  }
+  &.usd.productPriceUSD {
+    background-color: $primary_color;
+    span {
+      background-color: $primary_color_darker;
+    }
+  }
+  &.eur.productPriceEUR {
+    background-color: $primary_color;
+    span {
+      background-color: $primary_color_darker;
+    }
+  }
+}
+
+// .fixed-cfa
+
+// .fixed-usd {
+//   background-color: #c02425;
+// }
+
+// .fixed-usd span {
+//   background-color: #ab2121;
+// }
+
+// .fixed-eur {
+//   background-color: #0075f2;
+// }
+
+// .fixed-eur span {
+//   background-color: #0063cc;
+// }
+
+/*end fixed social*/
