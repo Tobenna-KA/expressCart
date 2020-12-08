@@ -236,18 +236,6 @@ router.get(
           console.log(colors.red(`Error filtering products ${err}`));
         }
 
-        console.log('********* PRODUCTS LENGTH *********');
-        console.log(productsList.length);
-
-        // productsList.forEach((product) => {
-        //   console.log('********* REGEX *********');
-        //   console.log(categoriesFilterRegex);
-        //   console.log('********* REGEXSTRTEST *********');
-        //   console.log(/.*/gi.test(product.productTags));
-        //   console.log('********* REGEXOGTEST *********');
-        //   console.log(categoriesFilterRegex.test(product.productTags));
-        // });
-
         Promise.all([
           // Paginate function not working
           paginateProducts(
