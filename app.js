@@ -191,6 +191,19 @@ handlebars = handlebars.create({
     getSelectedRating(currentRating, filteredRating) {
       return currentRating == filteredRating;
     },
+    getCurrencyRange(val) {
+      const price = Number(val);
+      if (this.session.currency === 'KES') {
+        return price;
+      } else if (this.session.currency === 'productPriceCFA') {
+        return price * 4.86;
+      } else if (this.session.currency === 'productPriceUSD') {
+        return price * 0.009;
+      } else if (this.session.currency === 'productPriceEUR') {
+        console.log('********************');
+        return price * 0.0074;
+      }
+    },
     availableLanguages: (block) => {
       let total = '';
       for (const lang of i18n.getLocales()) {

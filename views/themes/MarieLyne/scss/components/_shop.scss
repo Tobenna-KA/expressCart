@@ -1432,9 +1432,20 @@ input.button.add {
   margin-left: auto;
 }
 
-.max-value:before,
-.min-value:before {
-  content: 'KES';
+.max-value,
+.min-value {
+  &.KES:before {
+    content: 'KES';
+  }
+  &.productPriceCFA:before {
+    content: 'CFA';
+  }
+  &.productPriceUSD:before {
+    content: 'USD';
+  }
+  &.productPriceEUR:before {
+    content: 'EUR';
+  }
 }
 
 .range-slider {

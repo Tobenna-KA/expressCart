@@ -19,10 +19,25 @@
       <div class="range">
         <h3 class="agileits-sear-head">{{ @root.__ "Price range" }}</h3>
         <div class="price-range-values">
-          <div class="min-value"></div>
-          <div class="max-value"></div>
+          {{#if session  }}
+          <div class="min-value {{ session.currency }}"></div>
+          <div class="max-value {{ session.currency }}"></div>
+          {{else}}
+          <div class="min-value KES"></div>
+          <div class="max-value KES"></div>
+          {{/if}}
         </div>
         <div class="row">
+          {{#if session.currency }}
+          <div class="range-slider" data-min=' {{ getCurrencyRange '0' }} ' data-max='{{ getCurrencyRange '100000' }}'
+            data-step="10">
+            <div class="slider-track">
+              <span class='slider-track-filled'></span>
+            </div>
+            <div class="min-thumb"></div>
+            <div class="max-thumb"></div>
+          </div>
+          {{else}}
           <div class="range-slider" data-min='0' data-max='100000' data-step="10">
             <div class="slider-track">
               <span class='slider-track-filled'></span>
@@ -30,6 +45,8 @@
             <div class="min-thumb"></div>
             <div class="max-thumb"></div>
           </div>
+
+          {{/if}}
         </div>
 
       </div>

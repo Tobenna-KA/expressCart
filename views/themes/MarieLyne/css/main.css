@@ -1800,9 +1800,21 @@ input.button.add {
 .max-value {
   margin-left: auto; }
 
-.max-value:before,
-.min-value:before {
+.max-value.KES:before,
+.min-value.KES:before {
   content: 'KES'; }
+
+.max-value.productPriceCFA:before,
+.min-value.productPriceCFA:before {
+  content: 'CFA'; }
+
+.max-value.productPriceUSD:before,
+.min-value.productPriceUSD:before {
+  content: 'USD'; }
+
+.max-value.productPriceEUR:before,
+.min-value.productPriceEUR:before {
+  content: 'EUR'; }
 
 .range-slider {
   margin-top: 10px;

@@ -185,6 +185,16 @@ router.get(
     filterObj.maxPrice = Number(filterObj.maxPrice);
     filterObj.minPrice = Number(filterObj.minPrice);
 
+    // Set the currency used in aggregation
+    let searchCurrency = '$productPrice';
+
+    if (
+      (req.session.currency && req.session.currency != 'KES') ||
+      req.session.currency != 'productPriceKES'
+    ) {
+      searchCurrency = `$${req.session.currency}`;
+    }
+
     // Creating category regex.
     const filterCategories = filterObj.categories.split('-');
     filterObj.filterCategories = filterCategories;
@@ -211,7 +221,7 @@ router.get(
       .aggregate([
         {
           $addFields: {
-            priceDouble: { $toDouble: '$productPrice' },
+            priceDouble: { $toDouble: searchCurrency },
           },
         },
         {
