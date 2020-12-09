@@ -643,8 +643,6 @@ router.get('/checkout/shipping', async (req, res, next) => {
 router.get('/checkout/cart', (req, res) => {
   const config = req.app.config;
 
-  console.log(req.session);
-
   res.render(`${config.themeViews}checkout-cart`, {
     title: 'Checkout - Cart',
     page: req.query.path,
@@ -1218,6 +1216,7 @@ router.post('/product/addtocart', async (req, res, next) => {
   // Variant checks
   let productCartId = product._id.toString();
   let productPrice = parseFloat(product[getCurrencyField(req)]).toFixed(2);
+
   let productVariantId;
   let productVariantTitle;
   let productStock = product.productStock;
