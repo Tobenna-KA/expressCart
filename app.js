@@ -522,6 +522,8 @@ app.use((req, res, next) => {
       req.app.config.currencySymbol = 'KES';
       req.app.config.currencyISO = 'KES';
     }
+  } else {
+    req.session.currency = 'KES'
   }
   next();
 });
