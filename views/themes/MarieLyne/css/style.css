@@ -1516,9 +1516,9 @@ button.btn1 {
     border-radius: 50%;
     margin-top: 51px;
   }
-  .search-hotel input[type='search'] {
+  /* .search-hotel input[type='search'] {
     width: 75%;
-  }
+  } */
 }
 @media (max-width: 1024px) {
   ul.short {
