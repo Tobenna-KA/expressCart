@@ -10,9 +10,10 @@
       </button>
       <div class="search-hotel">
         {{!-- <h3 class="agileits-sear-head">Search Here..</h3> --}}
-        <form action="#" method="post">
-          <input type="search" placeholder="{{ @root.__ "Search" }}. . ." name="search" required="">
-          <input class="mainBtn greenBtn" type="submit" value=" ">
+        <form id="shop_search_form" autocomplete="off">
+          <input type="search" placeholder="{{ @root.__ "Search shop" }}. . ." name="shop_frm_search" required=""
+            id="shop_frm_search">
+          <input class="mainBtn greenBtn" type="button" value=" " id="shopSearchBtn">
         </form>
       </div>
       <!-- price range -->
@@ -298,6 +299,32 @@
 </div>
 
 <script>
+  // Shop search
+  $('#shopSearchBtn').click(function (e) {
+    e.preventDefault();
+    if ($('#shop_frm_search').val().trim() === '') {
+      showNotification('Please enter a search value', 'danger');
+    } else {
+      const searchString = $('#shop_frm_search').val()
+
+      let searchQuery = searchString.replace(' ', '-')
+
+      const searchURL = `/shop/search/${searchQuery}`
+
+      $.ajax({
+        type: 'GET',
+        url: searchURL,
+        data: {}
+      }).done((response) => {
+        window.location = searchURL;
+      }).fail((response) => {
+        window.location = '/shop/';
+      });
+      // window.location.href = '/search/' + $('#frm_search').val();
+    }
+
+  })
+
   var minThumb = document.querySelector(".min-thumb"),
     maxThumb = document.querySelector(".max-thumb"),
     minValue = document.querySelector(".min-value"),

@@ -1225,10 +1225,10 @@ ul.stars li a:hover {
   outline: none;
   padding: 11px 10px 10px 10px;
   font-size: 13px;
-  color: #c4c4c4;
+  color: #000;
   letter-spacing: 1px; }
 
-.search-hotel form input[type='submit'] {
+.search-hotel form input[type='button'] {
   background: url(../images/search.png) no-repeat 7px 6px #d9ab73;
   width: 30px !important;
   height: 39px;

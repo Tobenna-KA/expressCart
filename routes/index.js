@@ -175,6 +175,109 @@ router.get('/shop', (req, res) => {
   });
 });
 
+// Shop search route
+router.get('/shop/search/:searchString', (req, res) => {
+  const searchStr = req.params.searchString;
+
+  const searchArr = searchStr.split('-');
+
+  let searchRegexStr = '';
+  searchArr.map((word, i) => {
+    if (i < searchArr.length - 1) searchRegexStr += `${word}|`;
+    else searchRegexStr += `${word}`;
+  });
+
+  const searchRegex = new RegExp(`${searchRegexStr}`);
+
+  const db = req.app.db;
+  const config = req.app.config;
+  const numberProducts = config.productsPerPage ? config.productsPerPage : 6;
+  let pageNum = 1;
+  if (req.params.pageNum) {
+    pageNum = req.params.pageNum;
+  }
+
+  // DB Find price
+  db.products
+    .aggregate([
+      {
+        $match: {
+          $or: [
+            {
+              productTags: {
+                $regex: searchRegex,
+                $options: 'ig',
+              },
+            },
+            {
+              productTitle: {
+                $regex: searchRegex,
+                $options: 'ig',
+              },
+            },
+            {
+              productDescription: {
+                $regex: searchRegex,
+                $options: 'ig',
+              },
+            },
+            {
+              productBrand: {
+                $regex: searchRegex,
+                $options: 'ig',
+              },
+            },
+          ],
+        },
+      },
+    ])
+    .toArray((err, productsList) => {
+      if (err) {
+        console.log(colors.red(`Error searching products ${err}`));
+      }
+
+      Promise.all([
+        // Paginate function not working
+        paginateProducts(
+          true,
+          db,
+          pageNum,
+          { _id: { $in: productsList } },
+          getSort()
+        ),
+        getMenu(db),
+      ])
+        .then(([results, menu]) => {
+          // If JSON query param return json instead
+          if (req.query.json === 'true') {
+            res.status(200).json(results.data);
+            return;
+          }
+          // Page not rerendering
+          res.render(`${config.themeViews}shop`, {
+            title: 'Shop',
+            results: productsList,
+            session: req.session,
+            message: clearSessionValue(req.session, 'message'),
+            messageType: clearSessionValue(req.session, 'messageType'),
+            productsPerPage: numberProducts,
+            totalProductCount: productsList.length,
+            pageNum: pageNum,
+            paginateUrl: 'search',
+            config: config,
+            menu: sortMenu(menu),
+            helpers: req.handlebars.helpers,
+            showFooter: 'showFooter',
+          });
+        })
+        .catch((err) => {
+          console.error(colors.red('Error searching for products', err));
+        });
+    });
+
+  return;
+});
+
 // SHOP FILTER ROUTE
 
 // Filter route gets filter criteria through url
@@ -192,7 +295,7 @@ router.get(
       (req.session.currency && req.session.currency != 'KES') ||
       req.session.currency != 'productPriceKES'
     ) {
-      searchCurrency = `$${req.session.currency}`;
+      if (req.session.currency) searchCurrency = `$${req.session.currency}`;
     }
 
     // Creating category regex.
