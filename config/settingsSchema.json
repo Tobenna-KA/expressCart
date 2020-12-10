@@ -86,6 +86,10 @@
                     },
                     {
                         "type": "string",
+                        "enum": [ "flutterwave"]
+                    },
+                    {
+                        "type": "string",
                         "enum": [ "authorizenet"]
                     },
                     {

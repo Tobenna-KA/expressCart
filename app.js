@@ -212,6 +212,7 @@ handlebars = handlebars.create({
       return total;
     },
     partial: (provider) => {
+      console.log(provider)
       return `partials/payments/${provider}`;
     },
     perRowClass: (numProducts) => {

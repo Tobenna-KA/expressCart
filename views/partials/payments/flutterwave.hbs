@@ -1,0 +1,33 @@
+<form>
+    <div class="mb-2">{{@root.paymentConfig.flutterwave.description}}</div>
+    <script src="https://checkout.flutterwave.com/v3.js"></script>
+    <button onClick="makePayment()" id="checkout_flutterwave" class="btn btn-outline-success mt-2" type="button">Pay with (Card or Mpesa)</button>
+</form>
+
+<script>
+    function makePayment() {
+        const data = {
+            public_key: "{{ @root.paymentConfig.flutterwave.public_key }}",
+            tx_ref: `ml-store-${Date.now()}`,
+            amount: {{ @root.session.totalCartAmount }},
+            currency: "{{ @root.config.currencyISO }}",
+            country: "KE",
+            payment_options: "card,mobilemoney,ussd",
+            customer: {
+                email: "{{@root.session.customerEmail}}",
+                phone_number: "{{@root.session.customerPhone}}",
+                name: "{{@root.session.customerFirstname}} {{@root.session.customerLastname}}",
+            },
+            callback: function (data) { // specified callback function
+                console.log(data);
+            },
+            customizations: {
+                title: "MarieLyne Hair",
+                description: "Payment for items in cart",
+                logo: "https://assets.piedpiper.com/logo.png",
+            },
+        }
+        FlutterwaveCheckout(data);
+        console.log(data, 'DATA')
+    }
+</script>

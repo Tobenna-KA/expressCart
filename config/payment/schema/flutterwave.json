@@ -1,0 +1,12 @@
+{
+  "properties": {
+    "description": {
+      "type": "string"
+    },
+    "public_key": {
+      "type": "string"
+    }
+  },
+  "required": ["public_key", "description"],
+  "additionalProperties": false
+}
