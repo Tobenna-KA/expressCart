@@ -220,6 +220,7 @@
 		type="text/css">
 	<link rel="preconnect" href="https://fonts.gstatic.com">
 	<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+	<script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
 </head>
 
 {{#if admin}}
@@ -239,7 +240,7 @@
 
 		<div class="wrapper_top_shop">
 			{{{ body }}}
-            {{> partials/currencyChooser}}
+			{{> partials/currencyChooser}}
 		</div>
 
 		{{#if showFooter}}
@@ -253,11 +254,11 @@
 		<!-- //footer -->
 		<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;">
 			</span></a>
-        <input type="hidden" id="input_notify_message" value="{{message}}">
-        <input type="hidden" id="input_notify_messageType" value="{{messageType}}">
-        <input type="hidden" id="cartCheckout" value="{{checkout}}">
-        <input type="hidden" id="cartTheme" value="{{@root.config.theme}}">
-        <input type="hidden" id="currencySymbol" value="{{@root.config.currencySymbol}}">
+		<input type="hidden" id="input_notify_message" value="{{message}}">
+		<input type="hidden" id="input_notify_messageType" value="{{messageType}}">
+		<input type="hidden" id="cartCheckout" value="{{checkout}}">
+		<input type="hidden" id="cartTheme" value="{{@root.config.theme}}">
+		<input type="hidden" id="currencySymbol" value="{{@root.config.currencySymbol}}">
 		<!-- js -->
 		<!-- //js -->
 		<!-- /nav -->
