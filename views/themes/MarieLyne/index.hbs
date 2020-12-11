@@ -75,13 +75,14 @@
 		</div>
 
 		{{/if}}
-		<div class="row product-layout">
+		<div class="row product-layout home">
 			{{#ifCond results.length '==' 0}}
 			<div class="col-sm-12">
 				<p class="text-danger">{{ @root.__ "No products found" }}</p>
 			</div>
 			{{/ifCond}}
 
+			<h2 class="heading2">Some Products</h2>
 			<div class="products-container home">
 				{{#each results}}
 				<div class="single-product">
@@ -188,6 +189,7 @@
 				</div>
 				{{/each}}
 			</div>
+			<button class="btn mainBtn greenBtn keepShoppingBtn">Keep Shopping</button>
 		</div>
 	</div>
 

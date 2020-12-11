@@ -1,9 +1,17 @@
 /*-- Shopping-Cart-PopUp --*/
+.row.product-layout.home {
+  margin-bottom: 30px;
+}
 
 .products-container {
   &.home {
     margin-bottom: 40px;
+    margin-top: 20px;
 
+    .single-product {
+      width: 25%;
+      max-width: 25%;
+    }
     // .single-product,
     .product {
       width: 100% !important;

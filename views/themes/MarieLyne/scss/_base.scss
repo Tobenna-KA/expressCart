@@ -83,3 +83,16 @@ $color_transition: all 0.3s ease;
   font-weight: bold;
   // line-height: 22px;
 }
+
+.heading2 {
+  font-weight: 600;
+  font-size: 2em;
+  border-bottom: 2px solid $primary_color_darker;
+  color: $primary_color_darker;
+  text-transform: uppercase;
+}
+
+.keepShoppingBtn {
+  float: right;
+  transition: $color_transition;
+}
