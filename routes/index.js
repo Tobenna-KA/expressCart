@@ -298,6 +298,8 @@ router.get(
       if (req.session.currency) searchCurrency = `$${req.session.currency}`;
     }
 
+    if (req.session.currency === 'KES') searchCurrency = '$productPrice';
+
     // Creating category regex.
     const filterCategories = filterObj.categories.split('-');
     filterObj.filterCategories = filterCategories;

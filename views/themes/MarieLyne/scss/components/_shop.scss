@@ -1,4 +1,14 @@
 /*-- Shopping-Cart-PopUp --*/
+#resetBtn {
+  font-weight: bold !important;
+  #resetBtnIcon {
+    font-size: 1.5em;
+    // border: 1px solid red;
+    position: relative;
+    top: 5px;
+  }
+}
+
 .row.product-layout.home {
   margin-bottom: 30px;
 }

@@ -541,6 +541,13 @@ a.mainBtn {
 
 /*--//responsive--*/
 /*-- Shopping-Cart-PopUp --*/
+#resetBtn {
+  font-weight: bold !important; }
+  #resetBtn #resetBtnIcon {
+    font-size: 1.5em;
+    position: relative;
+    top: 5px; }
+
 .row.product-layout.home {
   margin-bottom: 30px; }
 

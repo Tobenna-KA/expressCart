@@ -5,9 +5,15 @@
     <!-- //tittle heading -->
     <!-- product left -->
     <div class="side-bar col-md-3">
-      <button type="button" class="btn btn-sm btn-lg mainBtn greenBtn btn-block filter-btn" id="filter-btn">
-        {{ @root.__ "Filter" }}
-      </button>
+      <div class="filterButtons">
+        <a href="/shop" class="btn mainBtn goldBtn btn-block" id="resetBtn">
+          Reset
+        </a>
+        <button type="button" class="btn mainBtn greenBtn btn-block filter-btn" id="filter-btn">
+          {{ @root.__ "Filter" }}
+        </button>
+
+      </div>
       <div class="search-hotel">
         {{!-- <h3 class="agileits-sear-head">Search Here..</h3> --}}
         <form id="shop_search_form" autocomplete="off">
