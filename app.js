@@ -629,9 +629,8 @@ app.on('uncaughtException', (err) => {
   process.exit(2);
 });
 
-initDb(process.env.NODE_ENV === 'production'?
-    `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:/${MONGO_DB}` :
-    config.databaseConnectionString, async (err, db) => {
+initDb(
+    `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:/${MONGO_DB}`, async (err, db) => {
   // On connection error we display then exit
   if (err) {
     console.log(colors.red(`Error connecting to MongoDB: ${err}`));
