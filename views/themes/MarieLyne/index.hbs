@@ -1,13 +1,5 @@
 <div class="productsWrapper col-sm-12">
-	<div class="col-md-12 shop_left homeBannerImage">
-		<img src="/{{config.theme}}/images/banner3hair.jpg" alt="">
-		<div class="bannerText">
-			<h4>Order Now</h4>
-			<h4>and get up to</h4>
-			<h5>40% off</h5>
-			<a href="/shop">Shop Now</a>
-		</div>
-	</div>
+
 	{{!-- <div class="col-md-6 shop_right">
 		<img src="/{{config.theme}}/images/banner2hair.jpg" alt="">
 		<h6>50% off</h6>
@@ -22,6 +14,15 @@
 		{{/ifCond}}
 	</div>
 	{{else}}
+	<div class="col-md-12 shop_left homeBannerImage">
+		<img src="/{{config.theme}}/images/banner3hair.jpg" alt="">
+		<div class="bannerText">
+			<h4>Order Now</h4>
+			<h4>and get up to</h4>
+			<h5>40% off</h5>
+			<a href="/shop">Shop Now</a>
+		</div>
+	</div>
 	<div class="container-fluid home-container">
 
 		<div class="row insta-row">
@@ -79,7 +80,7 @@
 			{{/each}}
 		</div>
 
-		{{/if}}
+
 		<div class="row product-layout home">
 			{{#ifCond results.length '==' 0}}
 			<div class="col-sm-12">
@@ -200,7 +201,7 @@
 				{{ @root.__ "Keep Shopping" }}</a>
 		</div>
 	</div>
-
+	{{/if}}
 	{{> themes/MarieLyne/bottom-carousel}}
 </div>
 <input type="hidden" id="itemsPerPage" value="{{productsPerPage}}">
