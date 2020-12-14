@@ -3,6 +3,14 @@ const yenv = require('yenv');
 if (fs.existsSync('./env.yaml')) {
   process.env = yenv('env.yaml', { strict: false });
 }
+const {
+  MONGO_HOSTNAME,
+  MONGO_PORT,
+  MONGO_USERNAME,
+  MONGO_PASSWORD,
+  MONGO_DB
+} = process.env;
+
 const path = require('path');
 const express = require('express');
 const logger = require('morgan');
@@ -621,7 +629,9 @@ app.on('uncaughtException', (err) => {
   process.exit(2);
 });
 
-initDb(config.databaseConnectionString, async (err, db) => {
+initDb(process.env.NODE_ENV === 'production'?
+    `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:/${MONGO_DB}` :
+    config.databaseConnectionString, async (err, db) => {
   // On connection error we display then exit
   if (err) {
     console.log(colors.red(`Error connecting to MongoDB: ${err}`));
