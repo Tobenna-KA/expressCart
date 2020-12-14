@@ -1992,6 +1992,36 @@ input.button.add {
     .form-signin button:hover {
       background-color: #079c72 !important; }
 
+.homeBannerImage img {
+  max-height: 360px;
+  object-fit: cover;
+  object-position: top; }
+
+.homeBannerImage .bannerText {
+  position: absolute;
+  top: 20%;
+  display: block;
+  width: 100%;
+  padding-left: 40px; }
+  .homeBannerImage .bannerText h4,
+  .homeBannerImage .bannerText h5 {
+    font-weight: bold;
+    letter-spacing: 0 !important; }
+  .homeBannerImage .bannerText h4 {
+    font-size: 2.7em; }
+  .homeBannerImage .bannerText h5 {
+    font-size: 4em;
+    font-family: "Raleway", sans-serif !important;
+    margin-top: 10px;
+    color: #d39f5f; }
+  .homeBannerImage .bannerText a {
+    margin-top: 15px;
+    color: #fcfcfc !important;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-bottom: 1px solid #fcfcfc !important;
+    padding-bottom: 3px; }
+
 .mainBannerButtons {
   background-color: #d9ab73;
   background: rgba(27, 25, 25, 0.87);
@@ -2102,7 +2132,9 @@ input.button.add {
   #home .navCartButton {
     right: 110px !important; }
   #home .navLanguageButton {
-    right: 60px !important; } }
+    right: 60px !important; }
+  .bannerText h4 {
+    font-size: 2em !important; } }
 
 body {
   background-color: #efefef; }
