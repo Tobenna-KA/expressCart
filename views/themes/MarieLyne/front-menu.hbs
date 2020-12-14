@@ -1,13 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-light shadow-sm mb-4 mainMenuBar col-sm-12">
-  <button
-    class="navbar-toggler float-xs-right"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
+  <button class="navbar-toggler float-xs-right" type="button" data-toggle="collapse"
+    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+    aria-label="Toggle navigation">
     <ion-icon name="menu"></ion-icon>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -18,19 +12,19 @@
         </a>
       </li>
       {{#each menu.items}}
-        <li class="nav-item"
-          {{#menuMatch this.title @root.searchTerm}}{{/menuMatch}}
-          {{#menuMatch this.title @root.title}}{{/menuMatch}}>
-          <a class="nav-link" href="{{this.link}}">{{this.title}}</a>
-        </li>
+      <li class="nav-item" {{#menuMatch this.title @root.searchTerm}}{{/menuMatch}}
+        {{#menuMatch this.title @root.title}}{{/menuMatch}}>
+        <a class="nav-link" href="{{this.link}}">{{this.title}}</a>
+      </li>
       {{/each}}
     </ul>
     <ul class="navbar-nav ml-auto">
       <form class="form-inline nav-item" style="margin-right: 20px;">
         <div class="input-group">
-          <input class="form-control" name="frm_search" id="frm_search" type="search" placeholder="{{ @root.__ "Search shop" }}" aria-label="Search">
+          <input class="form-control siteSearchForm" name="frm_search" id="frm_search" type="search"
+            placeholder="{{ @root.__ "Search shop" }}" aria-label="Search">
           <div class="input-group-prepend">
-            <button class="btn" id="btn_search" type="submit">
+            <button class="btn siteSearchBtn" id="btn_search" type="submit">
               <ion-icon name="search-circle"></ion-icon>
             </button>
           </div>

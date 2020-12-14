@@ -87,7 +87,9 @@
 			</div>
 			{{/ifCond}}
 
-			<h2 class="heading2">Some Products</h2>
+			<h2 class="heading2">
+				{{ @root.__ "Some Products" }}
+			</h2>
 			<div class="products-container home">
 				{{#each results}}
 				<div class="single-product">
@@ -194,7 +196,8 @@
 				</div>
 				{{/each}}
 			</div>
-			<button class="btn mainBtn greenBtn keepShoppingBtn">Keep Shopping</button>
+			<a href="/shop" class="btn mainBtn greenBtn keepShoppingBtn">
+				{{ @root.__ "Keep Shopping" }}</a>
 		</div>
 	</div>
 

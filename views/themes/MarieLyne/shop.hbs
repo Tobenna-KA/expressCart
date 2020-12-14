@@ -492,58 +492,58 @@
 
   const filterBtn = document.querySelector('#filter-btn')
 
-  filterBtn.addEventListener('click', filterProductsOnShop)
+  //filterBtn.addEventListener('click', filterProductsOnShop)
 
-  function filterProductsOnShop() {
-    const maxValue = document.querySelector('.max-value').textContent
-    const minValue = document.querySelector('.min-value').textContent
+  const maxPriceValue = document.querySelector('.max-value').textContent
+  const minPriceValue = document.querySelector('.min-value').textContent
 
-    const categoriesCheckboxes = document.querySelector('#categories-filter')
-    const categoryOptions = categoriesCheckboxes.getElementsByTagName('input');
-    const categoryNames = categoriesCheckboxes.getElementsByTagName('label');
-    const selectedCategories = []
+  const categoriesCheckboxes = document.querySelector('#categories-filter')
+  const categoryOptions = categoriesCheckboxes.getElementsByTagName('input');
+  const categoryNames = categoriesCheckboxes.getElementsByTagName('label');
+  const selectedCategories = []
 
-    for (i = 0; i < categoryOptions.length; i++) {
-      if (categoryOptions[i].checked) {
-        selectedCategories.push(categoryOptions[i].value || categoryOptions[i].value);
-      }
+  for (i = 0; i < categoryOptions.length; i++) {
+    if (categoryOptions[i].checked) {
+      selectedCategories.push(categoryOptions[i].value || categoryOptions[i].value);
     }
-
-    const rating = document.getElementById('rating-select').value
-
-    const data = {
-      price: {
-        min: minValue,
-        max: maxValue,
-      },
-      categories: selectedCategories,
-      rating
-    }
-
-
-    let categoryString = ''
-
-    data.categories.forEach((cat, i) => {
-      if (i < data.categories.length - 1) categoryString += `${cat}-`
-      else categoryString += `${cat}`
-    })
-
-    const filterURL = `/shop/filter/${data.price.min}/${data.price.max}/${categoryString ? categoryString : 'none'}/${data.rating}`
-
-    // On create review
-    $('#filter-btn').click(function (e) {
-      e.preventDefault()
-      $.ajax({
-        type: 'GET',
-        url: filterURL,
-        data
-      }).done((response) => {
-        window.location = filterURL;
-
-      }).fail((response) => {
-        window.location = '/shop/';
-      });
-    });
   }
+
+  const rating = document.getElementById('rating-select').value
+
+  const data = {
+    price: {
+      min: minPriceValue,
+      max: maxPriceValue,
+    },
+    categories: selectedCategories,
+    rating
+  }
+
+
+  let categoryString = ''
+
+  data.categories.forEach((cat, i) => {
+    if (i < data.categories.length - 1) categoryString += `${cat}-`
+    else categoryString += `${cat}`
+  })
+
+  const filterURL = `/shop/filter/${data.price.min}/${data.price.max}/${categoryString ? categoryString : 'none'}/${data.rating}`
+
+  // On create review
+  $('#filter-btn').click(function (e) {
+    e.preventDefault()
+    $.ajax({
+      type: 'GET',
+      url: filterURL,
+      data
+    }).done((response) => {
+      window.location = filterURL;
+
+    }).fail((response) => {
+      window.location = '/shop/';
+    });
+  });
+  //function filterProductsOnShop() {
+  //}
 
 </script>

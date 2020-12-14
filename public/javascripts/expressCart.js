@@ -317,7 +317,7 @@ $(document).ready(function () {
         method: 'POST',
         url: '/customer/subscribe',
         data: {
-          subscriptionEmail: $('#add-subscription-email').val()
+          subscriptionEmail: $('#add-subscription-email').val(),
         },
       })
         .done(function (msg) {
@@ -602,6 +602,15 @@ $(document).ready(function () {
       showNotification('Please enter a search value', 'danger');
     } else {
       window.location.href = '/search/' + $('#frm_search').val();
+    }
+  });
+
+  $(document).on('submit', '#search_form2', function (e) {
+    e.preventDefault();
+    if ($('#frm_search2').val().trim() === '') {
+      showNotification('Please enter a search value', 'danger');
+    } else {
+      window.location.href = '/search/' + $('#frm_search2').val();
     }
   });
 
