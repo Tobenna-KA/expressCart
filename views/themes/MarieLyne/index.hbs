@@ -88,11 +88,12 @@
 			</div>
 			{{/ifCond}}
 
+			{{#ifCond homePageProducts.length '!=' 0}}
 			<h2 class="heading2">
 				{{ @root.__ "Some Products" }}
 			</h2>
 			<div class="products-container home">
-				{{#each results}}
+				{{#each ../homePageProducts}}
 				<div class="single-product">
 					<div class="product">
 						{{#if productPermalink}}
@@ -199,6 +200,8 @@
 			</div>
 			<a href="/shop" class="btn mainBtn greenBtn keepShoppingBtn">
 				{{ @root.__ "Keep Shopping" }}</a>
+			{{/ifCond}}
+
 		</div>
 	</div>
 	{{/if}}

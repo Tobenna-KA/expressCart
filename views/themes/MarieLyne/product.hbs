@@ -2,98 +2,109 @@
 <link rel="stylesheet" href="/{{config.theme}}/css/flexslider.css" type="text/css" media="screen" />
 <link href="/{{config.theme}}/css/easy-responsive-tabs.css" rel='stylesheet' type='text/css' />
 <div class="ads-grid_shop">
-    <div class="shop_inner_inf">
-        <div class="col-md-4 single-right-left ">
-            <div class="grid images_3_of_2">
-                <div class="flexslider">
-                    <ul class="slides">
-                        {{#if result.productImage}}
-                            <li data-thumb="{{result.productImage}}">
-                                <div class="thumb-image"> <img src="{{result.productImage}}" data-imagezoom="true" class="img-responsive"> </div>
-                            </li>
-                        {{else}}
-                            <li data-thumb="/uploads/placeholder.png">
-                                <div class="thumb-image"> <img src="/uploads/placeholder.png" data-imagezoom="true" class="img-responsive"> </div>
-                            </li>
-                        {{/if}}
-                        {{#ifCond @root.images.length '>' 1}}
-                            {{#each @root.images}}
-                                <li data-thumb="{{this.path}}">
-                                    <div class="thumb-image"> <img src="{{this.path}}" data-imagezoom="true" class="img-responsive"> </div>
-                                </li>
-                            {{/each}}
-                        {{/ifCond}}
-                    </ul>
-                    <div class="clearfix"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-8 single-right-left simpleCart_shelfItem">
-            <h3>{{result.productTitle}}</h3>
-            {{#if variants}}
-                <p><span class="item_price" id="product-price">{{currencySymbol config.currencySymbol}}{{variantPriceValue variants}}</span>
-<!--                    <del>$1,199</del>-->
-                </p>
-            {{else}}
-                <p><span class="item_price product-price">{{currencySymbol config.currencySymbol}}{{ priceValue result }}</span>
-                    <!--                    <del>$1,199</del>-->
-                </p>
-            {{/if}}
+	<div class="shop_inner_inf">
+		<div class="col-md-4 single-right-left ">
+			<div class="grid images_3_of_2">
+				<div class="flexslider">
+					<ul class="slides">
+						{{#if result.productImage}}
+						<li data-thumb="{{result.productImage}}">
+							<div class="thumb-image"> <img src="{{result.productImage}}" data-imagezoom="true" class="img-responsive">
+							</div>
+						</li>
+						{{else}}
+						<li data-thumb="/uploads/placeholder.png">
+							<div class="thumb-image"> <img src="/uploads/placeholder.png" data-imagezoom="true"
+									class="img-responsive"> </div>
+						</li>
+						{{/if}}
+						{{#ifCond @root.images.length '>' 1}}
+						{{#each @root.images}}
+						<li data-thumb="{{this.path}}">
+							<div class="thumb-image"> <img src="{{this.path}}" data-imagezoom="true" class="img-responsive"> </div>
+						</li>
+						{{/each}}
+						{{/ifCond}}
+					</ul>
+					<div class="clearfix"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-8 single-right-left simpleCart_shelfItem">
+			<h3>{{result.productTitle}}</h3>
+			{{#if variants}}
+			<p><span class="item_price"
+					id="product-price">{{currencySymbol config.currencySymbol}}{{variantPriceValue variants}}</span>
+				<!--                    <del>$1,199</del>-->
+			</p>
+			{{else}}
+			<p><span class="item_price product-price">{{currencySymbol config.currencySymbol}}{{ priceValue result }}</span>
+				<!--                    <del>$1,199</del>-->
+			</p>
+			{{/if}}
 
-            <div class="rating1">
-                <div class="d-inline-block align-middle">{{{ @root.reviews.ratingHtml }}}</div>
-            </div>
+			<div class="rating1">
+				{{!-- <div class="d-inline-block align-middle">{{{ @root.reviews.ratingHtml }}}</div> --}}
+				{{#each (getActiveStars 4)}}
+				<span class="fa fa-star checked" style="color: orange"></span>
+				{{/each}}
+				{{#each (getInactiveStars 4)}}
+				<span class="fa fa-star checked"></span>
+				{{/each}}
+			</div>
 
-<!--            <div class="description">-->
-<!--                <h5>Check delivery, payment options and charges at your location</h5>-->
-<!--                <form action="#" method="post">-->
-<!--                    <input type="text" value="Enter pincode" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter pincode';}"-->
-<!--                           required="">-->
-<!--                    <input type="submit" value="Check">-->
-<!--                </form>-->
-<!--            </div>-->
-            {{#if variants}}
-                <div class="color-quality">
-                    <div class="color-quality-right">
-                        <h5>{{ @root.__ "Options" }}: </h5>
-                        <select id="product_variant" class="frm-field required sect">
-                            {{#each variants}}
-                                <option value="{{this._id}}" data-price="{{otherVariantPriceValues ../this}}">{{this.title}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                </div>
-            {{/if}}
-            <div class="description">
-                <p class="product-option-text">{{ @root.__ "Quantity" }}</p>
-                <input type="submit" value="-" class="qty-btn-minus btn btn-primary ">
-                <input type="number" id="product_quantity" maxlength="3" value="1" required="" />
-                <input type="submit" value="+" class="btn btn-primary qty-btn-plus">
-            </div>
+			<!--            <div class="description">-->
+			<!--                <h5>Check delivery, payment options and charges at your location</h5>-->
+			<!--                <form action="#" method="post">-->
+			<!--                    <input type="text" value="Enter pincode" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Enter pincode';}"-->
+			<!--                           required="">-->
+			<!--                    <input type="submit" value="Check">-->
+			<!--                </form>-->
+			<!--            </div>-->
+			{{#if variants}}
+			<div class="color-quality">
+				<div class="color-quality-right">
+					<h5>{{ @root.__ "Options" }}: </h5>
+					<select id="product_variant" class="frm-field required sect">
+						{{#each variants}}
+						<option value="{{this._id}}" data-price="{{otherVariantPriceValues ../this}}">{{this.title}}</option>
+						{{/each}}
+					</select>
+				</div>
+			</div>
+			{{/if}}
+			<div class="description">
+				<p class="product-option-text">{{ @root.__ "Quantity" }}</p>
+				<input type="submit" value="-" class="qty-btn-minus btn btn-primary ">
+				<input type="number" id="product_quantity" maxlength="3" value="1" required="" />
+				<input type="submit" value="+" class="btn btn-primary qty-btn-plus">
+			</div>
 
-            {{#if config.trackStock}}
-                {{#ifCond result.productStock '==' 0}}
-                    <div class="col-md-10">
-                        <h4 class="text-danger text-center">
-                            Out of stock
-                        </h4>
-                    </div>
-                {{ else }}
-                    <div class="occasion-cart">
-                        <div class="shoe single-item single_page_b">
-                            <input type="submit" name="submit" value="{{ @root.__ "Add to cart" }}" class="button add product-add-to-cart">
-                        </div>
-                    </div>
-                {{/ifCond}}
-            {{ else }}
-                <div class="occasion-cart">
-                    <div class="shoe single-item single_page_b">
-                        <input type="submit" name="submit" value="{{ @root.__ "Add to cart" }}" class="button add product-add-to-cart">
-                    </div>
-                </div>
-            {{/if}}
+			{{#if config.trackStock}}
+			{{#ifCond result.productStock '==' 0}}
+			<div class="col-md-10">
+				<h4 class="text-danger text-center">
+					Out of stock
+				</h4>
+			</div>
+			{{ else }}
+			<div class="occasion-cart">
+				<div class="shoe single-item single_page_b">
+					<input type="submit" name="submit" value="{{ @root.__ "Add to cart" }}"
+						class="button add product-add-to-cart">
+				</div>
+			</div>
+			{{/ifCond}}
+			{{ else }}
+			<div class="occasion-cart">
+				<div class="shoe single-item single_page_b">
+					<input type="submit" name="submit" value="{{ @root.__ "Add to cart" }}"
+						class="button add product-add-to-cart">
+				</div>
+			</div>
+			{{/if}}
 
-            <!--<ul class="social-nav model-3d-0 footer-social social single_page">
+			<!--<ul class="social-nav model-3d-0 footer-social social single_page">
                 <li class="share">Share On : </li>
                 <li>
                     <a href="#" class="facebook">
@@ -120,156 +131,163 @@
                     </a>
                 </li>
             </ul>-->
-        </div>
-        <div class="clearfix"> </div>
-        <!--/tabs-->
-        <div class="responsive_tabs">
-            <div id="horizontalTab">
-                <ul class="resp-tabs-list">
-                    <li>{{ @root.__ "Product description" }}</li>
-                    {{#if @root.config.modules.enabled.reviews}}<li>{{ @root.__ "Reviews" }}</li> {{/if}}
-                </ul>
-                <div class="resp-tabs-container">
-                    <!--/tab_one-->
-                    <div class="tab1">
+		</div>
+		<div class="clearfix"> </div>
+		<!--/tabs-->
+		<div class="responsive_tabs">
+			<div id="horizontalTab">
+				<ul class="resp-tabs-list">
+					<li>{{ @root.__ "Product description" }}</li>
+					{{#if @root.config.modules.enabled.reviews}}<li>{{ @root.__ "Reviews" }}</li> {{/if}}
+				</ul>
+				<div class="resp-tabs-container">
+					<!--/tab_one-->
+					<div class="tab1">
 
-                        <div class="single_page">
-                            {{{fixTags result.productDescription}}}
-                        </div>
-                    </div>
-                    <!--//tab_one-->
-                    {{#if @root.config.modules.enabled.reviews}}
-                    <div class="tab2">
+						<div class="single_page">
+							{{{fixTags result.productDescription}}}
+						</div>
+					</div>
+					<!--//tab_one-->
+					{{#if @root.config.modules.enabled.reviews}}
+					<div class="tab2">
 
-                        <div class="single_page">
-                            <div class="bootstrap-tab-text-grids">
-                                {{#each @root.reviews.reviews}}
-                                    <li class="list-group-item">
-                                        <p class="text-muted small text-right">{{timeAgo this.date}}</p>
-                                        <p><b>Rating:</b> {{this.rating}}</p>
-                                        <p><b>Title:</b> {{this.title}}</p>
-                                        <p><b>Description:</b> {{this.description}}</p>
-                                    </li>
-                                {{/each}}
-                                <div class="add-review">
-                                    <h4>add a review</h4>
-                                     <input type="submit" id="add-review" value="AND">
-                                </div>
-                            </div>
+						<div class="single_page">
+							<div class="bootstrap-tab-text-grids">
+								{{#each @root.reviews.reviews}}
+								<li class="list-group-item">
+									<p class="text-muted small text-right">{{timeAgo this.date}}</p>
+									<p>
+										<b>Rating:</b>
+										{{#each (getActiveStars this.rating)}}
+										<span class="fa fa-star checked" style="color: orange"></span>
+										{{/each}}
+										{{#each (getInactiveStars this.rating)}}
+										<span class="fa fa-star checked"></span>
+										{{/each}}
 
-                        </div>
-                    </div>
-                        {{/if}}
+									</p>
+									<p><b>Title:</b> {{this.title}}</p>
+									<p><b>Description:</b> {{this.description}}</p>
+								</li>
+								{{/each}}
+								<div class="add-review">
+									<h4>add a review</h4>
+									<input type="submit" id="add-review" value="AND">
+								</div>
+							</div>
 
-                </div>
-            </div>
-        </div>
-        <!--//tabs-->
-        <!-- /new_arrivals -->
-        {{#if config.showRelatedProducts}}
-        <div class="new_arrivals">
-            <h3>{{ @root.__ "Related products" }}</h3>
-            <!-- /womens -->
-            {{#each relatedProducts}}
-            <div class="col-md-3 product-men women_two">
-                <div class="product-shoe-info shoe">
-                    <div class="men-pro-item">
-                        <div class="men-thumb-item">
-                            {{#if productPermalink}}
-                                <a href="/product/{{this.productPermalink}}">
-                                    {{#if productImage}}
-                                        <img src="{{this.productImage}}" alt="">
-                                    {{else}}
-                                        <img src="/uploads/placeholder.png" alt="">
-                                    {{/if}}
-                                </a>
-                            {{else}}
-                                <a href="/product/{{this._id}}">
-                                    {{#if productImage}}
-                                        <img src="{{this.productImage}}" alt="">
-                                    {{else}}
-                                        <img src="/uploads/placeholder.png" alt="">
-                                    {{/if}}
-                                </a>
-                            {{/if}}
-                            <div class="men-cart-pro">
-                                <div class="inner-men-cart-pro">
-                                    {{#if productPermalink}}
-                                        <a href="/product/{{this.productPermalink}}" class="link-product-add-cart">
-                                            Quick View
-                                        </a>
-                                    {{else}}
-                                        <a href="/products/{{this._id}}" class="link-product-add-cart">
-                                            Quick View
-                                        </a>
-                                    {{/if}}
-                                </div>
-                            </div>
-                            <span class="product-new-top">New</span>
-                        </div>
-                        <div class="item-info-product">
-                            <h4>
-                                {{#if productPermalink}}
-                                    <a href="/product/{{this.productPermalink}}">
-                                        {{this.productTitle}}
-                                    </a>
-                                {{else}}
-                                    <a href="/products/{{this._id}}">
-                                        {{this.productTitle}}
-                                    </a>
-                                {{/if}}
-                            </h4>
-                            <div class="info-product-price">
-                                <div class="grid_meta">
-                                    <div class="product_price">
-                                        <div class="grid-price ">
-                                            <span class="money ">{{currencySymbol @root.config.currencySymbol}} {{relatedProductsPriceValue ../this}}</span>
-                                        </div>
-                                    </div>
-                                    <!--<ul class="stars">
+						</div>
+					</div>
+					{{/if}}
+
+				</div>
+			</div>
+		</div>
+		<!--//tabs-->
+		<!-- /new_arrivals -->
+		{{#if config.showRelatedProducts}}
+		<div class="new_arrivals">
+			<h3>{{ @root.__ "Related products" }}</h3>
+			<!-- /womens -->
+			{{#each relatedProducts}}
+			<div class="col-md-3 product-men women_two">
+				<div class="product-shoe-info shoe">
+					<div class="men-pro-item">
+						<div class="men-thumb-item">
+							{{#if productPermalink}}
+							<a href="/product/{{this.productPermalink}}">
+								{{#if productImage}}
+								<img src="{{this.productImage}}" alt="">
+								{{else}}
+								<img src="/uploads/placeholder.png" alt="">
+								{{/if}}
+							</a>
+							{{else}}
+							<a href="/product/{{this._id}}">
+								{{#if productImage}}
+								<img src="{{this.productImage}}" alt="">
+								{{else}}
+								<img src="/uploads/placeholder.png" alt="">
+								{{/if}}
+							</a>
+							{{/if}}
+							<div class="men-cart-pro">
+								<div class="inner-men-cart-pro">
+									{{#if productPermalink}}
+									<a href="/product/{{this.productPermalink}}" class="link-product-add-cart">
+										Quick View
+									</a>
+									{{else}}
+									<a href="/products/{{this._id}}" class="link-product-add-cart">
+										Quick View
+									</a>
+									{{/if}}
+								</div>
+							</div>
+							<span class="product-new-top">New</span>
+						</div>
+						<div class="item-info-product">
+							<h4>
+								{{#if productPermalink}}
+								<a href="/product/{{this.productPermalink}}">
+									{{this.productTitle}}
+								</a>
+								{{else}}
+								<a href="/products/{{this._id}}">
+									{{this.productTitle}}
+								</a>
+								{{/if}}
+							</h4>
+							<div class="info-product-price">
+								<div class="grid_meta">
+									<div class="product_price">
+										<div class="grid-price ">
+											<span class="money ">{{currencySymbol @root.config.currencySymbol}}
+												{{relatedProductsPriceValue ../this}}</span>
+										</div>
+									</div>
+									<!--<ul class="stars">
                                         <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
                                         <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
                                         <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
                                         <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
                                         <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
                                     </ul>-->
-                                </div>
-                                <div class="shoe single-item hvr-outline-out">
-                                    <a
-                                            class="btn btn-block shoe-cart pshoe-cart add-to-cart"
-                                            data-id="{{this._id}}"
-                                            data-link="{{this.productPermalink}}"
-                                            data-has-variants="{{checkProductVariants this.variants}}"
-                                            role="button"
-                                    >
-                                        <i class="fa fa-cart-plus ba" style="color: black" aria-hidden="true"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{/each}}
-            <!-- //womens -->
-            <div class="clearfix"></div>
-        </div>
-        {{/if}}
-        <!--//new_arrivals-->
+								</div>
+								<div class="shoe single-item hvr-outline-out">
+									<a class="btn btn-block shoe-cart pshoe-cart add-to-cart" data-id="{{this._id}}"
+										data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}"
+										role="button">
+										<i class="fa fa-cart-plus ba" style="color: black" aria-hidden="true"></i>
+									</a>
+								</div>
+							</div>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{{/each}}
+			<!-- //womens -->
+			<div class="clearfix"></div>
+		</div>
+		{{/if}}
+		<!--//new_arrivals-->
 
 
-    </div>
+	</div>
 </div>
 <!-- //top products -->
 <input type="hidden" id="productId" value="{{result._id}}">
 <input type="hidden" id="currencySymbol" value="{{currencySymbol config.currencySymbol}}">
 <input type="hidden" id="defaultCurrency" value="{{currencySymbol config.defaultCurrency}}">
 {{#if variants}}
-    <input type="hidden" id="variantPrice" value="{{variantPriceValue variants}}">
-    {{#each variants}}
-        <input type="hidden" id="productPrice{{currencySymbol ../this.config.currencySymbol}}" value="{{otherVariantPriceValues ../this}}">
-    {{/each}}
+<input type="hidden" id="variantPrice" value="{{variantPriceValue variants}}">
+{{#each variants}}
+<input type="hidden" id="productPrice{{currencySymbol ../this.config.currencySymbol}}"
+	value="{{otherVariantPriceValues ../this}}">
+{{/each}}
 {{/if}}
 
 <script src="/{{ config.theme }}/js/imagezoom.js"></script>
@@ -277,36 +295,36 @@
 <!-- script for responsive tabs -->
 <script src="/{{ config.theme }}/js/easy-responsive-tabs.js"></script>
 <script>
-    $(document).ready(function () {
-        $('#horizontalTab').easyResponsiveTabs({
-            type: 'default', //Types: default, vertical, accordion
-            width: 'auto', //auto or any width like 600px
-            fit: true, // 100% fit in a container
-            closed: 'accordion', // Start closed if in accordion view
-            activate: function (event) { // Callback function if tab is switched
-                var $tab = $(this);
-                var $info = $('#tabInfo');
-                var $name = $('span', $info);
-                $name.text($tab.text());
-                $info.show();
-            }
-        });
-        $('#verticalTab').easyResponsiveTabs({
-            type: 'vertical',
-            width: 'auto',
-            fit: true
-        });
-    });
+	$(document).ready(function () {
+		$('#horizontalTab').easyResponsiveTabs({
+			type: 'default', //Types: default, vertical, accordion
+			width: 'auto', //auto or any width like 600px
+			fit: true, // 100% fit in a container
+			closed: 'accordion', // Start closed if in accordion view
+			activate: function (event) { // Callback function if tab is switched
+				var $tab = $(this);
+				var $info = $('#tabInfo');
+				var $name = $('span', $info);
+				$name.text($tab.text());
+				$info.show();
+			}
+		});
+		$('#verticalTab').easyResponsiveTabs({
+			type: 'vertical',
+			width: 'auto',
+			fit: true
+		});
+	});
 </script>
 <!-- FlexSlider -->
 <script src="/{{ config.theme }}/js/jquery.flexslider.js"></script>
 <script>
-    // Can also be used with $(document).ready()
-    $(window).on('load', function () {
-        $('.flexslider').flexslider({
-            animation: "slide",
-            controlNav: "thumbnails"
-        });
-    });
+	// Can also be used with $(document).ready()
+	$(window).on('load', function () {
+		$('.flexslider').flexslider({
+			animation: "slide",
+			controlNav: "thumbnails"
+		});
+	});
 </script>
 <!-- //FlexSlider-->

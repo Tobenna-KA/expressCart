@@ -8,7 +8,7 @@ const {
   MONGO_PORT,
   MONGO_USERNAME,
   MONGO_PASSWORD,
-  MONGO_DB
+  MONGO_DB,
 } = process.env;
 
 const path = require('path');
@@ -73,6 +73,7 @@ const customer = require('./routes/customer');
 const order = require('./routes/order');
 const user = require('./routes/user');
 const reviews = require('./routes/reviews');
+const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 
 const app = express();
 
@@ -208,9 +209,22 @@ handlebars = handlebars.create({
       } else if (this.session.currency === 'productPriceUSD') {
         return price * 0.009;
       } else if (this.session.currency === 'productPriceEUR') {
-        console.log('********************');
         return price * 0.0074;
       }
+    },
+    getActiveStars(n) {
+      let returnArr = [];
+      for (let i = 0; i < n; i++) {
+        returnArr.push(n);
+      }
+      return returnArr;
+    },
+    getInactiveStars(n) {
+      let returnArr = [];
+      for (let i = n; i < 5; i++) {
+        returnArr.push(n);
+      }
+      return returnArr;
     },
     availableLanguages: (block) => {
       let total = '';
@@ -220,7 +234,7 @@ handlebars = handlebars.create({
       return total;
     },
     partial: (provider) => {
-      console.log(provider)
+      console.log(provider);
       return `partials/payments/${provider}`;
     },
     perRowClass: (numProducts) => {
@@ -458,9 +472,11 @@ handlebars = handlebars.create({
 
 // session store
 const store = new MongoStore({
-  uri: getDbUri(process.env.NODE_ENV === 'production'?
-      `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:/${MONGO_DB}` :
-      config.databaseConnectionString),
+  uri: getDbUri(
+    process.env.NODE_ENV === 'production'
+      ? `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:/${MONGO_DB}`
+      : config.databaseConnectionString
+  ),
   collection: 'sessions',
 });
 
@@ -534,7 +550,7 @@ app.use((req, res, next) => {
       req.app.config.currencyISO = 'KES';
     }
   } else {
-    req.session.currency = 'KES'
+    req.session.currency = 'KES';
   }
   next();
 });
@@ -631,82 +647,85 @@ app.on('uncaughtException', (err) => {
   process.exit(2);
 });
 
-initDb(process.env.NODE_ENV === 'production'?
-    `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:/${MONGO_DB}` :
-    config.databaseConnectionString, async (err, db) => {
-  // On connection error we display then exit
-  if (err) {
-    console.log(colors.red(`Error connecting to MongoDB: ${err}`));
-    process.exit(2);
-  }
-
-  // add db to app for routes
-  app.db = db;
-  app.config = config;
-  app.port = app.get('port');
-
-  // Fire up the cron job to clear temp held stock
-  cron.schedule('*/1 * * * *', async () => {
-    const validSessions = await db.sessions.find({}).toArray();
-    const validSessionIds = [];
-    _.forEach(validSessions, (value) => {
-      validSessionIds.push(value._id);
-    });
-
-    // Remove any invalid cart holds
-    await db.cart.deleteMany({
-      sessionId: { $nin: validSessionIds },
-    });
-  });
-
-  // Fire up the cron job to create google product feed
-  cron.schedule('0 * * * *', async () => {
-    await writeGoogleData(db);
-  });
-
-  // Create indexes on startup
-  if (process.env.NODE_ENV !== 'test') {
-    try {
-      await runIndexing(app);
-    } catch (ex) {
-      console.error(colors.red(`Error setting up indexes: ${ex.message}`));
+initDb(
+  process.env.NODE_ENV === 'production'
+    ? `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:/${MONGO_DB}`
+    : config.databaseConnectionString,
+  async (err, db) => {
+    // On connection error we display then exit
+    if (err) {
+      console.log(colors.red(`Error connecting to MongoDB: ${err}`));
+      process.exit(2);
     }
-  }
 
-  // Start cron job to index
-  if (process.env.NODE_ENV !== 'test') {
-    cron.schedule('*/30 * * * *', async () => {
+    // add db to app for routes
+    app.db = db;
+    app.config = config;
+    app.port = app.get('port');
+
+    // Fire up the cron job to clear temp held stock
+    cron.schedule('*/1 * * * *', async () => {
+      const validSessions = await db.sessions.find({}).toArray();
+      const validSessionIds = [];
+      _.forEach(validSessions, (value) => {
+        validSessionIds.push(value._id);
+      });
+
+      // Remove any invalid cart holds
+      await db.cart.deleteMany({
+        sessionId: { $nin: validSessionIds },
+      });
+    });
+
+    // Fire up the cron job to create google product feed
+    cron.schedule('0 * * * *', async () => {
+      await writeGoogleData(db);
+    });
+
+    // Create indexes on startup
+    if (process.env.NODE_ENV !== 'test') {
       try {
         await runIndexing(app);
       } catch (ex) {
         console.error(colors.red(`Error setting up indexes: ${ex.message}`));
       }
-    });
-  }
-
-  // Set trackStock for testing
-  if (process.env.NODE_ENV === 'test') {
-    config.trackStock = true;
-  }
-
-  // Process schemas
-  await addSchemas();
-
-  // Start the app
-  try {
-    await app.listen(app.get('port'));
-    app.emit('appStarted');
-    if (process.env.NODE_ENV !== 'test') {
-      console.log(
-        colors.green(
-          `expressCart running on host: http://localhost:${app.get('port')}`
-        )
-      );
     }
-  } catch (ex) {
-    console.error(colors.red(`Error starting expressCart app:${ex.message}`));
-    process.exit(2);
+
+    // Start cron job to index
+    if (process.env.NODE_ENV !== 'test') {
+      cron.schedule('*/30 * * * *', async () => {
+        try {
+          await runIndexing(app);
+        } catch (ex) {
+          console.error(colors.red(`Error setting up indexes: ${ex.message}`));
+        }
+      });
+    }
+
+    // Set trackStock for testing
+    if (process.env.NODE_ENV === 'test') {
+      config.trackStock = true;
+    }
+
+    // Process schemas
+    await addSchemas();
+
+    // Start the app
+    try {
+      await app.listen(app.get('port'));
+      app.emit('appStarted');
+      if (process.env.NODE_ENV !== 'test') {
+        console.log(
+          colors.green(
+            `expressCart running on host: http://localhost:${app.get('port')}`
+          )
+        );
+      }
+    } catch (ex) {
+      console.error(colors.red(`Error starting expressCart app:${ex.message}`));
+      process.exit(2);
+    }
   }
-});
+);
 
 module.exports = app;

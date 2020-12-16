@@ -1660,10 +1660,13 @@ router.get('/:page?', async (req, res, next) => {
             const bottomCarousel1 = posts.slice(4, 8);
             const bottomCarousel2 = posts.slice(8, 14);
 
+            const homePageProducts = results.data.slice(0, 3);
+
             res.render(`${config.themeViews}index`, {
               title: `${config.cartTitle} - Shop`,
               theme: config.theme,
-              results: results.data.splice(0, 4),
+              results: results.data,
+              homePageProducts: homePageProducts,
               session: req.session,
               message: clearSessionValue(req.session, 'message'),
               messageType: clearSessionValue(req.session, 'messageType'),
