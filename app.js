@@ -34,6 +34,7 @@ const { runIndexing } = require('./lib/indexing');
 const { addSchemas } = require('./lib/schema');
 const { initDb, getDbUri } = require('./lib/db');
 const { writeGoogleData } = require('./lib/googledata');
+const { aggregateRatings } = require('./lib/modules/reviews-basic')
 let handlebars = require('express-handlebars');
 const i18n = require('i18n');
 
@@ -212,14 +213,14 @@ handlebars = handlebars.create({
         return price * 0.0074;
       }
     },
-    getActiveStars(n) {
+    getActiveStars(n = 0) {
       let returnArr = [];
       for (let i = 0; i < n; i++) {
         returnArr.push(n);
       }
       return returnArr;
     },
-    getInactiveStars(n) {
+    getInactiveStars(n = 0) {
       let returnArr = [];
       for (let i = n; i < 5; i++) {
         returnArr.push(n);
@@ -681,6 +682,8 @@ initDb(
     cron.schedule('0 * * * *', async () => {
       await writeGoogleData(db);
     });
+
+    // aggregateRatings('5fa6956a514da53d5e06c6dd', db);
 
     // Create indexes on startup
     if (process.env.NODE_ENV !== 'test') {

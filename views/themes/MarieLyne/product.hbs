@@ -45,10 +45,10 @@
 
 			<div class="rating1">
 				{{!-- <div class="d-inline-block align-middle">{{{ @root.reviews.ratingHtml }}}</div> --}}
-				{{#each (getActiveStars 4)}}
+				{{#each (getActiveStars result.avgRatings)}}
 				<span class="fa fa-star checked" style="color: orange"></span>
 				{{/each}}
-				{{#each (getInactiveStars 4)}}
+				{{#each (getInactiveStars result.avgRatings)}}
 				<span class="fa fa-star checked"></span>
 				{{/each}}
 			</div>

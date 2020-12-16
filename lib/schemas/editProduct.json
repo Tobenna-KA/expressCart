@@ -41,6 +41,11 @@
             "format": "alphanumeric",
             "maxLength": 16
         },
+        "avgRatings": {
+            "type": "number",
+            "maxLength": 10,
+            "default": 0
+        },
         "productBrand": {
             "type": "string",
             "maxLength": 50

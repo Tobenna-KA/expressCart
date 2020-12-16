@@ -42,6 +42,11 @@
             "type": "string",
             "maxLength": 50
         },
+        "avgRatings": {
+            "type": "number",
+            "maxLength": 10,
+            "default": 0
+        },
         "productPublished": {
             "type": "boolean"
         },
