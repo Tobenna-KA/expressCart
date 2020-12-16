@@ -164,3 +164,24 @@ body {
     width: 100% !important;
   }
 }
+
+@media only screen and (max-width: 769px) {
+  .home-container {
+    width: 98% !important;
+    .user-name {
+      font-size: 0.8em !important;
+    }
+    .user-image {
+      width: 25px !important;
+      height: 25px !important;
+    }
+    .card-image {
+      width: 100%;
+      padding: 0 !important;
+
+      img {
+        height: 280px;
+      }
+    }
+  }
+}
