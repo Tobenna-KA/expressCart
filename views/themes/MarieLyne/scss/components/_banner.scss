@@ -167,6 +167,33 @@
   right: 50px !important;
 }
 
+@media only screen and (max-width: 769px) {
+  .mainBannerButtons {
+    background-color: $primary_color;
+    background: rgba(27, 25, 25, 0.87);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    position: fixed;
+    z-index: 99;
+    right: 2% !important;
+    // width: 200px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-top: 15px !important;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .logo {
+    .navbar-brand {
+      border: 0 !important;
+      margin-top: -10px !important;
+    }
+    .ml-logo {
+      width: 80px;
+    }
+  }
+}
+
 @media only screen and (max-width: 600px) {
   .overlay-contentpush {
     width: 50%;
