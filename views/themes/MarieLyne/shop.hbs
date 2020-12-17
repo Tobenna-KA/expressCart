@@ -17,7 +17,7 @@
       <div class="search-hotel">
         {{!-- <h3 class="agileits-sear-head">Search Here..</h3> --}}
         <form id="shop_search_form" autocomplete="off">
-          <input type="search" placeholder="{{ @root.__ "Search shop" }}. . ." name="shop_frm_search" required=""
+          <input type="search" placeholder="{{ @root.__ " Search shop" }}. . ." name="shop_frm_search" required=""
             id="shop_frm_search">
           <input class="mainBtn greenBtn" type="button" value=" " id="shopSearchBtn">
         </form>
@@ -26,7 +26,7 @@
       <div class="range">
         <h3 class="agileits-sear-head">{{ @root.__ "Price range" }}</h3>
         <div class="price-range-values">
-          {{#if session  }}
+          {{#if session }}
           <div class="min-value {{ session.currency }}"></div>
           <div class="max-value {{ session.currency }}"></div>
           {{else}}
@@ -36,7 +36,7 @@
         </div>
         <div class="row">
           {{#if session.currency }}
-          <div class="range-slider" data-min=' {{ getCurrencyRange '0' }} ' data-max='{{ getCurrencyRange '100000' }}'
+          <div class="range-slider" data-min=' {{ getCurrencyRange ' 0' }} ' data-max=' {{ getCurrencyRange '100000' }}'
             data-step="10">
             <div class="slider-track">
               <span class='slider-track-filled'></span>
@@ -181,6 +181,14 @@
         </div>
         <div class="clearfix"></div>
         <!-- product-sec1 -->
+        {{!-- <div>
+          {{#each (getActiveStars this.avgRatings)}}
+          <span class="fa fa-star checked" style="color: orange"></span>
+          {{/each}}
+          {{#each (getInactiveStars this.avgRatings)}}
+          <span class="fa fa-star checked"></span>
+          {{/each}}
+        </div> --}}
         <div class="product-sec1">
           <div class="products-container">
             {{#each results}}
@@ -265,10 +273,10 @@
 
                     </h4>
                     {{!-- <div class="price">
-									<span class="money">
-										{{currencySymbol @root.config.currencySymbol}}{{relatedProductsPriceValue ../this}}
-									</span>
-								</div> --}}
+                      <span class="money">
+                        {{currencySymbol @root.config.currencySymbol}}{{relatedProductsPriceValue ../this}}
+                      </span>
+                    </div> --}}
                     <div class="cart-button">
                       {{#if @root.config.showHomepageVariants}}
                       <a class="add-variant-to-cart mainBtn cartBtn greenBtn" data-id="{{this._id}}" role="button">
@@ -494,43 +502,44 @@
 
   //filterBtn.addEventListener('click', filterProductsOnShop)
 
-  const maxPriceValue = document.querySelector('.max-value').textContent
-  const minPriceValue = document.querySelector('.min-value').textContent
-
-  const categoriesCheckboxes = document.querySelector('#categories-filter')
-  const categoryOptions = categoriesCheckboxes.getElementsByTagName('input');
-  const categoryNames = categoriesCheckboxes.getElementsByTagName('label');
-  const selectedCategories = []
-
-  for (i = 0; i < categoryOptions.length; i++) {
-    if (categoryOptions[i].checked) {
-      selectedCategories.push(categoryOptions[i].value || categoryOptions[i].value);
-    }
-  }
-
-  const rating = document.getElementById('rating-select').value
-
-  const data = {
-    price: {
-      min: minPriceValue,
-      max: maxPriceValue,
-    },
-    categories: selectedCategories,
-    rating
-  }
 
 
-  let categoryString = ''
-
-  data.categories.forEach((cat, i) => {
-    if (i < data.categories.length - 1) categoryString += `${cat}-`
-    else categoryString += `${cat}`
-  })
-
-  const filterURL = `/shop/filter/${data.price.min}/${data.price.max}/${categoryString ? categoryString : 'none'}/${data.rating}`
 
   // On create review
   $('#filter-btn').click(function (e) {
+    const maxPriceValue = document.querySelector('.max-value').textContent
+    const minPriceValue = document.querySelector('.min-value').textContent
+
+    const categoriesCheckboxes = document.querySelector('#categories-filter')
+    const categoryOptions = categoriesCheckboxes.getElementsByTagName('input');
+    const categoryNames = categoriesCheckboxes.getElementsByTagName('label');
+    const selectedCategories = []
+
+    for (i = 0; i < categoryOptions.length; i++) {
+      if (categoryOptions[i].checked) {
+        selectedCategories.push(categoryOptions[i].value || categoryOptions[i].value);
+      }
+    }
+
+    let categoryString = ''
+    const rating = document.getElementById('rating-select').value
+
+    const data = {
+      price: {
+        min: minPriceValue,
+        max: maxPriceValue,
+      },
+      categories: selectedCategories,
+      rating
+    }
+
+    data.categories.forEach((cat, i) => {
+      if (i < data.categories.length - 1) categoryString += `${cat}-`
+      else categoryString += `${cat}`
+    })
+
+    let filterURL = `/shop/filter/${data.price.min}/${data.price.max}/${categoryString ? categoryString : 'none'}/${data.rating}`
+
     e.preventDefault()
     $.ajax({
       type: 'GET',

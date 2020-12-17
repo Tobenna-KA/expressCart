@@ -154,14 +154,16 @@ router.get('/shop', (req, res) => {
 
     const categories = results.data.map((product) => {
       if (product.productTags.indexOf(',') >= 0) {
-        // console.log('*******************************');
         const cats = product.productTags.split(', ');
         return cats;
       } else {
         return product.productTags;
       }
     });
-    const productCategories = [...new Set(categories.flat())];
+    const productCategories = [...new Set(categories.flat())].filter(
+      (cat) => cat.length > 0
+    );
+
     req.session.productCategories = productCategories;
 
     res.render(file_to_render, {
@@ -321,12 +323,21 @@ router.get(
       pageNum = req.params.pageNum;
     }
 
+    let rating = Number(filterObj.rating);
+
     // DB Find price
     db.products
       .aggregate([
         {
           $addFields: {
             priceDouble: { $toDouble: searchCurrency },
+            avgRatings: {
+              $cond: {
+                if: { $gte: ['$avgRatings', 0] },
+                then: '$avgRatings',
+                else: 0,
+              },
+            },
           },
         },
         {
@@ -342,6 +353,11 @@ router.get(
                 productTags: {
                   $regex: categoriesFilterRegex,
                   $options: 'ig',
+                },
+              },
+              {
+                avgRatings: {
+                  $gte: rating,
                 },
               },
             ],

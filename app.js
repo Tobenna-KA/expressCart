@@ -164,8 +164,6 @@ handlebars = handlebars.create({
       return this[parent.session.currency];
     },
     relatedProductsPriceValue(parent) {
-      console.log('********sss***********');
-      console.log(parent, this);
       if (!this || !parent.session) return null;
       if (
         !parent.session.currency ||
