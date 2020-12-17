@@ -34,7 +34,7 @@ const { runIndexing } = require('./lib/indexing');
 const { addSchemas } = require('./lib/schema');
 const { initDb, getDbUri } = require('./lib/db');
 const { writeGoogleData } = require('./lib/googledata');
-const { aggregateRatings } = require('./lib/modules/reviews-basic')
+const { aggregateRatings } = require('./lib/modules/reviews-basic');
 let handlebars = require('express-handlebars');
 const i18n = require('i18n');
 
@@ -164,7 +164,8 @@ handlebars = handlebars.create({
       return this[parent.session.currency];
     },
     relatedProductsPriceValue(parent) {
-      // console.log(parent, this)
+      console.log('********sss***********');
+      console.log(parent, this);
       if (!this || !parent.session) return null;
       if (
         !parent.session.currency ||

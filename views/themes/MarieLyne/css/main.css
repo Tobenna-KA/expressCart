@@ -2350,3 +2350,77 @@ body {
     background-color: #d39f5f; }
 
 /*end fixed social*/
+.section-services {
+  padding-top: 35px;
+  padding-bottom: 60px;
+  font-family: "Montserrat", sans-serif !important;
+  background-color: #fff;
+  color: #333; }
+  .section-services .header-section .title {
+    position: relative;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: 700; }
+  .section-services .header-section .description {
+    color: #d39f5f; }
+
+.section-services .header-section .title:before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  width: 140px;
+  height: 1px;
+  background-color: #d9ab73; }
+
+.section-services .header-section .title span {
+  color: #d9ab73; }
+
+.section-services .single-service {
+  margin-top: 40px;
+  background-color: #24252a;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1); }
+
+.section-services .single-service .part-1 {
+  padding: 40px 40px 25px;
+  border-bottom: 2px solid #1d1e23; }
+
+.section-services .single-service .part-1 ion-icon,
+.section-services .single-service .part-1 i {
+  margin-bottom: 25px;
+  font-size: 50px;
+  color: #d9ab73; }
+
+.section-services .single-service .part-1 .title {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.8em;
+  color: #d9ab73; }
+
+.section-services .single-service .part-2 {
+  padding: 30px 40px 40px; }
+
+.section-services .single-service .part-2 .description {
+  margin-bottom: 22px;
+  color: #6f6f71;
+  font-size: 14px;
+  line-height: 1.8em; }
+
+.section-services .single-service .part-2 a {
+  color: #fff;
+  font-size: 12px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  display: block;
+  letter-spacing: 1px; }
+  .section-services .single-service .part-2 a:hover {
+    color: #d9ab73; }
+    .section-services .single-service .part-2 a:hover ion-icon {
+      transform: translateX(5px); }
+
+.section-services .single-service .part-2 a ion-icon {
+  margin-right: 10px;
+  color: #d9ab73;
+  font-size: 14px;
+  transition: all 0.3s ease; }
