@@ -2187,6 +2187,10 @@ input.button.add {
   .bannerText h4 {
     font-size: 2em !important; } }
 
+.instagram-media {
+  width: 33% !important;
+  display: inline-block !important; }
+
 .bottomCarousel .thumbnail {
   min-height: 100% !important;
   display: block; }
