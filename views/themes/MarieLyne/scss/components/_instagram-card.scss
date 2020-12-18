@@ -1,11 +1,11 @@
 .instaFeedBox {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 12px;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 2% !important;
   .instagram-media {
-    // flex-grow: 1;
-    width: 32% !important;
+    max-width: 32% !important;
     display: inline-block !important;
+    // flex-grow: 1;
   }
 }
 
