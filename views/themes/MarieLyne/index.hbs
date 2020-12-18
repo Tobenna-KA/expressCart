@@ -141,7 +141,7 @@
 							{{else}}
 							<div class="cart-section">
 								<h4 class="product-price mp-0 text-center">
-									{{currencySymbol @root.config.currencySymbol}}{{shopVariantPriceValues ../this}}
+									{{currencySymbol @root.config.currencySymbol}}{{shopVariantPriceValues ../../this}}
 								</h4>
 							</div>
 							{{/if}}
@@ -166,7 +166,7 @@
 						<div class="price-section">
 							<div class="cart-section">
 								<h4 class="product-price mp-0 text-center">
-									{{currencySymbol @root.config.currencySymbol}}{{relatedProductsPriceValue ../this}}
+									{{currencySymbol @root.config.currencySymbol}}{{ relatedProductsPriceValue ../../this}}
 								</h4>
 								{{!-- <div class="price">
 									<span class="money">

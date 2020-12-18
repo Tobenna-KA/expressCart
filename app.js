@@ -120,13 +120,16 @@ handlebars = handlebars.create({
       return i18n.__n(this, arguments);
     }, // eslint-disable-line no-undef
     priceValue(val) {
+      console.log(val, this)
       if (!val || !this.session) return null;
+      console.log(val)
       if (
         !this.session.currency ||
         this.session.currency === 'KES' ||
         this.session.currency === 'productPriceKES'
       )
         return val.productPrice;
+
       return val[this.session.currency];
     },
     variantPriceValue(val) {
