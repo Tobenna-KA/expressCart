@@ -1482,7 +1482,10 @@ span.item_price {
   color: #000; }
 
 .product-men img {
-  width: 100%; }
+  width: 100%;
+  max-height: 299px;
+  min-height: 299px;
+}
 
 .grid_meta {
   float: left;
