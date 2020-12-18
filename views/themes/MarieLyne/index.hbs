@@ -25,55 +25,7 @@
 	</div>
 	<div class="container-fluid home-container">
 		{{#each instaFeed}}
-		<div class="col-12 col-md-4 col-sm-4 col-xs-12 instacard">
-			<div class="instagram-card">
-				<div class="card-header">
-					<div>
-						<a href="{{this.link}}" target="_blank">
-							<img class="user-image" src="{{this.profilePicHD}}" />
-							<p class="user-name"> {{this.fullName}} </p>
-						</a>
-					</div>
-					<div class="header-button">
-						<a href="{{this.link}}" class="btn mainBtn goldBtn">
-							<ion-icon name="open" style="font-size: 1.5em;"></ion-icon>
-						</a>
-					</div>
-					{{!-- <p class="time">1h</p> --}}
-				</div>
-				<div class="card-image">
-					<a href="{{this.url}}" target="_blank">
-						<img src="{{this.imageUrl}}" width="100%" />
-					</a>
-				</div>
-				<div class="card-content">
-					<a class="view-more" href="{{this.link}}" target="_blank">View more on Instagram</a>
-					<hr />
-					<div class="icons">
-						<div>
-							<a href="{{this.url}}" target="_blank">
-								<i class="far fa-heart"></i>
-							</a>
-							<a href="{{this.url}}" target="_blank">
-								<i class="far fa-comment"></i>
-							</a>
-							<a href="{{this.url}}" target="_blank">
-								<i class="fa fa-inbox"></i>
-							</a>
-						</div>
-						<div>
-							<a href="{{this.url}}" target="_blank">
-								<i class="fa fa-bookmark-o"></i>
-							</a>
-
-						</div>
-					</div>
-					<strong>
-						{{this.likesCount}} likes
-					</strong>
-				</div>
-			</div>
-		</div>
+		{{> themes/MarieLyne/ig-post}}
 		{{/each}}
 		{{!-- <div id="instagram-cont"></div> --}}
 

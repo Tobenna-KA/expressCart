@@ -32,11 +32,15 @@ const countryList = getCountryList();
 
 const { contactFormSchema } = require('../lib/contactValidation');
 Object.defineProperty(Array.prototype, 'flat', {
-  value: function(depth = 1) {
+  value: function (depth = 1) {
     return this.reduce(function (flat, toFlatten) {
-      return flat.concat((Array.isArray(toFlatten) && (depth>1)) ? toFlatten.flat(depth-1) : toFlatten);
+      return flat.concat(
+        Array.isArray(toFlatten) && depth > 1
+          ? toFlatten.flat(depth - 1)
+          : toFlatten
+      );
     }, []);
-  }
+  },
 });
 // *** INSTAGRAM FETCH FUNCTION ***
 const getInstagramPosts = require('../lib/instagram');
@@ -159,14 +163,14 @@ router.get('/shop', (req, res) => {
     const categories = results.data.map((product) => {
       if (product.productTags.indexOf(',') >= 0) {
         const cats = product.productTags.split(', ');
-        console.log(cats)
+        console.log(cats);
         return cats;
       } else {
         return product.productTags;
       }
     });
 
-    console.log(categories)
+    console.log(categories);
     const productCategories = [...new Set(categories.flat())].filter(
       (cat) => cat.length > 0
     );
@@ -1680,8 +1684,8 @@ router.get('/:page?', async (req, res, next) => {
         getInstagramPosts('marielyne_beauty')
           .then((instaFeed) => {
             const { mainPosts } = instaFeed;
-            const { bottomCarousel1 } = instaFeed;
-            const { bottomCarousel2 } = instaFeed;
+            // const { bottomCarousel1 } = instaFeed;
+            // const { bottomCarousel2 } = instaFeed;
 
             const homePageProducts = results.data.slice(0, 3);
 
@@ -1702,8 +1706,8 @@ router.get('/:page?', async (req, res, next) => {
               showFooter: 'showFooter',
               menu: sortMenu(menu),
               instaFeed: mainPosts,
-              bottomCarousel1: bottomCarousel1,
-              bottomCarousel2: bottomCarousel2,
+              // bottomCarousel1: bottomCarousel1,
+              // bottomCarousel2: bottomCarousel2,
             });
           })
           .catch((err) => {
