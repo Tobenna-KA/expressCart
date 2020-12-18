@@ -160,6 +160,7 @@ router.get('/shop', (req, res) => {
       }
     });
 
+    console.log(categories)
     const productCategories = [...new Set(categories.flat())].filter(
       (cat) => cat.length > 0
     );
