@@ -16,20 +16,20 @@
 			</ol>
 			<div class="carousel-inner" role="listbox">
 				<div class="item active">
-					<div class="row">
+					<div class="row bottomCarousel">
 						{{#each bottomCarousel1}}
 						<div class="col-md-3 col-sm-3 col-xs-3 slidering">
-							<div class="thumbnail"><img src="{{this.node.thumbnail_src}}" alt="Image" style="max-width:100%;">
+							<div class="thumbnail"><img src="{{this.imageUrl}}" alt="Image" style="max-width:100%;">
 							</div>
 						</div>
 						{{/each}}
 					</div>
 				</div>
-				<div class="item">
-					<div class="row">
+				<div class="item ">
+					<div class="row bottomCarousel">
 						{{#each bottomCarousel2}}
 						<div class="col-md-3 col-sm-3 col-xs-3 slidering">
-							<div class="thumbnail"><img src="{{this.node.thumbnail_src}}" alt="Image" style="max-width:100%;">
+							<div class="thumbnail"><img src="{{this.imageUrl}}" alt="Image" style="max-width:100%;">
 							</div>
 						</div>
 						{{/each}}
