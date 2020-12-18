@@ -34,8 +34,6 @@ const { contactFormSchema } = require('../lib/contactValidation');
 
 // *** INSTAGRAM FETCH FUNCTION ***
 const getInstagramPosts = require('../lib/instagram');
-const { filter } = require('lodash');
-// const { filter, indexOf } = require('lodash');
 
 // Example of how you can add new pages
 // router.get('/example', (req, res) => {
@@ -1671,10 +1669,10 @@ router.get('/:page?', async (req, res, next) => {
 
         // Fetch instagram posts from username
         getInstagramPosts('marielyne_beauty')
-          .then((posts) => {
-            const instaFeed = posts.slice(0, 3);
-            const bottomCarousel1 = posts.slice(4, 8);
-            const bottomCarousel2 = posts.slice(8, 14);
+          .then((instaFeed) => {
+            const { mainPosts } = instaFeed;
+            const { bottomCarousel1 } = instaFeed;
+            const { bottomCarousel2 } = instaFeed;
 
             const homePageProducts = results.data.slice(0, 3);
 
@@ -1694,10 +1692,9 @@ router.get('/:page?', async (req, res, next) => {
               helpers: req.handlebars.helpers,
               showFooter: 'showFooter',
               menu: sortMenu(menu),
-              instaFeed: instaFeed,
+              instaFeed: mainPosts,
               bottomCarousel1: bottomCarousel1,
               bottomCarousel2: bottomCarousel2,
-              instaPosts: posts,
             });
           })
           .catch((err) => {

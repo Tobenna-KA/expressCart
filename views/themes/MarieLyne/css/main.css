@@ -2187,6 +2187,12 @@ input.button.add {
   .bannerText h4 {
     font-size: 2em !important; } }
 
+.instagram_profile {
+  border: 1px solid #fff;
+  display: flex;
+  padding: 10px 5px;
+  text-align: left; }
+
 body {
   background-color: #efefef; }
 
