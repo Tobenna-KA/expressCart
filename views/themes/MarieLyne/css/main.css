@@ -2187,6 +2187,13 @@ input.button.add {
   .bannerText h4 {
     font-size: 2em !important; } }
 
+.bottomCarousel .thumbnail {
+  min-height: 100% !important;
+  display: block; }
+  .bottomCarousel .thumbnail img {
+    object-fit: cover;
+    max-height: 250px; }
+
 .instagram_profile {
   border: 1px solid #fff;
   display: flex;
@@ -2254,7 +2261,8 @@ body {
     border: 2px solid #d9ab73; }
   .instagram-card .user-name {
     font-weight: bold;
-    margin-left: 10px; }
+    margin-left: 10px;
+    font-size: 0.8em !important; }
   .instagram-card .time {
     color: #ccc;
     text-align: right;
@@ -2301,7 +2309,9 @@ body {
 
 @media only screen and (max-width: 600px) {
   .home-container {
-    width: 100% !important; } }
+    width: 100% !important; }
+  .bottomCarousel .thumbnail img {
+    min-height: 110px !important; } }
 
 @media only screen and (max-width: 769px) {
   .home-container {
@@ -2315,7 +2325,9 @@ body {
       width: 100%;
       padding: 0 !important; }
       .home-container .card-image img {
-        height: 280px; } }
+        height: 280px; }
+  .bottomCarousel .thumbnail img {
+    min-height: 240px !important; } }
 
 /* fixed social*/
 #fixed-currency {
