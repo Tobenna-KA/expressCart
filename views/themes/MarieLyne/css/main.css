@@ -59,6 +59,28 @@
   float: right;
   transition: all 0.3s ease; }
 
+.rating {
+  width: 183px;
+  height: 35px; }
+  .rating label {
+    float: right;
+    width: 35px;
+    height: 35px;
+    cursor: pointer; }
+    .rating label:not(:first-of-type) {
+      padding-right: 2px; }
+    .rating label:before {
+      content: '\2605';
+      font-size: 37px;
+      color: #cccccc;
+      line-height: 1; }
+  .rating input {
+    display: none; }
+  .rating input:checked ~ label:before,
+  .rating:not(:checked) > label:hover:before,
+  .rating:not(:checked) > label:hover ~ label:before {
+    color: orange; }
+
 .main-cart {
   margin-top: 40px;
   max-width: 100% !important; }
@@ -2164,6 +2186,12 @@ input.button.add {
     right: 60px !important; }
   .bannerText h4 {
     font-size: 2em !important; } }
+
+.instagram_profile {
+  border: 1px solid #fff;
+  display: flex;
+  padding: 10px 5px;
+  text-align: left; }
 
 body {
   background-color: #efefef; }

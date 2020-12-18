@@ -34,8 +34,6 @@ const { contactFormSchema } = require('../lib/contactValidation');
 
 // *** INSTAGRAM FETCH FUNCTION ***
 const getInstagramPosts = require('../lib/instagram');
-const { filter } = require('lodash');
-// const { filter, indexOf } = require('lodash');
 
 // Example of how you can add new pages
 // router.get('/example', (req, res) => {
@@ -154,14 +152,16 @@ router.get('/shop', (req, res) => {
 
     const categories = results.data.map((product) => {
       if (product.productTags.indexOf(',') >= 0) {
-        // console.log('*******************************');
         const cats = product.productTags.split(', ');
         return cats;
       } else {
         return product.productTags;
       }
     });
-    const productCategories = [...new Set(categories.flat())];
+    const productCategories = [...new Set(categories.flat())].filter(
+      (cat) => cat.length > 0
+    );
+
     req.session.productCategories = productCategories;
 
     res.render(file_to_render, {
@@ -321,12 +321,21 @@ router.get(
       pageNum = req.params.pageNum;
     }
 
+    let rating = Number(filterObj.rating);
+
     // DB Find price
     db.products
       .aggregate([
         {
           $addFields: {
             priceDouble: { $toDouble: searchCurrency },
+            avgRatings: {
+              $cond: {
+                if: { $gte: ['$avgRatings', 0] },
+                then: '$avgRatings',
+                else: 0,
+              },
+            },
           },
         },
         {
@@ -342,6 +351,11 @@ router.get(
                 productTags: {
                   $regex: categoriesFilterRegex,
                   $options: 'ig',
+                },
+              },
+              {
+                avgRatings: {
+                  $gte: rating,
                 },
               },
             ],
@@ -1655,10 +1669,10 @@ router.get('/:page?', async (req, res, next) => {
 
         // Fetch instagram posts from username
         getInstagramPosts('marielyne_beauty')
-          .then((posts) => {
-            const instaFeed = posts.slice(0, 3);
-            const bottomCarousel1 = posts.slice(4, 8);
-            const bottomCarousel2 = posts.slice(8, 14);
+          .then((instaFeed) => {
+            const { mainPosts } = instaFeed;
+            const { bottomCarousel1 } = instaFeed;
+            const { bottomCarousel2 } = instaFeed;
 
             const homePageProducts = results.data.slice(0, 3);
 
@@ -1678,10 +1692,9 @@ router.get('/:page?', async (req, res, next) => {
               helpers: req.handlebars.helpers,
               showFooter: 'showFooter',
               menu: sortMenu(menu),
-              instaFeed: instaFeed,
+              instaFeed: mainPosts,
               bottomCarousel1: bottomCarousel1,
               bottomCarousel2: bottomCarousel2,
-              instaPosts: posts,
             });
           })
           .catch((err) => {

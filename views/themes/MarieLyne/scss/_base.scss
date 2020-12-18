@@ -96,3 +96,48 @@ $color_transition: all 0.3s ease;
   float: right;
   transition: $color_transition;
 }
+
+$stars: 5;
+$star-size: 35px;
+$star-spacing: 2px;
+$star-on-color: orange;
+$star-off-color: #cccccc;
+
+.rating {
+  width: ($star-size * $stars) + ($star-spacing * ($stars - 1));
+  // width: 100%;
+  height: $star-size;
+  // margin: 0 auto;
+  // padding: 40px 50px;
+  // border: 1px solid #cccccc;
+  // background: #f9f9f9;
+
+  label {
+    float: right;
+    // position: relative;
+    width: $star-size;
+    height: $star-size;
+    cursor: pointer;
+
+    &:not(:first-of-type) {
+      padding-right: $star-spacing;
+    }
+
+    &:before {
+      content: '\2605';
+      font-size: $star-size + 2px;
+      color: $star-off-color;
+      line-height: 1;
+    }
+  }
+
+  input {
+    display: none;
+  }
+
+  input:checked ~ label:before,
+  &:not(:checked) > label:hover:before,
+  &:not(:checked) > label:hover ~ label:before {
+    color: $star-on-color;
+  }
+}
