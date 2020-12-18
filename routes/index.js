@@ -153,11 +153,13 @@ router.get('/shop', (req, res) => {
     const categories = results.data.map((product) => {
       if (product.productTags.indexOf(',') >= 0) {
         const cats = product.productTags.split(', ');
+        console.log(cats)
         return cats;
       } else {
         return product.productTags;
       }
     });
+
     const productCategories = [...new Set(categories.flat())].filter(
       (cat) => cat.length > 0
     );
