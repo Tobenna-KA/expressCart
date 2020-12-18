@@ -141,6 +141,14 @@ router.get('/shop', (req, res) => {
   // const numberProducts = config.productsPerPage ? config.productsPerPage : 12;
   const file_to_render = `${config.themeViews}shop`;
 
+  Object.defineProperty(Array.prototype, 'flat', {
+    value: function(depth = 1) {
+      return this.reduce(function (flat, toFlatten) {
+        return flat.concat((Array.isArray(toFlatten) && (depth>1)) ? toFlatten.flat(depth-1) : toFlatten);
+      }, []);
+    }
+  });
+
   Promise.all([
     paginateProducts(true, db, req.params.pageNum, {}, getSort()),
     getMenu(db),
