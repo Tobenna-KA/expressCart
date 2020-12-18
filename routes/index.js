@@ -31,7 +31,13 @@ const { sortMenu, getMenu } = require('../lib/menu');
 const countryList = getCountryList();
 
 const { contactFormSchema } = require('../lib/contactValidation');
-
+Object.defineProperty(Array.prototype, 'flat', {
+  value: function(depth = 1) {
+    return this.reduce(function (flat, toFlatten) {
+      return flat.concat((Array.isArray(toFlatten) && (depth>1)) ? toFlatten.flat(depth-1) : toFlatten);
+    }, []);
+  }
+});
 // *** INSTAGRAM FETCH FUNCTION ***
 const getInstagramPosts = require('../lib/instagram');
 
@@ -140,14 +146,6 @@ router.get('/shop', (req, res) => {
   const config = req.app.config;
   // const numberProducts = config.productsPerPage ? config.productsPerPage : 12;
   const file_to_render = `${config.themeViews}shop`;
-
-  Object.defineProperty(Array.prototype, 'flat', {
-    value: function(depth = 1) {
-      return this.reduce(function (flat, toFlatten) {
-        return flat.concat((Array.isArray(toFlatten) && (depth>1)) ? toFlatten.flat(depth-1) : toFlatten);
-      }, []);
-    }
-  });
 
   Promise.all([
     paginateProducts(true, db, req.params.pageNum, {}, getSort()),
