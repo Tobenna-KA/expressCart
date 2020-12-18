@@ -14,7 +14,7 @@
 		{{/ifCond}}
 	</div>
 	{{else}}
-	<div class="col-md-12 shop_left homeBannerImage">
+	<div class="homeBannerImage">
 		<img src="/{{config.theme}}/images/banner3hair.jpg" alt="">
 		<div class="bannerText">
 			<h4>Order Now</h4>
@@ -24,9 +24,12 @@
 		</div>
 	</div>
 	<div class="container-fluid home-container">
-		{{#each instaFeed}}
-		{{> themes/MarieLyne/ig-post}}
-		{{/each}}
+		<div class="instaFeedBox">
+			{{#each instaFeed}}
+			{{> themes/MarieLyne/ig-post}}
+			{{/each}}
+
+		</div>
 		{{!-- <div id="instagram-cont"></div> --}}
 
 

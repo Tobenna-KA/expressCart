@@ -2014,35 +2014,40 @@ input.button.add {
     .form-signin button:hover {
       background-color: #079c72 !important; }
 
-.homeBannerImage img {
-  max-height: 300px;
-  object-fit: cover;
-  object-position: 5px 10%; }
-
-.homeBannerImage .bannerText {
-  position: absolute;
-  top: 20%;
-  display: block;
-  width: 100%;
-  padding-left: 40px; }
-  .homeBannerImage .bannerText h4,
-  .homeBannerImage .bannerText h5 {
-    font-weight: bold;
-    letter-spacing: 0 !important; }
-  .homeBannerImage .bannerText h4 {
-    font-size: 2.7em; }
-  .homeBannerImage .bannerText h5 {
-    font-size: 4em;
-    font-family: "Raleway", sans-serif !important;
-    margin-top: 10px;
-    color: #d39f5f; }
-  .homeBannerImage .bannerText a {
-    margin-top: 15px;
-    color: #fcfcfc !important;
-    text-transform: uppercase;
-    font-weight: bold;
-    border-bottom: 1px solid #fcfcfc !important;
-    padding-bottom: 3px; }
+.homeBannerImage {
+  max-width: 90% !important;
+  margin: 5px auto !important;
+  margin-bottom: 25px !important;
+  position: relative; }
+  .homeBannerImage img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    object-position: 5px 10%; }
+  .homeBannerImage .bannerText {
+    position: absolute;
+    top: 20%;
+    display: block;
+    width: 100%;
+    padding-left: 40px; }
+    .homeBannerImage .bannerText h4,
+    .homeBannerImage .bannerText h5 {
+      font-weight: bold;
+      letter-spacing: 0 !important; }
+    .homeBannerImage .bannerText h4 {
+      font-size: 2.7em; }
+    .homeBannerImage .bannerText h5 {
+      font-size: 4em;
+      font-family: "Raleway", sans-serif !important;
+      margin-top: 10px;
+      color: #d39f5f; }
+    .homeBannerImage .bannerText a {
+      margin-top: 15px;
+      color: #fcfcfc !important;
+      text-transform: uppercase;
+      font-weight: bold;
+      border-bottom: 1px solid #fcfcfc !important;
+      padding-bottom: 3px; }
 
 .mainBannerButtons {
   background-color: #d9ab73;
@@ -2133,6 +2138,9 @@ input.button.add {
   right: 50px !important; }
 
 @media only screen and (max-width: 769px) {
+  .homeBannerImage {
+    min-width: 100% !important;
+    max-width: 100% !important; }
   .mainBannerButtons {
     background-color: #d9ab73;
     background: rgba(27, 25, 25, 0.87);
@@ -2156,10 +2164,13 @@ input.button.add {
     bottom: 0 !important;
     top: 0 !important;
     display: block;
-    margin-top: 55% !important;
+    margin-top: 40% !important;
     background-color: rgba(0, 0, 0, 0.46) !important;
     text-align: left !important;
-    padding-top: 20px !important; }
+    padding-top: 10px !important;
+    min-width: 98.5% !important;
+    max-width: 98.5% !important;
+    margin-left: 1.5% !important; }
     .homeBannerImage .bannerText h4 {
       color: #fff !important; }
   .overlay-contentpush {
@@ -2187,9 +2198,13 @@ input.button.add {
   .bannerText h4 {
     font-size: 2em !important; } }
 
-.instagram-media {
-  width: 33% !important;
-  display: inline-block !important; }
+.instaFeedBox {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 12px; }
+  .instaFeedBox .instagram-media {
+    width: 32% !important;
+    display: inline-block !important; }
 
 .bottomCarousel .thumbnail {
   min-height: 100% !important;
@@ -2313,11 +2328,21 @@ body {
 
 @media only screen and (max-width: 600px) {
   .home-container {
-    width: 100% !important; }
+    width: 100% !important;
+    padding: 0 !important; }
   .bottomCarousel .thumbnail img {
-    min-height: 110px !important; } }
+    min-height: 110px !important; }
+  .instaFeedBox {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    justify-content: center; }
+    .instaFeedBox .instagram-media {
+      max-width: 33% !important;
+      min-width: 99% !important;
+      display: inline-block !important; } }
 
-@media only screen and (max-width: 769px) {
+@media only screen and (max-width: 768px) {
   .home-container {
     width: 98% !important; }
     .home-container .user-name {
@@ -2331,7 +2356,13 @@ body {
       .home-container .card-image img {
         height: 280px; }
   .bottomCarousel .thumbnail img {
-    min-height: 240px !important; } }
+    min-height: 240px !important; }
+  .instaFeedBox {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 5px; }
+    .instaFeedBox .instagram-media {
+      display: inline-block !important; } }
 
 /* fixed social*/
 #fixed-currency {
