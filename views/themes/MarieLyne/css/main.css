@@ -2015,9 +2015,9 @@ input.button.add {
       background-color: #079c72 !important; }
 
 .homeBannerImage img {
-  max-height: 360px;
+  max-height: 300px;
   object-fit: cover;
-  object-position: top; }
+  object-position: 5px 10%; }
 
 .homeBannerImage .bannerText {
   position: absolute;
