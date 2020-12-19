@@ -2029,7 +2029,8 @@ input.button.add {
     top: 20%;
     display: block;
     width: 100%;
-    padding-left: 40px; }
+    padding-left: 40px;
+    text-shadow: 0 2px 3px rgba(0, 0, 0, 0.56); }
     .homeBannerImage .bannerText h4,
     .homeBannerImage .bannerText h5 {
       font-weight: bold;
@@ -2429,7 +2430,6 @@ body {
   padding-top: 35px;
   padding-bottom: 60px;
   font-family: "Montserrat", sans-serif !important;
-  background-color: #fff;
   color: #333; }
   .section-services .header-section .title {
     position: relative;
@@ -2437,7 +2437,8 @@ body {
     text-transform: uppercase;
     font-weight: 700; }
   .section-services .header-section .description {
-    color: #d39f5f; }
+    color: #d39f5f;
+    font-weight: bold; }
 
 .section-services .header-section .title:before {
   content: '';

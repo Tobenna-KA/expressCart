@@ -2,9 +2,9 @@
 <div class="footer_agileinfo_w3">
 	<div class="footer_inner_info_w3ls_agileits">
 		<div class="col-md-3 footer-left">
-            <a class="navbar-brand" href="/">
-                <img src="{{@root.config.cartLogo}}" class="logo-footer ml-logo">
-            </a>
+			<a class="navbar-brand" href="/">
+				<img src="{{@root.config.cartLogo}}" class="logo-footer ml-logo">
+			</a>
 		</div>
 		<div class="col-md-9 footer-right">
 			<div class="sign-grds">
@@ -16,25 +16,25 @@
 						<li><a href="#">{{ @root.__ "Terms and Conditions" }}</a></li>
 						<li><a href="#">{{ @root.__ "Shipping Policy" }}</a></li>
 						<li><a href="#">{{ @root.__ "FAQs" }}</a></li>--}}
-                        <li class="nav-item {{#unless searchTerm}}active{{/unless}}"><a class="nav-link" href="/">Home</a></li>
-                        {{#each menu.items}}
-                            <li {{#menuMatch this.title @root.searchTerm}}{{/menuMatch}}
-                                {{#menuMatch this.title @root.title}}{{/menuMatch}}>
-                                <a href="{{this.link}}">{{this.title}}</a>
-                            </li>
-                        {{/each}}
+						<li class="nav-item {{#unless searchTerm}}active{{/unless}}"><a class="nav-link" href="/">Home</a></li>
+						{{#each menu.items}}
+						<li {{#menuMatch this.title @root.searchTerm}}{{/menuMatch}} {{#menuMatch this.title
+							@root.title}}{{/menuMatch}}>
+							<a href="{{this.link}}">{{this.title}}</a>
+						</li>
+						{{/each}}
 					</ul>
 				</div>
 
 				<div class="col-md-5 sign-gd-two">
-					<h4>Store <span>Information</span></h4>
+					<h4>{{ @root.__ "Store Information" }}</h4>
 					<div class="address">
 						<div class="address-grid">
 							<div class="address-left">
 								<i class="fa fa-phone" aria-hidden="true"></i>
 							</div>
 							<div class="address-right">
-								<h6>Phone Number</h6>
+								<h6>{{ @root.__ "Phone number" }}</h6>
 								<p>+1 234 567 8901</p>
 							</div>
 							<div class="clearfix"> </div>
@@ -44,7 +44,7 @@
 								<i class="fa fa-envelope" aria-hidden="true"></i>
 							</div>
 							<div class="address-right">
-								<h6>Email Address</h6>
+								<h6>{{ @root.__ "Email address" }}</h6>
 								<p>Email :<a href="mailto:example@email.com"> mail@example.com</a></p>
 							</div>
 							<div class="clearfix"> </div>
@@ -54,7 +54,7 @@
 								<i class="fa fa-map-marker" aria-hidden="true"></i>
 							</div>
 							<div class="address-right">
-								<h6>Location</h6>
+								<h6>{{ @root.__ "Location" }}</h6>
 								<p>Broome St, NY 10002,California, USA.
 
 								</p>
@@ -91,12 +91,12 @@
 </div>
 <!-- //footer -->
 {{!-- <div class="d-flex h-100">
-    <div class="col-12 align-self-center">
-    {{#isNull @root.config.footerHtml}}
-      <h5 class="text-center">Powered by expressCart</h5>
-    {{else}}
-      {{{@root.config.footerHtml}}}
-    {{/isNull}}
-    </div>
-  </div> --}}
+	<div class="col-12 align-self-center">
+		{{#isNull @root.config.footerHtml}}
+		<h5 class="text-center">Powered by expressCart</h5>
+		{{else}}
+		{{{@root.config.footerHtml}}}
+		{{/isNull}}
+	</div>
+</div> --}}
 </div>

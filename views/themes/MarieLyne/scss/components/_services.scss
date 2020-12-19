@@ -3,7 +3,7 @@
   padding-bottom: 60px;
   font-family: $font_1_family;
   // font-family: 'Poppins', sans-serif;
-  background-color: #fff;
+  // background-color: #fff;
   color: #333;
 
   .header-section {
@@ -17,6 +17,7 @@
 
     .description {
       color: $primary_color_darker;
+      font-weight: bold;
     }
   }
 }
