@@ -1,0 +1,45 @@
+#relatedProducts {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1.5%;
+
+  .product-men {
+    width: 23% !important;
+    min-width: 23% !important;
+    padding: 0 !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  #relatedProducts {
+    gap: 10px !important;
+
+    .product-men {
+      width: 32% !important;
+    }
+
+    .product-shoe-info {
+      width: 100% !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #relatedProducts {
+    gap: 5px !important;
+
+    .product-men {
+      width: 48% !important;
+    }
+
+    .product-shoe-info {
+      width: 100% !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      font-size: 0.9em !important;
+    }
+  }
+}

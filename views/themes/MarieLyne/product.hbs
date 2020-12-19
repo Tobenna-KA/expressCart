@@ -190,85 +190,87 @@
 		<div class="new_arrivals">
 			<h3>{{ @root.__ "Related products" }}</h3>
 			<!-- /womens -->
-			{{#each relatedProducts}}
-			<div class="col-md-3 product-men women_two">
-				<div class="product-shoe-info shoe">
-					<div class="men-pro-item">
-						<div class="men-thumb-item">
-							{{#if productPermalink}}
-							<a href="/product/{{this.productPermalink}}">
-								{{#if productImage}}
-								<img src="{{this.productImage}}" alt="">
-								{{else}}
-								<img src="/uploads/placeholder.png" alt="">
-								{{/if}}
-							</a>
-							{{else}}
-							<a href="/product/{{this._id}}">
-								{{#if productImage}}
-								<img src="{{this.productImage}}" alt="">
-								{{else}}
-								<img src="/uploads/placeholder.png" alt="">
-								{{/if}}
-							</a>
-							{{/if}}
-							<div class="men-cart-pro">
-								<div class="inner-men-cart-pro">
-									{{#if productPermalink}}
-									<a href="/product/{{this.productPermalink}}" class="link-product-add-cart">
-										Quick View
-									</a>
-									{{else}}
-									<a href="/products/{{this._id}}" class="link-product-add-cart">
-										Quick View
-									</a>
-									{{/if}}
-								</div>
-							</div>
-							<span class="product-new-top">New</span>
-						</div>
-						<div class="item-info-product">
-							<h4>
+			<div id="relatedProducts">
+				{{#each relatedProducts}}
+				<div class="product-men women_two">
+					<div class="product-shoe-info shoe">
+						<div class="men-pro-item">
+							<div class="men-thumb-item">
 								{{#if productPermalink}}
 								<a href="/product/{{this.productPermalink}}">
-									{{this.productTitle}}
+									{{#if productImage}}
+									<img src="{{this.productImage}}" alt="">
+									{{else}}
+									<img src="/uploads/placeholder.png" alt="">
+									{{/if}}
 								</a>
 								{{else}}
-								<a href="/products/{{this._id}}">
-									{{this.productTitle}}
+								<a href="/product/{{this._id}}">
+									{{#if productImage}}
+									<img src="{{this.productImage}}" alt="">
+									{{else}}
+									<img src="/uploads/placeholder.png" alt="">
+									{{/if}}
 								</a>
 								{{/if}}
-							</h4>
-							<div class="info-product-price">
-								<div class="grid_meta">
-									<div class="product_price">
-										<div class="grid-price ">
-											<span class="money ">{{currencySymbol @root.config.currencySymbol}}
-												{{relatedProductsPriceValue ../this}}</span>
-										</div>
+								<div class="men-cart-pro">
+									<div class="inner-men-cart-pro">
+										{{#if productPermalink}}
+										<a href="/product/{{this.productPermalink}}" class="link-product-add-cart">
+											Quick View
+										</a>
+										{{else}}
+										<a href="/products/{{this._id}}" class="link-product-add-cart">
+											Quick View
+										</a>
+										{{/if}}
 									</div>
-									<!--<ul class="stars">
-                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
-                                    </ul>-->
 								</div>
-								<div class="shoe single-item hvr-outline-out">
-									<a class="btn btn-block shoe-cart pshoe-cart add-to-cart" data-id="{{this._id}}"
-										data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}"
-										role="button">
-										<i class="fa fa-cart-plus ba" style="color: black" aria-hidden="true"></i>
-									</a>
-								</div>
+								<span class="product-new-top">New</span>
 							</div>
-							<div class="clearfix"></div>
+							<div class="item-info-product">
+								<h4>
+									{{#if productPermalink}}
+									<a href="/product/{{this.productPermalink}}">
+										{{this.productTitle}}
+									</a>
+									{{else}}
+									<a href="/products/{{this._id}}">
+										{{this.productTitle}}
+									</a>
+									{{/if}}
+								</h4>
+								<div class="info-product-price">
+									<div class="grid_meta">
+										<div class="product_price">
+											<div class="grid-price ">
+												<span class="money ">{{currencySymbol @root.config.currencySymbol}}
+													{{relatedProductsPriceValue ../this}}</span>
+											</div>
+										</div>
+										<!--<ul class="stars">
+																					<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																					<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																					<li><a href="#"><i class="fa fa-star" aria-hidden="true"></i></a></li>
+																					<li><a href="#"><i class="fa fa-star-half-o" aria-hidden="true"></i></a></li>
+																					<li><a href="#"><i class="fa fa-star-o" aria-hidden="true"></i></a></li>
+																			</ul>-->
+									</div>
+									<div class="shoe single-item hvr-outline-out">
+										<a class="btn btn-block shoe-cart pshoe-cart add-to-cart" data-id="{{this._id}}"
+											data-link="{{this.productPermalink}}" data-has-variants="{{checkProductVariants this.variants}}"
+											role="button">
+											<i class="fa fa-cart-plus ba" style="color: black" aria-hidden="true"></i>
+										</a>
+									</div>
+								</div>
+								<div class="clearfix"></div>
+							</div>
 						</div>
 					</div>
 				</div>
+				{{/each}}
 			</div>
-			{{/each}}
 			<!-- //womens -->
 			<div class="clearfix"></div>
 		</div>
