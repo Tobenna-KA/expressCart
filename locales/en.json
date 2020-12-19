@@ -54,6 +54,7 @@
 	"Save product": "Save product",
 	"Select rating": "Select rating",
 	"Edit product": "Edit product",
+	"IG Post URL": "IG Post URL",
 	"Product title": "Product title",
 	"Product price": "Product price",
 	"Product price USD": "Product price USD",
@@ -88,6 +89,7 @@
 	"Confirm": "Confirm",
 	"Update": "Update",
 	"Setting_menu_explain": "Here you can setup a menu to displayed on your shopping cart. You can use this menu to filter your products by specifying a keyword in the \"link\" field. Eg: To show products with a keyword (or tag) of boots you would set the menu field to \"Backpacks\" and a link value \"backpack\". You can also use this menu to link to static pages, Eg: shipping, returns, help, about, contact etc.",
+	"Setting_ig_explain": "Here you can manage the IG posts that will be displayed on the landing page. \n To add/modify the posts displayed just open the post of your choice on Instagram with a browser and copy and paste the URL into input.",
 	"Static page": "Static page",
 	"Page name": "Page name",
 	"A friendly name to manage the static page.": "A friendly name to manage the static page.",
@@ -270,5 +272,6 @@
 	"Product price CFA": "Product price CFA",
 	"Product price EUR": "Product price EUR",
 	" Add to cart": " Add to cart",
-	" Search shop": " Search shop"
+	" Search shop": " Search shop",
+	"IG Posts": "IG Posts"
 }

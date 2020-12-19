@@ -236,13 +236,13 @@ router.post(
     const db = req.app.db;
 
     const variantDoc = {
-        product: req.body.product,
-        title: req.body.title,
-        price: req.body.price,
-        productPriceUSD: req.body.productPriceUSD,
-        productPriceCFA: req.body.productPriceCFA,
-        productPriceEUR: req.body.productPriceEUR,
-        stock: safeParseInt(req.body.stock) || null,
+      product: req.body.product,
+      title: req.body.title,
+      price: req.body.price,
+      productPriceUSD: req.body.productPriceUSD,
+      productPriceCFA: req.body.productPriceCFA,
+      productPriceEUR: req.body.productPriceEUR,
+      stock: safeParseInt(req.body.stock) || null,
     };
 
     // Validate the body again schema
@@ -294,9 +294,9 @@ router.post(
       variant: req.body.variant,
       title: req.body.title,
       price: req.body.price,
-        productPriceUSD: req.body.productPriceUSD,
-        productPriceCFA: req.body.productPriceCFA,
-        productPriceEUR: req.body.productPriceEUR,
+      productPriceUSD: req.body.productPriceUSD,
+      productPriceCFA: req.body.productPriceCFA,
+      productPriceEUR: req.body.productPriceEUR,
       stock: safeParseInt(req.body.stock) || null,
     };
 
@@ -582,6 +582,89 @@ router.post(
           res.status(200).json({ message: 'Image successfully deleted' });
         }
       });
+    }
+  }
+);
+
+// insert new product form action
+router.post(
+  '/admin/ig-posts/insert',
+  restrict,
+  checkAccess,
+  async (req, res) => {
+    const db = req.app.db;
+
+    const doc = {
+      igPostOne: req.body.igPostOne,
+      igPostTwo: req.body.igPostTwo,
+      igPostThree: req.body.igPostThree,
+    };
+
+    let urlIsValid = true;
+    const urlValidateRegex = new RegExp(/^https:\/\/www.instagram.com/);
+    let igpostsStr = '';
+
+    Object.keys(doc).forEach((key, i) => {
+      if (!urlValidateRegex.test(doc[key])) {
+        urlIsValid = false;
+      } else {
+        const url = doc[key].split('/');
+        if (url.length !== 6 || url[4].length <= 3) {
+          urlIsValid = false;
+        }
+
+        igpostsStr +=
+          i === Object.keys(doc).length - 1 ? doc[key] : doc[key] + ', ';
+      }
+    });
+
+    if (!urlIsValid) {
+      if (process.env.NODE_ENV !== 'test') {
+        console.log('An IG Posts entry is incorrect');
+      }
+      res.status(400).json({
+        msg: 'One or more of your posts URL is incorrect.',
+      });
+      return;
+    }
+
+    try {
+      let IGPOST = {
+        postID: '1234',
+        posts: igpostsStr,
+      };
+      await db.igposts.updateOne(
+        { postID: IGPOST.postID },
+        { $set: { posts: IGPOST.posts } },
+        {
+          upsert: true,
+        }
+      );
+      // get the new ID
+      res.status(200).json({
+        message: 'Successfully modified',
+      });
+    } catch (ex) {
+      console.log(colors.red(`Error inserting ig posts: ${ex}`));
+      res.status(400).json({ msg: 'Error inserting ig posts' });
+    }
+    return;
+
+    try {
+      const newDoc = await db.products.insertOne(doc);
+      // get the new ID
+      const newId = newDoc.insertedId;
+
+      // add to lunr index
+      indexProducts(req.app).then(() => {
+        res.status(200).json({
+          message: 'New product successfully created',
+          productId: newId,
+        });
+      });
+    } catch (ex) {
+      console.log(colors.red(`Error inserting document: ${ex}`));
+      res.status(400).json({ message: 'Error inserting document' });
     }
   }
 );

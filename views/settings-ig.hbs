@@ -1,0 +1,54 @@
+{{> partials/menu}}
+<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+	<div class="col-sm-12">
+		<h2>IG Posts</h2>
+		<hr />
+		<form autocomplete="off" class="form-horizontal" id="IGPostsForm">
+			<div class="form-group">
+				<label for="igPostOne" class="control-label">{{ @root.__ "IG Post URL" }} 1*</label>
+				{{#if igPostOne}}
+				<input type="text" id="igPostOne" class="form-control" minlength="25" maxlength="60" value="{{igPostOne}}"
+					required />
+				{{else}}
+				<input type="text" id="igPostOne" class="form-control" minlength="25" maxlength="60"
+					placeholder="https://www.instagram.com/p/CISDeemlLrO/" required />
+				{{/if}}
+			</div>
+			<div class="form-group">
+				<label for="igPostTwo" class="control-label">{{ @root.__ "IG Post URL" }} 2*</label>
+				{{#if igPostTwo}}
+				<input type="text" id="igPostTwo" class="form-control" minlength="25" maxlength="60" value="{{igPostTwo}}"
+					required />
+				{{else}}
+				<input type="text" id="igPostTwo" class="form-control" minlength="25" maxlength="60"
+					placeholder="https://www.instagram.com/p/CISDeemlLrO/" required />
+				{{/if}}
+			</div>
+			<div class="form-group">
+				<label for="igPostThree" class="control-label">{{ @root.__ "IG Post URL" }} 3*</label>
+				{{#if igPostThree}}
+				<input type="text" id="igPostThree" class="form-control" minlength="25" maxlength="60" value="{{igPostThree}}"
+					required />
+				{{else}}
+				<input type="text" id="igPostThree" class="form-control" minlength="25" maxlength="60"
+					placeholder="https://www.instagram.com/p/CISDeemlLrO/" required />
+				{{/if}}
+			</div>
+			<div class="col-12">
+				<div class="page-header">
+					<div class="float-right">
+						<button id="frm_edit_product_save" class="btn btn-outline-success" type="submit">Save Posts</button>
+					</div>
+				</div>
+			</div>
+		</form>
+		<br />
+		<br />
+		<div class="col-12">
+			<p class="text-muted mt-4">
+				{{ @root.__ "Setting_ig_explain" }}
+			</p>
+		</div>
+	</div>
+</main>

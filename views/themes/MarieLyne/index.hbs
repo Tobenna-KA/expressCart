@@ -25,9 +25,11 @@
 	</div>
 	<div class="container-fluid home-container">
 		<div class="instaFeedBox">
+			{{#if showIGPosts}}
 			{{#each instaFeed}}
 			{{> themes/MarieLyne/ig-post}}
 			{{/each}}
+			{{/if}}
 
 		</div>
 		{{!-- <div id="instagram-cont"></div> --}}

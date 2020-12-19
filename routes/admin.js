@@ -318,6 +318,38 @@ router.get(
   }
 );
 
+// settings ig-posts
+router.get(
+  '/admin/settings/ig-posts',
+  csrfProtection,
+  restrict,
+  async (req, res) => {
+    const db = req.app.db;
+
+    const IGPost = await db.igposts.findOne({});
+    let postsArr = IGPost && IGPost.posts.split(',');
+    let igPostOne = postsArr[0].trim();
+    let igPostTwo = postsArr[1].trim();
+    let igPostThree = postsArr[2].trim();
+
+    res.render('settings-ig', {
+      title: 'Cart IG Posts',
+      layout: 'layout_old.hbs',
+      session: req.session,
+      admin: true,
+      message: clearSessionValue(req.session, 'message'),
+      messageType: clearSessionValue(req.session, 'messageType'),
+      helpers: req.handlebars.helpers,
+      config: req.app.config,
+      menu: sortMenu(await getMenu(db)),
+      igPostOne: igPostOne,
+      igPostTwo: igPostTwo,
+      igPostThree: igPostThree,
+      csrfToken: req.csrfToken(),
+    });
+  }
+);
+
 // page list
 router.get(
   '/admin/settings/pages',

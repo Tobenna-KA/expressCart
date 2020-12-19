@@ -74,9 +74,15 @@ $(document).ready(function () {
     $('#variant-edit-id').val($(e.relatedTarget).data('id'));
     $('#variant-edit-title').val($(e.relatedTarget).data('title'));
     $('#variant-edit-price').val($(e.relatedTarget).data('price'));
-    $('#variant-edit-price-cfa').val($(e.relatedTarget).data('productpricecfa'));
-    $('#variant-edit-price-usd').val($(e.relatedTarget).data('productpriceusd'));
-    $('#variant-edit-price-eur').val($(e.relatedTarget).data('productpriceeur'));
+    $('#variant-edit-price-cfa').val(
+      $(e.relatedTarget).data('productpricecfa')
+    );
+    $('#variant-edit-price-usd').val(
+      $(e.relatedTarget).data('productpriceusd')
+    );
+    $('#variant-edit-price-eur').val(
+      $(e.relatedTarget).data('productpriceeur')
+    );
     $('#variant-edit-stock').val($(e.relatedTarget).data('stock'));
   });
 
@@ -275,6 +281,40 @@ $(document).ready(function () {
           });
       }
     });
+
+  $('#IGPostsForm').on('submit', function (e) {
+    if (!e.isDefaultPrevented()) {
+      e.preventDefault();
+
+      $.ajax({
+        method: 'POST',
+        url: '/admin/ig-posts/insert',
+        data: {
+          igPostOne: $('#igPostOne').val(),
+          igPostTwo: $('#igPostTwo').val(),
+          igPostThree: $('#igPostThree').val(),
+        },
+      })
+        .done(function (msg) {
+          showNotification(
+            msg.message,
+            'success',
+            false,
+            '/admin/settings/ig-posts/'
+          );
+        })
+        .fail(function (msg) {
+          if (msg.status === 400) {
+            showNotification(msg.responseJSON.msg, 'danger');
+          } else {
+            showNotification(
+              'Please confirm your URLs and try again',
+              'danger'
+            );
+          }
+        });
+    }
+  });
 
   $('#productEditForm')
     .validator()

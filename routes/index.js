@@ -43,7 +43,6 @@ Object.defineProperty(Array.prototype, 'flat', {
   },
 });
 // *** INSTAGRAM FETCH FUNCTION ***
-const getInstagramPosts = require('../lib/instagram');
 
 // Example of how you can add new pages
 // router.get('/example', (req, res) => {
@@ -1680,60 +1679,64 @@ router.get('/:page?', async (req, res, next) => {
           return;
         }
 
-        // Fetch instagram posts from username
-        getInstagramPosts('marielyne_beauty')
-          .then((instaFeed) => {
-            const { mainPosts } = instaFeed;
-            let showBottomCarousel = true;
+        // Fetch instagram posts from db
+        const igpost = await db.igposts.findOne({});
+        let showIGPosts = igpost.posts ? true : false;
+        let postsArr = igpost && igpost.posts.split(',');
 
-            if (results.data.length === 0) {
-              showBottomCarousel = false;
-            } else {
-              bottomCarousel1 = results.data.slice(
-                0,
-                results.data.length >= 4 ? 4 : results.data.length
-              );
-              bottomCarousel2 = results.data.slice(
-                results.data.length >= 4 ? 4 : 0,
-                results.data.length >= 8 ? 8 : results.data.length
-              );
-            }
+        const mainIGPosts = [
+          postsArr[0].trim().split('/')[4],
+          postsArr[1].trim().split('/')[4],
+          postsArr[2].trim().split('/')[4],
+        ];
 
-            while (bottomCarousel1.length < 4) {
-              bottomCarousel1.push(bottomCarousel1[0]);
-            }
+        let showBottomCarousel = true;
 
-            while (bottomCarousel2.length < 4) {
-              bottomCarousel2.push(bottomCarousel2[0]);
-            }
+        if (results.data.length === 0) {
+          showBottomCarousel = false;
+        } else {
+          bottomCarousel1 = results.data.slice(
+            0,
+            results.data.length >= 4 ? 4 : results.data.length
+          );
+          bottomCarousel2 = results.data.slice(
+            results.data.length >= 4 ? 4 : 0,
+            results.data.length >= 8 ? 8 : results.data.length
+          );
+        }
 
-            const homePageProducts = results.data.slice(0, 3);
+        while (bottomCarousel1.length < 4) {
+          bottomCarousel1.push(bottomCarousel1[0]);
+        }
 
-            res.render(`${config.themeViews}index`, {
-              title: `${config.cartTitle} - Shop`,
-              theme: config.theme,
-              results: results.data,
-              homePageProducts: homePageProducts,
-              session: req.session,
-              message: clearSessionValue(req.session, 'message'),
-              messageType: clearSessionValue(req.session, 'messageType'),
-              config,
-              productsPerPage: numberProducts,
-              totalProductCount: results.totalItems,
-              pageNum: 1,
-              paginateUrl: 'page',
-              helpers: req.handlebars.helpers,
-              showFooter: 'showFooter',
-              menu: sortMenu(menu),
-              instaFeed: mainPosts,
-              bottomCarousel1: bottomCarousel1,
-              bottomCarousel2: bottomCarousel2,
-              showBottomCarousel: showBottomCarousel,
-            });
-          })
-          .catch((err) => {
-            console.error(colors.red('Error getting instagram posts', err));
-          });
+        while (bottomCarousel2.length < 4) {
+          bottomCarousel2.push(bottomCarousel2[0]);
+        }
+
+        const homePageProducts = results.data.slice(0, 3);
+
+        res.render(`${config.themeViews}index`, {
+          title: `${config.cartTitle} - Shop`,
+          theme: config.theme,
+          results: results.data,
+          homePageProducts: homePageProducts,
+          session: req.session,
+          message: clearSessionValue(req.session, 'message'),
+          messageType: clearSessionValue(req.session, 'messageType'),
+          config,
+          productsPerPage: numberProducts,
+          totalProductCount: results.totalItems,
+          pageNum: 1,
+          paginateUrl: 'page',
+          helpers: req.handlebars.helpers,
+          showFooter: 'showFooter',
+          menu: sortMenu(menu),
+          instaFeed: mainIGPosts,
+          bottomCarousel1: bottomCarousel1,
+          bottomCarousel2: bottomCarousel2,
+          showBottomCarousel: showBottomCarousel,
+          showIGPosts: showIGPosts,
+        });
       })
       .catch((err) => {
         console.error(colors.red('Error getting products for page', err));
