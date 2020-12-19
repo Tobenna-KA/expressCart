@@ -45,7 +45,7 @@
             <div class="max-thumb"></div>
           </div>
           {{else}}
-          <div class="range-slider" data-min='0' data-max='100000' data-step="10">
+          <div class="range-slider" data-min='0' data-max='150000' data-step="10">
             <div class="slider-track">
               <span class='slider-track-filled'></span>
             </div>
@@ -111,49 +111,12 @@
       <div class="customer-rev left-side">
         <h3 class="agileits-sear-head">{{ @root.__ "Minimum rating" }}</h3>
         <select class="rating-select" id="rating-select">
-          {{#if lastFilterObj}}
-          <div>
-
-            {{#if (getSelectedRating "1" lastFilterObj.rating) }}
-            <option value="1" selected>{{ @root.__ "One star" }}</option>
-            {{else}}
-            <option value="1">{{ @root.__ "One star" }}</option>
-            {{/if}}
-
-            {{#if (getSelectedRating "2" lastFilterObj.rating) }}
-            <option value="2" selected>{{ @root.__ "Two stars" }}</option>
-            {{else}}
-            <option value="2">{{ @root.__ "Two stars" }}</option>
-            {{/if}}
-
-            {{#if (getSelectedRating "3" lastFilterObj.rating) }}
-            <option value="3" selected>{{ @root.__ "Three stars" }}</option>
-            {{else}}
-            <option value="3">{{ @root.__ "Three stars" }}</option>
-            {{/if}}
-
-            {{#if (getSelectedRating "4" lastFilterObj.rating) }}
-            <option value="4" selected>{{ @root.__ "Four stars" }}</option>
-            {{else}}
-            <option value="4">{{ @root.__ "Four stars" }}</option>
-            {{/if}}
-
-            {{#if (getSelectedRating "5" lastFilterObj.rating) }}
-            <option value="5" selected>{{ @root.__ "Five stars" }}</option>
-            {{else}}
-            <option value="5">{{ @root.__ "Five stars" }}</option>
-            {{/if}}
-          </div>
-          {{else}}
-          <div>
-            <option value="1">{{ @root.__ "One star" }}</option>
-            <option value="2">{{ @root.__ "Two stars" }}</option>
-            <option value="3">{{ @root.__ "Three stars" }}</option>
-            <option value="4">{{ @root.__ "Four stars" }}</option>
-            <option value="5">{{ @root.__ "Five stars" }}</option>
-
-          </div>
-          {{/if}}
+          <option value="0" selected disabled>Select rating</option>
+          <option value="1">{{ @root.__ "One star" }}</option>
+          <option value="2">{{ @root.__ "Two stars" }}</option>
+          <option value="3">{{ @root.__ "Three stars" }}</option>
+          <option value="4">{{ @root.__ "Four stars" }}</option>
+          <option value="5">{{ @root.__ "Five stars" }}</option>
         </select>
       </div>
       <!-- //reviews -->
