@@ -1684,8 +1684,28 @@ router.get('/:page?', async (req, res, next) => {
         getInstagramPosts('marielyne_beauty')
           .then((instaFeed) => {
             const { mainPosts } = instaFeed;
-            // const { bottomCarousel1 } = instaFeed;
-            // const { bottomCarousel2 } = instaFeed;
+            let showBottomCarousel = true;
+
+            if (results.data.length === 0) {
+              showBottomCarousel = false;
+            } else {
+              bottomCarousel1 = results.data.slice(
+                0,
+                results.data.length >= 4 ? 4 : results.data.length
+              );
+              bottomCarousel2 = results.data.slice(
+                results.data.length >= 4 ? 4 : 0,
+                results.data.length >= 8 ? 8 : results.data.length
+              );
+            }
+
+            while (bottomCarousel1.length < 4) {
+              bottomCarousel1.push(bottomCarousel1[0]);
+            }
+
+            while (bottomCarousel2.length < 4) {
+              bottomCarousel2.push(bottomCarousel2[0]);
+            }
 
             const homePageProducts = results.data.slice(0, 3);
 
@@ -1706,8 +1726,9 @@ router.get('/:page?', async (req, res, next) => {
               showFooter: 'showFooter',
               menu: sortMenu(menu),
               instaFeed: mainPosts,
-              // bottomCarousel1: bottomCarousel1,
-              // bottomCarousel2: bottomCarousel2,
+              bottomCarousel1: bottomCarousel1,
+              bottomCarousel2: bottomCarousel2,
+              showBottomCarousel: showBottomCarousel,
             });
           })
           .catch((err) => {

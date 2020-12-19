@@ -1,4 +1,5 @@
 <!-- /Properties -->
+{{#if showBottomCarousel }}
 <div class="mid_slider_w3lsagile">
 	<div class="col-md-3 mid_slider_text">
 		<a href="/shop">
@@ -18,20 +19,42 @@
 				<div class="item active">
 					<div class="row bottomCarousel">
 						{{#each bottomCarousel1}}
-						<div class="col-md-3 col-sm-3 col-xs-3 slidering">
-							<div class="thumbnail"><img src="{{this.imageUrl}}" alt="Image" style="max-width:100%;">
+						{{#if productPermalink}}
+						<a href="/product/{{this.productPermalink}}">
+							<div class="col-md-3 col-sm-3 col-xs-3 slidering">
+								<div class="thumbnail"><img src="{{this.productImage}}" alt="Image" style="max-width:100%;">
+								</div>
 							</div>
-						</div>
+						</a>
+						{{else}}
+						<a href="/product/{{this._id}}">
+							<div class="col-md-3 col-sm-3 col-xs-3 slidering">
+								<div class="thumbnail"><img src="{{this.productImage}}" alt="Image" style="max-width:100%;">
+								</div>
+							</div>
+						</a>
+						{{/if}}
 						{{/each}}
 					</div>
 				</div>
 				<div class="item ">
 					<div class="row bottomCarousel">
 						{{#each bottomCarousel2}}
-						<div class="col-md-3 col-sm-3 col-xs-3 slidering">
-							<div class="thumbnail"><img src="{{this.imageUrl}}" alt="Image" style="max-width:100%;">
+						{{#if productPermalink}}
+						<a href="/product/{{this.productPermalink}}">
+							<div class="col-md-3 col-sm-3 col-xs-3 slidering">
+								<div class="thumbnail"><img src="{{this.productImage}}" alt="Image" style="max-width:100%;">
+								</div>
 							</div>
-						</div>
+						</a>
+						{{else}}
+						<a href="/product/{{this._id}}">
+							<div class="col-md-3 col-sm-3 col-xs-3 slidering">
+								<div class="thumbnail"><img src="{{this.productImage}}" alt="Image" style="max-width:100%;">
+								</div>
+							</div>
+						</a>
+						{{/if}}
 						{{/each}}
 					</div>
 				</div>
@@ -83,3 +106,4 @@
 
 	<div class="clearfix"> </div>
 </div>
+{{/if}}
