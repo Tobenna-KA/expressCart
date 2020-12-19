@@ -379,12 +379,6 @@ router.get(
           console.log(colors.red(`Error filtering products ${err}`));
         }
 
-        productsList.forEach((product) => {
-          console.log('*************************************');
-          console.log(product);
-          console.log('*************************************');
-        });
-
         Promise.all([
           // Paginate function not working
           paginateProducts(
