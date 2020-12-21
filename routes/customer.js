@@ -15,6 +15,7 @@ const rateLimit = require('express-rate-limit');
 const { indexCustomers } = require('../lib/indexing');
 const { validateJson } = require('../lib/schema');
 const { restrict } = require('../lib/auth');
+const { getMenu, sortMenu } = require('../lib/menu');
 
 const apiLimiter = rateLimit({
   windowMs: 300000, // 5 minutes
@@ -450,15 +451,19 @@ router.post('/admin/customer/lookup', restrict, async (req, res, next) => {
 });
 
 router.get('/customer/login', async (req, res, next) => {
+  const db = req.app.db;
   const config = req.app.config;
 
-  res.render(`${config.themeViews}customer-login`, {
-    title: 'Customer login',
-    config: req.app.config,
-    session: req.session,
-    message: clearSessionValue(req.session, 'message'),
-    messageType: clearSessionValue(req.session, 'messageType'),
-    helpers: req.handlebars.helpers,
+  Promise.all([getMenu(db)]).then(([menu]) => {
+    res.render(`${config.themeViews}customer-login`, {
+      title: 'Customer login',
+      config: req.app.config,
+      session: req.session,
+      message: clearSessionValue(req.session, 'message'),
+      messageType: clearSessionValue(req.session, 'messageType'),
+      menu: sortMenu(menu),
+      helpers: req.handlebars.helpers,
+    });
   });
 });
 

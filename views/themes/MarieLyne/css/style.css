@@ -1679,6 +1679,7 @@ button.btn1 {
   }
   .banner_top.innerpage {
     background: url(../images/banner3.jpg) no-repeat 0px -21px;
+    background: url(../images/inner-banner2.jpg) no-repeat 0px -21px;
     background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
