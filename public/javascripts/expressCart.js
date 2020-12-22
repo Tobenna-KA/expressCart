@@ -767,6 +767,10 @@ function updateCartDiv() {
     url: '/checkout/cartdata',
   })
     .done(function (result) {
+
+      $('#cart_btn').append(
+          '<span class="badge badge-danger" id="cart-count">${item.quantity}</span>'
+      )
       // Update the cart div
       var cart = result.cart;
       var session = result.session;
