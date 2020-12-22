@@ -18,7 +18,7 @@ const {
   getCountryList,
   getCurrencyField,
   sendEmail,
-  parseCart
+  parseCart,
 } = require('../lib/common');
 const { getSort, paginateProducts } = require('../lib/paginate');
 const { getPaymentConfig } = require('../lib/config');
@@ -594,6 +594,7 @@ router.get('/emptycart', async (req, res, next) => {
 
 router.get('/checkout/information', async (req, res, next) => {
   const config = req.app.config;
+  const db = req.app.db;
 
   // if there is no items in the cart then render a failure
   if (!req.session.cart) {
@@ -609,24 +610,28 @@ router.get('/checkout/information', async (req, res, next) => {
     paymentType = '_subscription';
   }
 
-  // render the payment page
-  res.render(`${config.themeViews}checkout-information`, {
-    title: 'Checkout - Information',
-    config: req.app.config,
-    session: req.session,
-    paymentType,
-    cartClose: false,
-    page: 'checkout-information',
-    countryList,
-    message: clearSessionValue(req.session, 'message'),
-    messageType: clearSessionValue(req.session, 'messageType'),
-    helpers: req.handlebars.helpers,
-    showFooter: 'showFooter',
+  Promise.all([getMenu(db)]).then(([menu]) => {
+    // render the payment page
+    res.render(`${config.themeViews}checkout-information`, {
+      title: 'Checkout - Information',
+      config: req.app.config,
+      session: req.session,
+      paymentType,
+      cartClose: false,
+      page: 'checkout-information',
+      countryList,
+      message: clearSessionValue(req.session, 'message'),
+      messageType: clearSessionValue(req.session, 'messageType'),
+      helpers: req.handlebars.helpers,
+      showFooter: 'showFooter',
+      menu: sortMenu(menu),
+    });
   });
 });
 
 router.get('/checkout/shipping', async (req, res, next) => {
   const config = req.app.config;
+  const db = req.app.db;
   // TODO handle cases where current currency is not the same as currency
   //  at the time item was added to cart
   // if there is no items in the cart then render a failure
@@ -653,36 +658,43 @@ router.get('/checkout/shipping', async (req, res, next) => {
   // Recalculate shipping
   config.modules.loaded.shipping.calculateShipping(netCartAmount, config, req);
 
-  // render the payment page
-  res.render(`${config.themeViews}checkout-shipping`, {
-    title: 'Checkout - Shipping',
-    config: req.app.config,
-    session: req.session,
-    cartClose: false,
-    cartReadOnly: true,
-    page: 'checkout-shipping',
-    countryList,
-    message: clearSessionValue(req.session, 'message'),
-    messageType: clearSessionValue(req.session, 'messageType'),
-    helpers: req.handlebars.helpers,
-    showFooter: 'showFooter',
+  Promise.all([getMenu(db)]).then(([menu]) => {
+    // render the payment page
+    res.render(`${config.themeViews}checkout-shipping`, {
+      title: 'Checkout - Shipping',
+      config: req.app.config,
+      session: req.session,
+      cartClose: false,
+      cartReadOnly: true,
+      page: 'checkout-shipping',
+      countryList,
+      message: clearSessionValue(req.session, 'message'),
+      messageType: clearSessionValue(req.session, 'messageType'),
+      helpers: req.handlebars.helpers,
+      showFooter: 'showFooter',
+      menu: sortMenu(menu),
+    });
   });
 });
 
 router.get('/checkout/cart', async (req, res) => {
   const config = req.app.config;
-  req.session.cart = parseCart(req.session.cart, getCurrencyField(req))
+  const db = req.app.db;
+  req.session.cart = parseCart(req.session.cart, getCurrencyField(req));
   await updateTotalCart(req, res);
 
-  res.render(`${config.themeViews}checkout-cart`, {
-    title: 'Checkout - Cart',
-    page: req.query.path,
-    config,
-    session: req.session,
-    message: clearSessionValue(req.session, 'message'),
-    messageType: clearSessionValue(req.session, 'messageType'),
-    helpers: req.handlebars.helpers,
-    showFooter: 'showFooter',
+  Promise.all([getMenu(db)]).then(([menu]) => {
+    res.render(`${config.themeViews}checkout-cart`, {
+      title: 'Checkout - Cart',
+      page: req.query.path,
+      config,
+      session: req.session,
+      message: clearSessionValue(req.session, 'message'),
+      messageType: clearSessionValue(req.session, 'messageType'),
+      helpers: req.handlebars.helpers,
+      showFooter: 'showFooter',
+      menu: sortMenu(menu),
+    });
   });
 });
 
@@ -698,6 +710,7 @@ router.get('/checkout/cartdata', (req, res) => {
 
 router.get('/checkout/payment', async (req, res) => {
   const config = req.app.config;
+  const db = req.app.db;
 
   // if there is no items in the cart then render a failure
   if (!req.session.cart) {
@@ -716,21 +729,24 @@ router.get('/checkout/payment', async (req, res) => {
   // update total cart amount one last time before payment
   await updateTotalCart(req, res);
 
-  res.render(`${config.themeViews}checkout-payment`, {
-    title: 'Checkout - Payment',
-    config: req.app.config,
-    paymentConfig: getPaymentConfig(),
-    session: req.session,
-    paymentPage: true,
-    paymentType,
-    cartClose: true,
-    cartReadOnly: true,
-    page: 'checkout-information',
-    countryList,
-    message: clearSessionValue(req.session, 'message'),
-    messageType: clearSessionValue(req.session, 'messageType'),
-    helpers: req.handlebars.helpers,
-    showFooter: 'showFooter',
+  Promise.all([getMenu(db)]).then(([menu]) => {
+    res.render(`${config.themeViews}checkout-payment`, {
+      title: 'Checkout - Payment',
+      config: req.app.config,
+      paymentConfig: getPaymentConfig(),
+      session: req.session,
+      paymentPage: true,
+      paymentType,
+      cartClose: true,
+      cartReadOnly: true,
+      page: 'checkout-information',
+      countryList,
+      message: clearSessionValue(req.session, 'message'),
+      messageType: clearSessionValue(req.session, 'messageType'),
+      helpers: req.handlebars.helpers,
+      showFooter: 'showFooter',
+      menu: sortMenu(menu),
+    });
   });
 });
 
@@ -1248,8 +1264,11 @@ router.post('/product/addtocart', async (req, res, next) => {
   let productCartId = product._id.toString();
   let productPrice = parseFloat(product[getCurrencyField(req)]).toFixed(2);
 
-  let productVariantId, productVariantTitle, productPriceCFA = 0,
-      productPriceEUR = 0, productPriceUSD = 0;
+  let productVariantId,
+    productVariantTitle,
+    productPriceCFA = 0,
+    productPriceEUR = 0,
+    productPriceUSD = 0;
   let productStock = product.productStock;
 
   // Check if a variant is supplied and override values
@@ -1360,7 +1379,7 @@ router.post('/product/addtocart', async (req, res, next) => {
     req.session.cart[productCartId] = productObj;
   }
 
-  req.session.cart = parseCart(req.session.cart, getCurrencyField(req))
+  req.session.cart = parseCart(req.session.cart, getCurrencyField(req));
   // Update cart to the DB
   await db.cart.updateOne(
     { sessionId: req.session.id },
@@ -1696,18 +1715,18 @@ router.get('/:page?', async (req, res, next) => {
         }
 
         // Fetch instagram posts from db
-        const igPost = await db.igposts.findOne({}) || {};
+        const igPost = (await db.igposts.findOne({})) || {};
         let postsArr, showIGPosts, mainIGPosts;
 
         showIGPosts = !!igPost.posts;
         if (showIGPosts) postsArr = igPost && igPost.posts.split(',');
 
         if (postsArr)
-        mainIGPosts = [
-          postsArr[0].trim().split('/')[4],
-          postsArr[1].trim().split('/')[4],
-          postsArr[2].trim().split('/')[4],
-        ];
+          mainIGPosts = [
+            postsArr[0].trim().split('/')[4],
+            postsArr[1].trim().split('/')[4],
+            postsArr[2].trim().split('/')[4],
+          ];
 
         let showBottomCarousel = true;
 
@@ -1719,7 +1738,7 @@ router.get('/:page?', async (req, res, next) => {
             results.data.length >= 4 ? 4 : results.data.length
           );
           bottomCarousel2 = results.data.slice(
-            results.data.length >= 4 ? 4 : 0,
+            results.data.length > 4 ? 4 : 0,
             results.data.length >= 8 ? 8 : results.data.length
           );
         }
@@ -1732,7 +1751,12 @@ router.get('/:page?', async (req, res, next) => {
           bottomCarousel2.push(bottomCarousel2[0]);
         }
 
-        const homePageProducts = results.data.slice(0, 3);
+        const carousel1 = bottomCarousel1.sort(() => Math.random() - 0.5);
+        const carousel2 = bottomCarousel2.sort(() => Math.random() - 0.5);
+
+        const homePageProducts = results.data.slice(0, 4);
+
+        // console.log(b)
 
         res.render(`${config.themeViews}index`, {
           title: `${config.cartTitle} - Shop`,
@@ -1751,8 +1775,8 @@ router.get('/:page?', async (req, res, next) => {
           showFooter: 'showFooter',
           menu: sortMenu(menu),
           instaFeed: mainIGPosts,
-          bottomCarousel1: bottomCarousel1,
-          bottomCarousel2: bottomCarousel2,
+          bottomCarousel1: carousel1,
+          bottomCarousel2: carousel2,
           showBottomCarousel: showBottomCarousel,
           showIGPosts: showIGPosts,
         });
