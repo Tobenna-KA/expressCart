@@ -18,6 +18,7 @@ const {
   getCountryList,
   getCurrencyField,
   sendEmail,
+  parseCart
 } = require('../lib/common');
 const { getSort, paginateProducts } = require('../lib/paginate');
 const { getPaymentConfig } = require('../lib/config');
@@ -668,8 +669,10 @@ router.get('/checkout/shipping', async (req, res, next) => {
   });
 });
 
-router.get('/checkout/cart', (req, res) => {
+router.get('/checkout/cart', async (req, res) => {
   const config = req.app.config;
+  req.session.cart = parseCart(req.session.cart, getCurrencyField(req))
+  await updateTotalCart(req, res);
 
   res.render(`${config.themeViews}checkout-cart`, {
     title: 'Checkout - Cart',
@@ -1245,8 +1248,8 @@ router.post('/product/addtocart', async (req, res, next) => {
   let productCartId = product._id.toString();
   let productPrice = parseFloat(product[getCurrencyField(req)]).toFixed(2);
 
-  let productVariantId;
-  let productVariantTitle;
+  let productVariantId, productVariantTitle, productPriceCFA = 0,
+      productPriceEUR = 0, productPriceUSD = 0;
   let productStock = product.productStock;
 
   // Check if a variant is supplied and override values
@@ -1266,6 +1269,9 @@ router.post('/product/addtocart', async (req, res, next) => {
     productPrice = parseFloat(variant[getCurrencyField(req, true)]).toFixed(2);
     productStock = variant.stock;
   }
+  productPriceUSD = parseFloat(product.productPriceUSD || '0.0').toFixed(2);
+  productPriceEUR = parseFloat(product.productPriceEUR || '0.0').toFixed(2);
+  productPriceCFA = parseFloat(product.productPriceCFA || '0.0').toFixed(2);
 
   // If stock management on check there is sufficient stock for this product
   if (config.trackStock) {
@@ -1320,6 +1326,10 @@ router.post('/product/addtocart', async (req, res, next) => {
     req.session.cart[productCartId].quantity = cartQuantity;
     req.session.cart[productCartId].totalItemPrice =
       productPrice * parseInt(req.session.cart[productCartId].quantity);
+    req.session.cart[productCartId].productPrice = +productPrice;
+    req.session.cart[productCartId].productPriceUSD = +productPriceUSD;
+    req.session.cart[productCartId].productPriceEUR = +productPriceEUR;
+    req.session.cart[productCartId].productPriceCFA = +productPriceCFA;
   } else {
     // Set the card quantity
     cartQuantity = productQuantity;
@@ -1335,6 +1345,11 @@ router.post('/product/addtocart', async (req, res, next) => {
     productObj.productSubscription = product.productSubscription;
     productObj.variantId = productVariantId;
     productObj.variantTitle = productVariantTitle;
+    productObj.productPrice = +productPrice;
+    productObj.productPriceUSD = +productPriceUSD;
+    productObj.productPriceEUR = +productPriceEUR;
+    productObj.productPriceCFA = +productPriceCFA;
+
     if (product.productPermalink) {
       productObj.link = product.productPermalink;
     } else {
@@ -1345,6 +1360,7 @@ router.post('/product/addtocart', async (req, res, next) => {
     req.session.cart[productCartId] = productObj;
   }
 
+  req.session.cart = parseCart(req.session.cart, getCurrencyField(req))
   // Update cart to the DB
   await db.cart.updateOne(
     { sessionId: req.session.id },
