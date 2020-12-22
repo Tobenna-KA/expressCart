@@ -767,10 +767,6 @@ function updateCartDiv() {
     url: '/checkout/cartdata',
   })
     .done(function (result) {
-
-      $('#cart_btn').append(
-          '<span class="badge badge-danger" id="cart-count">${item.quantity}</span>'
-      )
       // Update the cart div
       var cart = result.cart;
       var session = result.session;
@@ -886,6 +882,11 @@ function updateCartDiv() {
         $('.cart-buttons').addClass('d-none');
       }
       feather.replace();
+      if (session.totalCartItems && session.totalCartItems > 0)
+        $('#cart_btn').html(
+            `<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+                <span class="badge badge-danger" id="cart-count">${session.totalCartItems}</span>`
+        )
     })
     .fail(function (result) {
       showNotification(result.responseJSON.message, 'danger');
