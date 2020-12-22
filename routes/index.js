@@ -1680,11 +1680,14 @@ router.get('/:page?', async (req, res, next) => {
         }
 
         // Fetch instagram posts from db
-        const igpost = await db.igposts.findOne({});
-        let showIGPosts = igpost.posts ? true : false;
-        let postsArr = igpost && igpost.posts.split(',');
+        const igPost = await db.igposts.findOne({}) || {};
+        let postsArr, showIGPosts, mainIGPosts;
 
-        const mainIGPosts = [
+        showIGPosts = !!igPost.posts;
+        if (showIGPosts) postsArr = igPost && igPost.posts.split(',');
+
+        if (postsArr)
+        mainIGPosts = [
           postsArr[0].trim().split('/')[4],
           postsArr[1].trim().split('/')[4],
           postsArr[2].trim().split('/')[4],
