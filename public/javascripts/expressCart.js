@@ -884,9 +884,9 @@ function updateCartDiv() {
       feather.replace();
       if (session.totalCartItems && session.totalCartItems > 0)
         $('#cart_btn').html(
-            `<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+          `<i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
                 <span class="badge badge-danger" id="cart-count">${session.totalCartItems}</span>`
-        )
+        );
     })
     .fail(function (result) {
       showNotification(result.responseJSON.message, 'danger');

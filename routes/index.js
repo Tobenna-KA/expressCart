@@ -1529,7 +1529,7 @@ router.get('/search/:searchTerm/:pageNum?', (req, res) => {
 
       res.render(`${config.themeViews}index`, {
         title: 'Results',
-        results: results.data,
+        homePageProducts: results.data,
         filtered: true,
         session: req.session,
         metaDescription: `${req.app.config.cartTitle} - Search term: ${searchTerm}`,
