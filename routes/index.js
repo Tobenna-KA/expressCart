@@ -62,7 +62,7 @@ router.get('/about', async (req, res) => {
   const config = req.app.config;
   const file_to_render = `${config.themeViews}about`;
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
 
   Promise.all([getMenu(db)]).then(([menu]) => {
     if (req.query.json === 'true') {
@@ -85,7 +85,7 @@ router.get('/services', async (req, res) => {
   const config = req.app.config;
   const file_to_render = `${config.themeViews}services`;
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
 
   Promise.all([getMenu(db)]).then(([menu]) => {
     if (req.query.json === 'true') {
@@ -108,7 +108,7 @@ router.get('/contact', async (req, res) => {
   const config = req.app.config;
   const file_to_render = `${config.themeViews}contact`;
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
 
   Promise.all([getMenu(db)]).then(([menu]) => {
     if (req.query.json === 'true') {
@@ -160,7 +160,7 @@ router.get('/shop', async (req, res) => {
   // const numberProducts = config.productsPerPage ? config.productsPerPage : 12;
   const file_to_render = `${config.themeViews}shop`;
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
 
   Promise.all([
     paginateProducts(true, db, req.params.pageNum, {}, getSort()),
@@ -220,7 +220,7 @@ router.get('/shop/search/:searchString', async (req, res) => {
     pageNum = req.params.pageNum;
   }
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
 
   // DB Find price
   db.products
@@ -330,7 +330,7 @@ router.get(
     const filterCategories = filterObj.categories.split('-');
     filterObj.filterCategories = filterCategories;
 
-    const menuTags = await db.menutags.findOne({});
+    const menuTags = req.session.menuTags || {tags: []};
 
     let catRegexStr = '';
     filterCategories.map((cat, i) => {
@@ -484,7 +484,7 @@ router.get('/payment/:orderId', async (req, res, next) => {
   const db = req.app.db;
   const config = req.app.config;
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
 
   // Get the order
   const order = await db.orders.findOne({ _id: getId(req.params.orderId) });
@@ -630,7 +630,7 @@ router.get('/checkout/information', async (req, res, next) => {
     paymentType = '_subscription';
   }
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
 
   Promise.all([getMenu(db)]).then(([menu]) => {
     // render the payment page
@@ -681,7 +681,7 @@ router.get('/checkout/shipping', async (req, res, next) => {
   // Recalculate shipping
   config.modules.loaded.shipping.calculateShipping(netCartAmount, config, req);
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
 
   Promise.all([getMenu(db)]).then(([menu]) => {
     // render the payment page
@@ -709,7 +709,7 @@ router.get('/checkout/cart', async (req, res) => {
   req.session.cart = parseCart(req.session.cart, getCurrencyField(req));
   await updateTotalCart(req, res);
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
 
   Promise.all([getMenu(db)]).then(([menu]) => {
     res.render(`${config.themeViews}checkout-cart`, {
@@ -758,7 +758,7 @@ router.get('/checkout/payment', async (req, res) => {
   // update total cart amount one last time before payment
   await updateTotalCart(req, res);
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
 
   Promise.all([getMenu(db)]).then(([menu]) => {
     res.render(`${config.themeViews}checkout-payment`, {
@@ -789,7 +789,7 @@ router.get('/blockonomics_payment', async (req, res, next) => {
     paymentType = '_subscription';
   }
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
 
   // show bitcoin address and wait for payment, subscribing to wss
   res.render(`${config.themeViews}checkout-blockonomics`, {
@@ -899,7 +899,7 @@ router.get('/product/:id', async (req, res) => {
     $or: [{ _id: getId(req.params.id) }, { productPermalink: req.params.id }],
   });
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
   if (!product) {
     res.render('error', {
       title: 'Not found',
@@ -1550,7 +1550,7 @@ router.get('/search/:searchTerm/:pageNum?', async (req, res) => {
     pageNum = req.params.pageNum;
   }
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
 
   Promise.all([
     paginateProducts(
@@ -1612,7 +1612,7 @@ router.get('/category/:cat/:pageNum?', async (req, res) => {
     pageNum = req.params.pageNum;
   }
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
 
   Promise.all([
     paginateProducts(
@@ -1711,7 +1711,7 @@ router.get('/page/:pageNum', async (req, res, next) => {
   const config = req.app.config;
   const numberProducts = config.productsPerPage ? config.productsPerPage : 6;
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
 
   Promise.all([
     paginateProducts(true, db, req.params.pageNum, {}, getSort()),
@@ -1805,7 +1805,7 @@ router.get('/:page?', async (req, res, next) => {
 
         const homePageProducts = results.data.slice(0, 4);
 
-        const menuTags = await db.menutags.findOne({}) || {tags: []};
+        const menuTags = req.session.menuTags || {tags: []};
 
         res.render(`${config.themeViews}index`, {
           title: `${config.cartTitle} - Shop`,

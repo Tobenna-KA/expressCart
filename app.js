@@ -530,8 +530,12 @@ app.use(
 app.use(i18n.init);
 
 // bind currency
-app.use((req, res, next) => {
-  // console.log(config)
+app.use(async (req, res, next) => {
+  try {
+    req.session.menuTags =  await req.app.db.menutags.findOne({}) || {tags: []};
+  } catch (e) {
+    console.log('no menu tab')
+  }
   // set defaultCurrency if none
   if (!req.app.config.defaultCurrency)
     req.app.config.defaultCurrency = config.currencySymbol;
@@ -619,7 +623,7 @@ if (app.get('env') === 'development') {
 // production error handler
 // no stacktraces leaked to user
 app.use((err, req, res, next) => {
-  console.error(colors.red(err.stack));
+  // console.error(colors.red(err.stack));
   if (err && err.code === 'EACCES') {
     res.status(400).json({ message: 'File upload error. Please try again.' });
     return;

@@ -358,7 +358,8 @@ router.get(
   async (req, res) => {
     const db = req.app.db;
 
-    const selectedTags = await db.menutags.findOne({});
+    const selectedTags = req.session.menuTags || {tags: []};
+
     db.products.find({}).toArray((err, productList) => {
       const categories = productList.map((product) => {
         if (product.productTags.indexOf(',') >= 0) {

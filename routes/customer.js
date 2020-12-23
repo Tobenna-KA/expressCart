@@ -454,7 +454,7 @@ router.get('/customer/login', async (req, res, next) => {
   const db = req.app.db;
   const config = req.app.config;
 
-  const menuTags = await db.menutags.findOne({});
+  const menuTags = req.session.menuTags ||  {tags: []};
 
   Promise.all([getMenu(db)]).then(([menu]) => {
     res.render(`${config.themeViews}customer-login`, {
