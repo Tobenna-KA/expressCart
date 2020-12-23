@@ -3,6 +3,7 @@
   margin: 5px auto !important;
   margin-bottom: 25px !important;
   position: relative;
+
   img {
     width: 100%;
     max-height: 300px;
@@ -52,11 +53,11 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   position: fixed;
   z-index: 99;
-  right: 5%;
+  right: 3%;
   // width: 200px;
   padding: 5px 10px;
   border-radius: 5px;
-  margin-top: 50px;
+  top: 5%;
   display: flex;
   align-items: flex-end;
 
@@ -66,7 +67,7 @@
 
   .button {
     // border: 1px solid #ccc !important;
-    background-color: $primary_color !important;
+    background-color: $primary_color_darker !important;
     padding: 0 !important;
     border-radius: 2px;
     padding: 0 6px !important;
@@ -184,18 +185,9 @@
     }
   }
   .mainBannerButtons {
-    background-color: $primary_color;
-    background: rgba(27, 25, 25, 0.87);
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-    position: fixed;
-    z-index: 99;
-    right: 2% !important;
+    // right: 2% !important;
     // width: 200px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    margin-top: 15px !important;
-    display: flex;
-    align-items: flex-end;
+    // top: 15px !important;
   }
 
   .logo {
