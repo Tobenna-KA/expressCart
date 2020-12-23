@@ -454,6 +454,8 @@ router.get('/customer/login', async (req, res, next) => {
   const db = req.app.db;
   const config = req.app.config;
 
+  const menuTags = await db.menutags.findOne({});
+
   Promise.all([getMenu(db)]).then(([menu]) => {
     res.render(`${config.themeViews}customer-login`, {
       title: 'Customer login',
@@ -463,6 +465,7 @@ router.get('/customer/login', async (req, res, next) => {
       messageType: clearSessionValue(req.session, 'messageType'),
       menu: sortMenu(menu),
       helpers: req.handlebars.helpers,
+      menuTags: menuTags.tags,
     });
   });
 });

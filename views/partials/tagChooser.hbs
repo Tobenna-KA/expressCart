@@ -1,0 +1,20 @@
+<div id="fixed-tags">
+	<span>TAGS</span>
+	<ion-icon id="open-fixed-tags" name="pricetags"></ion-icon>
+	<ul id="tags-menu">
+		{{#each menuTags}}
+		<li>
+			<a href="">{{this}}</a>
+		</li>
+		{{/each}}
+	</ul>
+</div>
+
+<script>
+	$(document).ready(function () {
+		$("#open-fixed-tags").click(function () {
+			$("#fixed-tags").toggleClass("show-full");
+			$("#tags-menu").toggleClass("show");
+		});
+	});
+</script>

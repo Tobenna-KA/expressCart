@@ -57,10 +57,12 @@ Object.defineProperty(Array.prototype, 'flat', {
 // });
 
 // About us route
-router.get('/about', (req, res) => {
+router.get('/about', async (req, res) => {
   const db = req.app.db;
   const config = req.app.config;
   const file_to_render = `${config.themeViews}about`;
+
+  const menuTags = await db.menutags.findOne({});
 
   Promise.all([getMenu(db)]).then(([menu]) => {
     if (req.query.json === 'true') {
@@ -72,15 +74,18 @@ router.get('/about', (req, res) => {
       helpers: req.handlebars.helpers, // seems required
       config, // required
       menu: sortMenu(menu),
+      menuTags: menuTags.tags,
     });
   });
 });
 
 // Services route
-router.get('/services', (req, res) => {
+router.get('/services', async (req, res) => {
   const db = req.app.db;
   const config = req.app.config;
   const file_to_render = `${config.themeViews}services`;
+
+  const menuTags = await db.menutags.findOne({});
 
   Promise.all([getMenu(db)]).then(([menu]) => {
     if (req.query.json === 'true') {
@@ -92,15 +97,18 @@ router.get('/services', (req, res) => {
       helpers: req.handlebars.helpers, // seems required
       config, // required
       menu: sortMenu(menu),
+      menuTags: menuTags.tags,
     });
   });
 });
 
 // Contact route
-router.get('/contact', (req, res) => {
+router.get('/contact', async (req, res) => {
   const db = req.app.db;
   const config = req.app.config;
   const file_to_render = `${config.themeViews}contact`;
+
+  const menuTags = await db.menutags.findOne({});
 
   Promise.all([getMenu(db)]).then(([menu]) => {
     if (req.query.json === 'true') {
@@ -112,6 +120,7 @@ router.get('/contact', (req, res) => {
       helpers: req.handlebars.helpers, // seems required
       config, // required
       menu: sortMenu(menu),
+      menuTags: menuTags.tags,
     });
   });
 });
@@ -145,11 +154,13 @@ router.get('/contact/:name/:email/:subject/:message', async (req, res) => {
 });
 
 // Shop Route
-router.get('/shop', (req, res) => {
+router.get('/shop', async (req, res) => {
   const db = req.app.db;
   const config = req.app.config;
   // const numberProducts = config.productsPerPage ? config.productsPerPage : 12;
   const file_to_render = `${config.themeViews}shop`;
+
+  const menuTags = await db.menutags.findOne({});
 
   Promise.all([
     paginateProducts(true, db, req.params.pageNum, {}, getSort()),
@@ -182,12 +193,13 @@ router.get('/shop', (req, res) => {
       config: req.app.config,
       menu: sortMenu(menu),
       categories: productCategories,
+      menuTags: menuTags.tags,
     });
   });
 });
 
 // Shop search route
-router.get('/shop/search/:searchString', (req, res) => {
+router.get('/shop/search/:searchString', async (req, res) => {
   const searchStr = req.params.searchString;
 
   const searchArr = searchStr.split('-');
@@ -207,6 +219,8 @@ router.get('/shop/search/:searchString', (req, res) => {
   if (req.params.pageNum) {
     pageNum = req.params.pageNum;
   }
+
+  const menuTags = await db.menutags.findOne({});
 
   // DB Find price
   db.products
@@ -279,6 +293,7 @@ router.get('/shop/search/:searchString', (req, res) => {
             menu: sortMenu(menu),
             helpers: req.handlebars.helpers,
             showFooter: 'showFooter',
+            menuTags: menuTags.tags,
           });
         })
         .catch((err) => {
@@ -294,7 +309,7 @@ router.get('/shop/search/:searchString', (req, res) => {
 // Filter route gets filter criteria through url
 router.get(
   '/shop/filter/:minPrice/:maxPrice/:categories/:rating',
-  (req, res) => {
+  async (req, res) => {
     const filterObj = req.params;
     filterObj.maxPrice = Number(filterObj.maxPrice);
     filterObj.minPrice = Number(filterObj.minPrice);
@@ -314,6 +329,8 @@ router.get(
     // Creating category regex.
     const filterCategories = filterObj.categories.split('-');
     filterObj.filterCategories = filterCategories;
+
+    const menuTags = await db.menutags.findOne({});
 
     let catRegexStr = '';
     filterCategories.map((cat, i) => {
@@ -412,6 +429,7 @@ router.get(
               showFooter: 'showFooter',
               categories: req.session.productCategories,
               lastFilterObj: filterObj,
+              menuTags: menuTags.tags,
             });
           })
           .catch((err) => {
@@ -466,6 +484,8 @@ router.get('/payment/:orderId', async (req, res, next) => {
   const db = req.app.db;
   const config = req.app.config;
 
+  const menuTags = await db.menutags.findOne({});
+
   // Get the order
   const order = await db.orders.findOne({ _id: getId(req.params.orderId) });
   if (!order) {
@@ -474,6 +494,7 @@ router.get('/payment/:orderId', async (req, res, next) => {
       message: 'Order not found',
       helpers: req.handlebars.helpers,
       config,
+      menuTags: menuTags.tags,
     });
     return;
   }
@@ -583,6 +604,7 @@ router.get('/payment/:orderId', async (req, res, next) => {
     helpers: req.handlebars.helpers,
     showFooter: 'showFooter',
     menu: sortMenu(await getMenu(db)),
+    menuTags: menuTags.tags,
   });
 });
 
@@ -608,6 +630,8 @@ router.get('/checkout/information', async (req, res, next) => {
     paymentType = '_subscription';
   }
 
+  const menuTags = await db.menutags.findOne({});
+
   Promise.all([getMenu(db)]).then(([menu]) => {
     // render the payment page
     res.render(`${config.themeViews}checkout-information`, {
@@ -623,6 +647,7 @@ router.get('/checkout/information', async (req, res, next) => {
       helpers: req.handlebars.helpers,
       showFooter: 'showFooter',
       menu: sortMenu(menu),
+      menuTags: menuTags.tags,
     });
   });
 });
@@ -656,6 +681,8 @@ router.get('/checkout/shipping', async (req, res, next) => {
   // Recalculate shipping
   config.modules.loaded.shipping.calculateShipping(netCartAmount, config, req);
 
+  const menuTags = await db.menutags.findOne({});
+
   Promise.all([getMenu(db)]).then(([menu]) => {
     // render the payment page
     res.render(`${config.themeViews}checkout-shipping`, {
@@ -671,6 +698,7 @@ router.get('/checkout/shipping', async (req, res, next) => {
       helpers: req.handlebars.helpers,
       showFooter: 'showFooter',
       menu: sortMenu(menu),
+      menuTags: menuTags.tags,
     });
   });
 });
@@ -680,6 +708,8 @@ router.get('/checkout/cart', async (req, res) => {
   const db = req.app.db;
   req.session.cart = parseCart(req.session.cart, getCurrencyField(req));
   await updateTotalCart(req, res);
+
+  const menuTags = await db.menutags.findOne({});
 
   Promise.all([getMenu(db)]).then(([menu]) => {
     res.render(`${config.themeViews}checkout-cart`, {
@@ -692,6 +722,7 @@ router.get('/checkout/cart', async (req, res) => {
       helpers: req.handlebars.helpers,
       showFooter: 'showFooter',
       menu: sortMenu(menu),
+      menuTags: menuTags.tags,
     });
   });
 });
@@ -727,6 +758,8 @@ router.get('/checkout/payment', async (req, res) => {
   // update total cart amount one last time before payment
   await updateTotalCart(req, res);
 
+  const menuTags = await db.menutags.findOne({});
+
   Promise.all([getMenu(db)]).then(([menu]) => {
     res.render(`${config.themeViews}checkout-payment`, {
       title: 'Checkout - Payment',
@@ -744,16 +777,19 @@ router.get('/checkout/payment', async (req, res) => {
       helpers: req.handlebars.helpers,
       showFooter: 'showFooter',
       menu: sortMenu(menu),
+      menuTags: menuTags.tags,
     });
   });
 });
 
-router.get('/blockonomics_payment', (req, res, next) => {
+router.get('/blockonomics_payment', async (req, res, next) => {
   const config = req.app.config;
   let paymentType = '';
   if (req.session.cartSubscription) {
     paymentType = '_subscription';
   }
+
+  const menuTags = await db.menutags.findOne({});
 
   // show bitcoin address and wait for payment, subscribing to wss
   res.render(`${config.themeViews}checkout-blockonomics`, {
@@ -771,6 +807,7 @@ router.get('/blockonomics_payment', (req, res, next) => {
     messageType: clearSessionValue(req.session, 'messageType'),
     helpers: req.handlebars.helpers,
     showFooter: 'showFooter',
+    menuTags: menuTags.tags,
   });
 });
 
@@ -861,12 +898,15 @@ router.get('/product/:id', async (req, res) => {
   const product = await db.products.findOne({
     $or: [{ _id: getId(req.params.id) }, { productPermalink: req.params.id }],
   });
+
+  const menuTags = await db.menutags.findOne({});
   if (!product) {
     res.render('error', {
       title: 'Not found',
       message: 'Product not found',
       helpers: req.handlebars.helpers,
       config,
+      menuTags: menuTags.tags,
     });
     return;
   }
@@ -876,6 +916,7 @@ router.get('/product/:id', async (req, res) => {
       message: 'Product not found',
       helpers: req.handlebars.helpers,
       config,
+      menuTags: menuTags.tags,
     });
     return;
   }
@@ -998,6 +1039,7 @@ router.get('/product/:id', async (req, res) => {
     helpers: req.handlebars.helpers,
     showFooter: 'showFooter',
     menu: sortMenu(await getMenu(db)),
+    menuTags: menuTags.tags,
   });
 });
 
@@ -1491,7 +1533,7 @@ router.post('/product/addreview', async (req, res, next) => {
 });
 
 // search products
-router.get('/search/:searchTerm/:pageNum?', (req, res) => {
+router.get('/search/:searchTerm/:pageNum?', async (req, res) => {
   const db = req.app.db;
   const searchTerm = req.params.searchTerm;
   const productsIndex = req.app.productsIndex;
@@ -1507,6 +1549,8 @@ router.get('/search/:searchTerm/:pageNum?', (req, res) => {
   if (req.params.pageNum) {
     pageNum = req.params.pageNum;
   }
+
+  const menuTags = await db.menutags.findOne({});
 
   Promise.all([
     paginateProducts(
@@ -1542,6 +1586,7 @@ router.get('/search/:searchTerm/:pageNum?', (req, res) => {
         menu: sortMenu(menu),
         helpers: req.handlebars.helpers,
         showFooter: 'showFooter',
+        menuTags: menuTags.tags,
       });
     })
     .catch((err) => {
@@ -1550,7 +1595,7 @@ router.get('/search/:searchTerm/:pageNum?', (req, res) => {
 });
 
 // search products
-router.get('/category/:cat/:pageNum?', (req, res) => {
+router.get('/category/:cat/:pageNum?', async (req, res) => {
   const db = req.app.db;
   const searchTerm = req.params.cat;
   const productsIndex = req.app.productsIndex;
@@ -1566,6 +1611,8 @@ router.get('/category/:cat/:pageNum?', (req, res) => {
   if (req.params.pageNum) {
     pageNum = req.params.pageNum;
   }
+
+  const menuTags = await db.menutags.findOne({});
 
   Promise.all([
     paginateProducts(
@@ -1606,6 +1653,7 @@ router.get('/category/:cat/:pageNum?', (req, res) => {
         menu: sortedMenu,
         helpers: req.handlebars.helpers,
         showFooter: 'showFooter',
+        menuTags: menuTags.tags,
       });
     })
     .catch((err) => {
@@ -1658,10 +1706,12 @@ router.get('/sitemap.xml', (req, res, next) => {
   });
 });
 
-router.get('/page/:pageNum', (req, res, next) => {
+router.get('/page/:pageNum', async (req, res, next) => {
   const db = req.app.db;
   const config = req.app.config;
   const numberProducts = config.productsPerPage ? config.productsPerPage : 6;
+
+  const menuTags = await db.menutags.findOne({});
 
   Promise.all([
     paginateProducts(true, db, req.params.pageNum, {}, getSort()),
@@ -1689,6 +1739,7 @@ router.get('/page/:pageNum', (req, res, next) => {
         helpers: req.handlebars.helpers,
         showFooter: 'showFooter',
         menu: sortMenu(menu),
+        menuTags: menuTags.tags,
       });
     })
     .catch((err) => {
@@ -1754,7 +1805,7 @@ router.get('/:page?', async (req, res, next) => {
 
         const homePageProducts = results.data.slice(0, 4);
 
-        // console.log(b)
+        const menuTags = await db.menutags.findOne({});
 
         res.render(`${config.themeViews}index`, {
           title: `${config.cartTitle} - Shop`,
@@ -1777,6 +1828,7 @@ router.get('/:page?', async (req, res, next) => {
           bottomCarousel2: carousel2,
           showBottomCarousel: showBottomCarousel,
           showIGPosts: showIGPosts,
+          menuTags: menuTags.tags,
         });
       })
       .catch((err) => {

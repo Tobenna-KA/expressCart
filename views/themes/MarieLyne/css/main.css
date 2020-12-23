@@ -2519,3 +2519,49 @@ body {
       padding: 0 !important;
       margin: 0 !important;
       font-size: 0.9em !important; } }
+
+#fixed-tags {
+  width: 150px;
+  position: fixed;
+  list-style-type: none;
+  top: 22%;
+  left: -120px;
+  padding: 5px 20px;
+  letter-spacing: 1.4px;
+  background-color: #d39f5f;
+  font-size: 1.1em;
+  z-index: 99;
+  border-radius: 3px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+  display: flex;
+  transition: all 0.3s ease; }
+  #fixed-tags.show-full {
+    left: -5px; }
+  #fixed-tags span {
+    font-weight: bold; }
+  #fixed-tags ion-icon {
+    position: absolute;
+    right: 7px;
+    top: 8px;
+    font-size: 1em;
+    cursor: pointer; }
+  #fixed-tags #tags-menu {
+    display: none; }
+    #fixed-tags #tags-menu.show {
+      display: block;
+      position: absolute;
+      background-color: #d9ab73;
+      width: 100%;
+      margin: 0;
+      margin-top: 30px;
+      list-style: none;
+      left: 10px;
+      border-radius: 1px;
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+      padding: 0 5px; }
+      #fixed-tags #tags-menu.show li {
+        padding: 5px;
+        margin-top: 5px; }
+        #fixed-tags #tags-menu.show li a {
+          font-weight: bold;
+          color: #fcfcfc !important; }

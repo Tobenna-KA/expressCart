@@ -1,0 +1,60 @@
+#fixed-tags {
+  width: 150px;
+  position: fixed;
+  list-style-type: none;
+  top: 22%;
+  left: -120px;
+  padding: 5px 20px;
+  letter-spacing: 1.4px;
+  background-color: $primary_color_darker;
+  font-size: 1.1em;
+  z-index: 99;
+  border-radius: 3px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+  display: flex;
+  transition: $color_transition;
+
+  &.show-full {
+    left: -5px;
+  }
+
+  span {
+    font-weight: bold;
+  }
+
+  ion-icon {
+    position: absolute;
+    right: 7px;
+    top: 8px;
+    font-size: 1em;
+    cursor: pointer;
+  }
+
+  #tags-menu {
+    display: none;
+
+    &.show {
+      display: block;
+      position: absolute;
+      background-color: $primary_color;
+      width: 100%;
+      margin: 0;
+      margin-top: 30px;
+      list-style: none;
+      left: 10px;
+      border-radius: 1px;
+      box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+      padding: 0 5px;
+
+      li {
+        padding: 5px;
+        margin-top: 5px;
+
+        a {
+          font-weight: bold;
+          color: $light_color;
+        }
+      }
+    }
+  }
+}
