@@ -1805,7 +1805,7 @@ router.get('/:page?', async (req, res, next) => {
 
         const homePageProducts = results.data.slice(0, 4);
 
-        const menuTags = await db.menutags.findOne({});
+        const menuTags = await db.menutags.findOne({}) || {tags: []};
 
         res.render(`${config.themeViews}index`, {
           title: `${config.cartTitle} - Shop`,
