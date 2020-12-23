@@ -1,0 +1,46 @@
+{{> partials/menu}}
+<script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+	<div class="col-sm-12">
+		<h2>Tags Menu</h2>
+		<hr />
+		<div class="row">
+			{{!-- <div class="col-sm-2" style="text-align: center;">
+				<h4>
+					Selected
+				</h4>
+			</div> --}}
+			<div class="col-sm-12">
+				<h4>
+					{{!-- Tags --}}
+				</h4>
+			</div>
+		</div>
+		<form autocomplete="off" class="form-horizontal" id="tagsMenuForm">
+			<div id="draggable_list">
+				{{#each tags}}
+				<div class="row drag-row mb-2">
+					<div class="col-sm-12 ml-3">
+						{{#if this.state}}
+						<input class="tag-selected" checked type="checkbox" value="{{this.name}}">
+						{{else}}
+						<input class="tag-selected" type="checkbox" value="{{this.name}}">
+						{{/if}}
+						<h6 style="display: inline-block; margin-left: 10px;">
+							{{this.name}}
+						</h6>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+			<div class="container">
+				<button id="frm_edit_tags_save" class="btn btn-outline-success float-right" type="submit">Save Links</button>
+			</div>
+		</form>
+		<div class="row">
+			<p class="text-muted mt-4">
+				{{ @root.__ "Setting_tag_link_explain" }}
+			</p>
+		</div>
+	</div>
+</main>

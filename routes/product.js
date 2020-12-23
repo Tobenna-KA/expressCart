@@ -586,7 +586,7 @@ router.post(
   }
 );
 
-// insert new product form action
+// insert ig posts
 router.post(
   '/admin/ig-posts/insert',
   restrict,
@@ -648,24 +648,77 @@ router.post(
       console.log(colors.red(`Error inserting ig posts: ${ex}`));
       res.status(400).json({ msg: 'Error inserting ig posts' });
     }
-    return;
+  }
+);
+
+// insert tags for menu
+router.post(
+  '/admin/menu-tags/insert',
+  restrict,
+  checkAccess,
+  async (req, res) => {
+    const db = req.app.db;
+
+    let selectedTags;
+
+    Object.keys(req.body).forEach((key) => {
+      selectedTags = req.body[key];
+    });
 
     try {
-      const newDoc = await db.products.insertOne(doc);
-      // get the new ID
-      const newId = newDoc.insertedId;
+      // If there are no selected tags then delete the menutags collection
+      if (!selectedTags) {
+        selectedTags = [];
+      } else if (typeof selectedTags == 'string') {
+        selectedTags = [selectedTags];
+      }
 
-      // add to lunr index
-      indexProducts(req.app).then(() => {
-        res.status(200).json({
-          message: 'New product successfully created',
-          productId: newId,
-        });
+      let menutags = {
+        menuID: '1234',
+        tags: selectedTags,
+      };
+
+      await db.menutags.updateOne(
+        { menuID: menutags.menuID },
+        { $set: { tags: menutags.tags } },
+        { upsert: true }
+      );
+
+      res.status(200).json({
+        message: 'Successfully modified',
       });
     } catch (ex) {
       console.log(colors.red(`Error inserting document: ${ex}`));
       res.status(400).json({ message: 'Error inserting document' });
     }
+
+    return;
+
+    let urlIsValid = true;
+    const urlValidateRegex = new RegExp(/^https:\/\/www.instagram.com/);
+    let igpostsStr = '';
+
+    try {
+      let IGPOST = {
+        postID: '1234',
+        posts: igpostsStr,
+      };
+      await db.igposts.updateOne(
+        { postID: IGPOST.postID },
+        { $set: { posts: IGPOST.posts } },
+        {
+          upsert: true,
+        }
+      );
+      // get the new ID
+      res.status(200).json({
+        message: 'Successfully modified',
+      });
+    } catch (ex) {
+      console.log(colors.red(`Error inserting ig posts: ${ex}`));
+      res.status(400).json({ msg: 'Error inserting ig posts' });
+    }
+    return;
   }
 );
 

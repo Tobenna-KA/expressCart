@@ -350,6 +350,54 @@ router.get(
   }
 );
 
+// settings tag-links
+router.get(
+  '/admin/settings/tag-links',
+  csrfProtection,
+  restrict,
+  async (req, res) => {
+    const db = req.app.db;
+
+    const selectedTags = await db.menutags.findOne({});
+    db.products.find({}).toArray((err, productList) => {
+      const categories = productList.map((product) => {
+        if (product.productTags.indexOf(',') >= 0) {
+          const cats = product.productTags.split(', ');
+          return cats;
+        } else {
+          return product.productTags;
+        }
+      });
+
+      const productCategories = [...new Set(categories.flat())].filter(
+        (cat) => cat.length > 0
+      );
+
+      const tagLinks = productCategories.map((tag, i) => {
+        return {
+          state: selectedTags.tags.includes(tag),
+          name: tag,
+          order: i + 1,
+        };
+      });
+
+      res.render('settings-tag-links', {
+        title: 'Cart IG Tags',
+        layout: 'layout_old.hbs',
+        session: req.session,
+        admin: true,
+        message: clearSessionValue(req.session, 'message'),
+        messageType: clearSessionValue(req.session, 'messageType'),
+        helpers: req.handlebars.helpers,
+        config: req.app.config,
+        // menu: sortMenu(await getMenu(db)),
+        tags: tagLinks,
+        csrfToken: req.csrfToken(),
+      });
+    });
+  }
+);
+
 // page list
 router.get(
   '/admin/settings/pages',

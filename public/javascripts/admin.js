@@ -282,6 +282,39 @@ $(document).ready(function () {
       }
     });
 
+  $('#tagsMenuForm').on('submit', function (e) {
+    if (!e.isDefaultPrevented()) {
+      e.preventDefault();
+
+      const allTags = $('.tag-selected');
+      const selectedTags = [];
+      allTags.filter((i) => {
+        if (allTags[i].checked) selectedTags.push(allTags[i].value);
+      });
+
+      $.ajax({
+        method: 'POST',
+        url: '/admin/menu-tags/insert',
+        data: { selectedTags },
+      })
+        .done(function (msg) {
+          showNotification(
+            msg.message,
+            'success',
+            false,
+            '/admin/settings/tag-links/'
+          );
+        })
+        .fail(function (msg) {
+          if (msg.status === 400) {
+            showNotification(msg.responseJSON.msg, 'danger');
+          } else {
+            showNotification('Please refresh and try again', 'danger');
+          }
+        });
+    }
+  });
+
   $('#IGPostsForm').on('submit', function (e) {
     if (!e.isDefaultPrevented()) {
       e.preventDefault();
