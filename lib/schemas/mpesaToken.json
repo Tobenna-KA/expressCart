@@ -1,0 +1,22 @@
+{
+  "properties": {
+    "lastUpdated": {
+      "type": "string"
+    },
+    "accessToken": {
+      "type": "string"
+    },
+    "timeout": {
+      "type": "string"
+    },
+    "service": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "lastUpdated",
+    "accessToken",
+    "timeout",
+    "service"
+  ]
+}

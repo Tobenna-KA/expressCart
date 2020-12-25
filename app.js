@@ -74,6 +74,7 @@ const customer = require('./routes/customer');
 const order = require('./routes/order');
 const user = require('./routes/user');
 const reviews = require('./routes/reviews');
+const mpesa = require('./lib/payments/mpesa');
 const { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } = require('constants');
 
 const app = express();
@@ -269,6 +270,7 @@ handlebars = handlebars.create({
       return `themes/${config.theme}/${view}`;
     },
     formatAmount: (amt) => {
+      console.log(amt, this)
       if (amt) {
         return numeral(amt).format('0.00');
       }
@@ -587,6 +589,7 @@ app.use('/', order);
 app.use('/', user);
 app.use('/', admin);
 app.use('/', reviews);
+app.use('/', mpesa);
 
 // Payment route(s)
 _.forEach(config.paymentGateway, (gateway) => {

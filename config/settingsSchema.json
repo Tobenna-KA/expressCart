@@ -78,6 +78,10 @@
                     },
                     {
                         "type": "string",
+                        "enum": [ "mpesa"]
+                    },
+                    {
+                        "type": "string",
                         "enum": [ "blockonomics"]
                     },
                     {

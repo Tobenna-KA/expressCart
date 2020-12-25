@@ -1,0 +1,27 @@
+{
+  "properties": {
+    "amount": {
+      "type": "string"
+    },
+    "accountReference": {
+      "type": "string"
+    },
+    "callBackURL":  {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "phoneNumber": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "amount",
+    "accountReference",
+    "callBackURL",
+    "description",
+    "phoneNumber"
+  ],
+  "additionalProperties": false
+}

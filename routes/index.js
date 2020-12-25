@@ -32,6 +32,7 @@ const { sortMenu, getMenu } = require('../lib/menu');
 const countryList = getCountryList();
 
 const { contactFormSchema } = require('../lib/contactValidation');
+
 Object.defineProperty(Array.prototype, 'flat', {
   value: function (depth = 1) {
     return this.reduce(function (flat, toFlatten) {

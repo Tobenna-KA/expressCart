@@ -1,0 +1,70 @@
+<div>
+    <div class="mb-2">
+        <span class="float-right">
+            <img  style="height: 50px" src="{{ @root.paymentConfig.mpesa.logo }}" alt="{{@root.paymentConfig.mpesa.description}}">
+        </span>
+    </div>
+    <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-md-2 col-sm-4 col-xs-2">
+            <input class="form-control" type="search" placeholder="+254" readonly>
+        </div>
+        <div class="col-8 col-md-6 col-sm-8 col-xs-8">
+        <span class="float-right">
+        <input class="form-control" id="mpesa-number" type="search" placeholder="{{ @root.__ "Phone Number" }}" value="{{@root.session.customerPhone}}">
+        </span>
+        </div>
+        <input type="hidden" id="environment" value="{{@root.paymentConfig.mpesa.environment}}">
+        <input type="hidden" id="mpesaNumber" value="{{ @root.session.customerPhone }}">
+        <input type="hidden" id="totalAmount" value="{{ @root.session.totalCartAmount }}">
+    </div>
+    <button id="pay-mpesa" class="btn btn-outline-success mt-2" type="submit">Pay via M-Pesa</button>
+</div>
+
+<script>
+    const leading0RegEx = new RegExp(/^0(7(?:(?:[129][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$/)
+    const countryCodeRegEx = new RegExp(/^(?:254)?(7(?:(?:[129][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$/)
+    // const fullCountryCodeRegEx = new RegExp(/^(?:+254)?(7(?:(?:[129][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$/)
+    const numberRegEx = new RegExp(/^(7(?:(?:[129][0-9])|(?:0[0-8])|(4[0-1]))[0-9]{6})$/)
+
+   $(document).ready(() => {
+       let phoneNumber = $('#mpesa-number').val();
+       console.log(phoneNumber)
+       phoneNumber = cleanNumber(phoneNumber)
+       console.log(phoneNumber)
+       $('#mpesa-number').val(phoneNumber);
+
+       $('#mpesa-number').change((e) => {
+
+           console.log(e)
+       })
+
+       $('#pay-mpesa').on('click', (e) => {
+           console.log(e)
+           $.ajax({
+               type: 'POST',
+               url: '/api/v1/stkpush/process',
+               data: {
+                   phoneNumber: '254' + $('#mpesa-number').val(),
+                   amount: '1',
+                   accountReference: 'test',
+                   description: 'test'
+               }
+           }).done((response) => {
+               // window.location = '/payment/' + response.paymentId;
+           }).fail((response) => {
+               // window.location = '/payment/' + response.paymentId;
+           });
+       })
+
+   })
+
+    function cleanNumber(_phoneNumber) {
+        if (leading0RegEx.test(_phoneNumber)) {
+            return _phoneNumber.substring(1, _phoneNumber.length);
+        } else if (countryCodeRegEx.test(_phoneNumber)) {
+            return _phoneNumber.substring(2, _phoneNumber.length);
+        } /*else if (fullCountryCodeRegEx.test(_phoneNumber)) {
+            return _phoneNumber.substring(3, _phoneNumber.length);
+        }*/
+    }
+</script>

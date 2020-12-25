@@ -1,0 +1,25 @@
+{
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "logo": {
+      "type": "string"
+    },
+    "accountReference": {
+      "type": "string"
+    },
+    "callBackURL":  {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "description",
+    "logo"
+  ],
+  "additionalProperties": false
+}

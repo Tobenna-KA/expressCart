@@ -1,0 +1,7 @@
+{
+  "title": "Pay via Mpesa",
+  "description": "Mpesa",
+  "logo": "/images/mpesa.png",
+  "accountReference": "test",
+  "callBackURL": "/api/v1/callback"
+}
