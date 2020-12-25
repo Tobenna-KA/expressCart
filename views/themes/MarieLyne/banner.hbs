@@ -21,6 +21,16 @@
 							<a class="nav-link" href="{{this.link}}">{{this.title}}</a>
 						</li>
 						{{/each}}
+						<li class='sub-menu'>
+							<a href='#settings'> CATEGORIES
+								<div class='fa fa-caret-down right'></div>
+							</a>
+							<ul>
+								{{#each menuTags}}
+								<li><a href="/search/{{this}}">{{this}}</a></li>
+								{{/each}}
+							</ul>
+						</li>
 					</ul>
 				</nav>
 			</div>
@@ -177,3 +187,12 @@
 	</div>
 </div>
 <!-- //banner -->
+<script>
+	$(document).ready(function () {
+		$('.sub-menu ul').hide();
+		$(".sub-menu a").click(function () {
+			$(this).parent(".sub-menu").children("ul").slideToggle("100");
+			$(this).find(".right").toggleClass("fa-caret-up fa-caret-down");
+		});
+	});
+</script>

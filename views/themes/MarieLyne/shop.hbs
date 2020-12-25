@@ -65,7 +65,7 @@
         <div>
           {{#if lastFilterObj.filterCategories}}
           <div>
-            {{#each (getCheckedCategories categories lastFilterObj.filterCategories) }}
+            {{#each (getCheckedCategories menuTags lastFilterObj.filterCategories) }}
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}" checked>
               <label class="form-check-label" for="{{this}}">
@@ -73,7 +73,7 @@
               </label>
             </div>
             {{/each}}
-            {{#each (getUncheckedCategories categories lastFilterObj.filterCategories) }}
+            {{#each (getUncheckedCategories menuTags lastFilterObj.filterCategories) }}
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
               <label class="form-check-label" for="{{this}}">
@@ -85,7 +85,7 @@
 
           {{else}}
           <div>
-            {{#each categories}}
+            {{#each menuTags}}
             <div class="form-check">
               <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
               <label class="form-check-label" for="{{this}}">
@@ -97,7 +97,7 @@
 
           {{/if}}
           {{else}}
-          {{#each categories}}
+          {{#each menuTags}}
           <div class="form-check">
             <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
             <label class="form-check-label" for="{{this}}">

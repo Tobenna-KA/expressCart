@@ -14,11 +14,21 @@
 					<ul>
 						<li class="nav-item {{#unless searchTerm}}active{{/unless}}"><a class="nav-link" href="/">Home</a></li>
 						{{#each menu.items}}
-						<li class="nav-item" {{#menuMatch this.title @root.searchTerm}}{{/menuMatch}}
-							{{#menuMatch this.title @root.title}}{{/menuMatch}}>
+						<li class="nav-item" {{#menuMatch this.title @root.searchTerm}}{{/menuMatch}} {{#menuMatch this.title
+							@root.title}}{{/menuMatch}}>
 							<a class="nav-link" href="{{this.link}}">{{this.title}}</a>
 						</li>
 						{{/each}}
+						<li class='sub-menu'>
+							<a href='#settings'> CATEGORIES
+								<div class='fa fa-caret-down right'></div>
+							</a>
+							<ul>
+								{{#each menuTags}}
+								<li><a href="/search/{{this}}">{{this}}</a></li>
+								{{/each}}
+							</ul>
+						</li>
 					</ul>
 				</nav>
 			</div>
@@ -187,8 +197,8 @@
 					</div>
 					<div id="cd-search" class="cd-search">
 						<form id="search_form2">
-							<input class="form-control siteSearchForm" name="frm_search" id="frm_search2"
-								placeholder="{{ @root.__ "Search shop" }}" aria-label="Search" type="search">
+							<input class="form-control siteSearchForm" name="frm_search" id="frm_search2" placeholder="{{ @root.__ "
+								Search shop" }}" aria-label="Search" type="search">
 						</form>
 					</div>
 				</div>
@@ -199,13 +209,13 @@
 
 	<div class="search_w3ls_agileinfo">
 		{{!-- <div class="cd-main-header">
-						<ul class="cd-header-buttons">
-							<li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
-						</ul>
-					</div> --}}
+			<ul class="cd-header-buttons">
+				<li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
+			</ul>
+		</div> --}}
 		<div id="cd-search" class="cd-search">
 			<form id="search_form">
-				<input class="form-control" name="frm_search" id="frm_search" placeholder="{{ @root.__ "Search shop" }}"
+				<input class="form-control" name="frm_search" id="frm_search" placeholder="{{ @root.__ " Search shop" }}"
 					aria-label="Search" type="search">
 			</form>
 		</div>
@@ -223,3 +233,12 @@
 	</div>
 	<!-- //banner_inner -->
 </div>
+<script>
+	$(document).ready(function () {
+		$('.sub-menu ul').hide();
+		$(".sub-menu a").click(function () {
+			$(this).parent(".sub-menu").children("ul").slideToggle("100");
+			$(this).find(".right").toggleClass("fa-caret-up fa-caret-down");
+		});
+	});
+</script>
