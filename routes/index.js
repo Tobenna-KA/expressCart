@@ -283,6 +283,18 @@ router.get('/shop/search/:searchString', async (req, res) => {
                 $options: 'ig',
               },
             },
+            {
+              productColors: {
+                $regex: searchRegex,
+                $options: 'ig',
+              },
+            },
+            {
+              productCapsizes: {
+                $regex: searchRegex,
+                $options: 'ig',
+              },
+            },
           ],
         },
       },
