@@ -44,6 +44,8 @@
   {{#if admin}}
   <link rel="stylesheet" href="/stylesheets/admin{{config.env}}.css">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
+  <link href="/{{config.theme}}/css/newproduct.css" rel="stylesheet" type="text/css" media="all" />
+
   {{/if}}
   <script src="https://js.stripe.com/v3/"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
@@ -218,6 +220,8 @@
   <script src="/{{config.theme}}/index{{config.env}}.js"></script>
   {{/if}}
   {{/if}}
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.min.js"></script>
 </head>
 {{#if admin}}
 
@@ -236,9 +240,10 @@
         {{!-- Config file is in /config/settings.json --}}
         {{/if}}
       </a>
-      {{!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu"  aria-label="Toggle navigation">
-              {{{feather 'menu'}}}
-          </button> --}}
+      {{!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMenu"
+        aria-controls="navbarMenu" aria-label="Toggle navigation">
+        {{{feather 'menu'}}}
+      </button> --}}
       <div id="navbarText">
         <ul class="navbar-nav ml-auto">
           {{#ifCond @root.config.enableLanguages "!=" false}}
@@ -283,7 +288,7 @@
           <li class="nav-item">
             <a href="/checkout/cart" class="btn menu-btn">
               <ion-icon name="cart"></ion-icon>
-              {{!-- {{ @root.__ "Cart" }}  --}}
+              {{!-- {{ @root.__ "Cart" }} --}}
               <span class="badge badge-danger" id="cart-count">{{@root.session.totalCartItems}}</span>
             </a>
           </li>
@@ -291,7 +296,7 @@
           <li class="nav-item">
             <a href="/checkout/cart" class="btn menu-btn">
               <ion-icon name="cart"></ion-icon></i>
-              {{!-- {{ @root.__ "Cart" }}  --}}
+              {{!-- {{ @root.__ "Cart" }} --}}
               <span class="badge badge-danger" id="cart-count">0</span>
             </a>
           </li>

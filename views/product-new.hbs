@@ -5,6 +5,7 @@
 			<div class="page-header">
 				<div class="float-right">
 					<button id="frm_edit_product_save" class="btn btn-outline-success" type="submit">Add product</button>
+					<button id="frm_edit_product_test" class="btn btn-outline-success" type="button">Test product</button>
 				</div>
 				<h2>{{ @root.__ "New product" }}</h2>
 			</div>
@@ -86,6 +87,48 @@
 			</div>
 		</div>
 		<div class="row ml-0 mr-0">
+			<div class="col-sm-4">
+				<div class="form-group">
+					<label for="productCapsize" class="control-label">{{ @root.__ "Product Capsize" }} *</label>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<label class="input-group-text">Size</label>
+						</div>
+						<select id="multiselect" multiple="multiple">
+							<option value="sm">Small</option>
+							<option value="md">Medium</option>
+							<option value="lg">Large</option>
+							<option value="xl">Extra Large</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-8">
+				<div class="form-group">
+					<label for="productColor" class="control-label">{{ @root.__ "Product Color" }} *</label>
+					<div class="input-group">
+						<input type="text" id="productColor" class="form-control" placeholder="Color name" />
+						<span class="color-picker">
+							<label for="colorPicker">
+								<input type="color" value="#1DB8CE" id="colorPicker">
+							</label>
+						</span>
+						<button id="addColorBtn" type="button" class="btn btn-sm btn-primary">
+							Add
+						</button>
+					</div>
+				</div>
+				<input type="text" style="display: none;" id="colorInput">
+				<div class="form-group" id="productColorChips">
+					{{!-- <div class="md-chip">
+						<span>Chip chip chip</span>
+						<button type="button" class="md-chip-remove">
+						</button>
+					</div> --}}
+				</div>
+			</div>
+		</div>
+		<div class="row ml-0 mr-0">
 			<div class="col-sm-6">
 				<div class="form-group">
 					<label for="productPublished" class="control-label">{{ @root.__ "Status" }}</label>
@@ -163,5 +206,86 @@
 			height: 300,
 			minHeight: null
 		});
+
+		$(document).ready(function () {
+
+			$('#multiselect').multiselect({
+				buttonWidth: '200px',
+				includeSelectAllOption: true,
+				nonSelectedText: 'Sizes'
+			});
+
+			function getSelectedValues() {
+				var selectedVal = $("#multiselect").val();
+				for (var i = 0; i < selectedVal.length; i++) {
+					if (window.CP.shouldStopExecution(0)) break;
+					function innerFunc(i) {
+						setTimeout(function () {
+							location.href = selectedVal[i];
+						}, i * 2000);
+					}
+					innerFunc(i);
+				} window.CP.exitedLoop(0);
+			}
+
+			document.querySelectorAll('input[type=color]').forEach(function (picker) {
+
+				var targetLabel = document.querySelector('label[for="' + picker.id + '"]'),
+					codeArea = document.createElement('span');
+
+				codeArea.innerHTML = picker.value;
+				targetLabel.appendChild(codeArea);
+
+				picker.addEventListener('change', function () {
+					codeArea.innerHTML = picker.value;
+					targetLabel.appendChild(codeArea);
+				});
+			});
+
+			let productColors = {}
+
+			$('#addColorBtn').on('click', function (e) {
+				e.preventDefault()
+
+
+				const color = {
+					name: $("#productColor").val(),
+					color: $("#colorPicker").val()
+				}
+
+				if (productColors[color.name] || color.name == '') return
+
+				const newChip = `
+					<div class="md-chip" style='border: 2px solid ${color.color}'>
+						<span>${color.name}</span>
+						<button type="button" data-color="${color.name}" class="md-chip-remove">
+						</button>
+					</div>
+				`
+
+				$('#productColorChips').append(newChip)
+
+				if (color.name.trim() == '') return
+				else {
+					productColors[color.name] = color.color
+					$('#colorInput').val(JSON.stringify(productColors))
+					$("#productColor").val('')
+				}
+			})
+
+			$(document).on("click", "button.md-chip-remove", function (e) {
+				const color = $(this).attr("data-color")
+				//const colorIndex = productColors.findIndex(c => c.name == color)
+				if (productColors[color]) {
+					delete productColors[color]
+					//productColors.splice(colorIndex, 1)
+					$(this).parent().remove();
+
+					$('#colorInput').val(JSON.stringify(productColors))
+				}
+			});
+		})
 	});
+
+	//productColorChips
 </script>

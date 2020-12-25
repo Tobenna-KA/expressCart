@@ -132,11 +132,16 @@ router.post(
       productBrand: cleanHtml(req.body.productBrand),
       productPublished: convertBool(req.body.productPublished),
       productTags: req.body.productTags,
+      productCapsizes: req.body.productCapsizes,
+      productColors: req.body.productColors,
       productComment: checkboxBool(req.body.productComment),
       productAddedDate: new Date(),
       productStock: safeParseInt(req.body.productStock) || null,
       productStockDisable: convertBool(req.body.productStockDisable),
     };
+
+    console.log('#############################');
+    console.log(doc);
 
     // Validate the body again schema
     const schemaValidate = validateJson('newProduct', doc);
@@ -204,6 +209,26 @@ router.get(
     product.variants = await db.variants
       .find({ product: getId(req.params.id) })
       .toArray();
+
+    if (product.productCapsizes && product.productCapsizes != '') {
+      product.productCapsizes = product.productCapsizes.split(', ');
+    }
+
+    if (product.productColors) {
+      const colors = JSON.parse(product.productColors);
+      const productColors = [];
+
+      Object.keys(colors).forEach((key) => {
+        const color = {
+          name: key,
+          color: colors[key],
+        };
+
+        productColors.push(color);
+      });
+
+      product.productColors = productColors;
+    }
 
     // If API request, return json
     if (req.apiAuthenticated) {
@@ -418,6 +443,8 @@ router.post(
       productBrand: cleanHtml(req.body.productBrand),
       productPublished: convertBool(req.body.productPublished),
       productTags: req.body.productTags,
+      productCapsizes: req.body.productCapsizes,
+      productColors: req.body.productColors,
       productComment: checkboxBool(req.body.productComment),
       productStock: safeParseInt(req.body.productStock) || null,
       productStockDisable: convertBool(req.body.productStockDisable),

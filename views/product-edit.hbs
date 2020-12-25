@@ -4,8 +4,8 @@
 		<div class="col-12">
 			<div class="page-header">
 				<div class="float-right">
-					<button type="button" class="btn btn-outline-info" data-toggle="modal"
-						data-target="#myModal">{{ @root.__ "Upload image" }}</button>
+					<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#myModal">{{ @root.__
+						"Upload image" }}</button>
 					<button id="productUpdate" class="btn btn-outline-success">{{ @root.__ "Save product" }}</button>
 				</div>
 				<h2>{{ @root.__ "Edit product" }}</h2>
@@ -35,8 +35,8 @@
 				<div class="form-group">
 					<label for="productPublished" class="control-label">{{ @root.__ "Status" }} *</label>
 					<select class="form-control" id="productPublished">
-						<option value="true" {{selectState result.productPublished "true"}}>{{ @root.__ "Published" }}</option>
-						<option value="false" {{selectState result.productPublished "false"}}>{{ @root.__ "Draft" }}</option>
+						<option value="true" {{selectState result.productPublished "true" }}>{{ @root.__ "Published" }}</option>
+						<option value="false" {{selectState result.productPublished "false" }}>{{ @root.__ "Draft" }}</option>
 					</select>
 				</div>
 			</div>
@@ -91,150 +91,221 @@
 				</div>
 			</div>
 		</div>
-		{{#if config.trackStock}}
-		<div class="row">
-			<div class="col-sm-5 ml-3">
+		<div class="row ml-0 mr-0">
+			<div class="col-sm-6">
 				<div class="form-group">
-					<label for="productStock" class="control-label">{{ @root.__ "Stock level" }}</label>
-					<input type="number" id="productStock" class="form-control" value="{{result.productStock}}" step="any" />
-				</div>
-			</div>
-			<div class="col-sm-5">
-				<label for="productStockDisable" class="control-label">{{ @root.__ "Disable stock tracking" }}</label>
-				<div class="checkbox">
-					<label>
-						<input class="productStockDisable" type="checkbox" {{checkedState result.productStockDisable}}
-							id="productStockDisable">
-					</label>
-				</div>
-			</div>
-		</div>
-		{{/if}}
-		<div class="col-12">
-			<div class="form-group">
-				<label for="productDescription" class="control-label">{{ @root.__ "Product description" }} *</label>
-				<textarea minlength="5" rows="10" id="productDescription" class="form-control"
-					required>{{result.productDescription}}</textarea>
-			</div>
-		</div>
-		<div class="col-12">
-			<div class="form-group">
-				<label class="control-label">Permalink</label>
-				<div class="input-group">
-					<input type="text" class="form-control" id="productPermalink" placeholder="Permalink for the article"
-						value={{result.productPermalink}}>
-					<div class="input-group-append">
-						<button class="btn btn-outline-success" id="validatePermalink"
-							type="button">{{ @root.__ "Validate" }}</button>
-					</div>
-				</div>
-				<p class="help-block">{{ @root.__ "This sets a readable URL for the product" }}</p>
-			</div>
-		</div>
-		<div class="col-12">
-			<div class="form-group">
-				<label class="control-label">{{ @root.__ "Product variants" }}</label>
-				<ul class="list-group" id="product_opt_wrapper">
-					<li class="list-group-item bg-secondary">
-						<div class="row">
-							<div class='col-sm-3'>Title</div>
-							<div class='col-sm-3'>Price</div>
-							<div class='col-sm-3'>Stock</div>
-							<div class='col-sm-3 text-right'>
-								<a href="#" data-toggle="modal" data-target="#variantModal"
-									class="btn btn-outline-success">{{ @root.__ "Add" }}</a>
-							</div>
+					{{result.productCapsizes}}
+					<label for="productCapsize" class="control-label">{{ @root.__ "Product Capsize" }} *</label>
+					<div class="input-group">
+						<div class="input-group-prepend">
+							<label class="input-group-text">Size</label>
 						</div>
-					</li>
-					{{#if result.variants}}
-					{{#each result.variants}}
-					<li class="list-group-item">
-						<div class="row">
-							<div class='col-sm-3'>{{this.title}}</div>
-							<div class='col-sm-3'>{{currencySymbol config.currencySymbol}}{{formatAmount this.price}}</div>
-							{{#if this.stock}}
-							<div class='col-sm-3'>{{this.stock}}</div>
+						<select id="multiselect2" multiple="multiple">
+							{{#if result.productCapsizes}}
+							{{#if (getProductCapsize 'sm' result.productCapsizes)}}
+							<option value="sm" selected>Small</option>
 							{{else}}
-							<div class='col-sm-3'>N/A</div>
+							<option value="sm">Small</option>
 							{{/if}}
-							<div class='col-sm-3 text-right'>
-								<button class='btn btn-outline-warning editVariant' href="#variantEditModal" data-toggle="modal"
-									data-id="{{this._id}}" data-title="{{this.title}}" data-price="{{this.price}}"
-                                    data-productpriceusd="{{this.productPriceUSD}}" data-productpricecfa="{{this.productPriceCFA}}"
-                                    data-productpriceeur="{{this.productPriceEUR}}"
-									data-stock="{{this.stock}}">{{ @root.__ "Edit" }}</button>
-								<button class='btn btn-outline-danger removeVariant'
-									data-id="{{this._id}}">{{ @root.__ "Remove" }}</button>
-							</div>
-						</div>
-					</li>
-					{{/each}}
-					{{else}}
-					<li class="list-group-item">
-						<div class="row">
-							<div class='col-sm-12 text-center'>No current variants</div>
-						</div>
-					</li>
-					{{/if}}
-				</ul>
-				<p class="help-block">{{ @root.__ "Here you can set variants for your product. Eg: Size, color, style" }}</p>
-			</div>
-		</div>
-		{{#contains config.paymentGateway 'stripe'}}
-		<div class="col-12">
-			<div class="form-group">
-				<label class="control-label">Subscription plan</label>
-				<input type="text" class="form-control" id="productSubscription" placeholder="plan_XXXXXXXXXXXXXX"
-					value={{@root.result.productSubscription}}>
-				<p class="help-block">First setup the plan in <strong>Stripe</strong> dashboard and enter the Plan ID. Format:
-					plan_XXXXXXXXXXXXXX</p>
-			</div>
-		</div>
-		{{/contains}}
-		<div class="col-12">
-			<div class="form-group">
-				<label for="productComment" class="control-label">{{ @root.__ "Allow comment" }}</label>
-				<div class="checkbox">
-					<label>
-						<input class="productComment" type="checkbox" {{checkedState result.productComment}} id="productComment">
-					</label>
-				</div>
-				<p class="help-block">{{ @root.__ "Allow free form comments when adding products to cart" }}</p>
-			</div>
-		</div>
-		<div class="col-12">
-			<div class="form-group">
-				<label for="productTags" class="control-label">{{ @root.__ "Product tag words" }}</label>
-				<input type="text" class="form-control" id="productTags" value="{{result.productTags}}">
-				<p class="help-block">
-					{{ @root.__ "Tag words used to indexed products, making them easier to find and filter." }}</p>
-			</div>
-		</div>
-		<div class="col-sm-12">
-			<div id="product-images">
-				<h2>{{ @root.__ "Product images" }}</h2>
-				{{#if images}}
-				<div class="row">
-					{{#each images}}
-					<div class="col-sm-3">
-						<p>
-							<a data-id="{{this.path}}" class="btn-delete-image btn btn-outline-danger">{{ @root.__ "Delete" }}</a>
-							{{#ifCond this.productImage '==' true}}
-							<span class="label label-info">{{ @root.__ "main image" }}</span>
+							{{#if (getProductCapsize 'md' result.productCapsizes)}}
+							<option value="md" selected>Medium</option>
 							{{else}}
-							<a data-id="{{../this.path}}"
-								class="set-as-main-image btn btn-outline-success">{{ @root.__ "Set as main image" }}</a>
-							{{/ifCond}}
-						</p>
-						<img src="{{this.path}}" class="product-main-image img-fluid">
+							<option value="md">Medium</option>
+							{{/if}}
+							{{#if (getProductCapsize 'lg' result.productCapsizes)}}
+							<option value="lg" selected>Large</option>
+							{{else}}
+							<option value="lg">Large</option>
+							{{/if}}
+							{{#if (getProductCapsize 'xl' result.productCapsizes)}}
+							<option value="xl" selected>Extra Large</option>
+							{{else}}
+							<option value="xl">Extra Large</option>
+							{{/if}}
+							{{else}}
+							<option value="sm">Small</option>
+							<option value="md">Medium</option>
+							<option value="lg">Large</option>
+							<option value="xl">Extra Large</option>
+							{{/if}}
+						</select>
 					</div>
-					{{/each}}
 				</div>
-				{{else}}
-				<h4 class="text-warning">{{ @root.__ "No images have been uploaded for this product" }}</h4>
-				{{/if}}
 			</div>
-		</div>
+			<div class="col-sm-6">
+				<div class="form-group">
+					<label for="productColor2" class="control-label">{{ @root.__ "Product Color" }} *</label>
+					<div class="input-group">
+						<input type="text" id="productColor2" class="form-control" placeholder="Color name" />
+						<span class="color-picker">
+							<label for="colorPicker2">
+								<input type="color" value="#1DB8CE" id="colorPicker2">
+							</label>
+						</span>
+						<button id="addColorBtn2" type="button" class="btn btn-sm btn-primary">
+							Add
+						</button>
+					</div>
+				</div>
+				<input type="text" style="display: none;" id="colorInput2">
+				<div class="form-group" id="productColorChips">
+					<div class="form-group" id="productColorChips2"></div>
+					<div class="dbgOuter">
+						{{#each result.productColors}}
+						<div class="dbgCont">
+							<input type="checkbox" checked id="{{this.name}}" value="{{this.name}}" data-color="{{this.color}}"
+								name="colors" class="dbgCheck" />
+							<label for="{{this.name}}">{{this.name}}</label>
+						</div>
+						{{/each}}
+					</div>
+				</div>
+			</div>
+			{{#if config.trackStock}}
+			<div class="row">
+				<div class="col-sm-5 ml-3">
+					<div class="form-group">
+						<label for="productStock" class="control-label">{{ @root.__ "Stock level" }}</label>
+						<input type="number" id="productStock" class="form-control" value="{{result.productStock}}" step="any" />
+					</div>
+				</div>
+				<div class="col-sm-5">
+					<label for="productStockDisable" class="control-label">{{ @root.__ "Disable stock tracking" }}</label>
+					<div class="checkbox">
+						<label>
+							<input class="productStockDisable" type="checkbox" {{checkedState result.productStockDisable}}
+								id="productStockDisable">
+						</label>
+					</div>
+				</div>
+			</div>
+			{{/if}}
+			<div class="col-12">
+				<div class="form-group">
+					<label for="productDescription" class="control-label">{{ @root.__ "Product description" }} *</label>
+					<textarea minlength="5" rows="10" id="productDescription" class="form-control"
+						required>{{result.productDescription}}</textarea>
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="form-group">
+					<label class="control-label">Permalink</label>
+					<div class="input-group">
+						<input type="text" class="form-control" id="productPermalink" placeholder="Permalink for the article"
+							value={{result.productPermalink}}>
+						<div class="input-group-append">
+							<button class="btn btn-outline-success" id="validatePermalink" type="button">{{ @root.__ "Validate"
+								}}</button>
+						</div>
+					</div>
+					<p class="help-block">{{ @root.__ "This sets a readable URL for the product" }}</p>
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="form-group">
+					<label class="control-label">{{ @root.__ "Product variants" }}</label>
+					<ul class="list-group" id="product_opt_wrapper">
+						<li class="list-group-item bg-secondary">
+							<div class="row">
+								<div class=' col-sm-3'>Title</div>
+								<div class='col-sm-3'>Price</div>
+								<div class='col-sm-3'>Stock</div>
+								<div class='col-sm-3 text-right'>
+									<a href="#" data-toggle="modal" data-target="#variantModal" class="btn btn-outline-success">{{
+										@root.__
+										"Add" }}</a>
+								</div>
+							</div>
+						</li>
+						{{#if result.variants}}
+						{{#each result.variants}}
+						<li class="list-group-item">
+							<div class="row">
+								<div class='col-sm-3'>{{this.title}}</div>
+								<div class='col-sm-3'>{{currencySymbol config.currencySymbol}}{{formatAmount this.price}}</div>
+								{{#if this.stock}}
+								<div class='col-sm-3'>{{this.stock}}</div>
+								{{else}}
+								<div class='col-sm-3'>N/A</div>
+								{{/if}}
+								<div class='col-sm-3 text-right'>
+									<button class='btn btn-outline-warning editVariant' href="#variantEditModal" data-toggle="modal"
+										data-id="{{this._id}}" data-title="{{this.title}}" data-price="{{this.price}}"
+										data-productpriceusd="{{this.productPriceUSD}}" data-productpricecfa="{{this.productPriceCFA}}"
+										data-productpriceeur="{{this.productPriceEUR}}" data-stock="{{this.stock}}">{{ @root.__ "Edit"
+										}}</button>
+									<button class='btn btn-outline-danger removeVariant' data-id="{{this._id}}">{{ @root.__ "Remove"
+										}}</button>
+								</div>
+							</div>
+						</li>
+						{{/each}}
+						{{else}}
+						<li class="list-group-item">
+							<div class="row">
+								<div class='col-sm-12 text-center'>No current variants</div>
+							</div>
+						</li>
+						{{/if}}
+					</ul>
+					<p class="help-block">{{ @root.__ "Here you can set variants for your product. Eg: Size, color, style" }}</p>
+				</div>
+			</div>
+			{{#contains config.paymentGateway 'stripe'}}
+			<div class="col-12">
+				<div class="form-group">
+					<label class="control-label">Subscription plan</label>
+					<input type="text" class="form-control" id="productSubscription" placeholder="plan_XXXXXXXXXXXXXX"
+						value={{@root.result.productSubscription}}>
+					<p class="help-block">First setup the plan in <strong>Stripe</strong> dashboard and enter the Plan ID. Format:
+						plan_XXXXXXXXXXXXXX</p>
+				</div>
+			</div>
+			{{/contains}}
+			<div class="col-12">
+				<div class="form-group">
+					<label for="productComment" class="control-label">{{ @root.__ "Allow comment" }}</label>
+					<div class="checkbox">
+						<label>
+							<input class="productComment" type="checkbox" {{checkedState result.productComment}} id="productComment">
+						</label>
+					</div>
+					<p class="help-block">{{ @root.__ "Allow free form comments when adding products to cart" }}</p>
+				</div>
+			</div>
+			<div class="col-12">
+				<div class="form-group">
+					<label for="productTags" class="control-label">{{ @root.__ "Product tag words" }}</label>
+					<input type="text" class="form-control" id="productTags" value="{{result.productTags}}">
+					<p class="help-block">
+						{{ @root.__ "Tag words used to indexed products, making them easier to find and filter." }}</p>
+				</div>
+			</div>
+			<div class="col-sm-12">
+				<div id="product-images">
+					<h2>{{ @root.__ "Product images" }}</h2>
+					{{#if images}}
+					<div class="row">
+						{{#each images}}
+						<div class="col-sm-3">
+							<p>
+								<a data-id="{{this.path}}" class="btn-delete-image btn btn-outline-danger">{{ @root.__ "Delete" }}</a>
+								{{#ifCond this.productImage '==' true}}
+								<span class="label label-info">{{ @root.__ "main image" }}</span>
+								{{else}}
+								<a data-id="{{../this.path}}" class="set-as-main-image btn btn-outline-success">{{ @root.__ "Set as main
+									image" }}</a>
+								{{/ifCond}}
+							</p>
+							<img src="{{this.path}}" class="product-main-image img-fluid">
+						</div>
+						{{/each}}
+					</div>
+					{{else}}
+					<h4 class="text-warning">{{ @root.__ "No images have been uploaded for this product" }}</h4>
+					{{/if}}
+				</div>
+			</div>
 		</div>
 		<input type="hidden" id="productId" value="{{result._id}}" />
 	</form>
@@ -272,6 +343,68 @@
 		$('#productDescription').summernote({
 			height: 300,
 			minHeight: null
+		});
+
+
+		$('#multiselect2').multiselect({
+			buttonWidth: '200px',
+			includeSelectAllOption: true,
+			nonSelectedText: 'Sizes'
+		});
+
+		function getSelectedValues() {
+			var selectedVal = $("#multiselect2").val();
+			for (var i = 0; i < selectedVal.length; i++) {
+				if (window.CP.shouldStopExecution(0)) break;
+				function innerFunc(i) {
+					setTimeout(function () {
+						location.href = selectedVal[i];
+					}, i * 2000);
+				}
+				innerFunc(i);
+			} window.CP.exitedLoop(0);
+		}
+
+
+
+		let productColors = {}
+
+		$('#addColorBtn2').on('click', function (e) {
+			e.preventDefault()
+
+			const color = {
+				name: $("#productColor2").val(),
+				color: $("#colorPicker2").val()
+			}
+
+			if (color.name == '') return
+
+			const newChip2 = `
+				<div class="md-chip" style='border: 2px solid ${color.color}'>
+					<span>${color.name}</span>
+					<button type="button" data-color="${color.name}" class="md-chip-remove">
+					</button>
+				</div>
+			`
+
+			if ($('#productColorChips2')) {
+				$('#productColorChips2').append(newChip2)
+			}
+
+			if (color.name.trim() == '') return
+			else {
+				productColors[color.name] = color.color
+				$('#colorInput2').val(JSON.stringify(productColors))
+				$("#productColor2").val('')
+			}
+		})
+
+		$(document).on("click", "button.md-chip-remove", function (e) {
+			const color = $(this).attr("data-color")
+			if (productColors[color]) {
+				delete productColors[color]
+				$(this).parent().remove();
+			}
 		});
 	});
 </script>

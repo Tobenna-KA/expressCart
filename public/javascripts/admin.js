@@ -242,6 +242,7 @@ $(document).ready(function () {
         ) {
           $('#productPermalink').val(slugify($('#productTitle').val()));
         }
+
         $.ajax({
           method: 'POST',
           url: '/admin/product/insert',
@@ -260,6 +261,8 @@ $(document).ready(function () {
             productSubscription: $('#productSubscription').val(),
             productComment: $('#productComment').is(':checked'),
             productTags: $('#productTags').val(),
+            productCapsizes: $('#multiselect').val().join(', '),
+            productColors: $('#colorInput').val(),
           },
         })
           .done(function (msg) {
@@ -360,6 +363,24 @@ $(document).ready(function () {
         ) {
           $('#productPermalink').val(slugify($('#productTitle').val()));
         }
+
+        const productColorsObj = $('#colorInput2').val()
+          ? JSON.parse($('#colorInput2').val())
+          : {};
+
+        const oldColors = [];
+        $('input:checkbox[name=colors]:checked').each(function () {
+          const oldColor = {
+            name: $(this).val(),
+            color: $(this).data('color'),
+          };
+
+          if (productColorsObj[oldColor.name]) return;
+          else productColorsObj[oldColor.name] = oldColor.color;
+        });
+
+        const productColorsStr = JSON.stringify(productColorsObj);
+
         $.ajax({
           method: 'POST',
           url: '/admin/product/update',
@@ -380,6 +401,8 @@ $(document).ready(function () {
             productSubscription: $('#productSubscription').val(),
             productComment: $('#productComment').is(':checked'),
             productTags: $('#productTags').val(),
+            productCapsizes: $('#multiselect2').val().join(', '),
+            productColors: productColorsStr,
           },
         })
           .done(function (msg) {

@@ -20,6 +20,12 @@
             "type": "string",
             "format": "amount"
         },
+        "productCapsizes": {
+            "type": "string"
+        },
+        "productColors": {
+            "type": "string"
+        },
         "productPriceCFA": {
             "type": "string",
             "format": "amount"

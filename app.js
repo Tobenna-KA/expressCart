@@ -121,9 +121,9 @@ handlebars = handlebars.create({
       return i18n.__n(this, arguments);
     }, // eslint-disable-line no-undef
     priceValue(val) {
-      console.log(val, this)
+      console.log(val, this);
       if (!val || !this.session) return null;
-      console.log(val)
+      console.log(val);
       if (
         !this.session.currency ||
         this.session.currency === 'KES' ||
@@ -176,6 +176,9 @@ handlebars = handlebars.create({
       )
         return this.productPrice;
       return this[parent.session.currency];
+    },
+    getProductCapsize(size, arr) {
+      return arr.includes(size);
     },
     getCheckedCategories(val1, val2) {
       const checked = [];
@@ -270,7 +273,7 @@ handlebars = handlebars.create({
       return `themes/${config.theme}/${view}`;
     },
     formatAmount: (amt) => {
-      console.log(amt, this)
+      console.log(amt, this);
       if (amt) {
         return numeral(amt).format('0.00');
       }
@@ -534,9 +537,11 @@ app.use(i18n.init);
 // bind currency
 app.use(async (req, res, next) => {
   try {
-    req.session.menuTags =  await req.app.db.menutags.findOne({}) || {tags: []};
+    req.session.menuTags = (await req.app.db.menutags.findOne({})) || {
+      tags: [],
+    };
   } catch (e) {
-    console.log('no menu tab')
+    console.log('no menu tab');
   }
   // set defaultCurrency if none
   if (!req.app.config.defaultCurrency)
