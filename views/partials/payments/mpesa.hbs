@@ -50,9 +50,11 @@
                    description: 'test'
                }
            }).done((response) => {
+               console.log(response, 'done')
                // window.location = '/payment/' + response.paymentId;
            }).fail((response) => {
                // window.location = '/payment/' + response.paymentId;
+               console.log(response, 'fail')
            });
        })
 
