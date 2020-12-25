@@ -19,7 +19,18 @@
           </button>
         </div>
         <div class="title">
-          <h6><a href="/product/{{this.link}}">{{this.title}}</a></h6>
+          <h6>
+            <a href="/product/{{this.link}}">{{this.title}}
+              <span style="font-weight: bold;">
+                {{#if this.productColor}}
+                - ({{this.productColor}})
+                {{/if}}
+                {{#if this.productCapsize}}
+                | ({{this.productCapsize}})
+                {{/if}}
+              </span>
+            </a>
+          </h6>
           {{#if this.variantId}}
           <strong>Option:</strong> {{this.variantTitle}}
           {{/if}}
@@ -40,8 +51,8 @@
         {{/ifCond}}
       </div>
       <div class="cart-price">
-        <strong
-          class="my-auto">{{currencySymbol @root.config.currencySymbol}}{{formatAmount this.totalItemPrice}}</strong>
+        <strong class="my-auto">{{currencySymbol @root.config.currencySymbol}}{{formatAmount
+          this.totalItemPrice}}</strong>
       </div>
     </div>
     {{/each}}
@@ -51,8 +62,8 @@
     <div class="cart-totals">
       {{#ifCond @root.session.totalCartShipping '>' 0}}
       <h6>
-        {{@root.session.shippingMessage}}: <strong
-          id="shipping-amount">{{currencySymbol @root.config.currencySymbol}}{{formatAmount @root.session.totalCartShipping}}</strong>
+        {{@root.session.shippingMessage}}: <strong id="shipping-amount">{{currencySymbol
+          @root.config.currencySymbol}}{{formatAmount @root.session.totalCartShipping}}</strong>
       </h6>
       {{else}}
       <h6>
@@ -61,14 +72,14 @@
       {{/ifCond}}
       {{#ifCond @root.session.totalCartDiscount '>' 0}}
       <h6>
-        Discount: <strong
-          id="discount-amount">{{currencySymbol @root.config.currencySymbol}}{{formatAmount @root.session.totalCartDiscount}}</strong>
+        Discount: <strong id="discount-amount">{{currencySymbol @root.config.currencySymbol}}{{formatAmount
+          @root.session.totalCartDiscount}}</strong>
       </h6>
       {{/ifCond}}
       <h5>
         Total:
-        <strong
-          id="total-cart-amount">{{currencySymbol @root.config.currencySymbol}}{{formatAmount @root.session.totalCartAmount}}</strong>
+        <strong id="total-cart-amount">{{currencySymbol @root.config.currencySymbol}}{{formatAmount
+          @root.session.totalCartAmount}}</strong>
       </h5>
     </div>
     {{else}}

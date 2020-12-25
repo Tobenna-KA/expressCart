@@ -900,7 +900,34 @@ router.get('/product/:id', async (req, res) => {
     $or: [{ _id: getId(req.params.id) }, { productPermalink: req.params.id }],
   });
 
+  const colors = [];
+  if (product.productColors) {
+    const productColors = JSON.parse(product.productColors);
+
+    Object.keys(productColors).forEach((key) => {
+      const color = {
+        name: key,
+        color: productColors[key],
+      };
+      colors.push(color);
+    });
+  }
+  product.productColors = colors;
+  if (product.productCapsizes) {
+    if (product.productCapsizes.length > 0) {
+      product.productCapsizes = product.productCapsizes.split(', ');
+    }
+  }
+
+  // console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+
+  // product.productColors = colors;
+
+  // console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+  // console.log(product);
+
   const menuTags = req.session.menuTags || { tags: [] };
+
   if (!product) {
     res.render('error', {
       title: 'Not found',
@@ -911,6 +938,7 @@ router.get('/product/:id', async (req, res) => {
     });
     return;
   }
+
   if (product.productPublished === false) {
     res.render('error', {
       title: 'Not found',
@@ -937,6 +965,7 @@ router.get('/product/:id', async (req, res) => {
     ratingHtml: '',
     highestRating: 0,
   };
+
   if (config.modules.enabled.reviews) {
     reviews.reviews = await db.reviews
       .find({ product: product._id })
@@ -1256,6 +1285,9 @@ router.post('/product/addtocart', async (req, res, next) => {
     ? req.body.productComment
     : null;
 
+  let productColor = req.body.productColor ? req.body.productColor : null;
+  let productCapsize = req.body.productCapsize ? req.body.productCapsize : null;
+
   // If maxQuantity set, ensure the quantity doesn't exceed that value
   if (config.maxQuantity && productQuantity > config.maxQuantity) {
     return res.status(400).json({
@@ -1276,6 +1308,24 @@ router.post('/product/addtocart', async (req, res, next) => {
 
   // Get the product from the DB
   const product = await db.products.findOne({ _id: getId(req.body.productId) });
+
+  if (!productColor) {
+    if (product.productColors) {
+      if (product.productColors.length > 0) {
+        const colors = JSON.parse(product.productColors);
+        productColor = Object.keys(colors)[0];
+      }
+    }
+  }
+
+  if (!productCapsize) {
+    if (product.productCapsizes) {
+      if (product.productCapsizes.length > 0) {
+        const capsizes = product.productCapsizes.split(', ');
+        productCapsize = capsizes[0];
+      }
+    }
+  }
 
   // No product found
   if (!product) {
@@ -1381,15 +1431,72 @@ router.post('/product/addtocart', async (req, res, next) => {
   // if exists we add to the existing value
   let cartQuantity = 0;
   if (req.session.cart[productCartId]) {
-    cartQuantity =
-      parseInt(req.session.cart[productCartId].quantity) + productQuantity;
-    req.session.cart[productCartId].quantity = cartQuantity;
-    req.session.cart[productCartId].totalItemPrice =
-      productPrice * parseInt(req.session.cart[productCartId].quantity);
-    req.session.cart[productCartId].productPrice = +productPrice;
-    req.session.cart[productCartId].productPriceUSD = +productPriceUSD;
-    req.session.cart[productCartId].productPriceEUR = +productPriceEUR;
-    req.session.cart[productCartId].productPriceCFA = +productPriceCFA;
+    if (
+      req.session.cart[productCartId].productColor === productColor &&
+      req.session.cart[productCartId].productCapsize === productCapsize
+    ) {
+      // if both are the same
+      cartQuantity =
+        parseInt(req.session.cart[productCartId].quantity) + productQuantity;
+      req.session.cart[productCartId].quantity = cartQuantity;
+      req.session.cart[productCartId].totalItemPrice =
+        productPrice * parseInt(req.session.cart[productCartId].quantity);
+      req.session.cart[productCartId].productPrice = +productPrice;
+      req.session.cart[productCartId].productPriceUSD = +productPriceUSD;
+      req.session.cart[productCartId].productPriceEUR = +productPriceEUR;
+      req.session.cart[productCartId].productPriceCFA = +productPriceCFA;
+    } else {
+      // Set the card quantity
+      cartQuantity = productQuantity;
+
+      // new product deets
+      const productObj = {};
+      productObj.productId = product._id;
+      productObj.title = product.productTitle;
+      productObj.quantity = productQuantity;
+      productObj.totalItemPrice = productPrice * productQuantity;
+      productObj.productImage = product.productImage;
+      productObj.productComment = productComment;
+      productObj.productSubscription = product.productSubscription;
+      productObj.variantId = productVariantId;
+      productObj.variantTitle = productVariantTitle;
+      productObj.productPrice = +productPrice;
+      productObj.productPriceUSD = +productPriceUSD;
+      productObj.productPriceEUR = +productPriceEUR;
+      productObj.productPriceCFA = +productPriceCFA;
+      productObj.productColor = productColor;
+      productObj.productCapsize = productCapsize;
+
+      if (product.productPermalink) {
+        productObj.link = product.productPermalink;
+      } else {
+        productObj.link = product._id;
+      }
+
+      // merge into the current cart
+      req.session.cart[
+        productCartId + productColor + productCapsize
+      ] = productObj;
+
+      // console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+      // console.log(req.session.cart[productCartId]);
+      // return;
+    }
+
+    // Check if the product color is the same
+
+    // Check if the product capsize is the same
+
+    // if both are the same
+    // cartQuantity =
+    //   parseInt(req.session.cart[productCartId].quantity) + productQuantity;
+    // req.session.cart[productCartId].quantity = cartQuantity;
+    // req.session.cart[productCartId].totalItemPrice =
+    //   productPrice * parseInt(req.session.cart[productCartId].quantity);
+    // req.session.cart[productCartId].productPrice = +productPrice;
+    // req.session.cart[productCartId].productPriceUSD = +productPriceUSD;
+    // req.session.cart[productCartId].productPriceEUR = +productPriceEUR;
+    // req.session.cart[productCartId].productPriceCFA = +productPriceCFA;
   } else {
     // Set the card quantity
     cartQuantity = productQuantity;
@@ -1409,6 +1516,8 @@ router.post('/product/addtocart', async (req, res, next) => {
     productObj.productPriceUSD = +productPriceUSD;
     productObj.productPriceEUR = +productPriceEUR;
     productObj.productPriceCFA = +productPriceCFA;
+    productObj.productColor = productColor;
+    productObj.productCapsize = productCapsize;
 
     if (product.productPermalink) {
       productObj.link = product.productPermalink;
@@ -1552,8 +1661,6 @@ router.get('/search/:searchTerm/:pageNum?', async (req, res) => {
   }
 
   const menuTags = req.session.menuTags || { tags: [] };
-  console.log('********************************');
-  console.log(menuTags);
 
   Promise.all([
     paginateProducts(

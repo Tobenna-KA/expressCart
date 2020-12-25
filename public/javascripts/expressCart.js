@@ -452,6 +452,8 @@ $(document).ready(function () {
         productQuantity: $('#product_quantity').val(),
         productVariant: $('#product_variant').val(),
         productComment: $('#product_comment').val(),
+        productColor: $('#productColorSelect').val(),
+        productCapsize: $('#productCapsizeSelect').val(),
       },
     })
       .done(function (msg) {
