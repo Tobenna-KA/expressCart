@@ -5,7 +5,6 @@
 			<div class="page-header">
 				<div class="float-right">
 					<button id="frm_edit_product_save" class="btn btn-outline-success" type="submit">Add product</button>
-					<button id="frm_edit_product_test" class="btn btn-outline-success" type="button">Test product</button>
 				</div>
 				<h2>{{ @root.__ "New product" }}</h2>
 			</div>
@@ -23,7 +22,7 @@
 					<label for="productPrice" class="control-label">{{ @root.__ "Product price" }} *</label>
 					<div class="input-group">
 						<div class="input-group-prepend">
-							<label class="input-group-text">{{currencySymbol config.currencySymbol}}</label>
+							<label class="input-group-text">KSH</label>
 						</div>
 						<input type="number" id="productPrice" class="form-control" step="any" value="{{productPrice}}" required />
 					</div>

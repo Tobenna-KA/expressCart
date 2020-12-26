@@ -327,10 +327,19 @@ router.get(
     const db = req.app.db;
 
     const IGPost = await db.igposts.findOne({});
-    let postsArr = IGPost && IGPost.posts.split(',');
-    let igPostOne = postsArr[0].trim();
-    let igPostTwo = postsArr[1].trim();
-    let igPostThree = postsArr[2].trim();
+    let postsArr,
+      igPostOne = '',
+      igPostTwo = '',
+      igPostThree = '';
+
+    if (IGPost) {
+      if (IGPost.posts.length > 0) {
+        postsArr = IGPost.posts.split(',');
+        igPostOne = postsArr[0].trim();
+        igPostTwo = postsArr[1].trim();
+        igPostThree = postsArr[2].trim();
+      } else postsArr = [];
+    }
 
     res.render('settings-ig', {
       title: 'Cart IG Posts',
@@ -358,7 +367,7 @@ router.get(
   async (req, res) => {
     const db = req.app.db;
 
-    const selectedTags = req.session.menuTags || {tags: []};
+    const selectedTags = req.session.menuTags || { tags: [] };
 
     db.products.find({}).toArray((err, productList) => {
       const categories = productList.map((product) => {
