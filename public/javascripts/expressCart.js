@@ -818,7 +818,13 @@ function updateCartDiv() {
                 <button class="btn-delete-from-cart" data-cartid="${cartId}" type="button"><i class="fa fa-times-circle" data-cartid="${cartId}"></i></button>
               </div>
               <div class="title">
-                <h6><a href="/product/${item.link}">${item.title}</a></h6>
+                <h6>
+                  <a href="/product/${item.link}">${item.title}
+                  <span style="font-weight: bold;">
+                    - (${item.productColor ? item.productColor : ''})
+                    | (${item.productCapsize ? item.productCapsize : ''})
+                  </span>
+                  </a></h6>
                 ${variantHtml}
               </div>
             </div>
@@ -841,7 +847,9 @@ function updateCartDiv() {
             </div>
             </div>
             <div class="cart-price">
-              <strong class="my-auto">${result.currencySymbol}${productTotalAmount}</strong>
+              <strong class="my-auto">${
+                result.currencySymbol
+              }${productTotalAmount}</strong>
             </div>
           </div>`;
         });
