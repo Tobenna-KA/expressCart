@@ -67,5 +67,8 @@
 	"Allow comment": "Allow comment",
 	"Allow free form comments when adding products to cart": "Allow free form comments when adding products to cart",
 	"Tag words used to indexed products, making them easier to find and filter.": "Tag words used to indexed products, making them easier to find and filter.",
-	"Setting_tag_link_explain": "Here you can add and remove categories from the categories menu."
+	"Setting_tag_link_explain": "Here you can add and remove categories from the categories menu.",
+	"IG Post URL": "IG Post URL",
+	"Setting_menu_explain": "Here you can configure a menu to display on your shopping cart. You can use this menu to filter your products by specifying a keyword in the \"link\" field. For example: to display products with a boot keyword (or tag), set the menu field to \"Backpacks\" and a link value of \"backpack\". You can also use this menu to link to static pages, for example: shipping, returns, help, about, contact etc.",
+	"Setting_ig_explain": "Here you can manage which IG posts will be displayed on the landing page. \n To add / edit the displayed posts, just open the desired Instagram post with a browser and copy and paste the input URL."
 }
