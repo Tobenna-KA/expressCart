@@ -172,7 +172,33 @@ router.get('/shop', async (req, res) => {
       return;
     }
 
+    const colors = [];
+    const capsizes = [];
     const categories = results.data.map((product) => {
+      if (product.productColors) {
+        const colorsObj = JSON.parse(product.productColors);
+
+        Object.keys(colorsObj).forEach((key) => {
+          const color = {
+            name: key,
+            color: colorsObj[key],
+          };
+
+          if (colors.findIndex((c) => c.name == color.name) < 0)
+            colors.push(color);
+        });
+      }
+
+      if (product.productCapsizes) {
+        const capsizesArr = product.productCapsizes.split(', ');
+
+        capsizesArr.forEach((capsize) => {
+          if (capsizes.findIndex((size) => size == capsize) < 0) {
+            capsizes.push(capsize);
+          }
+        });
+      }
+
       if (product.productTags.indexOf(',') >= 0) {
         const cats = product.productTags.split(', ');
         return cats;
@@ -186,6 +212,8 @@ router.get('/shop', async (req, res) => {
     );
 
     req.session.productCategories = productCategories;
+    req.session.productColors = colors;
+    req.session.productCapsizes = capsizes;
 
     res.render(file_to_render, {
       session: req.session,
@@ -195,6 +223,8 @@ router.get('/shop', async (req, res) => {
       menu: sortMenu(menu),
       categories: productCategories,
       menuTags: menuTags.tags,
+      colors: colors ? colors : null,
+      capsizes: capsizes ? capsizes : null,
     });
   });
 });
@@ -249,6 +279,18 @@ router.get('/shop/search/:searchString', async (req, res) => {
             },
             {
               productBrand: {
+                $regex: searchRegex,
+                $options: 'ig',
+              },
+            },
+            {
+              productColors: {
+                $regex: searchRegex,
+                $options: 'ig',
+              },
+            },
+            {
+              productCapsizes: {
                 $regex: searchRegex,
                 $options: 'ig',
               },
@@ -309,7 +351,7 @@ router.get('/shop/search/:searchString', async (req, res) => {
 
 // Filter route gets filter criteria through url
 router.get(
-  '/shop/filter/:minPrice/:maxPrice/:categories/:rating',
+  '/shop/filter/:minPrice/:maxPrice/:categories/:rating/:colors/:capsizes',
   async (req, res) => {
     const filterObj = req.params;
     filterObj.maxPrice = Number(filterObj.maxPrice);
@@ -331,6 +373,14 @@ router.get(
     const filterCategories = filterObj.categories.split('-');
     filterObj.filterCategories = filterCategories;
 
+    // creating colors regex
+    const filterColors = filterObj.colors.split('-');
+    filterObj.filterColors = filterColors;
+
+    // creating capsizes regex
+    const filterCapsizes = filterObj.capsizes.split('-');
+    filterObj.filterCapsizes = filterCapsizes;
+
     const menuTags = req.session.menuTags || { tags: [] };
 
     let catRegexStr = '';
@@ -340,7 +390,23 @@ router.get(
       else catRegexStr += `${cat}`;
     });
 
+    let colorRegexStr = '';
+    filterColors.map((color, i) => {
+      if (color === 'none') colorRegexStr = null;
+      else if (i < filterColors.length - 1) colorRegexStr += `${color}|`;
+      else colorRegexStr += `${color}`;
+    });
+
+    let capsizeRegexStr = '';
+    filterCapsizes.map((capsize, i) => {
+      if (capsize === 'none') capsizeRegexStr = null;
+      else if (i < filterCapsizes.length - 1) capsizeRegexStr += `${capsize}|`;
+      else capsizeRegexStr += `${capsize}`;
+    });
+
     const categoriesFilterRegex = new RegExp(`${catRegexStr}`);
+    const colorsFilterRegex = new RegExp(`${colorRegexStr}`);
+    const capsizesFilterRegex = new RegExp(`${capsizeRegexStr}`);
 
     const db = req.app.db;
     const config = req.app.config;
@@ -351,6 +417,44 @@ router.get(
     }
 
     let rating = Number(filterObj.rating);
+
+    const aggregationArr = [
+      {
+        priceDouble: {
+          $gte: filterObj.minPrice,
+          $lte: filterObj.maxPrice,
+        },
+      },
+      {
+        productTags: {
+          $regex: categoriesFilterRegex,
+          $options: 'ig',
+        },
+      },
+      {
+        avgRatings: {
+          $gte: rating,
+        },
+      },
+    ];
+
+    if (capsizeRegexStr) {
+      aggregationArr.push({
+        productCapsizes: {
+          $regex: capsizesFilterRegex,
+          $options: 'ig',
+        },
+      });
+    }
+
+    if (colorRegexStr) {
+      aggregationArr.push({
+        productColors: {
+          $regex: colorsFilterRegex,
+          $options: 'ig',
+        },
+      });
+    }
 
     // DB Find price
     db.products
@@ -369,25 +473,7 @@ router.get(
         },
         {
           $match: {
-            $and: [
-              {
-                priceDouble: {
-                  $gte: filterObj.minPrice,
-                  $lte: filterObj.maxPrice,
-                },
-              },
-              {
-                productTags: {
-                  $regex: categoriesFilterRegex,
-                  $options: 'ig',
-                },
-              },
-              {
-                avgRatings: {
-                  $gte: rating,
-                },
-              },
-            ],
+            $and: aggregationArr,
           },
         },
       ])

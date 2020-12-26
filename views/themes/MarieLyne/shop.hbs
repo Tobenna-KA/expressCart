@@ -61,8 +61,8 @@
       <!--preference -->
       <div class="left-side" id="categories-filter">
         <h3 class="agileits-sear-head">{{ @root.__ "Categories" }}</h3>
-        {{#if session}}
         <div>
+          {{#if session}}
           {{#if lastFilterObj.filterCategories}}
           <div>
             {{#each (getCheckedCategories menuTags lastFilterObj.filterCategories) }}
@@ -108,6 +108,106 @@
           {{/if}}
         </div>
       </div>
+      <div class="left-side" id="colors-filter">
+        <h3 class="agileits-sear-head">{{ @root.__ "Colors" }}</h3>
+
+        {{#if session}}
+        {{#if lastFilterObj.filterColors }}
+        <div>
+          {{#each (getCheckedColors lastFilterObj.filterColors) }}
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}" checked>
+            <label class="form-check-label" for="{{this}}">
+              {{this}}
+            </label>
+          </div>
+          {{/each}}
+          {{#each (getUncheckedColors lastFilterObj.filterColors) }}
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
+            <label class="form-check-label" for="{{this}}">
+              {{this}}
+            </label>
+          </div>
+          {{/each}}
+        </div>
+        {{else}}
+        {{#if colors}}
+        {{#each colors}}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="{{this.name}}" id="{{this.name}}">
+          <label class="form-check-label" for="{{this.name}}" style="font-weight: bold; color: {{this.color}}">
+            {{this.name}}
+          </label>
+        </div>
+        {{/each}}
+        {{/if}}
+        {{/if}}
+        {{else}}
+        {{#if colors}}
+        {{#each colors}}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="{{this.name}}" id="{{this.name}}">
+          <label class="form-check-label" for="{{this.name}}" style="font-weight: bold; color: {{this.color}}">
+            {{this.name}}
+          </label>
+        </div>
+        {{/each}}
+        {{/if}}
+
+        {{/if}}
+      </div>
+
+      <div class="left-side" id="capsizes-filter">
+        <h3 class="agileits-sear-head">{{ @root.__ "Capsizes" }}</h3>
+
+        {{#if session}}
+        {{#if lastFilterObj.filterCapsizes }}
+        <div>
+          {{#each (getCheckedCapsizes lastFilterObj.filterCapsizes) }}
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}" checked>
+            <label class="form-check-label" for="{{this}}" style="font-weight: bold; text-transform: uppercase;">
+              {{this}}
+            </label>
+          </div>
+          {{/each}}
+          {{#each (getUncheckedCapsizes lastFilterObj.filterCapsizes) }}
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
+            <label class="form-check-label" for="{{this}}" style="font-weight: bold; text-transform: uppercase;">
+              {{this}}
+            </label>
+          </div>
+          {{/each}}
+        </div>
+        {{else}}
+        {{#if capsizes}}
+        {{#each capsizes}}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
+          <label class="form-check-label" for="{{this}}" style="font-weight: bold; text-transform: uppercase;">
+            {{this}}
+          </label>
+        </div>
+        {{/each}}
+        {{/if}}
+        {{/if}}
+        {{else}}
+        {{#if capsizes}}
+        {{#each capsizes}}
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="{{this}}" id="{{this}}">
+          <label class="form-check-label" for="{{this}}" style="font-weight: bold; text-transform: uppercase;">
+            {{this}}
+          </label>
+        </div>
+        {{/each}}
+        {{/if}}
+
+        {{/if}}
+      </div>
+
       <div class="customer-rev left-side">
         <h3 class="agileits-sear-head">{{ @root.__ "Minimum rating" }}</h3>
         <select class="rating-select" id="rating-select">
@@ -484,7 +584,31 @@
       }
     }
 
+    const colorsCheckboxes = document.querySelector('#colors-filter')
+    const colorOptions = colorsCheckboxes.getElementsByTagName('input');
+    const colorNames = colorsCheckboxes.getElementsByTagName('label');
+    const selectedColors = []
+
+    for (i = 0; i < colorOptions.length; i++) {
+      if (colorOptions[i].checked) {
+        selectedColors.push(colorOptions[i].value || colorOptions[i].value);
+      }
+    }
+
+    const capsizesCheckboxes = document.querySelector('#capsizes-filter')
+    const capsizesOptions = capsizesCheckboxes.getElementsByTagName('input');
+    const capsizesNames = capsizesCheckboxes.getElementsByTagName('label');
+    const selectedCapsizes = []
+
+    for (i = 0; i < capsizesOptions.length; i++) {
+      if (capsizesOptions[i].checked) {
+        selectedCapsizes.push(capsizesOptions[i].value || capsizesOptions[i].value);
+      }
+    }
+
     let categoryString = ''
+    let colorString = ''
+    let capsizeString = ''
     const rating = document.getElementById('rating-select').value
 
     const data = {
@@ -493,6 +617,8 @@
         max: maxPriceValue,
       },
       categories: selectedCategories,
+      colors: selectedColors,
+      capsizes: selectedCapsizes,
       rating
     }
 
@@ -501,7 +627,17 @@
       else categoryString += `${cat}`
     })
 
-    let filterURL = `/shop/filter/${data.price.min}/${data.price.max}/${categoryString ? categoryString : 'none'}/${data.rating}`
+    data.colors.forEach((color, i) => {
+      if (i < data.colors.length - 1) colorString += `${color}-`
+      else colorString += `${color}`
+    })
+
+    data.capsizes.forEach((capsize, i) => {
+      if (i < data.capsizes.length - 1) capsizeString += `${capsize}-`
+      else capsizeString += `${capsize}`
+    })
+
+    let filterURL = `/shop/filter/${data.price.min}/${data.price.max}/${categoryString ? categoryString : 'none'}/${data.rating}/${colorString ? colorString : 'none'}/${capsizeString ? capsizeString : 'none'}`
 
     e.preventDefault()
     $.ajax({

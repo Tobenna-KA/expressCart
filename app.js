@@ -204,6 +204,58 @@ handlebars = handlebars.create({
       });
       return notChecked;
     },
+    getCheckedColors(val1) {
+      const checked = [];
+      const notChecked = [];
+      if (!this.session.productColors) {
+        return val1;
+      } else {
+        val1.forEach((item) => {
+          if (this.session.productColors.find((color) => color.name === item)) {
+            checked.push(item);
+          }
+        });
+        return checked;
+      }
+    },
+    getUncheckedColors(val1) {
+      const checked = [];
+      const notChecked = [];
+      if (!this.session.productColors) {
+        return val1;
+      } else {
+        this.session.productColors.forEach((color) => {
+          if (!val1.includes(color.name)) notChecked.push(color.name);
+        });
+        return notChecked;
+      }
+    },
+    getCheckedCapsizes(val1) {
+      const checked = [];
+      const notChecked = [];
+      if (!this.session.productCapsizes) {
+        return val1;
+      } else {
+        val1.forEach((item) => {
+          if (this.session.productCapsizes.includes(item)) {
+            checked.push(item);
+          }
+        });
+        return checked;
+      }
+    },
+    getUncheckedCapsizes(val1) {
+      const checked = [];
+      const notChecked = [];
+      if (!this.session.productCapsizes) {
+        return val1;
+      } else {
+        this.session.productCapsizes.forEach((size) => {
+          if (!val1.includes(size)) notChecked.push(size);
+        });
+        return notChecked;
+      }
+    },
     getSelectedRating(currentRating, filteredRating) {
       return currentRating == filteredRating;
     },
