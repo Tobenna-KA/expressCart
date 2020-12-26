@@ -66,5 +66,6 @@
 	"This sets a readable URL for the product": "This sets a readable URL for the product",
 	"Allow comment": "Allow comment",
 	"Allow free form comments when adding products to cart": "Allow free form comments when adding products to cart",
-	"Tag words used to indexed products, making them easier to find and filter.": "Tag words used to indexed products, making them easier to find and filter."
+	"Tag words used to indexed products, making them easier to find and filter.": "Tag words used to indexed products, making them easier to find and filter.",
+	"Setting_tag_link_explain": "Here you can add and remove categories from the categories menu."
 }
