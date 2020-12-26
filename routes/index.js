@@ -1974,7 +1974,7 @@ router.get('/:page?', async (req, res, next) => {
           ];
 
         let showBottomCarousel = true;
-
+        let bottomCarousel1, bottomCarousel2;
         if (results.data.length === 0) {
           showBottomCarousel = false;
         } else {
@@ -1988,16 +1988,22 @@ router.get('/:page?', async (req, res, next) => {
           );
         }
 
-        while (bottomCarousel1.length < 4) {
-          bottomCarousel1.push(bottomCarousel1[0]);
+        let carousel1, carousel2
+        if (bottomCarousel1) {
+          while (bottomCarousel1.length < 4) {
+            bottomCarousel1.push(bottomCarousel1[0]);
+          }
+
+          carousel1 = bottomCarousel1.sort(() => Math.random() - 0.5);
         }
 
-        while (bottomCarousel2.length < 4) {
-          bottomCarousel2.push(bottomCarousel2[0]);
-        }
+        if (bottomCarousel2) {
+          while (bottomCarousel2.length < 4) {
+            bottomCarousel2.push(bottomCarousel2[0]);
+          }
 
-        const carousel1 = bottomCarousel1.sort(() => Math.random() - 0.5);
-        const carousel2 = bottomCarousel2.sort(() => Math.random() - 0.5);
+          carousel2 = bottomCarousel2.sort(() => Math.random() - 0.5);
+        }
 
         const homePageProducts = results.data.slice(0, 4);
 
@@ -2020,8 +2026,8 @@ router.get('/:page?', async (req, res, next) => {
           showFooter: 'showFooter',
           menu: sortMenu(menu),
           instaFeed: mainIGPosts,
-          bottomCarousel1: carousel1,
-          bottomCarousel2: carousel2,
+          bottomCarousel1: carousel1 ? carousel1 : null,
+          bottomCarousel2: carousel2 ? carousel2 : null,
           showBottomCarousel: showBottomCarousel,
           showIGPosts: showIGPosts,
           menuTags: menuTags.tags,
