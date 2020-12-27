@@ -325,7 +325,6 @@ handlebars = handlebars.create({
       return `themes/${config.theme}/${view}`;
     },
     formatAmount: (amt) => {
-      console.log(amt, this);
       if (amt) {
         return numeral(amt).format('0.00');
       }

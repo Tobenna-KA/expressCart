@@ -243,6 +243,25 @@ $(document).ready(function () {
           $('#productPermalink').val(slugify($('#productTitle').val()));
         }
 
+        console.log({
+          productTitle: $('#productTitle').val(),
+          productPrice: $('#productPrice').val(),
+          productPriceUSD: $('#productPriceUSD').val(),
+          productPriceCFA: $('#productPriceCFA').val(),
+          productPriceEUR: $('#productPriceEUR').val(),
+          productPublished: $('#productPublished').val(),
+          productStock: $('#productStock').val(),
+          productDescription: $('#productDescription').val(),
+          productGtin: $('#productGtin').val(),
+          productBrand: $('#productBrand').val(),
+          productPermalink: $('#productPermalink').val(),
+          productSubscription: $('#productSubscription').val(),
+          productComment: $('#productComment').is(':checked'),
+          productTags: $('#productTags').val(),
+          productCapsizes: $('#multiselect').val().join(', '),
+          productColors: $('#colorInput').val(),
+        })
+
         $.ajax({
           method: 'POST',
           url: '/admin/product/insert',
