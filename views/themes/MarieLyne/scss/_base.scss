@@ -141,3 +141,15 @@ $star-off-color: #cccccc;
     color: $star-on-color;
   }
 }
+
+select.mainSelect {
+  border: 1px solid #d9ab73 !important;
+  border-radius: 0 !important;
+  height: 48px !important;
+  line-height: 22px !important;
+  padding: 0 10px !important;
+  font-weight: bold;
+  font-size: 0.9em !important;
+  color: #333 !important;
+  text-transform: uppercase;
+}

@@ -136,5 +136,8 @@
 	"Select the order in which the products should be sorted.": "Select the order in which the products should be sorted.",
 	"Google_Analytics_Info": "Google_Analytics_Info",
 	"Custom CSS": "Custom CSS",
-	"Send test email": "Send test email"
+	"Send test email": "Send test email",
+	"\r\n\t\t\t\t\t\t\t\tSearch shop": "\r\n\t\t\t\t\t\t\t\tSearch shop",
+	"No images have been uploaded for this product": "No images have been uploaded for this product",
+	"Set as main\r\n\t\t\t\t\t\t\t\t\timage": "Set as main\r\n\t\t\t\t\t\t\t\t\timage"
 }

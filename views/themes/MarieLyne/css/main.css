@@ -81,6 +81,17 @@
   .rating:not(:checked) > label:hover ~ label:before {
     color: orange; }
 
+select.mainSelect {
+  border: 1px solid #d9ab73 !important;
+  border-radius: 0 !important;
+  height: 48px !important;
+  line-height: 22px !important;
+  padding: 0 10px !important;
+  font-weight: bold;
+  font-size: 0.9em !important;
+  color: #333 !important;
+  text-transform: uppercase; }
+
 .main-cart {
   margin-top: 40px;
   max-width: 100% !important; }

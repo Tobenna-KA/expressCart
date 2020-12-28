@@ -55,12 +55,27 @@
 						{{/each}}
 					</div>
 				</div>
+				{{#if variants}}
+				<div class="col-md-4">
+
+					<div class="color-quality" style="margin-top: 10px;">
+						<div class="color-quality-right">
+							<label for="product_variant" style="display: block;">{{ @root.__ "Options" }}:</label>
+							<select id="product_variant" class="frm-field required sect mainSelect" style="width: 100%;">
+								{{#each variants}}
+								<option value="{{this._id}}" data-price="{{otherVariantPriceValues ../this}}">{{this.title}}</option>
+								{{/each}}
+							</select>
+						</div>
+					</div>
+				</div>
+				{{/if}}
 				{{#if result.productColors}}
 				<div class="col-md-4" style="margin-top: 10px;">
-					<label for="sel1">Select Color:</label>
-					<select class="form-control" id="productColorSelect">
+					<label for="productColorSelect">Select Color:</label>
+					<select class="form-control mainSelect" id="productColorSelect">
 						{{#each result.productColors}}
-						<option value="{{this.name}}" style="color: {{this.color}}; font-weight: bold; font-size: 1.2em">
+						<option value="{{this.name}}" style="color: {{this.color}} !important;">
 							{{this.name}}</option>
 						{{/each}}
 					</select>
@@ -68,8 +83,8 @@
 				{{/if}}
 				{{#if result.productCapsizes}}
 				<div class="col-md-4" style="margin-top: 10px;">
-					<label for="sel1">Select Cap size:</label>
-					<select class="form-control" id="productCapsizeSelect">
+					<label for="productCapsizeSelect">Select Cap size:</label>
+					<select class="form-control mainSelect" id="productCapsizeSelect">
 						{{#each result.productCapsizes}}
 						<option value="{{this}}">{{this}}</option>
 						{{/each}}
@@ -78,18 +93,6 @@
 				{{/if}}
 			</div>
 
-			{{#if variants}}
-			<div class="color-quality">
-				<div class="color-quality-right">
-					<h5>{{ @root.__ "Options" }}: </h5>
-					<select id="product_variant" class="frm-field required sect">
-						{{#each variants}}
-						<option value="{{this._id}}" data-price="{{otherVariantPriceValues ../this}}">{{this.title}}</option>
-						{{/each}}
-					</select>
-				</div>
-			</div>
-			{{/if}}
 			<div class="description">
 				<p class="product-option-text">{{ @root.__ "Quantity" }}</p>
 				<input type="submit" value="-" class="qty-btn-minus btn btn-primary ">
