@@ -187,7 +187,7 @@ $(document).ready(function () {
             address2: $('#shipAddr2').val(),
             country: $('#shipCountry').val(),
             state: $('#shipState').val(),
-            postcode: $('#shipPostcode').val(),
+            postcode: $('#shipPostcode').val() || 00000,
             phone: $('#shipPhoneNumber').val(),
             password: $('#newCustomerPassword').val(),
             orderComment: $('#orderComment').val(),
