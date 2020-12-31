@@ -71,11 +71,14 @@
 				</div>
 				{{/if}}
 				{{#if result.productColors}}
-				<div class="col-md-4" style="margin-top: 10px;">
-					<label for="productColorSelect">Select Color:</label>
+				<div class="col-md-4" style="margin-top: 10px;" id="productColorDiv">
+					<label for="productColorSelect">
+						{{ @root.__ "Select color" }}
+					</label>
 					<select class="form-control mainSelect" id="productColorSelect">
 						{{#each result.productColors}}
-						<option value="{{this.name}}" style="color: {{this.color}} !important;">
+						<option value="{{this.name}}"
+							style="color: #111 !important; font-weight: bold !important; background-color: {{this.color}} !important;">
 							{{this.name}}</option>
 						{{/each}}
 					</select>

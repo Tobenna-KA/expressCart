@@ -152,4 +152,10 @@ select.mainSelect {
   font-size: 0.9em !important;
   color: #333 !important;
   text-transform: uppercase;
+  cursor: pointer;
+  transition: $color_transition;
+
+  &:focus {
+    border: 2px solid #d9ab73 !important;
+  }
 }

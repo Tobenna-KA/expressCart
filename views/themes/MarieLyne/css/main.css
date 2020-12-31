@@ -90,7 +90,11 @@ select.mainSelect {
   font-weight: bold;
   font-size: 0.9em !important;
   color: #333 !important;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease; }
+  select.mainSelect:focus {
+    border: 2px solid #d9ab73 !important; }
 
 .main-cart {
   margin-top: 40px;
