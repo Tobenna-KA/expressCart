@@ -71,9 +71,24 @@
 				</div>
 				{{/if}}
 				{{#if result.productColors}}
-				<div class="col-md-4" style="margin-top: 10px;" id="productColorDiv">
+				<div class="customRadioButtons col-md-4" style="margin-top: 10px;">
 					<label for="productColorSelect">
 						{{ @root.__ "Select color" }}
+					</label>
+					{{#each result.productColors}}
+					<div class="colorOption">
+						<input type="radio" id="{{this.name}}" value="{{this.name}}" name="hairColor">
+						<label for="{{this.name}}">
+							<span style="background-color: {{this.color}};">
+								<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/check-icn.svg" alt="Checked Icon" />
+							</span>
+							{{this.name}}
+						</label>
+					</div>
+					{{/each}}
+				</div>
+				{{!-- <div class="col-md-4" style="margin-top: 10px;" id="productColorDiv">
+					<label for="productColorSelect">
 					</label>
 					<select class="form-control mainSelect" id="productColorSelect">
 						{{#each result.productColors}}
@@ -82,7 +97,7 @@
 							{{this.name}}</option>
 						{{/each}}
 					</select>
-				</div>
+				</div> --}}
 				{{/if}}
 				{{#if result.productCapsizes}}
 				<div class="col-md-4" style="margin-top: 10px;">

@@ -2507,6 +2507,35 @@ body {
   font-size: 14px;
   transition: all 0.3s ease; }
 
+.customRadioButtons .colorOption {
+  margin: 15px 0; }
+  .customRadioButtons .colorOption input[type='radio'] {
+    display: none; }
+    .customRadioButtons .colorOption input[type='radio'] + label {
+      font-weight: normal;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-family: sans-serif; }
+      .customRadioButtons .colorOption input[type='radio'] + label span {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+        margin: -1px 4px 0 0;
+        vertical-align: middle;
+        cursor: pointer;
+        border-radius: 50%;
+        border: 5px solid #fff;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 2, 0.33);
+        background-repeat: no-repeat;
+        background-position: center;
+        text-align: center;
+        line-height: 40px; }
+        .customRadioButtons .colorOption input[type='radio'] + label span img {
+          opacity: 0;
+          transition: all 0.3s ease; }
+    .customRadioButtons .colorOption input[type='radio']:checked + label span {
+      border: 5px solid #000; }
+
 #relatedProducts {
   display: flex;
   flex-direction: row;
