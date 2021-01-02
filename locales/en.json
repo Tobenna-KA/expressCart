@@ -174,5 +174,7 @@
 	"Users name": "Users name",
 	"User email": "User email",
 	"User password": "User password",
-	"Password confirm": "Password confirm"
+	"Password confirm": "Password confirm",
+	"Order ID": "Order ID",
+	"Payment ID": "Payment ID"
 }

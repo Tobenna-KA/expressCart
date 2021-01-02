@@ -828,6 +828,7 @@ router.get('/checkout/payment', async (req, res) => {
   const config = req.app.config;
   const db = req.app.db;
 
+  console.log(req.app.config)
   // if there is no items in the cart then render a failure
   if (!req.session.cart) {
     req.session.message =
