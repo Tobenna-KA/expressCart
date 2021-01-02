@@ -452,7 +452,8 @@ $(document).ready(function () {
         productQuantity: $('#product_quantity').val(),
         productVariant: $('#product_variant').val(),
         productComment: $('#product_comment').val(),
-        productColor: $('#productColorSelect').val(),
+        // productColor: $('#productColorSelect').val(),
+        productColor: $("input[name='hairColor']:checked").val(),
         productCapsize: $('#productCapsizeSelect').val(),
       },
     })
