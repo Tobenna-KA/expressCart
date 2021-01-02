@@ -1870,7 +1870,7 @@ router.get('/currency/:currency', (req, res) => {
     maxAge: 900000,
     httpOnly: true,
   });
-  res.redirect('back');
+  res.send({done: true});
 });
 
 // return sitemap

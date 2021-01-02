@@ -36,6 +36,7 @@
 
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
+                    console.log(details)
                     alert('Transaction completed by ' + details.payer.name.given_name + '!');
                 });
             },
@@ -46,4 +47,51 @@
         }).render('#paypal-button-container');
     }
     initPayPalButton();
+</script>
+<script>
+    // window.paypal.Buttons({
+    //     style: {
+    //         shape: 'rect',
+    //         color: 'gold',
+    //         layout: 'vertical',
+    //         label: 'paypal',
+    //
+    //     },
+    //
+    //     createOrder: function(data, actions) {
+    //         return actions.order.create({
+    //             purchase_units: [{
+    //                 amount: {
+    //                     value: product.price
+    //                 }
+    //             }]
+    //         });
+    //     },
+    //
+    //     onApprove: function(data, actions) {
+    //         console.log(data, actions)
+    //
+    //         return actions.order.capture().then(async function (details) {
+    //             await vm.$store.dispatch('WAITING_LIST_PAYMENT', {
+    //                 amount: product.price,
+    //                 user: vm.$store.getters.user._id,
+    //                 payment_id: details.id,
+    //                 payment_mode: 'paypal',
+    //                 payer_id: details.payer.payer_id,
+    //                 payer_name: details.payer.name.given_name,
+    //                 purchase_units: details.purchase_units,
+    //                 status: details.status,
+    //                 subscription_type: vm.subscription_type,
+    //                 create_time: details.create_time,
+    //                 update_time: details.update_time
+    //             })
+    //             if (!vm.$store.getters.error) {
+    //                 vm.success_dialog = true;
+    //             } else {
+    //                 vm.failed_dialog = false;
+    //                 vm.cover_page = false
+    //             }
+    //         });
+    //     }
+    // }).render(this.$refs.paypal);
 </script>

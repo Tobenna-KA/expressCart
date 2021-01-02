@@ -1,15 +1,28 @@
 <div id="fixed-currency">
 	<div>
-		<a href="/currency/KES" class="fixed kes {{ session.currency }}">KES
+		<a href="javascript:void(0)" onclick="changeCurrency('KES')" class="fixed kes {{ session.currency }}">KES
 			<span> Kenya Shillings </span></a>
 	</div>
 	<div>
-		<a href="/currency/productPriceCFA" class="fixed cfa {{ session.currency }}">CFA <span>CFA Francs</span></a>
+		<a href="javascript:void(0)" onclick="changeCurrency('productPriceCFA')" class="fixed cfa {{ session.currency }}">CFA <span>CFA Francs</span></a>
 	</div>
 	<div>
-		<a href="/currency/productPriceUSD" class="fixed usd {{ session.currency }}">USD <span>US Dollars</span></a>
+		<a href="javascript:void(0)" onclick="changeCurrency('productPriceUSD')" class="fixed usd {{ session.currency }}">USD <span>US Dollars</span></a>
 	</div>
 	<div>
-		<a href="/currency/productPriceEUR" class="fixed eur {{ session.currency }}">EUR <span>European Euros</span></a>
+		<a href="javascript:void(0)" onclick="changeCurrency('productPriceEUR')" class="fixed eur {{ session.currency }}">EUR <span>European Euros</span></a>
 	</div>
 </div>
+
+<script>
+    function changeCurrency(currency) {
+        $.ajax({
+            method: 'GET',
+            url: '/currency/' + currency,
+        }).then(() => {
+            window.location.reload()
+        }).catch(() => {
+            alert('Failed to change currency')
+        })
+    }
+</script>
