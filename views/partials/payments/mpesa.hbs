@@ -116,7 +116,7 @@
         </div>
         <div class="col-8 col-md-6 col-sm-8 col-xs-8">
         <span class="float-right">
-        <input class="form-control" id="mpesa-number" type="search" placeholder="{{ @root.__ "Phone Number" }}" value="{{@root.session.customerPhone}}">
+        <input class="form-control" id="mpesa-number" type="search" placeholder="7XXXXXXXX" value="{{@root.session.customerPhone}}">
         </span>
         </div>
         <input type="hidden" id="environment" value="{{@root.paymentConfig.mpesa.environment}}">
@@ -141,16 +141,16 @@
 
    $(document).ready(() => {
 
-       let phoneNumber = $('#mpesa-number').val();
-       console.log(phoneNumber)
-       phoneNumber = cleanNumber(phoneNumber)
-       console.log(phoneNumber)
-       $('#mpesa-number').val(phoneNumber);
-
-       $('#mpesa-number').change((e) => {
-
-           console.log(e)
-       })
+       // let phoneNumber = $('#mpesa-number').val();
+       // console.log(phoneNumber)
+       // phoneNumber = cleanNumber(phoneNumber)
+       // console.log(phoneNumber)
+       // $('#mpesa-number').val(phoneNumber);
+       //
+       // $('#mpesa-number').change((e) => {
+       //
+       //     console.log(e)
+       // })
 
        $('#pay-mpesa').on('click', (e) => {
            $("div.spanner").addClass("show");
