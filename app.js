@@ -530,6 +530,7 @@ handlebars = handlebars.create({
 });
 
 console.log('Development = ', process.env.NODE_ENV)
+console.log('Mongo = ', config.databaseConnectionString)
 // session store
 const store = new MongoStore({
   uri: getDbUri(
