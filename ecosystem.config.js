@@ -2,7 +2,7 @@ module.exports = {
     apps : [
         {
             name: "expressCart",
-            script: "app.js",
+            script: "NODE_ENV=production pm2 start app.js",
             watch: true,
             env: {
                 "PORT": 1111,
