@@ -1,17 +1,17 @@
-<form action="/paypal/checkout_action" method="POST">
+{{!--<form action="/paypal/checkout_action" method="POST">
     <div class="paypal_button">
         <div class="mb-2">{{@root.paymentConfig.paypal.description}}</div>
         <button id="checkout_paypal" class="btn btn-outline-success waves-effect waves-light blue darken-3" type="submit">Pay with PayPal</button>
     </div>
-</form>
+</form>--}}
 
 <div id="smart-button-container" class="mb-2">
     <div style="text-align: center;">
         <div id="paypal-button-container"></div>
     </div>
 </div>
-<script src="https://www.paypal.com/sdk/js?client-id={{ @root.paymentConfig.paypal.client_id }}&currency={{ @root.config.currencyISO }}" data-sdk-integration-source="button-factory"></script>
 
+<script src='https://www.paypal.com/sdk/js?client-id={{ @root.paymentConfig.paypal.client_id }}&currency={{ @root.config.currencyISO }}' data-sdk-integration-source="button-factory"></script>
 <script>
     function initPayPalButton() {
         paypal.Buttons({
@@ -28,7 +28,7 @@
                     purchase_units: [{
                         "amount":{
                             "currency_code": "{{ @root.config.currencyISO }}",
-                            "value":1
+                            "value": {{ @root.session.totalCartAmount }}
                         }
                     }]
                 });
@@ -37,12 +37,28 @@
             onApprove: function(data, actions) {
                 return actions.order.capture().then(function(details) {
                     console.log(details)
-                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                    $.ajax({
+                        method: 'POST',
+                        url: '/paypal/paypal_order',
+                        data: {
+                            id: details.id,
+                            status: details.status
+                        }
+                    })
+                    .done(function (msg) {
+                        showNotification(msg.message, 'success', true);
+                        window.location = msg.redirectUrl
+                    })
+                    .fail(function (msg) {
+                        showNotification(msg.responseJSON.message, 'danger');
+                        window.location = msg.redirectUrl
+                    });
+                    // alert('Transaction completed by ' + details.payer.name.given_name + '!');
                 });
             },
 
             onError: function(err) {
-                console.log(err);
+                showNotification('Failed to make payment', 'danger');
             }
         }).render('#paypal-button-container');
     }

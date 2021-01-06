@@ -702,6 +702,8 @@ router.get('/emptycart', async (req, res, next) => {
 router.get('/checkout/information', async (req, res, next) => {
   const config = req.app.config;
   const db = req.app.db;
+  req.session.cart = parseCart(req.session.cart, getCurrencyField(req));
+  await updateTotalCart(req, res);
 
   // if there is no items in the cart then render a failure
   if (!req.session.cart) {
@@ -742,8 +744,8 @@ router.get('/checkout/information', async (req, res, next) => {
 router.get('/checkout/shipping', async (req, res, next) => {
   const config = req.app.config;
   const db = req.app.db;
-  // TODO handle cases where current currency is not the same as currency
-  //  at the time item was added to cart
+  req.session.cart = parseCart(req.session.cart, getCurrencyField(req));
+  await updateTotalCart(req, res);
   // if there is no items in the cart then render a failure
   if (!req.session.cart) {
     req.session.message =
@@ -827,6 +829,8 @@ router.get('/checkout/cartdata', (req, res) => {
 router.get('/checkout/payment', async (req, res) => {
   const config = req.app.config;
   const db = req.app.db;
+  req.session.cart = parseCart(req.session.cart, getCurrencyField(req));
+  await updateTotalCart(req, res);
 
   console.log(req.app.config)
   // if there is no items in the cart then render a failure
