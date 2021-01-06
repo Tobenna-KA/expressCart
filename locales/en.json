@@ -176,5 +176,7 @@
 	"User password": "User password",
 	"Password confirm": "Password confirm",
 	"Order ID": "Order ID",
-	"Payment ID": "Payment ID"
+	"Payment ID": "Payment ID",
+	"No products found": "No products found",
+	"Complete setup": "Complete setup"
 }
