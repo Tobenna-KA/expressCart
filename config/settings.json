@@ -17,7 +17,7 @@
   "customCss": "",
   "currencySymbol": "KES",
   "currencyISO": "KES",
-  "paymentGateway": ["mpesa", "paypal", "stripe", "flutterwave"],
+  "paymentGateway": ["mpesa", "paypal"],
   "databaseConnectionString": "mongodb://127.0.0.1:27017/expresscart",
   "theme": "MarieLyne",
   "trackStock": false,

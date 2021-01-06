@@ -1,5 +1,5 @@
 {
-    "description": "PayPal payment",
+    "description": "Pay with PayPal or Credit/Debit Cards",
     "mode": "sandbox",
     "client_id": "AcwOC6gqr5PAeUETnNQTiKHP-cFVVpRlCsDbdTk-0LNe_5nyfVip_KjJpES6hHTXeQwEzgsaNBqpMT0M",
     "client_secret": "EI75Pmq7dccsfxqpRYI_q1XaOZ4JRDpdNWLW4pMixGrd8AZ1uKq0330nZGpIbrvLcnGsol6nOeYPpGiy",

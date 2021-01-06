@@ -111,13 +111,11 @@
         </span>
     </div>
     <div class="col-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="col-md-2 col-sm-4 col-xs-2">
-            <span class="form-control" style="padding-left: 10px;">+254</span>
-        </div>
         <div class="col-8 col-md-6 col-sm-8 col-xs-8">
-        <span class="float-right">
-        <input class="form-control" id="mpesa-number" type="search" placeholder="7XXXXXXXX" value="{{@root.session.customerPhone}}">
-        </span>
+            <div class="input-group">
+                <span class="input-group-addon">+254</span>
+                <input class="form-control" id="mpesa-number" type="tel" placeholder="7XXXXXXXX" value="{{@root.session.customerPhone}}">
+            </div>
         </div>
         <input type="hidden" id="environment" value="{{@root.paymentConfig.mpesa.environment}}">
         <input type="hidden" id="mpesaNumber" value="{{ @root.session.customerPhone }}">
@@ -141,16 +139,16 @@
 
    $(document).ready(() => {
 
-       // let phoneNumber = $('#mpesa-number').val();
-       // console.log(phoneNumber)
-       // phoneNumber = cleanNumber(phoneNumber)
-       // console.log(phoneNumber)
-       // $('#mpesa-number').val(phoneNumber);
-       //
-       // $('#mpesa-number').change((e) => {
-       //
-       //     console.log(e)
-       // })
+       let phoneNumber = $('#mpesa-number').val();
+       console.log(phoneNumber)
+       phoneNumber = cleanNumber(phoneNumber)
+
+       $('#mpesa-number').val(phoneNumber);
+
+       $('#mpesa-number').change((e) => {
+           phoneNumber = cleanNumber(phoneNumber)
+           if (phoneNumber) $('#mpesa-number').val(phoneNumber);
+       })
 
        $('#pay-mpesa').on('click', (e) => {
            $("div.spanner").addClass("show");
@@ -176,12 +174,13 @@
    })
 
     function cleanNumber(_phoneNumber) {
-        if (leading0RegEx.test(_phoneNumber)) {
-            return _phoneNumber.substring(1, _phoneNumber.length);
-        } else if (countryCodeRegEx.test(_phoneNumber)) {
-            return _phoneNumber.substring(2, _phoneNumber.length);
-        } /*else if (fullCountryCodeRegEx.test(_phoneNumber)) {
-            return _phoneNumber.substring(3, _phoneNumber.length);
-        }*/
+        if (_phoneNumber && _phoneNumber.length > 9)
+            if (leading0RegEx.test(_phoneNumber)) {
+                return _phoneNumber.substring(1, _phoneNumber.length);
+            } else if (countryCodeRegEx.test(_phoneNumber)) {
+                return _phoneNumber.substring(2, _phoneNumber.length);
+            } /*else if (fullCountryCodeRegEx.test(_phoneNumber)) {
+                return _phoneNumber.substring(3, _phoneNumber.length);
+            }*/
     }
 </script>
