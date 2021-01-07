@@ -178,5 +178,16 @@
 	"Order ID": "Order ID",
 	"Payment ID": "Payment ID",
 	"No products found": "No products found",
-	"Complete setup": "Complete setup"
+	"Complete setup": "Complete setup",
+	"Update status": "Update status",
+	"Go Back": "Go Back",
+	"Order date": "Order date",
+	"Payment Gateway ref": "Payment Gateway ref",
+	"Payment Gateway": "Payment Gateway",
+	"Order net amount": "Order net amount",
+	"Order shipping amount": "Order shipping amount",
+	"Order total amount": "Order total amount",
+	"Company": "Company",
+	"Order type": "Order type",
+	"Products ordered": "Products ordered"
 }
