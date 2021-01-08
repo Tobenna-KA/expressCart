@@ -534,10 +534,9 @@ console.log('Mongo = ', config.databaseConnectionString)
 // session store
 const store = new MongoStore({
   uri: getDbUri(
-    // process.env.NODE_ENV === 'production'
-    //   ? `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:/${MONGO_DB}`
-    //   : config.databaseConnectionString
-      config.databaseConnectionString
+    /*process.env.NODE_ENV === 'production'
+      ? `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:/${MONGO_DB}`
+      :*/ config.databaseConnectionString
   ),
   collection: 'sessions',
 });
