@@ -32,6 +32,8 @@
 					class="float-right">{{result._id}}</span></li>
 			<li class="list-group-item"><strong> {{ @root.__ "Payment Gateway ref" }}: </strong><span
 					class="float-right">{{result.orderPaymentId}}</span></li>
+            <li class="list-group-item"><strong> {{ @root.__ "PayBill Account" }}: </strong><span
+					class="float-right">{{result.mpesaPaymentAccount}}</span></li>
 			<li class="list-group-item"><strong> {{ @root.__ "Payment Gateway" }}: </strong><span
 					class="float-right">{{result.orderPaymentGateway}}</span></li>
 			{{#if result.orderExpectedBtc }}
