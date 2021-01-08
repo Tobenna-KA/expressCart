@@ -534,10 +534,9 @@ console.log('Mongo = ', config.databaseConnectionString)
 // session store
 const store = new MongoStore({
   uri: getDbUri(
-    process.env.NODE_ENV === 'production'
+    /*process.env.NODE_ENV === 'production'
       ? `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:/${MONGO_DB}`
-      : config.databaseConnectionString
-      // config.databaseConnectionString
+      :*/ config.databaseConnectionString
   ),
   collection: 'sessions',
 });
@@ -717,9 +716,9 @@ app.on('uncaughtException', (err) => {
 });
 
 initDb(
-  process.env.NODE_ENV === 'production'
+  /*process.env.NODE_ENV === 'production'
     ? `mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:/${MONGO_DB}`
-    : config.databaseConnectionString,
+    :*/ config.databaseConnectionString,
   async (err, db) => {
     // console.log(`mongodb+srv://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:/${MONGO_DB}`)
     // On connection error we display then exit
