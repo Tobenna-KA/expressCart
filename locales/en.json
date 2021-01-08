@@ -189,5 +189,7 @@
 	"Order total amount": "Order total amount",
 	"Company": "Company",
 	"Order type": "Order type",
-	"Products ordered": "Products ordered"
+	"Products ordered": "Products ordered",
+	"Paybill": "Paybill",
+	"Account": "Account"
 }

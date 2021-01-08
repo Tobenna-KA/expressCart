@@ -681,6 +681,9 @@ router.get('/payment/:orderId', async (req, res, next) => {
   let paymentView = `${config.themeViews}payment-complete`;
   if (order.orderPaymentGateway === 'Blockonomics')
     paymentView = `${config.themeViews}payment-complete-blockonomics`;
+  else if (order.orderPaymentGateway === 'Mpesa')
+    paymentView = `${config.themeViews}payment-complete-mpesa`;
+
   res.render(paymentView, {
     title: 'Payment complete',
     config: req.app.config,
