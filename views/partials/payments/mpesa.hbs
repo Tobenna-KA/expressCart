@@ -122,6 +122,7 @@
         <input type="hidden" id="mpesaNumber" value="{{ @root.session.customerPhone }}">
         <input type="hidden" id="totalAmount" value="{{ @root.session.totalCartAmount }}">
     </div>
+    <button id="pay-mpesa" class="btn btn-outline-success mt-2" type="submit">Pay via M-Pesa Express</button>
     <form method="POST" action="/mpesa/checkout_action">
         <button class="btn btn-outline-success mt-2" type="submit">Pay via M-Pesa</button>
     </form>
