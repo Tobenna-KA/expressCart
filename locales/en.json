@@ -178,5 +178,16 @@
 	"Order ID": "Order ID",
 	"Payment ID": "Payment ID",
 	"No products found": "No products found",
-	"Complete setup": "Complete setup"
+	"Complete setup": "Complete setup",
+	"User edit": "User edit",
+	"User is admin?": "User is admin?",
+	"Generate": "Generate",
+	"Set as main\n\t\t\t\t\t\t\t\t\timage": "Set as main\n\t\t\t\t\t\t\t\t\timage",
+	"New discount": "New discount",
+	"Discount type": "Discount type",
+	"Amount": "Amount",
+	"Percent": "Percent",
+	"Discount value": "Discount value",
+	"Discount start": "Discount start",
+	"Discount end": "Discount end"
 }
