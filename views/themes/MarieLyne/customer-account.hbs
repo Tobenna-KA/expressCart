@@ -91,13 +91,16 @@
 													class="float-right">{{this.orderBlockonomicsTxid}}</span></li>
 											{{/if}}
 											<li class="list-group-item"><strong> {{ @root.__ "Order net amount" }}: </strong><span
-													class="float-right">{{currencySymbol config.currencySymbol}}{{formatAmount (math this.orderTotal '-' this.orderShipping)}}</span>
+													class="float-right">{{currencySymbol config.currencySymbol}}{{formatAmount (math
+													this.orderTotal '-' this.orderShipping)}}</span>
 											</li>
 											<li class="list-group-item"><strong> {{ @root.__ "Order shipping amount" }}: </strong><span
-													class="float-right">{{currencySymbol config.currencySymbol}}{{formatAmount this.orderShipping}}</span>
+													class="float-right">{{currencySymbol config.currencySymbol}}{{formatAmount
+													this.orderShipping}}</span>
 											</li>
 											<li class="list-group-item"><strong> {{ @root.__ "Order total amount" }}: </strong><span
-													class="float-right">{{currencySymbol config.currencySymbol}}{{formatAmount this.orderTotal}}</span>
+													class="float-right">{{currencySymbol config.currencySymbol}}{{formatAmount
+													this.orderTotal}}</span>
 											</li>
 											<li class="list-group-item"><strong> {{ @root.__ "Email address" }}: </strong><span
 													class="float-right">{{this.orderEmail}}</span></li>
@@ -129,6 +132,16 @@
 												&nbsp; > &nbsp;
 												<span class="text-warning"> {{ @root.__ "Options" }}: </span>
 												{{this.variantTitle}}
+												{{/if}}
+												{{#if this.productColor}}
+												&nbsp; > &nbsp;
+												<span style="font-weight: bold;"> {{ @root.__ "Color" }}: </span>
+												{{this.productColor}}
+												{{/if}}
+												{{#if this.productCapsize}}
+												&nbsp; > &nbsp;
+												<span style="font-weight: bold;"> Capsize: </span>
+												{{this.productCapsize}}
 												{{/if}}
 												<div class="float-right">
 													{{currencySymbol @root.config.currencySymbol}}{{formatAmount this.totalItemPrice}}</div>

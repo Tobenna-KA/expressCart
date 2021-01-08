@@ -90,6 +90,7 @@
 	"Product image upload": "Product image upload",
 	"Select file": "Select file",
 	"Select color": "Select color",
+	"Color": "Color",
 	"Upload": "Upload",
 	"By status": "By status",
 	"Orders can be filtered by: surname, email address or postcode/zipcode": "Orders can be filtered by: surname, email address or postcode/zipcode",
@@ -191,5 +192,7 @@
 	"Order type": "Order type",
 	"Products ordered": "Products ordered",
 	"Paybill": "Paybill",
-	"Account": "Account"
+	"Account": "Account",
+	"Orders": "Orders",
+	"Payment Message": "Payment Message"
 }
