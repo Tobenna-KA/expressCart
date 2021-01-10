@@ -253,7 +253,7 @@
 	"Subscribe": "Souscrire",
 	"Subject": "Matière",
 	"Follow Us": "Suivez nous",
-	"fr": "Francais",
+	"fr": "Français",
 	"About": "Quelque",
 	"Welcome to Nairobi's": "Bienvenue chez Nairobi",
 	"No 1 hair plug": "No 1 cheveu brancher",
@@ -286,5 +286,7 @@
 	"Product Capsize": "Chavirage du produit",
 	"Product Color": "Couleur du produit",
 	"Colors": "Couleurs",
-	"Cap sizes": "Tailles de bonnet"
+	"Cap sizes": "Tailles de bonnet",
+	"\n\t\t\t\t\t\t\t\tSearch shop": "\n\t\t\t\t\t\t\t\tSearch shop",
+	" Add to cart": " Add to cart"
 }
