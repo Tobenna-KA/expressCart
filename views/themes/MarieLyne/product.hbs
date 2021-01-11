@@ -29,6 +29,10 @@
 					<div class="clearfix"></div>
 				</div>
 			</div>
+			<div class="add-review">
+				<h4 style="">add a review</h4>
+				<input class="btn mainBtn greenBtn" type="submit" id="add-review" value="ADD">
+			</div>
 		</div>
 		<div class="col-md-8 single-right-left simpleCart_shelfItem">
 			<h3>{{result.productTitle}}</h3>
@@ -275,7 +279,9 @@
 									{{/if}}
 								</div>
 							</div>
+							{{#if new}}
 							<span class="product-new-top">New</span>
+							{{/if}}
 						</div>
 						<div class="item-info-product">
 							<h4>

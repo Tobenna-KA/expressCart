@@ -19,6 +19,7 @@ const {
   getCurrencyField,
   sendEmail,
   parseCart,
+  dateDiff,
 } = require('../lib/common');
 const { getSort, paginateProducts } = require('../lib/paginate');
 const { getPaymentConfig } = require('../lib/config');
@@ -44,18 +45,6 @@ Object.defineProperty(Array.prototype, 'flat', {
     }, []);
   },
 });
-// *** INSTAGRAM FETCH FUNCTION ***
-
-// Example of how you can add new pages
-// router.get('/example', (req, res) => {
-//   const config = req.app.config;
-//   const file_to_render = `${config.themeViews}example`;
-
-//   res.render(file_to_render, {
-//     helpers: req.handlebars.helpers, // seems required
-//     config, // required
-//   });
-// });
 
 // About us route
 router.get('/about', async (req, res) => {
@@ -835,7 +824,7 @@ router.get('/checkout/payment', async (req, res) => {
   req.session.cart = parseCart(req.session.cart, getCurrencyField(req));
   await updateTotalCart(req, res);
 
-  console.log(req.app.config)
+  console.log(req.app.config);
   // if there is no items in the cart then render a failure
   if (!req.session.cart) {
     req.session.message =
@@ -1013,13 +1002,6 @@ router.get('/product/:id', async (req, res) => {
     }
   }
 
-  // console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-
-  // product.productColors = colors;
-
-  // console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-  // console.log(product);
-
   const menuTags = req.session.menuTags || { tags: [] };
 
   if (!product) {
@@ -1145,6 +1127,14 @@ router.get('/product/:id', async (req, res) => {
       .limit(4)
       .toArray();
   }
+
+  relatedProducts.map((product) => {
+    const dateDifference = dateDiff(product.productAddedDate, new Date());
+
+    if (dateDifference.months < 1) product.new = true;
+    else product.new = false;
+    return product;
+  });
 
   res.render(`${config.themeViews}product`, {
     title: product.productTitle,
@@ -1877,7 +1867,7 @@ router.get('/currency/:currency', (req, res) => {
     maxAge: 900000,
     httpOnly: true,
   });
-  res.send({done: true});
+  res.send({ done: true });
 });
 
 // return sitemap
@@ -1996,7 +1986,7 @@ router.get('/:page?', async (req, res, next) => {
           );
         }
 
-        let carousel1, carousel2
+        let carousel1, carousel2;
         if (bottomCarousel1) {
           while (bottomCarousel1.length < 4) {
             bottomCarousel1.push(bottomCarousel1[0]);
@@ -2014,6 +2004,15 @@ router.get('/:page?', async (req, res, next) => {
         }
 
         const homePageProducts = results.data.slice(0, 4);
+        homePageProducts.map((product) => {
+          const dateDifference = dateDiff(product.productAddedDate, new Date());
+
+          if (dateDifference.months < 1) product.new = true;
+          else product.new = false;
+          return product;
+        });
+        console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
+        console.log(homePageProducts);
 
         const menuTags = req.session.menuTags || { tags: [] };
 
