@@ -245,19 +245,12 @@
           </div>
         </div>
         <div class="clearfix"></div>
-        <!-- product-sec1 -->
-        {{!-- <div>
-          {{#each (getActiveStars this.avgRatings)}}
-          <span class="fa fa-star checked" style="color: orange"></span>
-          {{/each}}
-          {{#each (getInactiveStars this.avgRatings)}}
-          <span class="fa fa-star checked"></span>
-          {{/each}}
-        </div> --}}
+
         <div class="product-sec1">
           <div class="products-container">
             {{#each results}}
             <div class="single-product">
+              <div class="new-box">{{ @root.__ "NEW" }}</div>
               <div class="product">
                 {{#if productPermalink}}
                 <div class="image">
