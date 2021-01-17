@@ -330,6 +330,27 @@ $(document).ready(function () {
     e.preventDefault();
   });
 
+  // call add newsletter subscription? settings API
+  $('#add-newsletter-subscription').on('click', function (e) {
+    if (!e.isDefaultPrevented()) {
+      e.preventDefault();
+      $.ajax({
+        method: 'POST',
+        url: '/customer/subscribe/newsletter',
+        data: {
+          subscriptionEmail: $('#add-subscription-email').val(),
+        },
+      })
+        .done(function (msg) {
+          showNotification(msg.message, 'success');
+        })
+        .fail(function (msg) {
+          showNotification(msg.responseJSON.message, 'danger');
+        });
+    }
+    e.preventDefault();
+  });
+
   // Customer saving own details
   $('#customerSave')
     .validator()

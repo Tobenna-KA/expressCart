@@ -29,10 +29,6 @@
 					<div class="clearfix"></div>
 				</div>
 			</div>
-			<div class="add-review">
-				<h4 style="">add a review</h4>
-				<input class="btn mainBtn greenBtn" type="submit" id="add-review" value="ADD">
-			</div>
 		</div>
 		<div class="col-md-8 single-right-left simpleCart_shelfItem">
 			<h3>{{result.productTitle}}</h3>
@@ -60,9 +56,8 @@
 					</div>
 				</div>
 				{{#if variants}}
-				<div class="col-md-4">
-
-					<div class="color-quality" style="margin-top: 10px;">
+				<div class="col-md-12">
+					<div class="color-quality col-md-4" style="margin-top: 10px;">
 						<div class="color-quality-right">
 							<label for="product_variant" style="display: block;">{{ @root.__ "Options" }}:</label>
 							<select id="product_variant" class="frm-field required sect mainSelect" style="width: 100%;">
@@ -135,6 +130,11 @@
 					<input type="submit" name="submit" value="{{ @root.__ " Add to cart" }}"
 						class="button add product-add-to-cart">
 				</div>
+                <div>
+                    <div class="occasion-cart">
+                        <input class="btn mainBtn greenBtn" type="submit" id="add-review" value="Leave a Review">
+                    </div>
+                </div>
 			</div>
 			{{/ifCond}}
 			{{ else }}
@@ -144,6 +144,10 @@
 						class="button add product-add-to-cart">
 				</div>
 			</div>
+            <div class="occasion-cart">
+                <h4 style="">Add a review</h4>
+                <input class="btn mainBtn greenBtn" type="submit" id="add-review" value="ADD">
+            </div>
 			{{/if}}
 		</div>
 

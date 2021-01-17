@@ -560,6 +560,38 @@ router.post('/customer/subscribe', async (req, res) => {
     });
 });
 
+router.post('/customer/subscribe/newsletter', async (req, res) => {
+  const db = req.app.db;
+
+  let subscriber = await db.subscribers.findOne({
+    email: mongoSanitize(req.body.subscriptionEmail)
+  });
+
+  if (subscriber) {
+    res.status(400).json({
+      message: 'You are already a Subscriber'
+    });
+    return;
+  }
+
+  subscriber = await db.subscribers.insertOne({
+    email: mongoSanitize(req.body.subscriptionEmail),
+    dateAdded: new Date()
+  });
+  // if email already exists, check if user is subscribed
+  if (subscriber === undefined || subscriber === null) {
+    res.status(400).json({
+      message: 'A customer with that email does not exist.',
+    });
+    return;
+  } else {
+    res.status(200).json({
+      message: 'Successfully Subscription',
+      subscriber: subscriber,
+    });
+  }
+});
+
 // customer forgotten password
 router.get('/customer/forgotten', (req, res) => {
   res.render('forgotten', {

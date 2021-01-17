@@ -107,14 +107,28 @@
 <div>
     <div class="mb-2">
         <span class="float-right">
-            <img  style="height: 50px" src="{{ @root.paymentConfig.mpesa.logo }}" alt="{{@root.paymentConfig.mpesa.description}}">
+            <img  style="height: 50px" src="{{ @root.paymentConfig.mpesa_express.logo }}" alt="{{@root.paymentConfig.mpesa_express.description}}">
         </span><br/>
         <span style="color: red;">Kenyan Shillings only</span>
     </div>
-
-    <form method="POST" action="/mpesa/checkout_action">
-        <button class="btn btn-outline-success mt-2" type="submit">Pay via M-Pesa</button>
-    </form>
+    <div class="col-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="col-8 col-md-6 col-sm-8 col-xs-8">
+            <div class="input-group">
+                <span class="input-group-addon">+254</span>
+                <input class="form-control" id="mpesa-number" type="tel" placeholder="7XXXXXXXX" value="{{@root.session.customerPhone}}">
+            </div>
+        </div>
+        <input type="hidden" id="environment" value="{{@root.paymentConfig.mpesa_express.environment}}">
+        <input type="hidden" id="mpesaNumber" value="{{ @root.session.customerPhone }}">
+        <input type="hidden" id="totalAmount" value="{{ @root.session.totalCartAmount }}">
+    </div>
+    <button id="pay-mpesa" class="btn btn-outline-success mt-2" type="submit">Pay via M-Pesa Express</button>
+    <div class="overlay">
+        <div class="spanner">
+            <div class="loader"></div>
+            <span>Please Enter Payment on Your Phone</span>
+        </div>
+    </div>
 </div>
 
 <script>

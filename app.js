@@ -457,6 +457,12 @@ handlebars = handlebars.create({
         }
         return '<h2 class="text-warning">The payment for this order is pending. We will be in contact shortly.</h2>';
       }
+      if (status === 'Pending-mpesa') {
+        return '<h2 class="text-warning">Payment pending.' +
+            'Please use payment details below to complete purchase.</h2>' +
+        '<h4 style="margin: .5%" class="text-warning">Ignore this message if you have already paid, you will be contacted shortly</h4>';
+      }
+
       return '<h2 class="text-danger">Your payment has failed. Please try again or contact us.</h2>';
     },
     paymentOutcome: (status) => {

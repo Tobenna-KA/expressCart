@@ -1,24 +1,39 @@
-<div class="col-md-10 offset-md-1 col-sm-12 top-pad-50">
-    <div class="row">
-        <div class="text-center col-md-10 offset-md-1">
-            <h2 class="text-success">Thank you. Order have been received.</h2>
-            <div>
-                <p><h5>Order details</h5></p>
-                <p><strong>{{ @root.__ "Order ID" }}:</strong> {{result._id}}</p>
-                <p><strong>{{ @root.__ "Payment ID" }}:</strong> {{result.orderPaymentId}}</p>
+<div class="productsWrapper col-sm-12">
+    <div class="col-md-12 offset-md-1 col-sm-12">
+        <div class="row">
+            <div class="text-center col-md-12 offset-md-3">
+                {{#paymentMessage 'Pending-mpesa'}}{{/paymentMessage}}
+                <div>
+                    <p><h5>Order details</h5></p>
+                    <p><strong>{{ @root.__ "Order ID" }}:</strong> {{result._id}}</p>
+                    <p><strong>{{ @root.__ "Payment ID" }}:</strong> {{result.orderPaymentId}}</p>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="col-md-10 mt-4 offset-md-1 col-sm-12 top-pad-50">
-    <div class="row">
-        <div class="text-center col-md-10 offset-md-1">
-            <div>
-                <p><h3>Please complete your payment using the following details</h3></p>
-                <p><strong>{{ @root.__ "Paybill" }}:</strong> {{ @root.config.mpesaPayBill }}</p>
-                <p><strong>{{ @root.__ "Account" }}:</strong> {{result.mpesaPaymentAccount}}</p>
+    <div class="col-md-12 mt-4 offset-md-1 col-sm-12 top-pad-50" style="margin-top: 1%">
+        <div class="row">
+            <div class="text-center col-md-12 offset-md-3">
+                <div>
+                    <p><h3>Please complete your payment using the following details</h3></p>
+                    <p><strong>{{ @root.__ "Paybill" }}:</strong> {{ @root.config.mpesaPayBill }}</p>
+                    <p><strong>{{ @root.__ "Account" }}:</strong> 6682000127 {{!--{{result.mpesaPaymentAccount}}--}}</p>
+                </div>
+                <div class="text-center">
+                    <a href="/" class="btn btn-outline-warning">Home</a>
+                </div>
             </div>
-            <a href="/" class="btn btn-outline-warning">Home</a>
+            {{#ifCond result.orderPaymentId '==' ''}}
+            <div class="text-center col-md-12 offset-md-1">
+                <div class="description col-md-4">
+                    <form method="post" action="/mpesa/payment_code">
+                        <input type="text" name="code" class="form-control" value="" id="add-subscription-email" placeholder="Enter mpesa Code" required="">
+                        <input type="hidden" name="order_id" class="form-control" value="{{@root.result._id}}" id="add-subscription-email" placeholder="Enter mpesa Code" required="">
+                        <input type="submit" value="Check">
+                    </form>
+                </div>
+            </div>
+            {{/ifCond}}
         </div>
     </div>
 </div>

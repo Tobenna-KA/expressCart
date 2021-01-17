@@ -1,8 +1,10 @@
 {
     "description": "Pay with PayPal or Credit/Debit Cards",
     "mode": "sandbox",
-    "client_id": "AcwOC6gqr5PAeUETnNQTiKHP-cFVVpRlCsDbdTk-0LNe_5nyfVip_KjJpES6hHTXeQwEzgsaNBqpMT0M",
-    "client_secret": "EI75Pmq7dccsfxqpRYI_q1XaOZ4JRDpdNWLW4pMixGrd8AZ1uKq0330nZGpIbrvLcnGsol6nOeYPpGiy",
+    "client_id": "AYBgf3p9OyNVAoG96NmMU8vWIpY38Q1j9Oh5MdFGGpjUzXf6sv9AZfFwQU5Q3ZWrrfKGnG0A8eFHtiK1",
+    "client_secret": "EIg9A7RdzYefWjr9xZUzNt9prMjONRPurDZwf8rtk1ZM6iDKVPvO8MpGc9kkXsH-PgRenz2pBQofRB0I",
+    "sandbox_client_id": "AXUqNfhqTYDpQOY_4K-14IaVbdYkm4xP3kCnZ7rffl3GZAiVakAnivZsGsx51GeSl-pGFhDj4OfYBLfF",
+    "sandbox_client_secret": "EDyB_-rYrz1oCZq26TuaD8lzv4g73RFRl7dbd0swohVAvJAzs142zIcd8uwnsI-adWWdCeYDshu9hR5T",
     "paypalCartDescription": "BKLYN",
     "paypalCurrency": "USD"
 }
