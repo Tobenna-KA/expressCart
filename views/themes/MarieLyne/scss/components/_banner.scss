@@ -272,4 +272,18 @@
       font-size: 2em !important;
     }
   }
+  #_footer {
+    .footer-left {
+      display: block;
+      height: 80px;
+      .navbar-brand {
+        // border: 1px solid red;
+        .logo-footer.ml-logo {
+          display: block;
+          width: 100px;
+          height: 80px;
+        }
+      }
+    }
+  }
 }
