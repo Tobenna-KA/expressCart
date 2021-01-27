@@ -134,6 +134,8 @@ handlebars = handlebars.create({
       return val[this.session.currency];
     },
     variantPriceValue(val) {
+      console.log(val, 'valvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalval')
+      console.log(this.session.currency, 'valvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalval')
       if (!val || !this.session) return null;
       if (Array.isArray(val)) {
         if (
@@ -497,6 +499,28 @@ handlebars = handlebars.create({
       }
       return '';
     },
+    getCartInDollars: (session, currency) => {
+      try {
+        switch (currency) {
+          case 'USD':
+            return session.totalCartAmountUSD
+          case 'EUR':
+            return session.totalCartAmountEUR
+          default: // if currency is not dollars or euros, use dollars to pay
+            return session.totalCartAmountUSD
+        }
+
+      } catch (e) {
+
+      }
+    },
+    paypalPayCurrency: (currencyISO) => {
+      // if we have any other currency, use dollars
+      if (currencyISO !== 'USD' && currencyISO !== 'EUR') {
+        return 'USD'
+      }
+      return  currencyISO
+    },
     snip: (text) => {
       if (text && text.length > 155) {
         return `${text.substring(0, 155)}...`;
@@ -624,6 +648,7 @@ app.use(async (req, res, next) => {
     }
   } else {
     req.session.currency = 'KES';
+    req.app.config.currencyISO = 'KES';
   }
   next();
 });

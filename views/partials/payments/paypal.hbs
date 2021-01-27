@@ -12,7 +12,8 @@
     </div>
 </div>
 
-<script src='https://www.paypal.com/sdk/js?client-id={{ @root.paymentConfig.paypal.client_id }}&currency={{ @root.config.currencyISO }}' data-sdk-integration-source="button-factory"></script>
+{{!--<script src='https://www.paypal.com/sdk/js?client-id={{ @root.paymentConfig.paypal.client_id }}&currency={{ @root.config.currencyISO }}' data-sdk-integration-source="button-factory"></script>--}}
+<script src='https://www.paypal.com/sdk/js?client-id={{ @root.paymentConfig.paypal.client_id }}&currency={{ paypalPayCurrency @root.config.currencyISO }}' data-sdk-integration-source="button-factory"></script>
 <script>
     function initPayPalButton() {
         paypal.Buttons({
@@ -28,8 +29,9 @@
                 return actions.order.create({
                     purchase_units: [{
                         "amount":{
-                            "currency_code": "{{ @root.config.currencyISO }}",
-                            "value": {{ @root.session.totalCartAmount }}
+                        {{!--"currency_code": "{{ @root.config.currencyISO }}",--}}
+                            "currency_code": "{{ paypalPayCurrency @root.config.currencyISO }}",
+                            "value": {{ getCartInDollars @root.session @root.config.currencyISO}}
                         }
                     }]
                 });
@@ -59,6 +61,7 @@
             },
 
             onError: function(err) {
+                console.log(err)
                 showNotification('Failed to make payment', 'danger');
             }
         }).render('#paypal-button-container');

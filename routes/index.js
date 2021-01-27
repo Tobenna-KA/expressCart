@@ -27,6 +27,7 @@ const {
   updateTotalCart,
   emptyCart,
   updateSubscriptionCheck,
+  calculateTotalCart
 } = require('../lib/cart');
 const { createReview, getRatingHtml } = require('../lib/modules/reviews-basic');
 const { sortMenu, getMenu } = require('../lib/menu');
@@ -821,10 +822,18 @@ router.get('/checkout/cartdata', (req, res) => {
 router.get('/checkout/payment', async (req, res) => {
   const config = req.app.config;
   const db = req.app.db;
+  const copyNoRef = (obj) => {
+    return JSON.parse(JSON.stringify(obj || {}));
+  }
+
+  const cart = copyNoRef(req.session.cart);
   req.session.cart = parseCart(req.session.cart, getCurrencyField(req));
   await updateTotalCart(req, res);
 
-  console.log(req.app.config);
+  // generate
+  req.session.totalCartAmountUSD = await calculateTotalCart(req, parseCart(copyNoRef(cart), 'productPriceUSD'), 'productPriceUSD')
+  req.session.totalCartAmountEUR = await calculateTotalCart(req, parseCart(copyNoRef(cart), 'productPriceEUR'), 'productPriceEUR')
+  req.session.totalCartAmountCFA = await calculateTotalCart(req, parseCart(copyNoRef(cart), 'productPriceCFA'), 'productPriceCFA')
   // if there is no items in the cart then render a failure
   if (!req.session.cart) {
     req.session.message =
