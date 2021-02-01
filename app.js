@@ -365,16 +365,17 @@ handlebars = handlebars.create({
       return 'false';
     },
     currencySymbol: (value) => {
-      if (typeof value === 'undefined' || value === '' || value === 'KES') {
-        return 'KES ';
-      } else if (value === 'EUR') {
+      if (value === 'EUR') {
         return '€ ';
       } else if (value === 'GBP') {
         return '£ ';
       } else if (value === 'CFA') {
         return 'CFA ';
+      } else if (value === 'USD') {
+        return '$ ';
+      } else {
+        return 'KES ';
       }
-      return value;
     },
     objectLength: (obj) => {
       if (obj) {
