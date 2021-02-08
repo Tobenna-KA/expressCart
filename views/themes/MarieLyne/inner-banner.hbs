@@ -13,22 +13,22 @@
 				<nav>
 					<ul>
 						<li class="nav-item {{#unless searchTerm}}active{{/unless}}"><a class="nav-link" href="/">Home</a></li>
+                        <li class='sub-menu'>
+                            <a href='#settings'> CATEGORIES
+                                <div class='fa fa-caret-down right'></div>
+                            </a>
+                            <ul>
+                                {{#each menuTags}}
+                                    <li><a href="/search/{{this}}">{{this}}</a></li>
+                                {{/each}}
+                            </ul>
+                        </li>
 						{{#each menu.items}}
 						<li class="nav-item" {{#menuMatch this.title @root.searchTerm}}{{/menuMatch}} {{#menuMatch this.title
 							@root.title}}{{/menuMatch}}>
 							<a class="nav-link" href="{{this.link}}">{{this.title}}</a>
 						</li>
 						{{/each}}
-						<li class='sub-menu'>
-							<a href='#settings'> CATEGORIES
-								<div class='fa fa-caret-down right'></div>
-							</a>
-							<ul>
-								{{#each menuTags}}
-								<li><a href="/search/{{this}}">{{this}}</a></li>
-								{{/each}}
-							</ul>
-						</li>
 					</ul>
 				</nav>
 			</div>
