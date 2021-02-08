@@ -63,13 +63,13 @@
                     <select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
                       {{#each variants}}
                       <option value="{{this._id}}" data-price="{{this.price}}">
-                        {{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.price}}
+                        {{this.title}} - {{currencySymbol @root.config.currencySymbol @root.session}}{{this.price}}
                       </option>
                       {{/each}}
                     </select>
                     {{else}}
                     <h4 class="product-price mp-0 text-center">
-                      {{currencySymbol @root.config.currencySymbol}}{{formatAmount variants.0.price}}
+                      {{currencySymbol @root.config.currencySymbol @root.session}}{{formatAmount variants.0.price}}
                     </h4>
                     {{/if}}
                     <p>£250</p>
@@ -105,7 +105,7 @@
                     </a>
                     {{/if}}
                     <p>
-                      {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
+                      {{currencySymbol @root.config.currencySymbol @root.session}}{{formatAmount productPrice}}
                     </p>
                   </div>
                   <div class="buy">
@@ -141,7 +141,7 @@
                   {{/if}}
                 </h4>
                 <h3>
-                  {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
+                  {{currencySymbol @root.config.currencySymbol @root.session}}{{formatAmount productPrice}}
                 </h3>
               </div>
             </div>
@@ -206,13 +206,13 @@
     <select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
       {{#each variants}}
       <option value="{{this._id}}" data-price="{{this.price}}">
-        {{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{this.price}}
+        {{this.title}} - {{currencySymbol @root.config.currencySymbol @root.session}}{{this.price}}
       </option>
       {{/each}}
     </select>
     {{else}}
     <h4 class="product-price mp-0 text-center">
-      {{currencySymbol @root.config.currencySymbol}}{{formatAmount variants.0.price}}
+      {{currencySymbol @root.config.currencySymbol @root.session}}{{formatAmount variants.0.price}}
     </h4>
     {{/if}}
     <div class="buy">
@@ -234,7 +234,7 @@
       <div class="product_price">
         <div class="grid-price ">
           <span class="money">
-            {{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
+            {{currencySymbol @root.config.currencySymbol @root.session}}{{formatAmount productPrice}}
           </span>
         </div>
       </div>

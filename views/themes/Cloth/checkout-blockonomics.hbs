@@ -31,7 +31,7 @@
                                     {{@root.session.shippingMessage}}
                                 </div>
                                 <div class="col-md-6">
-                                    <span><strong>{{currencySymbol @root.config.currencySymbol}}{{formatAmount @root.session.totalCartShipping}}</strong></span>
+                                    <span><strong>{{currencySymbol @root.config.currencySymbol @root.session}}{{formatAmount @root.session.totalCartShipping}}</strong></span>
                                 </div>
                             </div>
                         </li>

@@ -144,7 +144,7 @@
 												{{this.productCapsize}}
 												{{/if}}
 												<div class="float-right">
-													{{currencySymbol @root.config.currencySymbol}}{{formatAmount this.totalItemPrice}}</div>
+													{{currencySymbol @root.config.currencySymbol @root.session}}{{formatAmount this.totalItemPrice}}</div>
 												{{#if productComment}}
 												<h4><span class="text-danger">Comment:</span> {{this.productComment}}</h4>
 												{{/if}}

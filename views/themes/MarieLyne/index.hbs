@@ -57,14 +57,14 @@
 						<select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
 							{{#each variants}}
 							<option value="{{this._id}}" data-price="{{otherVariantPriceValues ../../this}}">
-								{{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{otherVariantPriceValues ../../this}}
+								{{this.title}} - {{currencySymbol @root.config.currencySymbol @root.session}}{{otherVariantPriceValues ../../this}}
 							</option>
 							{{/each}}
 						</select>
 						{{else}}
 						<div class="cart-section">
 							<h4 class="product-price mp-0 text-center">
-								{{currencySymbol @root.config.currencySymbol}}{{shopVariantPriceValues ../../this}}
+								{{currencySymbol @root.config.currencySymbol @root.session}}{{shopVariantPriceValues ../../this}}
 							</h4>
 						</div>
 						{{/if}}
@@ -89,11 +89,11 @@
 					<div class="price-section">
 						<div class="cart-section">
 							<h4 class="product-price mp-0 text-center">
-								{{currencySymbol @root.config.currencySymbol}}{{ relatedProductsPriceValue ../../this}}
+								{{currencySymbol @root.config.currencySymbol @root.session}}{{ relatedProductsPriceValue ../../this}}
 							</h4>
 							{{!-- <div class="price">
 								<span class="money">
-									{{currencySymbol @root.config.currencySymbol}}{{relatedProductsPriceValue ../this}}
+									{{currencySymbol @root.config.currencySymbol @root.session}}{{relatedProductsPriceValue ../this}}
 								</span>
 							</div> --}}
 							<div class="cart-button">
@@ -204,14 +204,14 @@
 							<select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
 								{{#each variants}}
 								<option value="{{this._id}}" data-price="{{otherVariantPriceValues ../../this}}">
-									{{this.title}} - {{currencySymbol @root.config.currencySymbol}}{{otherVariantPriceValues ../../this}}
+									{{this.title}} - {{currencySymbol @root.config.currencySymbol @root.session}}{{otherVariantPriceValues ../../this}}
 								</option>
 								{{/each}}
 							</select>
 							{{else}}
 							<div class="cart-section">
 								<h4 class="product-price mp-0 text-center">
-									{{currencySymbol @root.config.currencySymbol}}{{shopVariantPriceValues ../../this}}
+									{{currencySymbol @root.config.currencySymbol @root.session}}{{shopVariantPriceValues ../../this}}
 								</h4>
 							</div>
 							{{/if}}
@@ -236,11 +236,11 @@
 						<div class="price-section">
 							<div class="cart-section">
 								<h4 class="product-price mp-0 text-center">
-									{{currencySymbol @root.config.currencySymbol}}{{ relatedProductsPriceValue ../../this}}
+									{{currencySymbol @root.config.currencySymbol @root.session}}{{ relatedProductsPriceValue ../../this}}
 								</h4>
 								{{!-- <div class="price">
 									<span class="money">
-										{{currencySymbol @root.config.currencySymbol}}{{relatedProductsPriceValue ../this}}
+										{{currencySymbol @root.config.currencySymbol @root.session}}{{relatedProductsPriceValue ../this}}
 									</span>
 								</div> --}}
 								<div class="cart-button">

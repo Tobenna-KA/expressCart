@@ -48,7 +48,7 @@
                                 <div class="col-12 col-md-8 no-pad-left mb-2"></div>
                                 {{/ifCond}}
                                 <div class="col-8 col-md-4 align-self-center text-right">
-                                    <strong class="my-auto">{{currencySymbol @root.config.currencySymbol}}{{formatAmount this.totalItemPrice}}</strong>
+                                    <strong class="my-auto">{{currencySymbol @root.config.currencySymbol @root.session}}{{formatAmount this.totalItemPrice}}</strong>
                                 </div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                 <div class="cart-contents-shipping col-md-12 no-pad-right">
                     {{#ifCond @root.session.totalCartShipping '>' 0}}
                     <div class="text-right">
-                        {{@root.session.shippingMessage}}: <strong id="shipping-amount">{{currencySymbol @root.config.currencySymbol}}{{formatAmount @root.session.totalCartShipping}}</strong>
+                        {{@root.session.shippingMessage}}: <strong id="shipping-amount">{{currencySymbol @root.config.currencySymbol @root.session}}{{formatAmount @root.session.totalCartShipping}}</strong>
                     </div>
                     {{else}}
                     <div class="text-right">
@@ -72,12 +72,12 @@
                     {{/ifCond}}
                     {{#ifCond @root.session.totalCartDiscount '>' 0}}
                     <div class="text-right">
-                        Discount: <strong id="discount-amount">{{currencySymbol @root.config.currencySymbol}}{{formatAmount @root.session.totalCartDiscount}}</strong>
+                        Discount: <strong id="discount-amount">{{currencySymbol @root.config.currencySymbol @root.session}}{{formatAmount @root.session.totalCartDiscount}}</strong>
                     </div>
                     {{/ifCond}}
                     <div class="text-right">
                         Total:
-                        <strong id="total-cart-amount">{{currencySymbol @root.config.currencySymbol}}{{formatAmount @root.session.totalCartAmount}}</strong>
+                        <strong id="total-cart-amount">{{currencySymbol @root.config.currencySymbol @root.session}}{{formatAmount @root.session.totalCartAmount}}</strong>
                     </div>
                 </div>
             </div>

@@ -362,16 +362,21 @@ handlebars = handlebars.create({
       }
       return 'false';
     },
-    currencySymbol: (value) => {
+    currencySymbol: (value, session) => {
 
-      console.log(value, 'valvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalval')
-      if (value === 'EUR') {
+      console.log(value, session, 'valvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalval')
+      if (value !== session.currency) {
+        console.log(value, session, 'vattttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt')
+        value = session.currency
+      }
+
+      if (value === 'EUR' || value === 'productPriceEUR') {
         return '€ ';
-      } else if (value === 'GBP') {
+      } else if (value === 'GBP' || value === 'productPriceGBP') {
         return '£ ';
-      } else if (value === 'CFA') {
+      } else if (value === 'CFA' || value === 'productPriceCFA') {
         return 'CFA ';
-      } else if (value === 'USD') {
+      } else if (value === 'USD' || value === 'productPriceUSD') {
         return '$ ';
       } else {
         return 'KES ';

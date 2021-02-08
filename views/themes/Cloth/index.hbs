@@ -58,13 +58,13 @@
 					</select>
 					{{else}}
 					<h4 class="product-price mp-0 text-center">
-						{{currencySymbol @root.config.currencySymbol}}{{formatAmount variants.0.price}}
+						{{currencySymbol @root.config.currencySymbol @root.session}}{{formatAmount variants.0.price}}
 					</h4>
 					{{/if}}
 				</div>
 				{{else}}
 				<h4 class="product-price mp-0 text-center">
-					{{currencySymbol @root.config.currencySymbol}}{{formatAmount productPrice}}
+					{{currencySymbol @root.config.currencySymbol @root.session}}{{formatAmount productPrice}}
 				</h4>
 				{{/if}}
 				<p class="text-center">

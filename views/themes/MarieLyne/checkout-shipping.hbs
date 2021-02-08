@@ -15,7 +15,7 @@
 				<ul class="list-group">
 					{{#ifCond @root.session.totalCartShipping '>' 0}}
 					<li class="list-group-item">{{@root.session.shippingMessage}} <span
-							class="float-right"><strong>{{currencySymbol @root.config.currencySymbol}}{{formatAmount @root.session.totalCartShipping}}</strong></span>
+							class="float-right"><strong>{{currencySymbol @root.config.currencySymbol @root.session}}{{formatAmount @root.session.totalCartShipping}}</strong></span>
 					</li>
 					{{else}}
 					<li class="list-group-item">{{@root.session.shippingMessage}}</li>
