@@ -134,8 +134,6 @@ handlebars = handlebars.create({
       return val[this.session.currency];
     },
     variantPriceValue(val) {
-      console.log(val, 'valvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalval')
-      console.log(this.session.currency, 'valvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalval')
       if (!val || !this.session) return null;
       if (Array.isArray(val)) {
         if (
@@ -365,6 +363,8 @@ handlebars = handlebars.create({
       return 'false';
     },
     currencySymbol: (value) => {
+
+      console.log(value, 'valvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalval')
       if (value === 'EUR') {
         return '€ ';
       } else if (value === 'GBP') {
