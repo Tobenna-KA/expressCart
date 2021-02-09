@@ -636,24 +636,27 @@ app.use(async (req, res, next) => {
   if (!req.app.config.defaultCurrency)
     req.app.config.defaultCurrency = config.currencySymbol;
 
-  if (req.cookies && req.cookies.currency) {
-    // get currency from cookies
-    req.session.currency = req.cookies.currency;
-    if (req.cookies.currency === 'productPriceCFA') {
-      req.app.config.currencySymbol = 'CFA';
-      req.app.config.currencyISO = 'CFA';
-    } else if (req.cookies.currency === 'productPriceEUR') {
-      req.app.config.currencySymbol = 'EUR';
-      req.app.config.currencyISO = 'EUR';
-    } else if (req.cookies.currency === 'productPriceUSD') {
-      req.app.config.currencySymbol = 'USD';
-      req.app.config.currencyISO = 'USD';
-    } else {
-      req.app.config.currencySymbol = 'KES';
-      req.app.config.currencyISO = 'KES';
-    }
-  } else {
+  // if no currency detail is set, reset it
+  if (!req.cookies || !req.cookies.currency || !req.session || !req.session.currency) {
     req.session.currency = 'KES';
+    req.cookies.currency = 'KES';
+    req.app.config.currencySymbol = 'KES';
+    req.app.config.currencyISO = 'KES';
+  }
+
+  // get currency from cookies
+  req.session.currency = req.cookies.currency;
+  if (req.cookies.currency === 'productPriceCFA') {
+    req.app.config.currencySymbol = 'CFA';
+    req.app.config.currencyISO = 'CFA';
+  } else if (req.cookies.currency === 'productPriceEUR') {
+    req.app.config.currencySymbol = 'EUR';
+    req.app.config.currencyISO = 'EUR';
+  } else if (req.cookies.currency === 'productPriceUSD') {
+    req.app.config.currencySymbol = 'USD';
+    req.app.config.currencyISO = 'USD';
+  } else {
+    req.app.config.currencySymbol = 'KES';
     req.app.config.currencyISO = 'KES';
   }
   next();
