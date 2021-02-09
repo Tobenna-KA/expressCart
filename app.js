@@ -364,9 +364,9 @@ handlebars = handlebars.create({
     },
     currencySymbol: (value, session) => {
 
-      console.log(value, session, 'valvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalval')
-      if (value !== session.currency) {
-        console.log(value, session, 'vattttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt')
+      console.log(value, session.currency, 'valvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalvalval')
+      if (session.currency && value !== session.currency) {
+        console.log(value, session.currency, 'vattttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt')
         value = session.currency
       }
 

@@ -789,6 +789,7 @@ router.get('/checkout/cart', async (req, res) => {
   const config = req.app.config;
   const db = req.app.db;
   req.session.cart = parseCart(req.session.cart, getCurrencyField(req));
+  console.log(req.session.cart, 'CARRRRRRRRRRRRRRRRRRRRRRRT')
   await updateTotalCart(req, res);
 
   const menuTags = req.session.menuTags || { tags: [] };
@@ -1447,12 +1448,16 @@ router.post('/product/addtocart', async (req, res, next) => {
   // Variant checks
   let productCartId = product._id.toString();
   let productPrice = parseFloat(product[getCurrencyField(req)]).toFixed(2);
+  console.log('HERE')
 
   let productVariantId,
     productVariantTitle,
     productPriceCFA = 0,
     productPriceEUR = 0,
-    productPriceUSD = 0;
+    productPriceUSD = 0,
+    productPriceKES = (parseFloat(product['productPrice'] || '0.0').toFixed(2) || 0);
+
+  console.log(req.session.cart[productCartId]);
   let productStock = product.productStock;
 
   // Check if a variant is supplied and override values
@@ -1535,6 +1540,7 @@ router.post('/product/addtocart', async (req, res, next) => {
       req.session.cart[productCartId].totalItemPrice =
         productPrice * parseInt(req.session.cart[productCartId].quantity);
       req.session.cart[productCartId].productPrice = +productPrice;
+      req.session.cart[productCartId].productPriceKES = +productPriceKES;
       req.session.cart[productCartId].productPriceUSD = +productPriceUSD;
       req.session.cart[productCartId].productPriceEUR = +productPriceEUR;
       req.session.cart[productCartId].productPriceCFA = +productPriceCFA;
@@ -1606,6 +1612,7 @@ router.post('/product/addtocart', async (req, res, next) => {
     productObj.variantId = productVariantId;
     productObj.variantTitle = productVariantTitle;
     productObj.productPrice = +productPrice;
+    productObj.productPriceKES = +productPriceKES;
     productObj.productPriceUSD = +productPriceUSD;
     productObj.productPriceEUR = +productPriceEUR;
     productObj.productPriceCFA = +productPriceCFA;
