@@ -1460,6 +1460,10 @@ router.post('/product/addtocart', async (req, res, next) => {
   console.log(req.session.cart[productCartId]);
   let productStock = product.productStock;
 
+  productPriceUSD = parseFloat(product.productPriceUSD || '0.0').toFixed(2);
+  productPriceEUR = parseFloat(product.productPriceEUR || '0.0').toFixed(2);
+  productPriceCFA = parseFloat(product.productPriceCFA || '0.0').toFixed(2);
+
   // Check if a variant is supplied and override values
   if (req.body.productVariant) {
     const variant = await db.variants.findOne({
@@ -1475,11 +1479,13 @@ router.post('/product/addtocart', async (req, res, next) => {
     productVariantTitle = variant.title;
     productCartId = req.body.productVariant;
     productPrice = parseFloat(variant[getCurrencyField(req, true)]).toFixed(2);
+    productPriceKES = (parseFloat(variant['price'] || '0.0').toFixed(2) || 0);
+    productPriceUSD = parseFloat(variant.productPriceUSD || '0.0').toFixed(2);
+    productPriceEUR = parseFloat(variant.productPriceEUR || '0.0').toFixed(2);
+    productPriceCFA = parseFloat(variant.productPriceCFA || '0.0').toFixed(2);
+    console.log('HERE----', getCurrencyField(req, true), variant)
     productStock = variant.stock;
   }
-  productPriceUSD = parseFloat(product.productPriceUSD || '0.0').toFixed(2);
-  productPriceEUR = parseFloat(product.productPriceEUR || '0.0').toFixed(2);
-  productPriceCFA = parseFloat(product.productPriceCFA || '0.0').toFixed(2);
 
   // If stock management on check there is sufficient stock for this product
   if (config.trackStock) {
