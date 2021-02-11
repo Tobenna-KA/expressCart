@@ -2,6 +2,7 @@ const express = require('express');
 const { restrict, checkAccess } = require('../lib/auth');
 const escape = require('html-entities').AllHtmlEntities;
 const colors = require('colors');
+const randtoken = require('rand-token');
 const bcrypt = require('bcryptjs');
 const moment = require('moment');
 const fs = require('fs');
@@ -34,6 +35,11 @@ const {
 const ObjectId = require('mongodb').ObjectID;
 const router = express.Router();
 const csrfProtection = csrf({ cookie: true });
+const rateLimit = require('express-rate-limit');
+const apiLimiter = rateLimit({
+  windowMs: 300000, // 5 minutes
+  max: 5,
+});
 
 // Regex
 const emailRegex = /\S+@\S+\.\S+/;
@@ -114,6 +120,148 @@ router.post('/admin/login_action', async (req, res) => {
       .status(400)
       .json({ message: 'Access denied. Check password and try again.' });
   });
+});
+
+// admin forgotten password
+router.get('/admin/forgotten', (req, res) => {
+  res.render('admin-forgotten', {
+    title: 'Forgotten',
+    route: 'admin',
+    layout: 'layout_old.hbs',
+    forgotType: 'admin',
+    config: req.app.config,
+    helpers: req.handlebars.helpers,
+    message: clearSessionValue(req.session, 'message'),
+    messageType: clearSessionValue(req.session, 'messageType'),
+    showFooter: 'showFooter',
+  });
+});
+
+// admin forgotten password
+router.post('/admin/forgotten_action', apiLimiter, async (req, res) => {
+  const db = req.app.db;
+  const config = req.app.config;
+  const passwordToken = randtoken.generate(30);
+
+  // find the user
+  const user = await db.users.findOne({ userEmail: req.body.email });
+
+  try {
+    if (!user) {
+      // if don't have an email on file, silently fail
+      res.status(200).json({
+        message:
+          'If your account exists, a password reset has been sent to your email',
+      });
+      return;
+    }
+    const tokenExpiry = Date.now() + 3600000;
+    await db.users.updateOne(
+      { userEmail: req.body.email },
+      { $set: { resetToken: passwordToken, resetTokenExpiry: tokenExpiry } },
+      { multi: false }
+    );
+    // send forgotten password email
+    const mailOpts = {
+      to: req.body.email,
+      subject: 'Forgotten password request',
+      body: `You are receiving this because you (or someone else) have requested the reset of the password for your admin account.\n\n
+                Please click on the following link, or paste this into your browser to complete the process:\n\n
+                ${config.baseUrl}/admin/reset/${passwordToken}\n\n
+                If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+    };
+
+    // send the email with token to the user
+    // TODO: Should fix this to properly handle result
+    sendEmail(mailOpts.to, mailOpts.subject, mailOpts.body);
+    res.status(200).json({
+      message:
+        'If your account exists, a password reset has been sent to your email',
+    });
+  } catch (ex) {
+    res.status(400).json({
+      message: 'Password reset failed.',
+    });
+  }
+});
+
+// reset password form
+router.get('/admin/reset/:token', async (req, res) => {
+  const db = req.app.db;
+
+  // Find the customer using the token
+  const user = await db.users.findOne({
+    resetToken: req.params.token,
+    resetTokenExpiry: { $gt: Date.now() },
+  });
+  if (!user) {
+    req.session.message = 'Password reset token is invalid or has expired';
+    req.session.message_type = 'danger';
+    res.redirect('/admin/forgotten');
+    return;
+  }
+
+  // show the password reset form
+  res.render('admin-reset', {
+    title: 'Reset password',
+    token: req.params.token,
+    route: 'admin',
+    layout: 'layout_old.hbs',
+    config: req.app.config,
+    message: clearSessionValue(req.session, 'message'),
+    message_type: clearSessionValue(req.session, 'message_type'),
+    show_footer: 'show_footer',
+    helpers: req.handlebars.helpers,
+  });
+});
+
+// admin reset password action
+router.post('/admin/reset/:token', async (req, res) => {
+  const db = req.app.db;
+
+  // get the admin user
+  const user = await db.users.findOne({
+    resetToken: req.params.token,
+    resetTokenExpiry: { $gt: Date.now() },
+  });
+  if (!user) {
+    req.session.message = 'Password reset token is invalid or has expired';
+    req.session.message_type = 'danger';
+    return res.redirect('/admin/forgotten');
+  }
+
+  // update the password and remove the token
+  const newPassword = bcrypt.hashSync(req.body.password, 10);
+
+  try {
+    await db.users.updateOne(
+      { userEmail: user.userEmail },
+      {
+        $set: {
+          userPassword: newPassword,
+          resetToken: undefined,
+          resetTokenExpiry: undefined,
+        },
+      },
+      { multi: false }
+    );
+    const mailOpts = {
+      to: user.userEmail,
+      subject: 'Password successfully reset',
+      body: `This is a confirmation that the password for your account ${user.userEmail} has just been changed successfully.\n`,
+    };
+
+    // TODO: Should fix this to properly handle result
+    sendEmail(mailOpts.to, mailOpts.subject, mailOpts.body);
+    req.session.message = 'Password successfully updated';
+    req.session.message_type = 'success';
+    return res.redirect('/admin/login');
+  } catch (ex) {
+    console.log('Unable to reset password', ex);
+    req.session.message = 'Unable to reset password';
+    req.session.message_type = 'danger';
+    return res.redirect('/admin/forgotten');
+  }
 });
 
 // setup form is shown when there are no users setup in the DB

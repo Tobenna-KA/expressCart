@@ -156,6 +156,31 @@ $(document).ready(function () {
       }
     });
 
+  $('#adminForgotten')
+    .validator()
+    .on('submit', function (e) {
+      if (!e.isDefaultPrevented()) {
+        e.preventDefault();
+        $.ajax({
+          method: 'POST',
+          url: '/admin/forgotten_action',
+          data: {
+            email: $('#email').val(),
+          },
+        })
+          .done(function (msg) {
+            showNotification(msg.message, 'success');
+          })
+          .fail(function (msg) {
+            if (msg.message) {
+              showNotification(msg.responseJSON.message, 'danger');
+              return;
+            }
+            showNotification(msg.responseText, 'danger');
+          });
+      }
+    });
+
   $(document).on('click', '#createAccountCheckbox', function (e) {
     $('#newCustomerPassword').prop(
       'required',
