@@ -454,7 +454,7 @@ router.get('/customer/login', async (req, res, next) => {
   const db = req.app.db;
   const config = req.app.config;
 
-  const menuTags = req.session.menuTags ||  {tags: []};
+  const menuTags = req.session.menuTags || { tags: [] };
 
   Promise.all([getMenu(db)]).then(([menu]) => {
     res.render(`${config.themeViews}customer-login`, {
@@ -477,6 +477,7 @@ router.post('/customer/login_action', async (req, res) => {
   const customer = await db.customers.findOne({
     email: mongoSanitize(req.body.loginEmail),
   });
+
   // check if customer exists with that email
   if (customer === undefined || customer === null) {
     res.status(400).json({
@@ -564,19 +565,19 @@ router.post('/customer/subscribe/newsletter', async (req, res) => {
   const db = req.app.db;
 
   let subscriber = await db.subscribers.findOne({
-    email: mongoSanitize(req.body.subscriptionEmail)
+    email: mongoSanitize(req.body.subscriptionEmail),
   });
 
   if (subscriber) {
     res.status(400).json({
-      message: 'You are already a Subscriber'
+      message: 'You are already a Subscriber',
     });
     return;
   }
 
   subscriber = await db.subscribers.insertOne({
     email: mongoSanitize(req.body.subscriptionEmail),
-    dateAdded: new Date()
+    dateAdded: new Date(),
   });
   // if email already exists, check if user is subscribed
   if (subscriber === undefined || subscriber === null) {

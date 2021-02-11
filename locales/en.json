@@ -70,6 +70,17 @@
 	"Account": "Account",
 	"Please sign in": "Please sign in",
 	"Sign in": "Sign in",
+<<<<<<< HEAD
+=======
+	"No products found": "No products found",
+	"Users name": "Users name",
+	"User email": "User email",
+	"User password": "User password",
+	"Password confirm": "Password confirm",
+	"Complete setup": "Complete setup",
+	" Users name": " Users name",
+	" Email address": " Email address",
+>>>>>>> new-feature
 	"Dashboard": "Dashboard",
 	"General settings": "General settings",
 	"Menu": "Menu",
@@ -79,6 +90,7 @@
 	"Discount codes": "Discount codes",
 	"Logout": "Logout",
 	"Shown in the variant dropdown": "Shown in the variant dropdown",
+<<<<<<< HEAD
 	"Users": "Users",
 	"New user": "New user",
 	"User": "User",
@@ -95,11 +107,22 @@
 	"Draft": "Draft",
 	"Product GTIN": "Product GTIN",
 	"Product Brand": "Product Brand",
+=======
+	"\r\n\t\t\t\t\t\t\t\tSearch shop": "\r\n\t\t\t\t\t\t\t\tSearch shop",
+	"New product": "New product",
+	"Product title": "Product title",
+	"Product price": "Product price",
+	"Product GTIN": "Product GTIN",
+	"The Serial number, GTIN or Barcode": "The Serial number, GTIN or Barcode",
+	"Product Brand": "Product Brand",
+	"The brand of the product": "The brand of the product",
+>>>>>>> new-feature
 	"Product price USD": "Product price USD",
 	"Product price CFA": "Product price CFA",
 	"Product price EUR": "Product price EUR",
 	"Product Capsize": "Product Capsize",
 	"Product Color": "Product Color",
+<<<<<<< HEAD
 	"Stock level": "Stock level",
 	"Disable stock tracking": "Disable stock tracking",
 	"Validate": "Validate",
@@ -120,4 +143,30 @@
 	"Select file": "Select file",
 	"Upload": "Upload",
 	"Set as main\n\t\t\t\t\t\t\t\t\timage": "Set as main\n\t\t\t\t\t\t\t\t\timage"
+=======
+	"Status": "Status",
+	"Published": "Published",
+	"Draft": "Draft",
+	"Stock level": "Stock level",
+	"This sets a readable URL for the product": "This sets a readable URL for the product",
+	"Allow comment": "Allow comment",
+	"Allow free form comments when adding products to cart": "Allow free form comments when adding products to cart",
+	"Tag words used to indexed products, making them easier to find and filter.": "Tag words used to indexed products, making them easier to find and filter.",
+	"Upload image": "Upload image",
+	"Save product": "Save product",
+	"Edit product": "Edit product",
+	"Disable stock tracking": "Disable stock tracking",
+	"Validate": "Validate",
+	"Product variants": "Product variants",
+	"Add": "Add",
+	"Here you can set variants for your product. Eg: Size, color, style": "Here you can set variants for your product. Eg: Size, color, style",
+	"Product tag words": "Product tag words",
+	"Product images": "Product images",
+	"No images have been uploaded for this product": "No images have been uploaded for this product",
+	"Product image upload": "Product image upload",
+	"Select file": "Select file",
+	"Upload": "Upload",
+	"Delete": "Delete",
+	"Set as main\r\n\t\t\t\t\t\t\t\t\timage": "Set as main\r\n\t\t\t\t\t\t\t\t\timage"
+>>>>>>> new-feature
 }
