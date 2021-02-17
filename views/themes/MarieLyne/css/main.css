@@ -96,6 +96,15 @@ select.mainSelect {
   select.mainSelect:focus {
     border: 2px solid #d9ab73 !important; }
 
+#forgot_password {
+  color: red;
+  text-align: right;
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  font-size: 0.9em;
+  font-weight: bold; }
+
 .main-cart {
   margin-top: 40px;
   max-width: 100% !important; }
