@@ -96,6 +96,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "globby": "^11.0.1",
     "less": "^3.12.2",
+    "mocha": "^8.2.1",
     "pm2": "^4.5.0",
     "supertest": "^4.0.2",
     "uglify-es": "^3.3.9"
