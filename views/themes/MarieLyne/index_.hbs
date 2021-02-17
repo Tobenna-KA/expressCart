@@ -138,7 +138,8 @@
 							<select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
 								{{#each variants}}
 								<option value="{{this._id}}" data-price="{{otherVariantPriceValues ../../this}}">
-									{{this.title}} - {{currencySymbol @root.config.currencySymbol @root.session}}{{otherVariantPriceValues ../../this}}
+									{{this.title}} - {{currencySymbol @root.config.currencySymbol @root.session}}{{otherVariantPriceValues
+									../../this}}
 								</option>
 								{{/each}}
 							</select>
@@ -228,7 +229,6 @@
 				'margin': 1,
 				'display_captions': true,
 				callback: function (data) {
-					console.log('SOLID')
 				}
 				//'styling': false
 			});
