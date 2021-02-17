@@ -27,7 +27,7 @@ const {
   updateTotalCart,
   emptyCart,
   updateSubscriptionCheck,
-  calculateTotalCart
+  calculateTotalCart,
 } = require('../lib/cart');
 const { createReview, getRatingHtml } = require('../lib/modules/reviews-basic');
 const { sortMenu, getMenu } = require('../lib/menu');
@@ -825,16 +825,28 @@ router.get('/checkout/payment', async (req, res) => {
   const db = req.app.db;
   const copyNoRef = (obj) => {
     return JSON.parse(JSON.stringify(obj || {}));
-  }
+  };
 
   const cart = copyNoRef(req.session.cart);
   req.session.cart = parseCart(req.session.cart, getCurrencyField(req));
   await updateTotalCart(req, res);
 
   // generate
-  req.session.totalCartAmountUSD = await calculateTotalCart(req, parseCart(copyNoRef(cart), 'productPriceUSD'), 'productPriceUSD')
-  req.session.totalCartAmountEUR = await calculateTotalCart(req, parseCart(copyNoRef(cart), 'productPriceEUR'), 'productPriceEUR')
-  req.session.totalCartAmountCFA = await calculateTotalCart(req, parseCart(copyNoRef(cart), 'productPriceCFA'), 'productPriceCFA')
+  req.session.totalCartAmountUSD = await calculateTotalCart(
+    req,
+    parseCart(copyNoRef(cart), 'productPriceUSD'),
+    'productPriceUSD'
+  );
+  req.session.totalCartAmountEUR = await calculateTotalCart(
+    req,
+    parseCart(copyNoRef(cart), 'productPriceEUR'),
+    'productPriceEUR'
+  );
+  req.session.totalCartAmountCFA = await calculateTotalCart(
+    req,
+    parseCart(copyNoRef(cart), 'productPriceCFA'),
+    'productPriceCFA'
+  );
   // if there is no items in the cart then render a failure
   if (!req.session.cart) {
     req.session.message =
@@ -1582,10 +1594,6 @@ router.post('/product/addtocart', async (req, res, next) => {
       req.session.cart[
         productCartId + productColor + productCapsize
       ] = productObj;
-
-      // console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-      // console.log(req.session.cart[productCartId]);
-      // return;
     }
 
     // Check if the product color is the same
@@ -2033,8 +2041,6 @@ router.get('/:page?', async (req, res, next) => {
           else product.new = false;
           return product;
         });
-        console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&');
-        console.log(homePageProducts);
 
         const menuTags = req.session.menuTags || { tags: [] };
 

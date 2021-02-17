@@ -509,11 +509,11 @@ handlebars = handlebars.create({
       try {
         switch (currency) {
           case 'USD':
-            return session.totalCartAmountUSD
+            return numeral(session.totalCartAmountUSD).format('0.00');
           case 'EUR':
-            return session.totalCartAmountEUR
+            return numeral(session.totalCartAmountEUR).format('0.00');
           default: // if currency is not dollars or euros, use dollars to pay
-            return session.totalCartAmountUSD
+            return numeral(session.totalCartAmountUSD).format('0.00');
         }
 
       } catch (e) {
