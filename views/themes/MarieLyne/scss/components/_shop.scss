@@ -1647,3 +1647,24 @@ input.button.add {
 
 /* 172A3A */
 /* f2eae4 */
+
+#pagination-shop {
+  min-width: 120px;
+  max-width: 250px;
+  margin: 0 auto;
+
+  .pagination {
+    .active > span:focus {
+      // border: 1px solid red;
+    }
+  }
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  // border: 1px solid $primary_color;
+}

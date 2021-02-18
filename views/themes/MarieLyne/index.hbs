@@ -57,7 +57,8 @@
 						<select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
 							{{#each variants}}
 							<option value="{{this._id}}" data-price="{{otherVariantPriceValues ../../this}}">
-								{{this.title}} - {{currencySymbol @root.config.currencySymbol @root.session}}{{otherVariantPriceValues ../../this}}
+								{{this.title}} - {{currencySymbol @root.config.currencySymbol @root.session}}{{otherVariantPriceValues
+								../../this}}
 							</option>
 							{{/each}}
 						</select>
@@ -204,7 +205,8 @@
 							<select id="productVariant-{{this._id}}" class="productVariant form-control mb-2">
 								{{#each variants}}
 								<option value="{{this._id}}" data-price="{{otherVariantPriceValues ../../this}}">
-									{{this.title}} - {{currencySymbol @root.config.currencySymbol @root.session}}{{otherVariantPriceValues ../../this}}
+									{{this.title}} - {{currencySymbol @root.config.currencySymbol @root.session}}{{otherVariantPriceValues
+									../../this}}
 								</option>
 								{{/each}}
 							</select>
@@ -273,8 +275,14 @@
 	{{/if}}
 	{{> themes/MarieLyne/bottom-carousel}}
 </div>
-<input type="hidden" id="itemsPerPage" value="{{productsPerPage}}">
-<input type="hidden" id="pageNum" value="{{pageNum}}">
-<input type="hidden" id="totalItemCount" value="{{totalProductCount}}">
-<input type="hidden" id="paginateUrl" value="{{paginateUrl}}">
-<input type="hidden" id="searchTerm" value="{{searchTerm}}">
+<div id="pagination-shop">
+
+	<input type="hidden" id="itemsPerPage" value="{{productsPerPage}}">
+	<input type="hidden" id="pageNum" value="{{pageNum}}">
+	<input type="hidden" id="totalItemCount" value="{{totalProductCount}}">
+	<input type="hidden" id="paginateUrl" value="{{paginateUrl}}">
+	<input type="hidden" id="searchTerm" value="{{searchTerm}}">
+	<div class="col-md-12">
+		<div id="pager" class="d-flex justify-content-center"></div>
+	</div>
+</div>

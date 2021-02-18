@@ -148,7 +148,7 @@ router.get('/contact/:name/:email/:subject/:message', async (req, res) => {
 router.get('/shop', async (req, res) => {
   const db = req.app.db;
   const config = req.app.config;
-  // const numberProducts = config.productsPerPage ? config.productsPerPage : 12;
+  const numberProducts = config.productsPerPage ? config.productsPerPage : 12;
   const file_to_render = `${config.themeViews}shop`;
 
   const menuTags = req.session.menuTags || { tags: [] };
@@ -212,6 +212,89 @@ router.get('/shop', async (req, res) => {
       config: req.app.config,
       menu: sortMenu(menu),
       categories: productCategories,
+      pageNum: req.params.pageNum || 1,
+      productsPerPage: numberProducts,
+      totalProductCount: results.totalItems,
+      paginateUrl: 'shop',
+      menuTags: menuTags.tags,
+      colors: colors ? colors : null,
+      capsizes: capsizes ? capsizes : null,
+    });
+  });
+});
+
+// Shop page Route
+router.get('/shop/:pageNum', async (req, res) => {
+  const db = req.app.db;
+  const config = req.app.config;
+  const numberProducts = config.productsPerPage ? config.productsPerPage : 12;
+  const file_to_render = `${config.themeViews}shop`;
+
+  const menuTags = req.session.menuTags || { tags: [] };
+
+  Promise.all([
+    paginateProducts(true, db, req.params.pageNum, {}, getSort()),
+    getMenu(db),
+  ]).then(([results, menu]) => {
+    if (req.query.json === 'true') {
+      res.status(200).json(results.data);
+      return;
+    }
+
+    const colors = [];
+    const capsizes = [];
+    const categories = results.data.map((product) => {
+      if (product.productColors) {
+        const colorsObj = JSON.parse(product.productColors);
+
+        Object.keys(colorsObj).forEach((key) => {
+          const color = {
+            name: key,
+            color: colorsObj[key],
+          };
+
+          if (colors.findIndex((c) => c.name == color.name) < 0)
+            colors.push(color);
+        });
+      }
+
+      if (product.productCapsizes) {
+        const capsizesArr = product.productCapsizes.split(', ');
+
+        capsizesArr.forEach((capsize) => {
+          if (capsizes.findIndex((size) => size == capsize) < 0) {
+            capsizes.push(capsize);
+          }
+        });
+      }
+
+      if (product.productTags.indexOf(',') >= 0) {
+        const cats = product.productTags.split(', ');
+        return cats;
+      } else {
+        return product.productTags;
+      }
+    });
+
+    const productCategories = [...new Set(categories.flat())].filter(
+      (cat) => cat.length > 0
+    );
+
+    req.session.productCategories = productCategories;
+    req.session.productColors = colors;
+    req.session.productCapsizes = capsizes;
+
+    res.render(file_to_render, {
+      session: req.session,
+      helpers: req.handlebars.helpers,
+      results: results.data,
+      config: req.app.config,
+      menu: sortMenu(menu),
+      categories: productCategories,
+      pageNum: req.params.pageNum || 1,
+      productsPerPage: numberProducts,
+      totalProductCount: results.totalItems,
+      paginateUrl: 'shop',
       menuTags: menuTags.tags,
       colors: colors ? colors : null,
       capsizes: capsizes ? capsizes : null,
@@ -220,7 +303,7 @@ router.get('/shop', async (req, res) => {
 });
 
 // Shop search route
-router.get('/shop/search/:searchString', async (req, res) => {
+router.get('/shop/search/:searchString/:numPage', async (req, res) => {
   const searchStr = req.params.searchString;
 
   const searchArr = searchStr.split('-');
@@ -236,10 +319,10 @@ router.get('/shop/search/:searchString', async (req, res) => {
   const db = req.app.db;
   const config = req.app.config;
   const numberProducts = config.productsPerPage ? config.productsPerPage : 6;
-  let pageNum = 1;
-  if (req.params.pageNum) {
-    pageNum = req.params.pageNum;
-  }
+  let pageNum = req.params.numPage || 1;
+  // if (req.params.pageNum) {
+  //   pageNum = req.params.pageNum;
+  // }
 
   const menuTags = req.session.menuTags || { tags: [] };
 
@@ -294,13 +377,15 @@ router.get('/shop/search/:searchString', async (req, res) => {
         console.log(colors.red(`Error searching products ${err}`));
       }
 
+      const productIDs = productsList.map((product) => product._id);
+
       Promise.all([
         // Paginate function not working
         paginateProducts(
           true,
           db,
           pageNum,
-          { _id: { $in: productsList } },
+          { _id: { $in: productIDs } },
           getSort()
         ),
         getMenu(db),
@@ -311,21 +396,26 @@ router.get('/shop/search/:searchString', async (req, res) => {
             res.status(200).json(results.data);
             return;
           }
+
+          // console.log('******************************************');
+          // console.log(pageNum);
+
           // Page not rerendering
           res.render(`${config.themeViews}shop`, {
             title: 'Shop',
-            results: productsList,
+            results: results.data,
             session: req.session,
+            searchTerm: searchStr,
             message: clearSessionValue(req.session, 'message'),
             messageType: clearSessionValue(req.session, 'messageType'),
             productsPerPage: numberProducts,
-            totalProductCount: productsList.length,
+            totalProductCount: results.totalItems,
             pageNum: pageNum,
-            paginateUrl: 'search',
+            paginateUrl: 'shop/search',
             config: config,
             menu: sortMenu(menu),
             helpers: req.handlebars.helpers,
-            showFooter: 'showFooter',
+            // showFooter: 'showFooter',
             menuTags: menuTags.tags,
           });
         })
@@ -341,7 +431,7 @@ router.get('/shop/search/:searchString', async (req, res) => {
 
 // Filter route gets filter criteria through url
 router.get(
-  '/shop/filter/:minPrice/:maxPrice/:categories/:rating/:colors/:capsizes',
+  '/shop/filter/:minPrice/:maxPrice/:categories/:rating/:colors/:capsizes/:numPage',
   async (req, res) => {
     const filterObj = req.params;
     filterObj.maxPrice = Number(filterObj.maxPrice);
@@ -401,10 +491,7 @@ router.get(
     const db = req.app.db;
     const config = req.app.config;
     const numberProducts = config.productsPerPage ? config.productsPerPage : 6;
-    let pageNum = 1;
-    if (req.params.pageNum) {
-      pageNum = req.params.pageNum;
-    }
+    let pageNum = req.params.numPage || 1;
 
     let rating = Number(filterObj.rating);
 
@@ -472,13 +559,20 @@ router.get(
           console.log(colors.red(`Error filtering products ${err}`));
         }
 
+        const productIDs = productsList.map((product) => product._id);
+        const url = req.originalUrl.split('/');
+
+        url.splice(-1);
+        url.splice(0, 3);
+
+        let searchStr = url.join('/');
+
         Promise.all([
-          // Paginate function not working
           paginateProducts(
             true,
             db,
             pageNum,
-            { _id: { $in: productsList } },
+            { _id: { $in: productIDs } },
             getSort()
           ),
           getMenu(db),
@@ -492,18 +586,19 @@ router.get(
             // Page not rerendering
             res.render(`${config.themeViews}shop`, {
               title: 'Shop',
-              results: productsList,
+              results: results.data,
               session: req.session,
+              searchTerm: searchStr,
               message: clearSessionValue(req.session, 'message'),
               messageType: clearSessionValue(req.session, 'messageType'),
               productsPerPage: numberProducts,
               totalProductCount: productsList.length,
               pageNum: pageNum,
-              paginateUrl: 'search',
+              paginateUrl: 'shop/filter',
               config: config,
               menu: sortMenu(menu),
               helpers: req.handlebars.helpers,
-              showFooter: 'showFooter',
+              // showFooter: 'showFooter',
               categories: req.session.productCategories,
               lastFilterObj: filterObj,
               menuTags: menuTags.tags,
@@ -789,7 +884,7 @@ router.get('/checkout/cart', async (req, res) => {
   const config = req.app.config;
   const db = req.app.db;
   req.session.cart = parseCart(req.session.cart, getCurrencyField(req));
-  console.log(req.session.cart, 'CARRRRRRRRRRRRRRRRRRRRRRRT')
+  console.log(req.session.cart, 'CARRRRRRRRRRRRRRRRRRRRRRRT');
   await updateTotalCart(req, res);
 
   const menuTags = req.session.menuTags || { tags: [] };
@@ -1460,14 +1555,15 @@ router.post('/product/addtocart', async (req, res, next) => {
   // Variant checks
   let productCartId = product._id.toString();
   let productPrice = parseFloat(product[getCurrencyField(req)]).toFixed(2);
-  console.log('HERE')
+  console.log('HERE');
 
   let productVariantId,
     productVariantTitle,
     productPriceCFA = 0,
     productPriceEUR = 0,
     productPriceUSD = 0,
-    productPriceKES = (parseFloat(product['productPrice'] || '0.0').toFixed(2) || 0);
+    productPriceKES =
+      parseFloat(product['productPrice'] || '0.0').toFixed(2) || 0;
 
   console.log(req.session.cart[productCartId]);
   let productStock = product.productStock;
@@ -1491,11 +1587,11 @@ router.post('/product/addtocart', async (req, res, next) => {
     productVariantTitle = variant.title;
     productCartId = req.body.productVariant;
     productPrice = parseFloat(variant[getCurrencyField(req, true)]).toFixed(2);
-    productPriceKES = (parseFloat(variant['price'] || '0.0').toFixed(2) || 0);
+    productPriceKES = parseFloat(variant['price'] || '0.0').toFixed(2) || 0;
     productPriceUSD = parseFloat(variant.productPriceUSD || '0.0').toFixed(2);
     productPriceEUR = parseFloat(variant.productPriceEUR || '0.0').toFixed(2);
     productPriceCFA = parseFloat(variant.productPriceCFA || '0.0').toFixed(2);
-    console.log('HERE----', getCurrencyField(req, true), variant)
+    console.log('HERE----', getCurrencyField(req, true), variant);
     productStock = variant.stock;
   }
 
@@ -1775,7 +1871,6 @@ router.get('/search/:searchTerm/:pageNum?', async (req, res) => {
   }
 
   const menuTags = req.session.menuTags || { tags: [] };
-
   Promise.all([
     paginateProducts(
       true,
@@ -2053,10 +2148,10 @@ router.get('/:page?', async (req, res, next) => {
           message: clearSessionValue(req.session, 'message'),
           messageType: clearSessionValue(req.session, 'messageType'),
           config,
-          productsPerPage: numberProducts,
+          // productsPerPage: numberProducts,
           totalProductCount: results.totalItems,
-          pageNum: 1,
-          paginateUrl: 'page',
+          // pageNum: 1,
+          // paginateUrl: 'page',
           helpers: req.handlebars.helpers,
           showFooter: 'showFooter',
           menu: sortMenu(menu),
