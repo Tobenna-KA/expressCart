@@ -1,47 +1,57 @@
 {
-  "cartTitle": "ML Hair",
-  "cartDescription": "ML Hair",
-  "cartLogo": "/images/ml-logo.png",
-  "baseUrl": "http://localhost:1111",
-  "emailHost": "smtp-mail.outlook.com",
-  "emailPort": 587,
-  "emailSecure": false,
-  "emailUser": "hi@mlharis.com",
-  "emailPassword": "this_is_the_smtp_password",
-  "emailAddress": "hi@mlharis.com",
-  "productsPerRow": 4,
-  "productsPerPage": 6,
-  "footerHtml": "&lt;h4 class=&quot;text-center&quot;&gt;Powered by expressCart&lt;/h4&gt;",
-  "googleAnalytics": "",
-  "injectJs": "",
-  "customCss": "",
-  "currencySymbol": "KES",
-  "currencyISO": "KES",
-  "paymentGateway": ["mpesa","paypal"],
-  "mpesaPayBill": "700201",
-  "databaseConnectionString": "mongodb://127.0.0.1:27017/expresscart",
-  "theme": "MarieLyne",
-  "trackStock": true,
-  "orderHook": "",
-  "availableLanguages": ["en", "fr"],
-  "defaultLocale": "en",
-  "maxQuantity": 25,
-  "twitterHandle": "",
-  "facebookAppId": "",
-  "productOrderBy": "date",
-  "productOrder": "descending",
-  "modules": {
-    "enabled": {
-      "shipping": "shipping-basic",
-      "discount": "discount-voucher",
-      "reviews": "reviews-basic"
+    "cartTitle": "ML Hair",
+    "cartDescription": "ML Hair",
+    "cartLogo": "/images/ml-logo.png",
+    "baseUrl": "https://mlhairs.com",
+    "emailHost": "smtp-mail.outlook.com",
+    "emailPort": 587,
+    "emailSecure": false,
+    "emailUser": "hi@mlharis.com",
+    "emailPassword": "this_is_the_smtp_password",
+    "emailAddress": "hi@mlharis.com",
+    "productsPerRow": 4,
+    "productsPerPage": 6,
+    "footerHtml": "&lt;h4 class=&quot;text-center&quot;&gt;Powered by &lt;a href=&quot;https://twitter.com/kmicato&quot;&gt;Kmicato&lt;/a&gt;&lt;/h4&gt;",
+    "googleAnalytics": "",
+    "injectJs": "",
+    "customCss": "",
+    "currencySymbol": "KES ",
+    "currencyISO": "KES",
+    "paymentGateway": [
+        "mpesa",
+        "paypal"
+    ],
+    "mpesaPayBill": "700201",
+    "databaseConnectionString": "mongodb://127.0.0.1:27017/expresscart",
+    "theme": "MarieLyne",
+    "trackStock": true,
+    "orderHook": "",
+    "availableLanguages": [
+        "en",
+        "fr"
+    ],
+    "defaultLocale": "en",
+    "maxQuantity": 25,
+    "twitterHandle": "",
+    "facebookAppId": "",
+    "productOrderBy": "date",
+    "productOrder": "descending",
+    "modules": {
+        "enabled": {
+            "shipping": "shipping-basic",
+            "discount": "discount-voucher",
+            "reviews": "reviews-basic"
+        },
+        "loaded": {
+            "shipping": {},
+            "discount": {},
+            "reviews": {}
+        }
     },
-    "loaded": {
-      "shipping": {},
-      "discount": {},
-      "reviews": {}
-    }
-  },
-  "showRelatedProducts": true,
-  "showHomepageVariants": false
+    "showRelatedProducts": true,
+    "showHomepageVariants": false,
+    "secretCookie": "3a9eff5695a84a30d6cf2e2a8a1f515785e566dc",
+    "secretSession": "694a07796a92be3fed393a4ae5964eceaa464c88",
+    "themeViews": "../views/themes/MarieLyne/",
+    "env": ".min"
 }
