@@ -2044,6 +2044,11 @@ input.button.add {
 
 /* 172A3A */
 /* f2eae4 */
+#pagination-shop {
+  min-width: 120px;
+  max-width: 250px;
+  margin: 0 auto; }
+
 .form-signin {
   margin-top: 20px; }
   .form-signin h2 {

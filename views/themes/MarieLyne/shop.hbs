@@ -332,7 +332,8 @@
                     </h4>
                     {{!-- <div class="price">
                       <span class="money">
-                        {{currencySymbol @root.config.currencySymbol @root.session}}{{relatedProductsPriceValue ../this}}
+                        {{currencySymbol @root.config.currencySymbol @root.session}}{{relatedProductsPriceValue
+                        ../this}}
                       </span>
                     </div> --}}
                     <div class="cart-button">
@@ -369,9 +370,47 @@
     <div class="clearfix"></div>
   </div>
 </div>
+<div id="pagination-shop">
+
+  <input type="hidden" id="itemsPerPage" value="{{productsPerPage}}">
+  <input type="hidden" id="pageNum" value="{{pageNum}}">
+  <input type="hidden" id="totalItemCount" value="{{totalProductCount}}">
+  <input type="hidden" id="paginateUrl" value="{{paginateUrl}}">
+  <input type="hidden" id="searchTerm" value="{{searchTerm}}">
+  <div class="col-md-12">
+    <div id="pager" class="d-flex justify-content-center"></div>
+  </div>
+</div>
 
 <script>
   // Shop search
+  $(window).keydown(function (event) {
+    if (event.keyCode == 13 && event.target.id === 'shop_frm_search') {
+      console.log("event.target.id")
+      event.preventDefault();
+
+      if ($('#shop_frm_search').val().trim() === '') {
+        showNotification('Please enter a search value', 'danger');
+      } else {
+        const searchString = $('#shop_frm_search').val()
+
+        let searchQuery = searchString.replace(' ', '-')
+
+        const searchURL = `/shop/search/${searchQuery}/1`
+
+        $.ajax({
+          type: 'GET',
+          url: searchURL,
+          data: {}
+        }).done((response) => {
+          window.location = searchURL;
+        }).fail((response) => {
+          window.location = '/shop/';
+        });
+        // window.location.href = '/search/' + $('#frm_search').val();
+      }
+    }
+  });
   $('#shopSearchBtn').click(function (e) {
     e.preventDefault();
     if ($('#shop_frm_search').val().trim() === '') {
@@ -381,7 +420,7 @@
 
       let searchQuery = searchString.replace(' ', '-')
 
-      const searchURL = `/shop/search/${searchQuery}`
+      const searchURL = `/shop/search/${searchQuery}/1`
 
       $.ajax({
         type: 'GET',
@@ -632,7 +671,7 @@
       else capsizeString += `${capsize}`
     })
 
-    let filterURL = `/shop/filter/${data.price.min}/${data.price.max}/${categoryString ? categoryString : 'none'}/${data.rating}/${colorString ? colorString : 'none'}/${capsizeString ? capsizeString : 'none'}`
+    let filterURL = `/shop/filter/${data.price.min}/${data.price.max}/${categoryString ? categoryString : 'none'}/${data.rating}/${colorString ? colorString : 'none'}/${capsizeString ? capsizeString : 'none'}/1`
 
     e.preventDefault()
     $.ajax({
